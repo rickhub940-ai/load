@@ -43,6 +43,14 @@
       "dest": "/api/auth?action=control-events"
     },
     {
+      "src": "/api/control/commands",
+      "dest": "/api/auth?action=control-commands"
+    },
+    {
+      "src": "/api/admin/command",
+      "dest": "/api/auth?action=admin-command"
+    },
+    {
       "src": "/loadc\\.lua",
       "dest": "/api/auth?action=artifact&name=loadc"
     },
