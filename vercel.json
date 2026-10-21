@@ -1,0 +1,86 @@
+{
+  "functions": {
+    "api/auth.js": {
+      "maxDuration": 10,
+      "includeFiles": "{lib,scripts}/**/*.lua"
+    }
+  },
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/api/auth?page=/"
+    },
+    {
+      "src": "/control",
+      "dest": "/api/auth?page=/control"
+    },
+    {
+      "src": "/api/link",
+      "dest": "/api/auth?action=link-create"
+    },
+    {
+      "src": "/x/([a-f0-9]{40})",
+      "dest": "/api/auth?action=link-serve&p=$1"
+    },
+    {
+      "src": "/api/health",
+      "dest": "/api/auth?action=health"
+    },
+    {
+      "src": "/api/q",
+      "dest": "/api/auth?action=opaque"
+    },
+    {
+      "src": "/api/control/bans",
+      "dest": "/api/auth?action=control-bans"
+    },
+    {
+      "src": "/api/control/traffic",
+      "dest": "/api/auth?action=control-traffic"
+    },
+    {
+      "src": "/api/control/events",
+      "dest": "/api/auth?action=control-events"
+    },
+    {
+      "src": "/loadc\\.lua",
+      "dest": "/api/auth?action=artifact&name=loadc"
+    },
+    {
+      "src": "/999MS-sdk\\.lua",
+      "dest": "/api/auth?action=artifact&name=sdk"
+    },
+    {
+      "src": "/api/verify",
+      "dest": "/api/auth?action=verify"
+    },
+    {
+      "src": "/api/script",
+      "dest": "/api/auth?action=script"
+    },
+    {
+      "src": "/api/script-verify",
+      "dest": "/api/auth?action=script-verify"
+    },
+    {
+      "src": "/api/heartbeat",
+      "dest": "/api/auth?action=heartbeat"
+    },
+    {
+      "src": "/api/start",
+      "dest": "/api/auth?action=start"
+    },
+    {
+      "src": "/api/admin/ban",
+      "dest": "/api/auth?action=admin-ban"
+    },
+    {
+      "src": "/([a-f0-9]{32}\\.[0-9]{13}\\.[a-f0-9]{32})",
+      "dest": "/api/auth?action=artifact&name=stage&t=$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/auth?action=trap"
+    }
+  ]
+}
