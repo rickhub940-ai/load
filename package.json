@@ -1,0 +1,13 @@
+{
+  "name": "whilstkey-minimal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "node Server/core.js",
+    "check": "node --check api/auth.js && node --check Server/core.js"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}
