@@ -561,6 +561,595 @@ module.exports = async function handler(req, res) {
   }
 };
 
+// BEGIN PAGE /key - generated from pages/key.html; run `npm run pages` to refresh.
+const KEY_PAGE =
+  "<!DOCTYPE html>\n" +
+  "<html lang=\"th\">\n" +
+  "<head>\n" +
+  "<meta charset=\"utf-8\" />\n" +
+  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n" +
+  "<title>999MS \u2014 Key System &amp; Loader</title>\n" +
+  "<meta name=\"description\" content=\"999MS \u2014 \u0e23\u0e30\u0e1a\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Roblox: \u0e1c\u0e39\u0e01 HWID, \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, \u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\" />\n" +
+  "<meta name=\"theme-color\" content=\"#05060b\" />\n" +
+  "<meta property=\"og:title\" content=\"999MS \u2014 Key System &amp; Loader\" />\n" +
+  "<meta property=\"og:description\" content=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e15\u0e23\u0e27\u0e08 HWID, ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, stage chain \u0e15\u0e23\u0e27\u0e08 SHA-256\" />\n" +
+  "<meta property=\"og:type\" content=\"website\" />\n" +
+  "<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2338d6ff'/%3E%3Cstop offset='.55' stop-color='%238b7bff'/%3E%3Cstop offset='1' stop-color='%233ee6b0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230a0c14'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='url(%23g)'/%3E%3C/svg%3E\" />\n" +
+  "<style>\n" +
+  "  :root{\n" +
+  "    --bg:#05060b;\n" +
+  "    --bg-2:#080a12;\n" +
+  "    --panel:rgba(255,255,255,.035);\n" +
+  "    --panel-2:rgba(255,255,255,.055);\n" +
+  "    --line:rgba(255,255,255,.085);\n" +
+  "    --line-2:rgba(255,255,255,.14);\n" +
+  "    --text:#e9ecf7;\n" +
+  "    --muted:#8b93ad;\n" +
+  "    --cyan:#38d6ff;\n" +
+  "    --violet:#8b7bff;\n" +
+  "    --mint:#3ee6b0;\n" +
+  "    --danger:#ff6b81;\n" +
+  "    --grad:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--mint));\n" +
+  "    --radius:18px;\n" +
+  "    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,\"Liberation Mono\",monospace;\n" +
+  "    --sans:system-ui,-apple-system,\"Segoe UI\",\"Noto Sans Thai\",\"Leelawadee UI\",sans-serif;\n" +
+  "  }\n" +
+  "  *{box-sizing:border-box}\n" +
+  "  html{scroll-behavior:smooth}\n" +
+  "  body{\n" +
+  "    margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);\n" +
+  "    -webkit-font-smoothing:antialiased;line-height:1.65;overflow-x:hidden;\n" +
+  "  }\n" +
+  "  body::before{\n" +
+  "    content:\"\";position:fixed;inset:-20% -10% auto -10%;height:70vh;z-index:-2;\n" +
+  "    background:\n" +
+  "      radial-gradient(42% 55% at 18% 20%, rgba(56,214,255,.16), transparent 70%),\n" +
+  "      radial-gradient(40% 60% at 82% 8%, rgba(139,123,255,.16), transparent 70%),\n" +
+  "      radial-gradient(35% 45% at 55% 45%, rgba(62,230,176,.09), transparent 70%);\n" +
+  "    filter:blur(12px);animation:drift 22s ease-in-out infinite alternate;\n" +
+  "  }\n" +
+  "  body::after{\n" +
+  "    content:\"\";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;\n" +
+  "    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),\n" +
+  "                     linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);\n" +
+  "    background-size:64px 64px;\n" +
+  "    mask-image:radial-gradient(80% 60% at 50% 0%,#000 20%,transparent 80%);\n" +
+  "    -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000 20%,transparent 80%);\n" +
+  "  }\n" +
+  "  @keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(3%,2%,0) scale(1.08)}}\n" +
+  "  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(62,230,176,.45)}50%{box-shadow:0 0 0 6px rgba(62,230,176,0)}}\n" +
+  "\n" +
+  "  a{color:inherit;text-decoration:none}\n" +
+  "  .wrap{width:min(1120px,92vw);margin-inline:auto}\n" +
+  "  .mono{font-family:var(--mono)}\n" +
+  "  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}\n" +
+  "\n" +
+  "  /* \u2500\u2500 nav \u2500\u2500 */\n" +
+  "  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(5,6,11,.62);border-bottom:1px solid var(--line)}\n" +
+  "  .nav{display:flex;align-items:center;gap:18px;height:68px}\n" +
+  "  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}\n" +
+  "  .mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,rgba(56,214,255,.22),rgba(139,123,255,.22));border:1px solid var(--line-2)}\n" +
+  "  .mark svg{width:20px;height:20px}\n" +
+  "  .nav nav{display:flex;gap:26px;margin-left:auto;font-size:.94rem;color:var(--muted)}\n" +
+  "  .nav nav a{transition:color .2s}\n" +
+  "  .nav nav a:hover{color:var(--text)}\n" +
+  "  .btn{\n" +
+  "    display:inline-flex;align-items:center;justify-content:center;gap:9px;\n" +
+  "    padding:11px 20px;border-radius:12px;border:1px solid var(--line-2);\n" +
+  "    font:inherit;font-weight:600;font-size:.94rem;cursor:pointer;\n" +
+  "    background:var(--panel);color:var(--text);transition:transform .15s ease,border-color .2s,background .2s;\n" +
+  "    white-space:nowrap;\n" +
+  "  }\n" +
+  "  .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.28);background:var(--panel-2)}\n" +
+  "  .btn-primary{\n" +
+  "    border:0;background:var(--grad);color:#04060d;\n" +
+  "    box-shadow:0 10px 30px -12px rgba(88,150,255,.9);\n" +
+  "  }\n" +
+  "  .btn-primary:hover{filter:brightness(1.06)}\n" +
+  "  .btn-ghost{background:transparent}\n" +
+  "  .nav .btn{padding:9px 16px}\n" +
+  "\n" +
+  "  /* \u2500\u2500 hero \u2500\u2500 */\n" +
+  "  .hero{padding:88px 0 56px;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}\n" +
+  "  .eyebrow{\n" +
+  "    display:inline-flex;align-items:center;gap:9px;font-size:.78rem;letter-spacing:.16em;\n" +
+  "    text-transform:uppercase;color:#b9c2dc;border:1px solid var(--line-2);\n" +
+  "    background:rgba(255,255,255,.03);padding:7px 13px;border-radius:999px;\n" +
+  "  }\n" +
+  "  .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 2.4s infinite}\n" +
+  "  h1{font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.18;margin:22px 0 18px;letter-spacing:-.02em;font-weight:800}\n" +
+  "  .lede{color:var(--muted);font-size:1.06rem;max-width:52ch;margin:0 0 30px}\n" +
+  "  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}\n" +
+  "  .status-line{display:flex;align-items:center;gap:9px;margin-top:22px;font-size:.9rem;color:var(--muted)}\n" +
+  "  .dot{width:9px;height:9px;border-radius:50%;background:#5c6478;box-shadow:0 0 0 0 rgba(62,230,176,.45)}\n" +
+  "  .dot.ok{background:var(--mint);animation:pulse 2.4s infinite}\n" +
+  "  .dot.bad{background:var(--danger)}\n" +
+  "\n" +
+  "  /* code card */\n" +
+  "  .code-card{\n" +
+  "    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));\n" +
+  "    border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden;\n" +
+  "    box-shadow:0 30px 80px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06);\n" +
+  "    transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
+  "  }\n" +
+  "  .code-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.25)}\n" +
+  "  .tl{width:10px;height:10px;border-radius:50%}\n" +
+  "  .tl:nth-child(1){background:#ff5f57}.tl:nth-child(2){background:#febc2e}.tl:nth-child(3){background:#28c840}\n" +
+  "  .code-name{margin-left:8px;font-family:var(--mono);font-size:.78rem;color:var(--muted)}\n" +
+  "  .code-body{padding:22px 18px;font-family:var(--mono);font-size:.9rem;line-height:1.7;overflow-x:auto}\n" +
+  "  .code-body .c{color:#5a6480}\n" +
+  "  .code-body .f{color:var(--cyan)}\n" +
+  "  .code-body .s{color:var(--mint)}\n" +
+  "  .code-body .p{color:#c9d3ee}\n" +
+  "  .copy-row{display:flex;gap:10px;padding:0 16px 16px}\n" +
+  "  .copy-row .btn{flex:1;justify-content:center}\n" +
+  "  .copied{color:var(--mint)!important;border-color:rgba(62,230,176,.45)!important}\n" +
+  "\n" +
+  "  /* stats */\n" +
+  "  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0 8px}\n" +
+  "  .stat{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px}\n" +
+  "  .stat b{display:block;font-size:1.02rem;letter-spacing:-.01em}\n" +
+  "  .stat span{color:var(--muted);font-size:.83rem}\n" +
+  "\n" +
+  "  /* sections */\n" +
+  "  section{padding:76px 0}\n" +
+  "  .sec-head{max-width:62ch;margin-bottom:34px}\n" +
+  "  .kicker{font-family:var(--mono);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin:0 0 10px}\n" +
+  "  h2{font-size:clamp(1.5rem,2.6vw,2.1rem);margin:0 0 12px;letter-spacing:-.02em}\n" +
+  "  .sec-head p{color:var(--muted);margin:0}\n" +
+  "\n" +
+  "  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}\n" +
+  "  .step{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden}\n" +
+  "  .step::after{content:\"\";position:absolute;inset:0 auto auto 0;height:2px;width:100%;background:var(--grad);opacity:.55}\n" +
+  "  .step .n{font-family:var(--mono);font-size:.78rem;color:var(--cyan);letter-spacing:.16em}\n" +
+  "  .step h3{margin:12px 0 8px;font-size:1.06rem}\n" +
+  "  .step p{margin:0;color:var(--muted);font-size:.93rem}\n" +
+  "\n" +
+  "  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}\n" +
+  "  .card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:24px;transition:border-color .25s,transform .25s,background .25s}\n" +
+  "  .card:hover{border-color:var(--line-2);transform:translateY(-2px);background:var(--panel-2)}\n" +
+  "  .ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(56,214,255,.1);border:1px solid rgba(56,214,255,.22);margin-bottom:14px}\n" +
+  "  .ico svg{width:19px;height:19px;stroke:var(--cyan);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}\n" +
+  "  .card h3{margin:0 0 7px;font-size:1rem}\n" +
+  "  .card p{margin:0;color:var(--muted);font-size:.92rem}\n" +
+  "\n" +
+  "  /* status panel */\n" +
+  "  .panel{border:1px solid var(--line-2);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));padding:26px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px}\n" +
+  "  .kv{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:.93rem}\n" +
+  "  .kv:last-child{border-bottom:0}\n" +
+  "  .kv span{color:var(--muted)}\n" +
+  "  .kv b{font-family:var(--mono);font-weight:500}\n" +
+  "  .ping{display:flex;align-items:center;gap:14px;margin-bottom:8px}\n" +
+  "  .ping .big{font-family:var(--mono);font-size:2rem;letter-spacing:-.03em}\n" +
+  "  .ping small{color:var(--muted);display:block;font-size:.8rem}\n" +
+  "  .refresh{align-self:flex-start}\n" +
+  "\n" +
+  "  /* faq */\n" +
+  "  .faq{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}\n" +
+  "  details{border-bottom:1px solid var(--line)}\n" +
+  "  details:last-child{border-bottom:0}\n" +
+  "  summary{cursor:pointer;padding:18px 22px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}\n" +
+  "  summary::-webkit-details-marker{display:none}\n" +
+  "  summary::after{content:\"+\";font-family:var(--mono);color:var(--cyan);font-size:1.15rem;transition:transform .2s}\n" +
+  "  details[open] summary::after{transform:rotate(45deg)}\n" +
+  "  details p{margin:0;padding:0 22px 20px;color:var(--muted);font-size:.94rem;max-width:80ch}\n" +
+  "\n" +
+  "  /* cta */\n" +
+  "  .cta{border:1px solid var(--line-2);border-radius:24px;padding:44px;text-align:center;background:radial-gradient(70% 130% at 50% 0%,rgba(139,123,255,.16),transparent 70%),var(--panel)}\n" +
+  "  .cta h2{margin-bottom:10px}\n" +
+  "  .cta p{color:var(--muted);margin:0 auto 24px;max-width:60ch}\n" +
+  "  .cta .hero-actions{justify-content:center}\n" +
+  "\n" +
+  "  footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--muted);font-size:.86rem}\n" +
+  "  .foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}\n" +
+  "  .foot a:hover{color:var(--text)}\n" +
+  "  .disclaimer{margin-top:14px;color:#6d7590;font-size:.8rem;max-width:80ch}\n" +
+  "\n" +
+  "  /* reveal */\n" +
+  "  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}\n" +
+  "  .reveal.in{opacity:1;transform:none}\n" +
+  "\n" +
+  "  @media(max-width:960px){\n" +
+  "    .hero{grid-template-columns:1fr;padding-top:56px}\n" +
+  "    .code-card{transform:none}\n" +
+  "    .steps,.cards{grid-template-columns:1fr 1fr}\n" +
+  "    .panel{grid-template-columns:1fr}\n" +
+  "    .stats{grid-template-columns:1fr 1fr}\n" +
+  "    .nav nav{display:none}\n" +
+  "  }\n" +
+  "  @media(max-width:620px){\n" +
+  "    .steps,.cards{grid-template-columns:1fr}\n" +
+  "    .cta{padding:30px 20px}\n" +
+  "    .hero{padding-bottom:20px}\n" +
+  "  }\n" +
+  "  @media(prefers-reduced-motion:reduce){\n" +
+  "    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}\n" +
+  "    .reveal{opacity:1;transform:none}\n" +
+  "  }\n" +
+  "</style>\n" +
+  "</head>\n" +
+  "<body>\n" +
+  "\n" +
+  "<header>\n" +
+  "  <div class=\"wrap nav\">\n" +
+  "    <a class=\"brand\" href=\"#top\" aria-label=\"999MS home\">\n" +
+  "      <span class=\"mark\">\n" +
+  "        <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><defs><linearGradient id=\"lg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#38d6ff\"/><stop offset=\".6\" stop-color=\"#8b7bff\"/><stop offset=\"1\" stop-color=\"#3ee6b0\"/></linearGradient></defs><path d=\"M5 19c3.6-6.2 6.2-9.6 9-14M8 5h9v3.4h-4.2L18 19h-3.6l-2.2-4.6L8.6 19H5l4.6-7.2H6.4z\" fill=\"url(#lg)\"/></svg>\n" +
+  "      </span>\n" +
+  "      <span>999<span class=\"grad\">MS</span></span>\n" +
+  "    </a>\n" +
+  "    <nav aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
+  "      <a href=\"#how\">\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
+  "      <a href=\"#features\">\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c</a>\n" +
+  "      <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
+  "      <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
+  "    </nav>\n" +
+  "    <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
+  "  </div>\n" +
+  "</header>\n" +
+  "\n" +
+  "<main id=\"top\">\n" +
+  "  <div class=\"wrap hero\">\n" +
+  "    <div>\n" +
+  "      <span class=\"eyebrow\"><i></i> Key system \u00b7 Loader \u00b7 v2.1</span>\n" +
+  "      <h1>\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 <span class=\"grad\">\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span></h1>\n" +
+  "      <p class=\"lede\">\n" +
+  "        999MS \u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 Platoboost \u0e41\u0e25\u0e49\u0e27\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38 30 \u0e19\u0e32\u0e17\u0e35\n" +
+  "        \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e2d\u0e14 \u0e46 \u0e42\u0e14\u0e22\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e02\u0e2d\u0e07\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\n" +
+  "      </p>\n" +
+  "      <div class=\"hero-actions\">\n" +
+  "        <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
+  "          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
+  "          \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
+  "        </button>\n" +
+  "        <a class=\"btn btn-ghost\" href=\"#how\">\u0e14\u0e39\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19</a>\n" +
+  "      </div>\n" +
+  "      <div class=\"status-line\">\n" +
+  "        <span class=\"dot\" id=\"heroDot\"></span>\n" +
+  "        <span id=\"heroStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a\u2026</span>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "\n" +
+  "    <div class=\"code-card\">\n" +
+  "      <div class=\"code-top\">\n" +
+  "        <span class=\"tl\"></span><span class=\"tl\"></span><span class=\"tl\"></span>\n" +
+  "        <span class=\"code-name\">loadstring.lua</span>\n" +
+  "      </div>\n" +
+  "      <div class=\"code-body\">\n" +
+  "<span class=\"c\">-- \u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14 Execute</span><br />\n" +
+  "<span class=\"p\">local License = \"\"</span><br />\n" +
+  "<span class=\"p\">local Script = \"\"</span><br />\n" +
+  "<span class=\"p\">loadstring(</span><span class=\"f\">game:HttpGet</span>(<span class=\"s\" id=\"scriptUrl\">\"https://loader999mss.vercel.app/loadc.lua\"</span><span class=\"p\">))(License, Script)</span>\n" +
+  "      </div>\n" +
+  "      <div class=\"copy-row\">\n" +
+  "        <button class=\"btn\" id=\"copyCard\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14</button>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "  </div>\n" +
+  "\n" +
+  "  <div class=\"wrap\">\n" +
+  "    <div class=\"stats reveal\">\n" +
+  "      <div class=\"stat\"><b>HMAC-SHA256</b><span>ticket \u0e25\u0e07\u0e19\u0e32\u0e21\u0e17\u0e38\u0e01\u0e43\u0e1a</span></div>\n" +
+  "      <div class=\"stat\"><b>30 \u0e19\u0e32\u0e17\u0e35</b><span>\u0e2d\u0e32\u0e22\u0e38 ticket</span></div>\n" +
+  "      <div class=\"stat\"><b>&lt; 60 \u0e27\u0e34</b><span>\u0e2d\u0e32\u0e22\u0e38 runtime proof</span></div>\n" +
+  "      <div class=\"stat\"><b>SHA-256 pinned</b><span>\u0e15\u0e23\u0e27\u0e08\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19</span></div>\n" +
+  "    </div>\n" +
+  "  </div>\n" +
+  "\n" +
+  "  <section id=\"how\">\n" +
+  "    <div class=\"wrap\">\n" +
+  "      <div class=\"sec-head reveal\">\n" +
+  "        <p class=\"kicker\">Getting started</p>\n" +
+  "        <h2>\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e43\u0e19 3 \u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19</h2>\n" +
+  "        <p>\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e2d\u0e30\u0e44\u0e23\u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e43\u0e0a\u0e49 executor \u0e17\u0e35\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span> \u0e41\u0e25\u0e30 <span class=\"mono\">loadstring</span></p>\n" +
+  "      </div>\n" +
+  "      <div class=\"steps\">\n" +
+  "        <article class=\"step reveal\">\n" +
+  "          <div class=\"n\">STEP 01</div>\n" +
+  "          <h3>\u0e40\u0e1b\u0e34\u0e14 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19 loadstring</h3>\n" +
+  "          <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e36\u0e07 stage 1 \u0e21\u0e32\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"step reveal\">\n" +
+  "          <div class=\"n\">STEP 02</div>\n" +
+  "          <h3>\u0e23\u0e31\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32 Platoboost</h3>\n" +
+  "          <p>\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c \u0e04\u0e35\u0e22\u0e4c\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e17\u0e31\u0e19\u0e17\u0e35\u0e17\u0e35\u0e48\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"step reveal\">\n" +
+  "          <div class=\"n\">STEP 03</div>\n" +
+  "          <h3>\u0e27\u0e32\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e23\u0e2d\u0e42\u0e2b\u0e25\u0e14</h3>\n" +
+  "          <p>\u0e2b\u0e25\u0e31\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19 \u2014 \u0e40\u0e2a\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22</p>\n" +
+  "        </article>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "  </section>\n" +
+  "\n" +
+  "  <section id=\"features\">\n" +
+  "    <div class=\"wrap\">\n" +
+  "      <div class=\"sec-head reveal\">\n" +
+  "        <p class=\"kicker\">Under the hood</p>\n" +
+  "        <h2>\u0e23\u0e30\u0e1a\u0e1a\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e17\u0e35\u0e48\u0e17\u0e33\u0e07\u0e32\u0e19\u0e40\u0e1a\u0e37\u0e49\u0e2d\u0e07\u0e2b\u0e25\u0e31\u0e07</h2>\n" +
+  "        <p>\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e15\u0e23\u0e27\u0e08\u0e1d\u0e31\u0e48\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48 client \u0e2a\u0e48\u0e07\u0e21\u0e32\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27</p>\n" +
+  "      </div>\n" +
+  "      <div class=\"cards\">\n" +
+  "        <article class=\"card reveal\">\n" +
+  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"10\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 10V7a4 4 0 0 1 8 0v3\"/></svg></div>\n" +
+  "          <h3>\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID</h3>\n" +
+  "          <p>\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e1a\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 ticket \u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a hash \u0e02\u0e2d\u0e07 HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"card reveal\">\n" +
+  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v6\"/><path d=\"M5 9h14\"/><path d=\"M7 9v5a5 5 0 0 0 10 0V9\"/><path d=\"M9 21h6\"/></svg></div>\n" +
+  "          <h3>Ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19</h3>\n" +
+  "          <p>\u0e25\u0e07\u0e19\u0e32\u0e21\u0e14\u0e49\u0e27\u0e22 HMAC-SHA256 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 30 \u0e19\u0e32\u0e17\u0e35 \u0e41\u0e25\u0e30\u0e21\u0e35 runtime proof \u0e41\u0e22\u0e01\u0e17\u0e35\u0e48\u0e2d\u0e32\u0e22\u0e38\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 60 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"card reveal\">\n" +
+  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M4 7h16\"/><path d=\"M4 12h10\"/><path d=\"M4 17h7\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/></svg></div>\n" +
+  "          <h3>Stage chain \u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19</h3>\n" +
+  "          <p>\u0e41\u0e15\u0e48\u0e25\u0e30\u0e17\u0e2d\u0e14\u0e21\u0e35 capability \u0e40\u0e09\u0e1e\u0e32\u0e30 \u0e2d\u0e2d\u0e01\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e25\u0e30\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e20\u0e32\u0e22\u0e43\u0e19 20 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"card reveal\">\n" +
+  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z\"/><path d=\"M9.5 12l1.8 1.8L15 10\"/></svg></div>\n" +
+  "          <h3>\u0e15\u0e23\u0e27\u0e08\u0e04\u0e27\u0e32\u0e21\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e02\u0e2d\u0e07\u0e44\u0e1f\u0e25\u0e4c</h3>\n" +
+  "          <p>\u0e44\u0e1f\u0e25\u0e4c stage 2 \u0e16\u0e39\u0e01 pin \u0e14\u0e49\u0e27\u0e22 SHA-256 \u0e44\u0e27\u0e49\u0e43\u0e19\u0e15\u0e31\u0e27\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e16\u0e49\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e30\u0e44\u0e21\u0e48\u0e22\u0e2d\u0e21\u0e23\u0e31\u0e19</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"card reveal\">\n" +
+  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 12h4l2.5-6 4 12L16 12h5\"/></svg></div>\n" +
+  "          <h3>Heartbeat \u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e40\u0e25\u0e48\u0e19</h3>\n" +
+  "          <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e23\u0e27\u0e08 session \u0e40\u0e1b\u0e47\u0e19\u0e23\u0e30\u0e22\u0e30 \u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e41\u0e1a\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e41\u0e01\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e17\u0e32\u0e07\u0e08\u0e30\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</p>\n" +
+  "        </article>\n" +
+  "        <article class=\"card reveal\">\n" +
+  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 8v5\"/><path d=\"M12 16.5h.01\"/></svg></div>\n" +
+  "          <h3>\u0e23\u0e2b\u0e31\u0e2a diagnostic</h3>\n" +
+  "          <p>\u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18 \u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e2d\u0e22\u0e48\u0e32\u0e07 <span class=\"mono\">D2_HWID_MISMATCH</span> \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e08\u0e49\u0e07\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e44\u0e14\u0e49\u0e15\u0e23\u0e07\u0e08\u0e38\u0e14</p>\n" +
+  "        </article>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "  </section>\n" +
+  "\n" +
+  "  <section id=\"status\">\n" +
+  "    <div class=\"wrap\">\n" +
+  "      <div class=\"sec-head reveal\">\n" +
+  "        <p class=\"kicker\">Live status</p>\n" +
+  "        <h2>\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a</h2>\n" +
+  "        <p>\u0e15\u0e23\u0e27\u0e08\u0e08\u0e32\u0e01 endpoint \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e19\u0e35\u0e49 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e44\u0e27\u0e49</p>\n" +
+  "      </div>\n" +
+  "      <div class=\"panel reveal\">\n" +
+  "        <div>\n" +
+  "          <div class=\"ping\">\n" +
+  "            <span class=\"dot\" id=\"panelDot\"></span>\n" +
+  "            <div>\n" +
+  "              <div class=\"big\" id=\"latency\">\u2014</div>\n" +
+  "              <small>\u0e40\u0e27\u0e25\u0e32\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07 API</small>\n" +
+  "            </div>\n" +
+  "          </div>\n" +
+  "          <div class=\"kv\"><span>\u0e2a\u0e16\u0e32\u0e19\u0e30</span><b id=\"stState\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026</b></div>\n" +
+  "          <div class=\"kv\"><span>\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19</span><b id=\"stVersion\">\u2014</b></div>\n" +
+  "          <div class=\"kv\"><span>Stage chain</span><b id=\"stChain\">\u2014</b></div>\n" +
+  "          <div class=\"kv\"><span>\u0e15\u0e23\u0e27\u0e08\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span><b id=\"stChecked\">\u2014</b></div>\n" +
+  "        </div>\n" +
+  "        <div style=\"display:flex;flex-direction:column;gap:12px;justify-content:center\">\n" +
+  "          <p style=\"margin:0;color:var(--muted);font-size:.93rem\">\n" +
+  "            \u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49\u0e40\u0e23\u0e35\u0e22\u0e01 <span class=\"mono\">/api/health</span> \u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e43\u0e14 \u0e46 \u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\n" +
+  "            \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e27\u0e31\u0e14\u0e27\u0e48\u0e32 API \u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\n" +
+  "          </p>\n" +
+  "          <button class=\"btn refresh\" id=\"refresh\" type=\"button\">\u0e15\u0e23\u0e27\u0e08\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07</button>\n" +
+  "        </div>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "  </section>\n" +
+  "\n" +
+  "  <section id=\"faq\">\n" +
+  "    <div class=\"wrap\">\n" +
+  "      <div class=\"sec-head reveal\">\n" +
+  "        <p class=\"kicker\">FAQ</p>\n" +
+  "        <h2>\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22</h2>\n" +
+  "      </div>\n" +
+  "      <div class=\"faq reveal\">\n" +
+  "        <details>\n" +
+  "          <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
+  "          <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 \u0e16\u0e49\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01</p>\n" +
+  "        </details>\n" +
+  "        <details>\n" +
+  "          <summary>\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32 HWID mismatch \u0e15\u0e49\u0e2d\u0e07\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23</summary>\n" +
+  "          <p>\u0e41\u0e1b\u0e25\u0e27\u0e48\u0e32\u0e23\u0e30\u0e1a\u0e1a\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e27\u0e48\u0e32\u0e04\u0e35\u0e22\u0e4c\u0e19\u0e35\u0e49\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e31\u0e27 executor \u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e04\u0e48\u0e32 HWID \u0e44\u0e21\u0e48\u0e04\u0e07\u0e17\u0e35\u0e48 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e21\u0e48 \u0e2b\u0e32\u0e01\u0e22\u0e31\u0e07\u0e02\u0e36\u0e49\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e23\u0e2b\u0e31\u0e2a diagnostic</p>\n" +
+  "        </details>\n" +
+  "        <details>\n" +
+  "          <summary>\u0e17\u0e33\u0e44\u0e21\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e31\u0e19\u0e1c\u0e48\u0e32\u0e19 loadc.lua \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19</summary>\n" +
+  "          <p>\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2b\u0e25\u0e31\u0e01\u0e16\u0e39\u0e01\u0e25\u0e47\u0e2d\u0e01\u0e01\u0e31\u0e1a chain <span class=\"mono\">loadc \u2192 loada \u2192 loader \u2192 payload</span> \u0e01\u0e32\u0e23\u0e02\u0e49\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e01\u0e32\u0e23\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a state \u0e25\u0e49\u0e21\u0e40\u0e2b\u0e25\u0e27\u0e41\u0e25\u0e30\u0e16\u0e39\u0e01\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19</p>\n" +
+  "        </details>\n" +
+  "        <details>\n" +
+  "          <summary>\u0e23\u0e30\u0e1a\u0e1a\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2d\u0e30\u0e44\u0e23\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
+  "          <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e40\u0e09\u0e1e\u0e32\u0e30 hash \u0e02\u0e2d\u0e07 HWID, \u0e2b\u0e21\u0e32\u0e22\u0e40\u0e25\u0e02 ticket \u0e41\u0e25\u0e30\u0e2a\u0e16\u0e32\u0e19\u0e30 session \u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19 \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e01\u0e47\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e41\u0e1a\u0e1a\u0e16\u0e32\u0e27\u0e23</p>\n" +
+  "        </details>\n" +
+  "        <details>\n" +
+  "          <summary>\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a executor \u0e15\u0e31\u0e27\u0e44\u0e2b\u0e19\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
+  "          <p>\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span>, <span class=\"mono\">loadstring</span> \u0e41\u0e25\u0e30 <span class=\"mono\">request/syn.request</span> \u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b \u0e16\u0e49\u0e32\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a \u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e41\u0e08\u0e49\u0e07\u0e23\u0e2b\u0e31\u0e2a <span class=\"mono\">MS999:S1:E04</span></p>\n" +
+  "        </details>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "  </section>\n" +
+  "\n" +
+  "  <section>\n" +
+  "    <div class=\"wrap\">\n" +
+  "      <div class=\"cta reveal\">\n" +
+  "        <h2>\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e25\u0e49\u0e27\u0e2b\u0e23\u0e37\u0e2d\u0e22\u0e31\u0e07</h2>\n" +
+  "        <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e2d\u0e07</p>\n" +
+  "        <div class=\"hero-actions\">\n" +
+  "          <button class=\"btn btn-primary\" id=\"copyCta\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring</button>\n" +
+  "          <a class=\"btn btn-ghost\" href=\"#how\">\u0e2d\u0e48\u0e32\u0e19\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
+  "        </div>\n" +
+  "      </div>\n" +
+  "    </div>\n" +
+  "  </section>\n" +
+  "</main>\n" +
+  "\n" +
+  "<footer>\n" +
+  "  <div class=\"wrap\">\n" +
+  "    <div class=\"foot\">\n" +
+  "      <span>\u00a9 2026 999MS \u00b7 Key system &amp; loader</span>\n" +
+  "      <span style=\"display:flex;gap:18px\">\n" +
+  "        <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
+  "        <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
+  "        <a href=\"/control\">Control</a>\n" +
+  "        <a href=\"https://yura.lol/09ms\" rel=\"noopener\">Discord</a>\n" +
+  "      </span>\n" +
+  "    </div>\n" +
+  "    <p class=\"disclaimer\">\n" +
+  "      999MS \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e02\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e1a Roblox Corporation \u0e2b\u0e23\u0e37\u0e2d\u0e1c\u0e39\u0e49\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e40\u0e01\u0e21\u0e43\u0e14 \u0e46 \u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e2d\u0e32\u0e08\u0e1c\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e02\u0e2d\u0e07\u0e40\u0e01\u0e21\n" +
+  "      \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e14\u0e49\u0e27\u0e22\u0e15\u0e19\u0e40\u0e2d\u0e07\n" +
+  "    </p>\n" +
+  "  </div>\n" +
+  "</footer>\n" +
+  "\n" +
+  "<script>\n" +
+  "(function () {\n" +
+  "  'use strict';\n" +
+  "\n" +
+  "  var FALLBACK_HOST = 'loader999mss.vercel.app';\n" +
+  "  var host = location.host && location.host.indexOf('localhost') !== 0 && location.host !== ''\n" +
+  "    ? location.host\n" +
+  "    : FALLBACK_HOST;\n" +
+  "  var url = 'https://' + host + '/loadc.lua';\n" +
+  "  var command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + url + '\"))(License, Script)';\n" +
+  "\n" +
+  "  var scriptUrlEl = document.getElementById('scriptUrl');\n" +
+  "  if (scriptUrlEl) scriptUrlEl.textContent = '\"' + url + '\"';\n" +
+  "\n" +
+  "  function flash(btn) {\n" +
+  "    if (!btn) return;\n" +
+  "    var original = btn.getAttribute('data-label') || btn.textContent;\n" +
+  "    btn.setAttribute('data-label', original);\n" +
+  "    btn.classList.add('copied');\n" +
+  "    btn.textContent = '\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27 \u2713';\n" +
+  "    clearTimeout(btn._t);\n" +
+  "    btn._t = setTimeout(function () {\n" +
+  "      btn.classList.remove('copied');\n" +
+  "      btn.textContent = original;\n" +
+  "    }, 1600);\n" +
+  "  }\n" +
+  "\n" +
+  "  function copy(text, btn) {\n" +
+  "    if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
+  "      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });\n" +
+  "      return;\n" +
+  "    }\n" +
+  "    legacy(text, btn);\n" +
+  "  }\n" +
+  "\n" +
+  "  function legacy(text, btn) {\n" +
+  "    var ta = document.createElement('textarea');\n" +
+  "    ta.value = text;\n" +
+  "    ta.setAttribute('readonly', '');\n" +
+  "    ta.style.position = 'fixed';\n" +
+  "    ta.style.opacity = '0';\n" +
+  "    document.body.appendChild(ta);\n" +
+  "    ta.select();\n" +
+  "    try { document.execCommand('copy'); flash(btn); } catch (e) {}\n" +
+  "    document.body.removeChild(ta);\n" +
+  "  }\n" +
+  "\n" +
+  "  ['copyNav', 'copyHero', 'copyCard', 'copyCta'].forEach(function (id) {\n" +
+  "    var btn = document.getElementById(id);\n" +
+  "    if (btn) btn.addEventListener('click', function () { copy(command, btn); });\n" +
+  "  });\n" +
+  "\n" +
+  "  var dot = document.getElementById('panelDot');\n" +
+  "  var heroDot = document.getElementById('heroDot');\n" +
+  "  var latencyEl = document.getElementById('latency');\n" +
+  "  var stateEl = document.getElementById('stState');\n" +
+  "  var versionEl = document.getElementById('stVersion');\n" +
+  "  var chainEl = document.getElementById('stChain');\n" +
+  "  var checkedEl = document.getElementById('stChecked');\n" +
+  "  var heroStatus = document.getElementById('heroStatus');\n" +
+  "\n" +
+  "  function setDot(el, cls) {\n" +
+  "    if (!el) return;\n" +
+  "    el.classList.remove('ok', 'bad');\n" +
+  "    if (cls) el.classList.add(cls);\n" +
+  "  }\n" +
+  "\n" +
+  "  function check() {\n" +
+  "    var started = Date.now();\n" +
+  "    if (stateEl) stateEl.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026';\n" +
+  "    setDot(dot, '');\n" +
+  "    setDot(heroDot, '');\n" +
+  "\n" +
+  "    var controller = window.AbortController ? new AbortController() : null;\n" +
+  "    var timer = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;\n" +
+  "\n" +
+  "    fetch('/api/health', { cache: 'no-store', signal: controller ? controller.signal : undefined })\n" +
+  "      .then(function (res) {\n" +
+  "        if (!res.ok) throw new Error('HTTP ' + res.status);\n" +
+  "        return res.json();\n" +
+  "      })\n" +
+  "      .then(function (data) {\n" +
+  "        var ms = Date.now() - started;\n" +
+  "        if (latencyEl) latencyEl.textContent = ms + ' ms';\n" +
+  "        if (stateEl) stateEl.textContent = '\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c';\n" +
+  "        if (versionEl) versionEl.textContent = 'v' + (data.version || '\u2014');\n" +
+  "        if (chainEl) chainEl.textContent = data.chain || '\u2014';\n" +
+  "        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');\n" +
+  "        if (heroStatus) heroStatus.textContent = '\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c \u00b7 ' + ms + ' ms';\n" +
+  "        setDot(dot, 'ok');\n" +
+  "        setDot(heroDot, 'ok');\n" +
+  "      })\n" +
+  "      .catch(function () {\n" +
+  "        var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;\n" +
+  "        if (latencyEl) latencyEl.textContent = '\u2014';\n" +
+  "        if (stateEl) stateEl.textContent = offlinePreview ? '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e44\u0e14\u0e49\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07' : '\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
+  "        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');\n" +
+  "        if (heroStatus) {\n" +
+  "          heroStatus.textContent = offlinePreview\n" +
+  "            ? '\u0e1e\u0e23\u0e35\u0e27\u0e34\u0e27\u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e47\u0e15 \u2014 \u0e40\u0e1b\u0e34\u0e14\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e2a\u0e16\u0e32\u0e19\u0e30'\n" +
+  "            : '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 (\u0e2d\u0e32\u0e08\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01\u0e2b\u0e23\u0e37\u0e2d\u0e2d\u0e2d\u0e1f\u0e44\u0e25\u0e19\u0e4c)';\n" +
+  "        }\n" +
+  "        setDot(dot, offlinePreview ? '' : 'bad');\n" +
+  "        setDot(heroDot, offlinePreview ? '' : 'bad');\n" +
+  "      })\n" +
+  "      .then(function () { if (timer) clearTimeout(timer); });\n" +
+  "  }\n" +
+  "\n" +
+  "  var refreshBtn = document.getElementById('refresh');\n" +
+  "  if (refreshBtn) refreshBtn.addEventListener('click', check);\n" +
+  "  check();\n" +
+  "\n" +
+  "  // scroll reveal\n" +
+  "  var items = [].slice.call(document.querySelectorAll('.reveal'));\n" +
+  "  if ('IntersectionObserver' in window) {\n" +
+  "    var io = new IntersectionObserver(function (entries) {\n" +
+  "      entries.forEach(function (entry) {\n" +
+  "        if (entry.isIntersecting) {\n" +
+  "          entry.target.classList.add('in');\n" +
+  "          io.unobserve(entry.target);\n" +
+  "        }\n" +
+  "      });\n" +
+  "    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });\n" +
+  "    items.forEach(function (el) { io.observe(el); });\n" +
+  "  } else {\n" +
+  "    items.forEach(function (el) { el.classList.add('in'); });\n" +
+  "  }\n" +
+  "\n" +
+  "  // pointer glow on the hero card\n" +
+  "  var card = document.querySelector('.code-card');\n" +
+  "  if (card && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
+  "    card.addEventListener('pointermove', function (event) {\n" +
+  "      if (window.innerWidth < 960) return;\n" +
+  "      var r = card.getBoundingClientRect();\n" +
+  "      var x = (event.clientX - r.left) / r.width - 0.5;\n" +
+  "      var y = (event.clientY - r.top) / r.height - 0.5;\n" +
+  "      card.style.transform = 'perspective(1200px) rotateY(' + (-4 + x * 5).toFixed(2) + 'deg) rotateX(' + (2 - y * 5).toFixed(2) + 'deg)';\n" +
+  "    });\n" +
+  "    card.addEventListener('pointerleave', function () {\n" +
+  "      card.style.transform = '';\n" +
+  "    });\n" +
+  "  }\n" +
+  "})();\n" +
+  "</script>\n" +
+  "</body>\n" +
+  "</html>\n" +
+  "\n" +
+  "<!-- deploy trigger: 2026-10-17T08:46:43Z -->\n";
+Object.assign(EMBEDDED_PAGES, { "/key": KEY_PAGE });
+// END PAGE /key
 // BEGIN PAGE / - generated from pages/index.html; run `npm run pages` to refresh.
 const ROOT_PAGE =
   "<!DOCTYPE html>\n" +
@@ -856,35 +1445,6 @@ const ROOT_PAGE =
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
-  "       Copy output (loader line)\n" +
-  "       ========================================= */\n" +
-  "    .copy-out {\n" +
-  "      width: 100%; max-width: 560px; margin: -8px 0 32px;\n" +
-  "      padding: 14px 16px; border-radius: 14px;\n" +
-  "      background: rgba(255, 255, 255, 0.05);\n" +
-  "      border: 1px solid rgba(255, 255, 255, 0.14);\n" +
-  "      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n" +
-  "      animation: fadeUp 0.35s ease both;\n" +
-  "    }\n" +
-  "    .copy-out[hidden] { display: none; }\n" +
-  "    .copy-out .hint {\n" +
-  "      font-size: 11px; letter-spacing: 0.5px; color: #8e8e93; margin-bottom: 8px;\n" +
-  "    }\n" +
-  "    .copy-out code {\n" +
-  "      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;\n" +
-  "      font-size: 12.5px; line-height: 1.65; color: #e8e8ee; word-break: break-all;\n" +
-  "      user-select: all; -webkit-user-select: all;\n" +
-  "    }\n" +
-  "    .cta-primary.copied, .sign-in.copied {\n" +
-  "      background: #22c55e; color: #04160a;\n" +
-  "      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 0 32px rgba(34, 197, 94, 0.55);\n" +
-  "    }\n" +
-  "    @keyframes fadeUp {\n" +
-  "      from { opacity: 0; transform: translateY(8px); }\n" +
-  "      to { opacity: 1; transform: none; }\n" +
-  "    }\n" +
-  "\n" +
-  "    /* =========================================\n" +
   "       Live Status\n" +
   "       ========================================= */\n" +
   "    .live-status {\n" +
@@ -996,7 +1556,7 @@ const ROOT_PAGE =
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
-  "        <button type=\"button\" class=\"sign-in\" id=\"signIn\">Get Started</button>\n" +
+  "        <a href=\"/key\" class=\"sign-in\">Get Started</a>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -1012,15 +1572,9 @@ const ROOT_PAGE =
   "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
   "      </p>\n" +
   "\n" +
-  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e14\u0e35\u0e22\u0e27 -->\n" +
+  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32 key system (\u0e41\u0e1a\u0e1a\u0e40\u0e01\u0e48\u0e32) -->\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <button type=\"button\" class=\"cta-primary\" id=\"ctaPrimary\">Get Started</button>\n" +
-  "      </div>\n" +
-  "\n" +
-  "      <!-- \u0e1a\u0e23\u0e23\u0e17\u0e31\u0e14\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c \u2014 \u0e40\u0e1c\u0e37\u0e48\u0e2d\u0e01\u0e23\u0e13\u0e35\u0e04\u0e25\u0e34\u0e1b\u0e1a\u0e2d\u0e23\u0e4c\u0e14\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01 -->\n" +
-  "      <div class=\"copy-out\" id=\"copyOut\" hidden>\n" +
-  "        <div class=\"hint\">LOADER LINE \u2014 PASTE THIS IN YOUR EXECUTOR</div>\n" +
-  "        <code id=\"copyLine\"></code>\n" +
+  "        <a href=\"/key\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
@@ -1214,64 +1768,7 @@ const ROOT_PAGE =
   "      }\n" +
   "\n" +
   "      // =========================================\n" +
-  "      // 5. Get Started \u2192 copy the loader line\n" +
-  "      // =========================================\n" +
-  "      const FALLBACK_HOST = \"loader999mss.vercel.app\";\n" +
-  "      const liveHost = location.host && location.host.indexOf(\"localhost\") !== 0 && location.host !== \"\"\n" +
-  "        ? location.host\n" +
-  "        : FALLBACK_HOST;\n" +
-  "      const loaderUrl = \"https://\" + liveHost + \"/loadc.lua\";\n" +
-  "      const command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + loaderUrl + '\"))(License, Script)';\n" +
-  "\n" +
-  "      const copyOut = document.getElementById(\"copyOut\");\n" +
-  "      const copyLine = document.getElementById(\"copyLine\");\n" +
-  "      if (copyLine) copyLine.textContent = command;\n" +
-  "\n" +
-  "      function legacyCopy(text) {\n" +
-  "        const ta = document.createElement(\"textarea\");\n" +
-  "        ta.value = text;\n" +
-  "        ta.setAttribute(\"readonly\", \"\");\n" +
-  "        ta.style.position = \"fixed\";\n" +
-  "        ta.style.opacity = \"0\";\n" +
-  "        document.body.appendChild(ta);\n" +
-  "        ta.select();\n" +
-  "        let ok = false;\n" +
-  "        try { ok = document.execCommand(\"copy\"); } catch (e) { ok = false; }\n" +
-  "        document.body.removeChild(ta);\n" +
-  "        return ok;\n" +
-  "      }\n" +
-  "\n" +
-  "      function flash(btn) {\n" +
-  "        const original = btn.getAttribute(\"data-label\") || btn.textContent;\n" +
-  "        btn.setAttribute(\"data-label\", original);\n" +
-  "        btn.classList.add(\"copied\");\n" +
-  "        btn.textContent = \"Copied \u2713\";\n" +
-  "        clearTimeout(btn._t);\n" +
-  "        btn._t = setTimeout(() => {\n" +
-  "          btn.classList.remove(\"copied\");\n" +
-  "          btn.textContent = original;\n" +
-  "        }, 1600);\n" +
-  "      }\n" +
-  "\n" +
-  "      function copyScript(btn) {\n" +
-  "        if (copyOut) copyOut.hidden = false;\n" +
-  "        const done = () => flash(btn);\n" +
-  "        if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
-  "          navigator.clipboard.writeText(command).then(done, () => {\n" +
-  "            if (legacyCopy(command)) done();\n" +
-  "          });\n" +
-  "          return;\n" +
-  "        }\n" +
-  "        if (legacyCopy(command)) done();\n" +
-  "      }\n" +
-  "\n" +
-  "      [\"signIn\", \"ctaPrimary\"].forEach((id) => {\n" +
-  "        const btn = document.getElementById(id);\n" +
-  "        if (btn) btn.addEventListener(\"click\", () => copyScript(btn));\n" +
-  "      });\n" +
-  "\n" +
-  "      // =========================================\n" +
-  "      // 6. Real latency instead of a fake number\n" +
+  "      // 5. Real latency instead of a fake number\n" +
   "      // =========================================\n" +
   "      const liveText = document.getElementById(\"liveText\");\n" +
   "      const liveDot = document.getElementById(\"liveDot\");\n" +
@@ -1613,35 +2110,6 @@ const HUB_PAGE =
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
-  "       Copy output (loader line)\n" +
-  "       ========================================= */\n" +
-  "    .copy-out {\n" +
-  "      width: 100%; max-width: 560px; margin: -8px 0 32px;\n" +
-  "      padding: 14px 16px; border-radius: 14px;\n" +
-  "      background: rgba(255, 255, 255, 0.05);\n" +
-  "      border: 1px solid rgba(255, 255, 255, 0.14);\n" +
-  "      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n" +
-  "      animation: fadeUp 0.35s ease both;\n" +
-  "    }\n" +
-  "    .copy-out[hidden] { display: none; }\n" +
-  "    .copy-out .hint {\n" +
-  "      font-size: 11px; letter-spacing: 0.5px; color: #8e8e93; margin-bottom: 8px;\n" +
-  "    }\n" +
-  "    .copy-out code {\n" +
-  "      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;\n" +
-  "      font-size: 12.5px; line-height: 1.65; color: #e8e8ee; word-break: break-all;\n" +
-  "      user-select: all; -webkit-user-select: all;\n" +
-  "    }\n" +
-  "    .cta-primary.copied, .sign-in.copied {\n" +
-  "      background: #22c55e; color: #04160a;\n" +
-  "      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 0 32px rgba(34, 197, 94, 0.55);\n" +
-  "    }\n" +
-  "    @keyframes fadeUp {\n" +
-  "      from { opacity: 0; transform: translateY(8px); }\n" +
-  "      to { opacity: 1; transform: none; }\n" +
-  "    }\n" +
-  "\n" +
-  "    /* =========================================\n" +
   "       Live Status\n" +
   "       ========================================= */\n" +
   "    .live-status {\n" +
@@ -1753,7 +2221,7 @@ const HUB_PAGE =
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
-  "        <button type=\"button\" class=\"sign-in\" id=\"signIn\">Get Started</button>\n" +
+  "        <a href=\"/key\" class=\"sign-in\">Get Started</a>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -1769,15 +2237,9 @@ const HUB_PAGE =
   "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
   "      </p>\n" +
   "\n" +
-  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e14\u0e35\u0e22\u0e27 -->\n" +
+  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32 key system (\u0e41\u0e1a\u0e1a\u0e40\u0e01\u0e48\u0e32) -->\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <button type=\"button\" class=\"cta-primary\" id=\"ctaPrimary\">Get Started</button>\n" +
-  "      </div>\n" +
-  "\n" +
-  "      <!-- \u0e1a\u0e23\u0e23\u0e17\u0e31\u0e14\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c \u2014 \u0e40\u0e1c\u0e37\u0e48\u0e2d\u0e01\u0e23\u0e13\u0e35\u0e04\u0e25\u0e34\u0e1b\u0e1a\u0e2d\u0e23\u0e4c\u0e14\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01 -->\n" +
-  "      <div class=\"copy-out\" id=\"copyOut\" hidden>\n" +
-  "        <div class=\"hint\">LOADER LINE \u2014 PASTE THIS IN YOUR EXECUTOR</div>\n" +
-  "        <code id=\"copyLine\"></code>\n" +
+  "        <a href=\"/key\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
@@ -1971,64 +2433,7 @@ const HUB_PAGE =
   "      }\n" +
   "\n" +
   "      // =========================================\n" +
-  "      // 5. Get Started \u2192 copy the loader line\n" +
-  "      // =========================================\n" +
-  "      const FALLBACK_HOST = \"loader999mss.vercel.app\";\n" +
-  "      const liveHost = location.host && location.host.indexOf(\"localhost\") !== 0 && location.host !== \"\"\n" +
-  "        ? location.host\n" +
-  "        : FALLBACK_HOST;\n" +
-  "      const loaderUrl = \"https://\" + liveHost + \"/loadc.lua\";\n" +
-  "      const command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + loaderUrl + '\"))(License, Script)';\n" +
-  "\n" +
-  "      const copyOut = document.getElementById(\"copyOut\");\n" +
-  "      const copyLine = document.getElementById(\"copyLine\");\n" +
-  "      if (copyLine) copyLine.textContent = command;\n" +
-  "\n" +
-  "      function legacyCopy(text) {\n" +
-  "        const ta = document.createElement(\"textarea\");\n" +
-  "        ta.value = text;\n" +
-  "        ta.setAttribute(\"readonly\", \"\");\n" +
-  "        ta.style.position = \"fixed\";\n" +
-  "        ta.style.opacity = \"0\";\n" +
-  "        document.body.appendChild(ta);\n" +
-  "        ta.select();\n" +
-  "        let ok = false;\n" +
-  "        try { ok = document.execCommand(\"copy\"); } catch (e) { ok = false; }\n" +
-  "        document.body.removeChild(ta);\n" +
-  "        return ok;\n" +
-  "      }\n" +
-  "\n" +
-  "      function flash(btn) {\n" +
-  "        const original = btn.getAttribute(\"data-label\") || btn.textContent;\n" +
-  "        btn.setAttribute(\"data-label\", original);\n" +
-  "        btn.classList.add(\"copied\");\n" +
-  "        btn.textContent = \"Copied \u2713\";\n" +
-  "        clearTimeout(btn._t);\n" +
-  "        btn._t = setTimeout(() => {\n" +
-  "          btn.classList.remove(\"copied\");\n" +
-  "          btn.textContent = original;\n" +
-  "        }, 1600);\n" +
-  "      }\n" +
-  "\n" +
-  "      function copyScript(btn) {\n" +
-  "        if (copyOut) copyOut.hidden = false;\n" +
-  "        const done = () => flash(btn);\n" +
-  "        if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
-  "          navigator.clipboard.writeText(command).then(done, () => {\n" +
-  "            if (legacyCopy(command)) done();\n" +
-  "          });\n" +
-  "          return;\n" +
-  "        }\n" +
-  "        if (legacyCopy(command)) done();\n" +
-  "      }\n" +
-  "\n" +
-  "      [\"signIn\", \"ctaPrimary\"].forEach((id) => {\n" +
-  "        const btn = document.getElementById(id);\n" +
-  "        if (btn) btn.addEventListener(\"click\", () => copyScript(btn));\n" +
-  "      });\n" +
-  "\n" +
-  "      // =========================================\n" +
-  "      // 6. Real latency instead of a fake number\n" +
+  "      // 5. Real latency instead of a fake number\n" +
   "      // =========================================\n" +
   "      const liveText = document.getElementById(\"liveText\");\n" +
   "      const liveDot = document.getElementById(\"liveDot\");\n" +

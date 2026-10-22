@@ -19,6 +19,10 @@
       "dest": "/api/auth?page=/hub"
     },
     {
+      "src": "/key",
+      "dest": "/api/auth?page=/key"
+    },
+    {
       "src": "/api/link",
       "dest": "/api/auth?action=link-create"
     },

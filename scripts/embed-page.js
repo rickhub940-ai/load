@@ -19,6 +19,7 @@ const CORE = path.join(PROJECT_ROOT, 'Server', 'core.js');
 const PAGE_SOURCES = Object.freeze({
   '/': 'pages/index.html',
   '/hub': 'pages/hub.html',
+  '/key': 'pages/key.html',
 });
 
 // Escape as a JS string literal, keeping non-ASCII as \uXXXX so the bundle
