@@ -572,7 +572,7 @@ const KEY_PAGE =
   "<meta name=\"description\" content=\"999MS \u2014 \u0e23\u0e30\u0e1a\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Roblox: \u0e1c\u0e39\u0e01 HWID, \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, \u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\" />\n" +
   "<meta name=\"theme-color\" content=\"#000000\" />\n" +
   "<meta property=\"og:title\" content=\"999MS \u2014 Key System &amp; Loader\" />\n" +
-  "<meta property=\"og:description\" content=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e15\u0e23\u0e27\u0e08 HWID, ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, stage chain \u0e15\u0e23\u0e27\u0e08 SHA-256\" />\n" +
+  "<meta property=\"og:description\" content=\"\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a stage chain \u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e17\u0e2d\u0e14 \u2014 \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e19 executor \u0e44\u0e14\u0e49\u0e40\u0e25\u0e22\" />\n" +
   "<meta property=\"og:type\" content=\"website\" />\n" +
   "<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2322c55e'/%3E%3C/svg%3E\" />\n" +
   "\n" +
@@ -740,43 +740,6 @@ const KEY_PAGE =
   "    display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center;\n" +
   "    padding: 64px 0 72px;\n" +
   "  }\n" +
-  "  .eyebrow {\n" +
-  "    display: inline-flex; align-items: center; gap: 9px;\n" +
-  "    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;\n" +
-  "    color: #cfd4e4; border: 1px solid var(--line-2);\n" +
-  "    background: rgba(255,255,255,.04); padding: 7px 14px; border-radius: 999px;\n" +
-  "  }\n" +
-  "  .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }\n" +
-  "\n" +
-  "  .headline {\n" +
-  "    display: flex; flex-wrap: wrap; gap: 0.02em;\n" +
-  "    font-size: clamp(34px, 5vw, 60px); line-height: 1.25;\n" +
-  "    font-weight: 700; letter-spacing: -0.01em;\n" +
-  "    margin: 22px 0 18px; perspective: 1000px; min-height: 1.2em;\n" +
-  "  }\n" +
-  "  .char {\n" +
-  "    display: inline-block; position: relative; white-space: pre;\n" +
-  "    background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
-  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
-  "    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.18));\n" +
-  "  }\n" +
-  "  .char-accent {\n" +
-  "    background: linear-gradient(180deg, #4ade80 15%, #16a34a 100%);\n" +
-  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
-  "    filter: drop-shadow(0 0 18px rgba(34, 197, 94, 0.35));\n" +
-  "  }\n" +
-  "  .char-space { display: inline-block; width: 0.32em; }\n" +
-  "  .char.shimmer-ready::after {\n" +
-  "    content: attr(data-char);\n" +
-  "    position: absolute; top: 0; left: 0; width: 100%; height: 100%;\n" +
-  "    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.85) 50%, transparent 100%);\n" +
-  "    background-size: 200% 100%;\n" +
-  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
-  "    animation: shimmer 3.5s infinite linear; z-index: 1;\n" +
-  "  }\n" +
-  "  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }\n" +
-  "\n" +
-  "  .lede { color: var(--muted); font-size: 1.04rem; max-width: 52ch; margin: 0 0 30px; }\n" +
   "  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }\n" +
   "  .status-line { display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: .92rem; color: var(--muted); }\n" +
   "  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5c6478; flex-shrink: 0; }\n" +
@@ -828,30 +791,6 @@ const KEY_PAGE =
   "  }\n" +
   "  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }\n" +
   "  .sec-head p { color: var(--muted); margin: 0; }\n" +
-  "\n" +
-  "  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }\n" +
-  "  .stat {\n" +
-  "    background: rgba(0,0,0,.4); border: 1px solid var(--line);\n" +
-  "    border-radius: 16px; padding: 20px 18px; text-align: center;\n" +
-  "    backdrop-filter: blur(10px); transition: background .3s, border-color .3s;\n" +
-  "  }\n" +
-  "  .stat:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.28); }\n" +
-  "  .stat b { display: block; font-size: 1rem; font-weight: 600; letter-spacing: .01em; }\n" +
-  "  .stat span { color: var(--muted); font-size: .82rem; }\n" +
-  "\n" +
-  "  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
-  "  .step {\n" +
-  "    border: 1px solid var(--line); background: var(--glass);\n" +
-  "    border-radius: var(--radius); padding: 24px; position: relative; overflow: hidden;\n" +
-  "    backdrop-filter: blur(10px);\n" +
-  "  }\n" +
-  "  .step::after {\n" +
-  "    content: \"\"; position: absolute; inset: 0 auto auto 0; height: 2px; width: 100%;\n" +
-  "    background: linear-gradient(90deg, rgba(34,197,94,.9), rgba(255,255,255,.35)); opacity: .7;\n" +
-  "  }\n" +
-  "  .step .n { font-family: var(--font-mono); font-size: .76rem; color: var(--green); letter-spacing: .16em; }\n" +
-  "  .step h3 { margin: 12px 0 8px; font-size: 1.02rem; }\n" +
-  "  .step p { margin: 0; color: var(--muted); font-size: .92rem; }\n" +
   "\n" +
   "  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
   "  .card {\n" +
@@ -943,8 +882,7 @@ const KEY_PAGE =
   "  @media (max-width: 960px) {\n" +
   "    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }\n" +
   "    .code-card { transform: none; }\n" +
-  "    .stats { grid-template-columns: repeat(2, 1fr); }\n" +
-  "    .steps, .cards { grid-template-columns: 1fr; }\n" +
+  "    .cards { grid-template-columns: 1fr; }\n" +
   "    .panel { grid-template-columns: 1fr; gap: 18px; }\n" +
   "  }\n" +
   "  @media (max-width: 900px) {\n" +
@@ -962,10 +900,6 @@ const KEY_PAGE =
   "    .nav-pill.is-open .nav-link { padding: 10px 12px; border-radius: 12px; }\n" +
   "    .nav-pill.is-open .nav-link:hover { background: rgba(255,255,255,.06); }\n" +
   "    .nav-pill.is-open .btn { display: inline-flex; order: 4; width: 100%; margin-top: 10px; }\n" +
-  "  }\n" +
-  "  @media (max-width: 560px) {\n" +
-  "    .stats { grid-template-columns: 1fr; }\n" +
-  "    .headline { font-size: clamp(28px, 8vw, 40px); }\n" +
   "  }\n" +
   "</style>\n" +
   "</head>\n" +
@@ -991,7 +925,6 @@ const KEY_PAGE =
   "        <span class=\"brand-name\">999MS</span>\n" +
   "      </a>\n" +
   "      <nav class=\"nav-links\" aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
-  "        <a class=\"nav-link\" href=\"#how\">\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
   "        <a class=\"nav-link\" href=\"#features\">\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c</a>\n" +
   "        <a class=\"nav-link\" href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
   "        <a class=\"nav-link\" href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
@@ -1006,15 +939,12 @@ const KEY_PAGE =
   "  <main id=\"top\">\n" +
   "    <div class=\"wrap hero\">\n" +
   "      <div>\n" +
-  "        <span class=\"eyebrow pop-element\"><i></i> Key system \u00b7 Loader \u00b7 v2.1</span>\n" +
-  "        <h1 class=\"headline\" id=\"headline\" data-text=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\" data-accent=\"10\" aria-label=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\"></h1>\n" +
   "        <div class=\"hero-actions pop-element\">\n" +
   "          <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
   "            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
-  "            \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
-  "          </button>\n" +
-  "          <a class=\"btn btn-ghost\" href=\"#how\">\u0e14\u0e39\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19</a>\n" +
-  "        </div>\n" +
+  "          \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
+  "        </button>\n" +
+  "      </div>\n" +
   "        <div class=\"status-line pop-element\">\n" +
   "          <span class=\"dot\" id=\"heroDot\"></span>\n" +
   "          <span id=\"heroStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a\u2026</span>\n" +
@@ -1037,42 +967,6 @@ const KEY_PAGE =
   "        </div>\n" +
   "      </div>\n" +
   "    </div>\n" +
-  "\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"stats\">\n" +
-  "        <div class=\"stat pop-element\"><b>HMAC-SHA256</b><span>ticket \u0e25\u0e07\u0e19\u0e32\u0e21\u0e17\u0e38\u0e01\u0e43\u0e1a</span></div>\n" +
-  "        <div class=\"stat pop-element\"><b>30 \u0e19\u0e32\u0e17\u0e35</b><span>\u0e2d\u0e32\u0e22\u0e38 ticket</span></div>\n" +
-  "        <div class=\"stat pop-element\"><b>&lt; 60 \u0e27\u0e34</b><span>\u0e2d\u0e32\u0e22\u0e38 runtime proof</span></div>\n" +
-  "        <div class=\"stat pop-element\"><b>SHA-256 pinned</b><span>\u0e15\u0e23\u0e27\u0e08\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19</span></div>\n" +
-  "      </div>\n" +
-  "    </div>\n" +
-  "\n" +
-  "    <section id=\"how\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">Getting started</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e43\u0e19 3 \u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19</h2>\n" +
-  "          <p class=\"pop-element\">\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e2d\u0e30\u0e44\u0e23\u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e43\u0e0a\u0e49 executor \u0e17\u0e35\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span> \u0e41\u0e25\u0e30 <span class=\"mono\">loadstring</span></p>\n" +
-  "        </div>\n" +
-  "        <div class=\"steps\">\n" +
-  "          <article class=\"step pop-element\">\n" +
-  "            <div class=\"n\">STEP 01</div>\n" +
-  "            <h3>\u0e40\u0e1b\u0e34\u0e14 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19 loadstring</h3>\n" +
-  "            <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e36\u0e07 stage 1 \u0e21\u0e32\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"step pop-element\">\n" +
-  "            <div class=\"n\">STEP 02</div>\n" +
-  "            <h3>\u0e23\u0e31\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32 Platoboost</h3>\n" +
-  "            <p>\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c \u0e04\u0e35\u0e22\u0e4c\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e17\u0e31\u0e19\u0e17\u0e35\u0e17\u0e35\u0e48\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"step pop-element\">\n" +
-  "            <div class=\"n\">STEP 03</div>\n" +
-  "            <h3>\u0e27\u0e32\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e23\u0e2d\u0e42\u0e2b\u0e25\u0e14</h3>\n" +
-  "            <p>\u0e2b\u0e25\u0e31\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19 \u2014 \u0e40\u0e2a\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22</p>\n" +
-  "          </article>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
   "\n" +
   "    <section id=\"features\">\n" +
   "      <div class=\"wrap\">\n" +
@@ -1186,7 +1080,6 @@ const KEY_PAGE =
   "          <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e2d\u0e07</p>\n" +
   "          <div class=\"hero-actions\">\n" +
   "            <button class=\"btn btn-primary\" id=\"copyCta\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring</button>\n" +
-  "            <a class=\"btn btn-ghost\" href=\"#how\">\u0e2d\u0e48\u0e32\u0e19\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
   "          </div>\n" +
   "        </div>\n" +
   "      </div>\n" +
@@ -1361,54 +1254,6 @@ const KEY_PAGE =
   "    el.style.setProperty('--tr', d.tr);\n" +
   "    el.style.setProperty('--delay', delay + 's');\n" +
   "    el.classList.add('pop-in');\n" +
-  "  }\n" +
-  "\n" +
-  "  /* headline: split into grapheme clusters so Thai combining marks stay put */\n" +
-  "  var headline = document.getElementById('headline');\n" +
-  "  if (headline) {\n" +
-  "    var text = headline.getAttribute('data-text') || headline.textContent;\n" +
-  "    var accent = parseInt(headline.getAttribute('data-accent') || '-1', 10);\n" +
-  "    var clusters;\n" +
-  "    if (window.Intl && window.Intl.Segmenter) {\n" +
-  "      try {\n" +
-  "        clusters = Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text))\n" +
-  "          .map(function (part) { return part.segment; });\n" +
-  "      } catch (e) { clusters = null; }\n" +
-  "    }\n" +
-  "    if (!clusters) clusters = Array.from(text);\n" +
-  "\n" +
-  "    var fragment = document.createDocumentFragment();\n" +
-  "    var chars = [];\n" +
-  "    clusters.forEach(function (ch, index) {\n" +
-  "      if (ch === ' ' || ch === '\\u00a0') {\n" +
-  "        var space = document.createElement('span');\n" +
-  "        space.className = 'char-space';\n" +
-  "        space.innerHTML = '&nbsp;';\n" +
-  "        fragment.appendChild(space);\n" +
-  "        return;\n" +
-  "      }\n" +
-  "      var span = document.createElement('span');\n" +
-  "      span.className = 'char' + (accent >= 0 && index >= accent ? ' char-accent' : '');\n" +
-  "      span.textContent = ch;\n" +
-  "      span.setAttribute('data-char', ch);\n" +
-  "      fragment.appendChild(span);\n" +
-  "      chars.push(span);\n" +
-  "    });\n" +
-  "    headline.textContent = '';\n" +
-  "    headline.appendChild(fragment);\n" +
-  "\n" +
-  "    if (animated) {\n" +
-  "      setTimeout(function () {\n" +
-  "        var total = 0;\n" +
-  "        chars.forEach(function (span, index) {\n" +
-  "          arm(span, 0.15 + index * 0.05);\n" +
-  "          total = 0.15 + index * 0.05;\n" +
-  "        });\n" +
-  "        setTimeout(function () {\n" +
-  "          chars.forEach(function (span) { span.classList.add('shimmer-ready'); });\n" +
-  "        }, (total + 1.8) * 1000);\n" +
-  "      }, 80);\n" +
-  "    }\n" +
   "  }\n" +
   "\n" +
   "  /* everything else: fly in when it scrolls into view */\n" +
