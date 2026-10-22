@@ -684,7 +684,7 @@
           <div class="tile">
             <div class="k"><i class="fa-solid fa-play"></i> Execution</div>
             <div class="v" id="statRuns">0</div>
-            <div class="s" id="statRunsSub">การรันที่บันทึกทั้งหมด</div>
+            <div class="s" id="statRunsSub">นับ 1 ครั้งต่อ job / place / user</div>
             <div class="bar"><i id="statRunsBar" style="width:0%"></i></div>
           </div>
           <div class="tile">
@@ -734,7 +734,7 @@
         <section class="card pop-element" id="recent">
           <div class="card-h">
             <h3>การรันล่าสุด</h3>
-            <span class="card-sub">100 รายการล่าสุด</span>
+            <span class="card-sub">100 รายการล่าสุด · นับครั้งเดียวต่อ job</span>
             <span class="spacer"></span>
             <span class="pill" id="recentCount">0</span>
           </div>
@@ -1072,23 +1072,20 @@
     var rows = list.map(function (r) {
       var who = r.display_name || r.username || 'ไม่ระบุชื่อ';
       var sub = r.user_id ? 'id ' + r.user_id : (r.hwid_hash ? 'hwid ' + String(r.hwid_hash).slice(0, 12) : '—');
-      var state = r.status === 'kicked' ? '<span class="tag bad">เตะ</span>'
-        : r.status === 'banned' ? '<span class="tag bad">แบน</span>'
-        : r.status === 'expired' ? '<span class="tag mute">หมดอายุ</span>'
-        : r.online ? '<span class="tag">กำลังรัน</span>'
-        : '<span class="tag warn">ไม่ตอบสนอง</span>';
+      var where = [];
+      if (r.place_id) where.push('place ' + r.place_id);
+      if (r.job_id) where.push(String(r.job_id).slice(0, 8));
       return '<tr>' +
         '<td class="mono" style="font-size:.74rem;white-space:nowrap">' + esc(timeTh(r.started_at)) + '</td>' +
         '<td><div class="ident"><b>' + esc(who) + '</b><span>' + esc(sub) + '</span></div></td>' +
         '<td class="mono" style="font-size:.76rem">' + esc(r.script_name || '-') + '</td>' +
         '<td class="mono" style="font-size:.74rem">' + esc(r.executor || '-') + '</td>' +
-        '<td class="mono" style="font-size:.74rem">' + esc(dur(r.duration_seconds)) + '</td>' +
-        '<td class="mono" style="font-size:.74rem">' + esc(num(r.beats)) + ' ครั้ง · ' + esc(ago(r.last_beat_at)) + '</td>' +
-        '<td>' + state + '</td>' +
+        '<td class="mono" style="font-size:.72rem">' + esc(where.join(' · ') || '—') + '</td>' +
+        '<td><span class="tag">นับแล้ว</span></td>' +
         '</tr>';
     }).join('');
     host.innerHTML = '<div style="overflow:auto;max-height:420px"><table><thead><tr>' +
-      '<th>เริ่ม</th><th>ผู้ใช้</th><th>สคริปต์</th><th>Executor</th><th>ระยะเวลา</th><th>Heartbeat</th><th>สถานะ</th>' +
+      '<th>เริ่ม</th><th>ผู้ใช้</th><th>สคริปต์</th><th>Executor</th><th>Place · Job</th><th>สถานะ</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table></div>';
   }
 

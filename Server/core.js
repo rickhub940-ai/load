@@ -700,7 +700,7 @@ const STATS_PAGE =
   "          <div class=\"tile\">\n" +
   "            <div class=\"k\"><i class=\"fa-solid fa-play\"></i> Execution</div>\n" +
   "            <div class=\"v\" id=\"statRuns\">0</div>\n" +
-  "            <div class=\"s\" id=\"statRunsSub\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14</div>\n" +
+  "            <div class=\"s\" id=\"statRunsSub\">\u0e19\u0e31\u0e1a 1 \u0e04\u0e23\u0e31\u0e49\u0e07\u0e15\u0e48\u0e2d job / place / user</div>\n" +
   "            <div class=\"bar\"><i id=\"statRunsBar\" style=\"width:0%\"></i></div>\n" +
   "          </div>\n" +
   "          <div class=\"tile\">\n" +
@@ -750,7 +750,7 @@ const STATS_PAGE =
   "        <section class=\"card pop-element\" id=\"recent\">\n" +
   "          <div class=\"card-h\">\n" +
   "            <h3>\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</h3>\n" +
-  "            <span class=\"card-sub\">100 \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span>\n" +
+  "            <span class=\"card-sub\">100 \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e19\u0e31\u0e1a\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e15\u0e48\u0e2d job</span>\n" +
   "            <span class=\"spacer\"></span>\n" +
   "            <span class=\"pill\" id=\"recentCount\">0</span>\n" +
   "          </div>\n" +
@@ -1088,23 +1088,20 @@ const STATS_PAGE =
   "    var rows = list.map(function (r) {\n" +
   "      var who = r.display_name || r.username || '\u0e44\u0e21\u0e48\u0e23\u0e30\u0e1a\u0e38\u0e0a\u0e37\u0e48\u0e2d';\n" +
   "      var sub = r.user_id ? 'id ' + r.user_id : (r.hwid_hash ? 'hwid ' + String(r.hwid_hash).slice(0, 12) : '\u2014');\n" +
-  "      var state = r.status === 'kicked' ? '<span class=\"tag bad\">\u0e40\u0e15\u0e30</span>'\n" +
-  "        : r.status === 'banned' ? '<span class=\"tag bad\">\u0e41\u0e1a\u0e19</span>'\n" +
-  "        : r.status === 'expired' ? '<span class=\"tag mute\">\u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38</span>'\n" +
-  "        : r.online ? '<span class=\"tag\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e23\u0e31\u0e19</span>'\n" +
-  "        : '<span class=\"tag warn\">\u0e44\u0e21\u0e48\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07</span>';\n" +
+  "      var where = [];\n" +
+  "      if (r.place_id) where.push('place ' + r.place_id);\n" +
+  "      if (r.job_id) where.push(String(r.job_id).slice(0, 8));\n" +
   "      return '<tr>' +\n" +
   "        '<td class=\"mono\" style=\"font-size:.74rem;white-space:nowrap\">' + esc(timeTh(r.started_at)) + '</td>' +\n" +
   "        '<td><div class=\"ident\"><b>' + esc(who) + '</b><span>' + esc(sub) + '</span></div></td>' +\n" +
   "        '<td class=\"mono\" style=\"font-size:.76rem\">' + esc(r.script_name || '-') + '</td>' +\n" +
   "        '<td class=\"mono\" style=\"font-size:.74rem\">' + esc(r.executor || '-') + '</td>' +\n" +
-  "        '<td class=\"mono\" style=\"font-size:.74rem\">' + esc(dur(r.duration_seconds)) + '</td>' +\n" +
-  "        '<td class=\"mono\" style=\"font-size:.74rem\">' + esc(num(r.beats)) + ' \u0e04\u0e23\u0e31\u0e49\u0e07 \u00b7 ' + esc(ago(r.last_beat_at)) + '</td>' +\n" +
-  "        '<td>' + state + '</td>' +\n" +
+  "        '<td class=\"mono\" style=\"font-size:.72rem\">' + esc(where.join(' \u00b7 ') || '\u2014') + '</td>' +\n" +
+  "        '<td><span class=\"tag\">\u0e19\u0e31\u0e1a\u0e41\u0e25\u0e49\u0e27</span></td>' +\n" +
   "        '</tr>';\n" +
   "    }).join('');\n" +
   "    host.innerHTML = '<div style=\"overflow:auto;max-height:420px\"><table><thead><tr>' +\n" +
-  "      '<th>\u0e40\u0e23\u0e34\u0e48\u0e21</th><th>\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49</th><th>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</th><th>Executor</th><th>\u0e23\u0e30\u0e22\u0e30\u0e40\u0e27\u0e25\u0e32</th><th>Heartbeat</th><th>\u0e2a\u0e16\u0e32\u0e19\u0e30</th>' +\n" +
+  "      '<th>\u0e40\u0e23\u0e34\u0e48\u0e21</th><th>\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49</th><th>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</th><th>Executor</th><th>Place \u00b7 Job</th><th>\u0e2a\u0e16\u0e32\u0e19\u0e30</th>' +\n" +
   "      '</tr></thead><tbody>' + rows + '</tbody></table></div>';\n" +
   "  }\n" +
   "\n" +
@@ -5938,7 +5935,7 @@ function queueControlCommand(body) {
     session.lastCommand = { id: commandId, kind, queuedAt: Date.now(), delivered: false };
     queued += 1;
     if (kind === 'kick') {
-      trackExecutionClosed(jti, 'kicked');
+      forgetRun(jti);
       noteEvent('control_kick', 'command ' + commandId + ' -> ' + jti.slice(0, 8));
     }
   }
@@ -6016,6 +6013,19 @@ function supabaseWrite(pathname, init) {
   void supabaseFetch(pathname, init).catch(function () {});
 }
 
+// A run is counted ONCE, keyed by jobId + placeId + userId (never by HWID), and
+// the row is never updated afterwards: one INSERT per counted run, nothing else.
+// The same guard exists in SQL (executions_run_key) so a second instance that
+// never saw this session cannot double-count either.
+const statsRecorded = new Map(); // jti -> "job|place|user" already written
+
+function pruneStatsState() {
+  if (statsRecorded.size < 4000) return;
+  const keep = Array.from(statsRecorded.keys()).slice(-2000);
+  statsRecorded.clear();
+  keep.forEach(function (jti) { statsRecorded.set(jti, true); });
+}
+
 function sbText(value, max) {
   if (typeof value === 'number' && Number.isFinite(value)) value = String(value);
   if (typeof value !== 'string') return null;
@@ -6024,38 +6034,41 @@ function sbText(value, max) {
   return trimmed.slice(0, max || 255);
 }
 
-function trackExecution(jti, session) {
+// Called from the heartbeat path. Inserts at most one row per session per game
+// instance; every later heartbeat is a no-op.
+function trackRun(jti, session) {
   if (!jti || !session) return;
   const profile = (session.profile && typeof session.profile === 'object') ? session.profile : {};
-  supabaseWrite('/rest/v1/rpc/record_execution', {
+  const jobId = sbText(profile.jobId, 128);
+  if (!jobId) return; // wait until the client reports which server instance it is in
+
+  const placeId = sbText(profile.placeId, 64);
+  const userId = sbText(profile.userId, 64);
+  const key = jobId + '|' + (placeId || '') + '|' + (userId || '');
+  if (statsRecorded.get(jti) === key) return;
+  statsRecorded.set(jti, key);
+  pruneStatsState();
+
+  supabaseWrite('/rest/v1/rpc/record_run', {
     method: 'POST',
     headers: { prefer: 'return=minimal' },
     body: JSON.stringify({
       p_session_id: String(jti),
       p_script_name: sbText(session.scriptName, 64),
       p_hwid_hash: sbText(session.hwidHash, 128),
-      p_user_id: sbText(profile.userId, 64),
+      p_user_id: userId,
       p_username: sbText(profile.name, 64),
       p_display_name: sbText(profile.displayName, 64),
       p_executor: sbText(profile.executor, 64),
-      p_place_id: sbText(profile.placeId, 64),
-      p_job_id: sbText(profile.jobId, 128),
+      p_place_id: placeId,
+      p_job_id: jobId,
       p_ip: sbText(session.ip, 64),
-      p_source: 'heartbeat',
     }),
   });
 }
 
-function trackExecutionClosed(jti, status) {
-  if (!jti) return;
-  supabaseWrite('/rest/v1/rpc/close_execution', {
-    method: 'POST',
-    headers: { prefer: 'return=minimal' },
-    body: JSON.stringify({
-      p_session_id: String(jti),
-      p_status: String(status || 'closed').slice(0, 32),
-    }),
-  });
+function forgetRun(jti) {
+  if (jti) statsRecorded.delete(jti);
 }
 
 function trackCommand(row) {
@@ -6069,18 +6082,6 @@ function trackCommand(row) {
       code: typeof row.code === 'string' ? row.code.slice(0, 8000) : null,
       targets: Number.isFinite(row.targets) ? row.targets : null,
       actor: sbText(row.actor, 64),
-    }),
-  });
-}
-
-function trackCommandResult(commandId, result) {
-  if (!commandId || !result) return;
-  supabaseWrite('/rest/v1/exec_commands?command_id=eq.' + encodeURIComponent(String(commandId)), {
-    method: 'PATCH',
-    headers: { prefer: 'return=minimal' },
-    body: JSON.stringify({
-      ok: result.ok === true,
-      output: String(result.output == null ? '' : result.output).slice(0, 4000),
     }),
   });
 }
@@ -6140,14 +6141,14 @@ async function handleHeartbeat(req, res, ip) {
 
   const device = deviceMatches(req, payload.hwidHash, c ?? hwid);
   if (!device.ok) {
-    trackExecutionClosed(payload.jti, 'kicked');
+    forgetRun(payload.jti);
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: clientDeviceMessage(device.reason) });
   }
 
   const reason = checkRevoked({ userId: payload.userId, ip });
   if (reason) {
-    trackExecutionClosed(payload.jti, 'banned');
+    forgetRun(payload.jti);
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: 'Banned: ' + reason });
   }
@@ -6172,7 +6173,7 @@ async function handleHeartbeat(req, res, ip) {
       session.failCount = 0;
       const sentName = decoded.data?.scriptName;
       if (typeof sentName !== 'string' || sentName !== session.scriptName) {
-        trackExecutionClosed(payload.jti, 'kicked');
+        forgetRun(payload.jti);
         sessions.delete(payload.jti);
         return res.status(200).json({ kick: 'Script name changed' });
       }
@@ -6181,7 +6182,6 @@ async function handleHeartbeat(req, res, ip) {
         session.profile = readSessionProfile(decoded.data.profile);
       }
       const result = readCommandResult(decoded.data && decoded.data.result);
-      if (result) trackCommandResult(result.id, result);
       if (result && session.lastCommand && session.lastCommand.id === result.id) {
         session.lastResult = result;
         session.lastCommand.delivered = true;
@@ -6190,18 +6190,18 @@ async function handleHeartbeat(req, res, ip) {
   }
 
   if (session.failCount > 12) {
-    trackExecutionClosed(payload.jti, 'kicked');
+    forgetRun(payload.jti);
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: 'Tamper detected' });
   }
 
   if (Date.now() - session.createdAt > SESSION_TTL) {
-    trackExecutionClosed(payload.jti, 'expired');
+    forgetRun(payload.jti);
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: 'Session expired' });
   }
 
-  trackExecution(payload.jti, session);
+  trackRun(payload.jti, session);
 
   const commands = Array.isArray(session.commands) ? session.commands.splice(0, COMMAND_QUEUE_MAX) : [];
   for (const command of commands) {
