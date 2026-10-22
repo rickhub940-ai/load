@@ -5,8 +5,10 @@
 -- enough to re-run; the only destructive steps are commented out.
 --
 -- Recording rules (as requested):
---   * a run is counted ONCE, keyed by (user_id, place_id, job_id)
---   * HWID is stored for information only and is never part of the key
+--   * a run is counted ONCE, keyed by (hwid_hash, job_id)
+--       - same HWID + same jobId already in the table -> the same run, not counted again
+--       - same HWID + a different jobId             -> a new run, one INSERT
+--   * user_id / place_id are stored for display only and are not part of the key
 --   * rows are never updated — one INSERT per counted run, nothing else
 --   * heartbeats that arrive after the first one are a no-op
 
@@ -16,7 +18,7 @@ create table if not exists public.executions (
   id uuid primary key default gen_random_uuid(),
   session_id text not null,          -- server session id (jti); one row per counted run
   script_name text,
-  hwid_hash text,                    -- informational only, never used for de-duplication
+  hwid_hash text,                    -- half of the counting key (see executions_run_key)
   user_id text,
   username text,
   display_name text,
@@ -37,9 +39,9 @@ create table if not exists public.executions (
 create index if not exists executions_session_id_idx on public.executions(session_id);
 create index if not exists executions_started_at_idx on public.executions(started_at desc);
 
--- The counting rule: one row per (user, place, game instance).
+-- The counting rule: one row per (machine, game instance).
 create unique index if not exists executions_run_key
-  on public.executions (coalesce(user_id, ''), coalesce(place_id, ''), coalesce(job_id, ''));
+  on public.executions (coalesce(hwid_hash, ''), coalesce(job_id, ''));
 
 create table if not exists public.exec_commands (
   id uuid primary key default gen_random_uuid(),
@@ -78,6 +80,7 @@ create or replace function public.record_run(
 ) returns boolean language plpgsql security definer set search_path = public as $$
 begin
   if p_session_id is null or length(p_session_id) = 0 then return false; end if;
+  if p_hwid_hash is null or length(p_hwid_hash) = 0 then return false; end if;
   if p_job_id is null or length(p_job_id) = 0 then return false; end if;
 
   insert into public.executions(session_id, script_name, hwid_hash, user_id, username, display_name,
@@ -88,7 +91,7 @@ begin
           now(), now(), 1, 'running');
   return true;
 exception when unique_violation then
-  return false; -- this job instance was already counted
+  return false; -- this HWID already has a row for this jobId
 end $$;
 
 create or replace function public.record_link(p_path text, p_script_name text, p_hours integer)

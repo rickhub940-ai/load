@@ -668,7 +668,7 @@
         <div class="head-row pop-element" id="overview">
           <div>
             <h2>Overview</h2>
-            <p>สถิติการรันจาก Supabase — นับ 1 ครั้งต่อ job / place / user (ไม่บันทึกซ้ำ ไม่มี update)</p>
+            <p>สถิติการรันจาก Supabase — นับ 1 ครั้งต่อ HWID + job · HWID เดิม job เดิมไม่นับซ้ำ · แถวที่บันทึกแล้วจะไม่ถูก update</p>
           </div>
           <span class="spacer"></span>
           <span class="pill mono" id="updated">—</span>
@@ -684,7 +684,7 @@
           <div class="tile">
             <div class="k"><i class="fa-solid fa-play"></i> Execution</div>
             <div class="v" id="statRuns">0</div>
-            <div class="s" id="statRunsSub">นับ 1 ครั้งต่อ job / place / user</div>
+            <div class="s" id="statRunsSub">นับ 1 ครั้งต่อ HWID + job (HWID เดิม job เดิม = ไม่นับซ้ำ)</div>
             <div class="bar"><i id="statRunsBar" style="width:0%"></i></div>
           </div>
           <div class="tile">
@@ -734,7 +734,7 @@
         <section class="card pop-element" id="recent">
           <div class="card-h">
             <h3>การรันล่าสุด</h3>
-            <span class="card-sub">100 รายการล่าสุด · นับครั้งเดียวต่อ job</span>
+            <span class="card-sub">100 รายการล่าสุด · นับครั้งเดียวต่อ HWID + job</span>
             <span class="spacer"></span>
             <span class="pill" id="recentCount">0</span>
           </div>

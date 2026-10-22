@@ -684,7 +684,7 @@ const STATS_PAGE =
   "        <div class=\"head-row pop-element\" id=\"overview\">\n" +
   "          <div>\n" +
   "            <h2>Overview</h2>\n" +
-  "            <p>\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e08\u0e32\u0e01 Supabase \u2014 \u0e19\u0e31\u0e1a 1 \u0e04\u0e23\u0e31\u0e49\u0e07\u0e15\u0e48\u0e2d job / place / user (\u0e44\u0e21\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e0b\u0e49\u0e33 \u0e44\u0e21\u0e48\u0e21\u0e35 update)</p>\n" +
+  "            <p>\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e08\u0e32\u0e01 Supabase \u2014 \u0e19\u0e31\u0e1a 1 \u0e04\u0e23\u0e31\u0e49\u0e07\u0e15\u0e48\u0e2d HWID + job \u00b7 HWID \u0e40\u0e14\u0e34\u0e21 job \u0e40\u0e14\u0e34\u0e21\u0e44\u0e21\u0e48\u0e19\u0e31\u0e1a\u0e0b\u0e49\u0e33 \u00b7 \u0e41\u0e16\u0e27\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e21\u0e48\u0e16\u0e39\u0e01 update</p>\n" +
   "          </div>\n" +
   "          <span class=\"spacer\"></span>\n" +
   "          <span class=\"pill mono\" id=\"updated\">\u2014</span>\n" +
@@ -700,7 +700,7 @@ const STATS_PAGE =
   "          <div class=\"tile\">\n" +
   "            <div class=\"k\"><i class=\"fa-solid fa-play\"></i> Execution</div>\n" +
   "            <div class=\"v\" id=\"statRuns\">0</div>\n" +
-  "            <div class=\"s\" id=\"statRunsSub\">\u0e19\u0e31\u0e1a 1 \u0e04\u0e23\u0e31\u0e49\u0e07\u0e15\u0e48\u0e2d job / place / user</div>\n" +
+  "            <div class=\"s\" id=\"statRunsSub\">\u0e19\u0e31\u0e1a 1 \u0e04\u0e23\u0e31\u0e49\u0e07\u0e15\u0e48\u0e2d HWID + job (HWID \u0e40\u0e14\u0e34\u0e21 job \u0e40\u0e14\u0e34\u0e21 = \u0e44\u0e21\u0e48\u0e19\u0e31\u0e1a\u0e0b\u0e49\u0e33)</div>\n" +
   "            <div class=\"bar\"><i id=\"statRunsBar\" style=\"width:0%\"></i></div>\n" +
   "          </div>\n" +
   "          <div class=\"tile\">\n" +
@@ -750,7 +750,7 @@ const STATS_PAGE =
   "        <section class=\"card pop-element\" id=\"recent\">\n" +
   "          <div class=\"card-h\">\n" +
   "            <h3>\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</h3>\n" +
-  "            <span class=\"card-sub\">100 \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e19\u0e31\u0e1a\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e15\u0e48\u0e2d job</span>\n" +
+  "            <span class=\"card-sub\">100 \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e19\u0e31\u0e1a\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e15\u0e48\u0e2d HWID + job</span>\n" +
   "            <span class=\"spacer\"></span>\n" +
   "            <span class=\"pill\" id=\"recentCount\">0</span>\n" +
   "          </div>\n" +
@@ -6013,11 +6013,13 @@ function supabaseWrite(pathname, init) {
   void supabaseFetch(pathname, init).catch(function () {});
 }
 
-// A run is counted ONCE, keyed by jobId + placeId + userId (never by HWID), and
-// the row is never updated afterwards: one INSERT per counted run, nothing else.
-// The same guard exists in SQL (executions_run_key) so a second instance that
-// never saw this session cannot double-count either.
-const statsRecorded = new Map(); // jti -> "job|place|user" already written
+// A run is counted ONCE, keyed by HWID + jobId: the same machine already in the
+// database with the same jobId is the same run (not counted again), while the
+// same machine with a different jobId is a new run. The row is never updated
+// afterwards: one INSERT per counted run, nothing else. The same guard exists in
+// SQL (executions_run_key) so a second instance that never saw this session
+// cannot double-count either.
+const statsRecorded = new Map(); // jti -> "hwid|job" already written
 
 function pruneStatsState() {
   if (statsRecorded.size < 4000) return;
@@ -6042,9 +6044,12 @@ function trackRun(jti, session) {
   const jobId = sbText(profile.jobId, 128);
   if (!jobId) return; // wait until the client reports which server instance it is in
 
+  const hwidHash = sbText(session.hwidHash, 128);
+  if (!hwidHash) return; // the HWID is half of the counting key
+
   const placeId = sbText(profile.placeId, 64);
   const userId = sbText(profile.userId, 64);
-  const key = jobId + '|' + (placeId || '') + '|' + (userId || '');
+  const key = hwidHash + '|' + jobId;
   if (statsRecorded.get(jti) === key) return;
   statsRecorded.set(jti, key);
   pruneStatsState();
@@ -6125,7 +6130,7 @@ async function handleControlStats(req, res) {
     daily: Array.isArray(results[3]) ? results[3] : [],
     hourly: Array.isArray(results[4]) ? results[4] : [],
     scope: 'supabase',
-    note: 'บันทึกทุก heartbeat ลง Supabase — ข้อมูลอยู่ข้าม instance และไม่หายเมื่อรีสตาร์ท',
+    note: 'นับการรัน 1 ครั้งต่อ HWID + job ลง Supabase — ข้อมูลอยู่ข้าม instance และไม่หายเมื่อรีสตาร์ท',
   });
 }
 
