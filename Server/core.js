@@ -479,23 +479,56 @@ const STATS_PAGE =
   "    .tile .bar { margin-top: 12px; height: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }\n" +
   "    .tile .bar i { display: block; height: 100%; border-radius: 999px; background: #fff; box-shadow: 0 0 12px rgba(255, 255, 255, 0.6); }\n" +
   "\n" +
-  "    /* monthly chart */\n" +
+  "    /* stock-style chart */\n" +
   "    .chart-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }\n" +
   "    .chart-head .big { font-size: clamp(34px, 5vw, 52px); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }\n" +
-  "    .chart-head .cap { font-size: 0.78rem; color: var(--muted); }\n" +
-  "    .chart { display: flex; align-items: stretch; gap: 10px; height: 230px; margin-top: 22px; }\n" +
-  "    .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; min-width: 0; }\n" +
-  "    .col .track { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; }\n" +
-  "    .col .bar {\n" +
-  "      width: 100%; max-width: 46px; border-radius: 8px 8px 3px 3px; min-height: 3px;\n" +
-  "      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25));\n" +
-  "      box-shadow: 0 0 18px rgba(255, 255, 255, 0.12); transition: height 0.5s ease, filter 0.2s ease;\n" +
+  "    .chart-head .cap { font-size: 0.78rem; color: var(--muted); margin-left: auto; }\n" +
+  "\n" +
+  "    .ranges { display: flex; gap: 4px; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); }\n" +
+  "    .range {\n" +
+  "      border: 0; background: transparent; color: var(--muted); font-family: inherit;\n" +
+  "      font-size: 0.72rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer;\n" +
+  "      transition: color 0.2s ease, background 0.2s ease;\n" +
   "    }\n" +
-  "    .col:hover .bar { filter: brightness(1.35); }\n" +
-  "    .col.now .bar { background: linear-gradient(180deg, #4ade80, rgba(34, 197, 94, 0.3)); box-shadow: 0 0 20px rgba(34, 197, 94, 0.35); }\n" +
-  "    .col .n { font-size: 0.72rem; color: #d7d7db; font-variant-numeric: tabular-nums; }\n" +
-  "    .col .m { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }\n" +
-  "    .chart-empty { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.86rem; }\n" +
+  "    .range:hover { color: #fff; }\n" +
+  "    .range.is-active { background: #fff; color: #000; }\n" +
+  "\n" +
+  "    .delta {\n" +
+  "      display: inline-flex; align-items: center; gap: 4px; font-size: 0.76rem; font-weight: 600;\n" +
+  "      padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line);\n" +
+  "      background: rgba(255, 255, 255, 0.05); color: var(--muted);\n" +
+  "    }\n" +
+  "    .delta.up { border-color: rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.12); color: #86efac; }\n" +
+  "    .delta.down { border-color: rgba(255, 107, 129, 0.4); background: rgba(255, 107, 129, 0.12); color: #ffb3bf; }\n" +
+  "\n" +
+  "    .chart-wrap { position: relative; margin-top: 18px; }\n" +
+  "    .chart { position: relative; height: 280px; }\n" +
+  "    .chart svg { display: block; width: 100%; height: 100%; }\n" +
+  "    .chart-empty { padding: 60px 0; text-align: center; color: var(--muted); font-size: 0.86rem; height: 100%; }\n" +
+  "\n" +
+  "    .grid-line { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1; }\n" +
+  "    .grid-text { fill: #6b6b70; font-size: 10px; font-family: var(--mono); }\n" +
+  "    .axis-text { fill: #6b6b70; font-size: 10px; font-family: var(--mono); }\n" +
+  "    .spark-area { fill: url(#areaFill); }\n" +
+  "    .spark-line {\n" +
+  "      fill: none; stroke: #fff; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round;\n" +
+  "      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));\n" +
+  "    }\n" +
+  "    .spark-dot { fill: #22c55e; stroke: #000; stroke-width: 2; }\n" +
+  "    .spark-cross { stroke: rgba(255, 255, 255, 0.4); stroke-width: 1; stroke-dasharray: 3 3; }\n" +
+  "\n" +
+  "    .tip {\n" +
+  "      position: absolute; z-index: 4; pointer-events: none; opacity: 0;\n" +
+  "      transform: translate(-50%, -100%); transition: opacity 0.12s ease;\n" +
+  "      background: rgba(10, 10, 12, 0.95); border: 1px solid var(--line-2); border-radius: 10px;\n" +
+  "      padding: 8px 10px; font-size: 0.74rem; white-space: nowrap;\n" +
+  "      box-shadow: 0 12px 30px -12px #000; backdrop-filter: blur(8px);\n" +
+  "    }\n" +
+  "    .tip b { color: #fff; font-weight: 600; }\n" +
+  "    .tip span { color: var(--muted); }\n" +
+  "\n" +
+  "    .chart-foot { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 0.74rem; color: var(--muted); }\n" +
+  "    .chart-foot b { color: #d7d7db; font-weight: 600; }\n" +
   "\n" +
   "    /* table */\n" +
   "    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }\n" +
@@ -583,8 +616,8 @@ const STATS_PAGE =
   "    }\n" +
   "    @media (max-width: 640px) {\n" +
   "      .tiles { grid-template-columns: 1fr; }\n" +
-  "      .chart { gap: 4px; height: 170px; }\n" +
-  "      .col .m { font-size: 0.6rem; }\n" +
+  "      .chart { height: 210px; }\n" +
+  "      .ranges { order: 3; width: 100%; justify-content: center; }\n" +
   "    }\n" +
   "    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }\n" +
   "  </style>\n" +
@@ -691,16 +724,26 @@ const STATS_PAGE =
   "        <section class=\"card pop-element\" id=\"monthly\">\n" +
   "          <div class=\"card-h\">\n" +
   "            <h3>Execution</h3>\n" +
-  "            <span class=\"card-sub\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e15\u0e48\u0e2d\u0e40\u0e14\u0e37\u0e2d\u0e19 (12 \u0e40\u0e14\u0e37\u0e2d\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14)</span>\n" +
+  "            <span class=\"card-sub\">\u0e01\u0e23\u0e32\u0e1f\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19</span>\n" +
   "            <span class=\"spacer\"></span>\n" +
-  "            <span class=\"pill mono\" id=\"monthlyRange\">\u2014</span>\n" +
+  "            <div class=\"ranges\">\n" +
+  "              <button class=\"range\" type=\"button\" data-range=\"24h\">24 \u0e0a\u0e21.</button>\n" +
+  "              <button class=\"range\" type=\"button\" data-range=\"7d\">7 \u0e27\u0e31\u0e19</button>\n" +
+  "              <button class=\"range\" type=\"button\" data-range=\"30d\">30 \u0e27\u0e31\u0e19</button>\n" +
+  "              <button class=\"range is-active\" type=\"button\" data-range=\"12m\">12 \u0e40\u0e14\u0e37\u0e2d\u0e19</button>\n" +
+  "            </div>\n" +
   "          </div>\n" +
   "          <div class=\"card-b\">\n" +
   "            <div class=\"chart-head\">\n" +
-  "              <span class=\"big\" id=\"monthlyBig\">0</span>\n" +
-  "              <span class=\"cap\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e19\u0e35\u0e49 \u00b7 <span id=\"monthlyUniques\">0</span> \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49/\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e44\u0e21\u0e48\u0e0b\u0e49\u0e33</span>\n" +
+  "              <span class=\"big\" id=\"chartBig\">0</span>\n" +
+  "              <span class=\"delta\" id=\"chartDelta\">\u2014</span>\n" +
+  "              <span class=\"cap\" id=\"chartCap\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e15\u0e48\u0e2d\u0e40\u0e14\u0e37\u0e2d\u0e19 \u00b7 12 \u0e40\u0e14\u0e37\u0e2d\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span>\n" +
   "            </div>\n" +
-  "            <div class=\"chart\" id=\"chart\"></div>\n" +
+  "            <div class=\"chart-wrap\">\n" +
+  "              <div class=\"chart\" id=\"chart\"></div>\n" +
+  "              <div class=\"tip\" id=\"tip\"></div>\n" +
+  "            </div>\n" +
+  "            <div class=\"chart-foot\" id=\"chartFoot\"></div>\n" +
   "          </div>\n" +
   "        </section>\n" +
   "\n" +
@@ -837,32 +880,202 @@ const STATS_PAGE =
   "    $('statMachinesSub').textContent = 'HWID \u0e44\u0e21\u0e48\u0e0b\u0e49\u0e33 \u00b7 \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49 ' + num(t.unique_users) + ' \u0e04\u0e19';\n" +
   "  }\n" +
   "\n" +
-  "  function renderMonthly(list, totals) {\n" +
-  "    var now = new Date();\n" +
-  "    var current = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');\n" +
-  "    $('monthlyBig').textContent = String(num(totals.runs_month));\n" +
-  "    $('monthlyUniques').textContent = String(num(totals.unique_machines));\n" +
+  "  var series = { monthly: [], daily: [], hourly: [] };\n" +
+  "  var currentRange = '12m';\n" +
+  "  var chartGeom = null;\n" +
   "\n" +
-  "    if (!list.length) {\n" +
-  "      $('chart').innerHTML = '<div class=\"chart-empty\" style=\"width:100%\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19 \u2014 \u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2a\u0e48\u0e07 heartbeat \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a</div>';\n" +
-  "      $('monthlyRange').textContent = '\u2014';\n" +
+  "  var RANGES = {\n" +
+  "    '24h': { cap: '\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e0a\u0e31\u0e48\u0e27\u0e42\u0e21\u0e07\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e14\u0e39\u0e22\u0e49\u0e2d\u0e19\u0e2b\u0e25\u0e31\u0e07 24 \u0e0a\u0e31\u0e48\u0e27\u0e42\u0e21\u0e07', unit: ' \u0e0a\u0e21.' },\n" +
+  "    '7d': { cap: '\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e27\u0e31\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e14\u0e39\u0e22\u0e49\u0e2d\u0e19\u0e2b\u0e25\u0e31\u0e07 7 \u0e27\u0e31\u0e19', unit: ' \u0e27\u0e31\u0e19' },\n" +
+  "    '30d': { cap: '\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e27\u0e31\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e14\u0e39\u0e22\u0e49\u0e2d\u0e19\u0e2b\u0e25\u0e31\u0e07 30 \u0e27\u0e31\u0e19', unit: ' \u0e27\u0e31\u0e19' },\n" +
+  "    '12m': { cap: '\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14 \u00b7 \u0e14\u0e39\u0e22\u0e49\u0e2d\u0e19\u0e2b\u0e25\u0e31\u0e07 12 \u0e40\u0e14\u0e37\u0e2d\u0e19', unit: ' \u0e40\u0e14\u0e37\u0e2d\u0e19' },\n" +
+  "  };\n" +
+  "\n" +
+  "  function rangePoints(range) {\n" +
+  "    var hourly = series.hourly || [], daily = series.daily || [], monthly = series.monthly || [];\n" +
+  "    if (range === '24h') {\n" +
+  "      return hourly.slice(-24).map(function (r) { return { key: r.hour, value: num(r.runs) }; });\n" +
+  "    }\n" +
+  "    if (range === '7d') {\n" +
+  "      return daily.slice(-7).map(function (r) { return { key: r.day, value: num(r.runs) }; });\n" +
+  "    }\n" +
+  "    if (range === '30d') {\n" +
+  "      return daily.slice(-30).map(function (r) { return { key: r.day, value: num(r.runs) }; });\n" +
+  "    }\n" +
+  "    return monthly.slice(-12).map(function (r) { return { key: r.month, value: num(r.runs) }; });\n" +
+  "  }\n" +
+  "\n" +
+  "  function tickLabel(key, range) {\n" +
+  "    if (range === '24h') return String(key).slice(11, 16);\n" +
+  "    if (range === '12m') return monthLabel(key);\n" +
+  "    var parts = String(key).split('-');\n" +
+  "    var mi = parseInt(parts[1], 10);\n" +
+  "    if (!(mi >= 1 && mi <= 12)) return String(key);\n" +
+  "    return parseInt(parts[2], 10) + ' ' + THAI_MONTHS[mi - 1];\n" +
+  "  }\n" +
+  "\n" +
+  "  function fullLabel(key, range) {\n" +
+  "    if (range === '24h') return String(key).slice(5, 16);\n" +
+  "    if (range === '12m') return monthLabel(key);\n" +
+  "    var parts = String(key).split('-');\n" +
+  "    var mi = parseInt(parts[1], 10);\n" +
+  "    if (!(mi >= 1 && mi <= 12)) return String(key);\n" +
+  "    return parseInt(parts[2], 10) + ' ' + THAI_MONTHS[mi - 1] + ' ' + String(parts[0]).slice(2);\n" +
+  "  }\n" +
+  "\n" +
+  "  function niceMax(value) {\n" +
+  "    if (value <= 5) return 5;\n" +
+  "    var mag = Math.pow(10, Math.floor(Math.log10(value)));\n" +
+  "    var scaled = value / mag;\n" +
+  "    var step = scaled <= 1 ? 1 : scaled <= 2 ? 2 : scaled <= 5 ? 5 : 10;\n" +
+  "    return step * mag;\n" +
+  "  }\n" +
+  "\n" +
+  "  function renderChart() {\n" +
+  "    var host = $('chart');\n" +
+  "    var range = currentRange;\n" +
+  "    var points = rangePoints(range);\n" +
+  "    var total = points.reduce(function (acc, p) { return acc + p.value; }, 0);\n" +
+  "    var peak = points.reduce(function (acc, p) { return Math.max(acc, p.value); }, 0);\n" +
+  "    var latest = points.length ? points[points.length - 1].value : 0;\n" +
+  "    var previous = points.length > 1 ? points[points.length - 2].value : null;\n" +
+  "\n" +
+  "    $('chartBig').textContent = String(latest);\n" +
+  "    $('chartCap').textContent = (RANGES[range] || RANGES['12m']).cap;\n" +
+  "\n" +
+  "    // Stock-style change badge: latest point against the one before it.\n" +
+  "    var deltaEl = $('chartDelta');\n" +
+  "    if (previous == null) {\n" +
+  "      deltaEl.className = 'delta';\n" +
+  "      deltaEl.textContent = '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e0a\u0e48\u0e27\u0e07\u0e01\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32';\n" +
+  "    } else if (previous === 0) {\n" +
+  "      deltaEl.className = 'delta';\n" +
+  "      deltaEl.textContent = latest > 0 ? '\u0e0a\u0e48\u0e27\u0e07\u0e01\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e44\u0e21\u0e48\u0e21\u0e35\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19' : '\u2014';\n" +
+  "    } else {\n" +
+  "      var pct = ((latest - previous) / previous) * 100;\n" +
+  "      deltaEl.className = 'delta ' + (pct >= 0 ? 'up' : 'down');\n" +
+  "      deltaEl.textContent = (pct >= 0 ? '\u25b2 ' : '\u25bc ') + Math.abs(pct).toFixed(1) + '% \u0e40\u0e17\u0e35\u0e22\u0e1a\u0e01\u0e31\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e2b\u0e19\u0e49\u0e32';\n" +
+  "    }\n" +
+  "\n" +
+  "    if (!points.length) {\n" +
+  "      host.innerHTML = '<div class=\"chart-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19 \u2014 \u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2a\u0e48\u0e07 heartbeat \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a</div>';\n" +
+  "      $('chartFoot').innerHTML = '';\n" +
+  "      chartGeom = null;\n" +
   "      return;\n" +
   "    }\n" +
   "\n" +
-  "    var max = 0;\n" +
-  "    list.forEach(function (row) { max = Math.max(max, num(row.runs)); });\n" +
-  "    $('monthlyRange').textContent = monthLabel(list[0].month) + ' \u2014 ' + monthLabel(list[list.length - 1].month);\n" +
+  "    var width = Math.max(320, Math.round(host.clientWidth || 640));\n" +
+  "    var height = 280;\n" +
+  "    var pad = { top: 18, right: 14, bottom: 26, left: 44 };\n" +
+  "    var innerW = width - pad.left - pad.right;\n" +
+  "    var innerH = height - pad.top - pad.bottom;\n" +
+  "    var yMax = niceMax(peak);\n" +
+  "    var count = points.length;\n" +
+  "    var stepX = count > 1 ? innerW / (count - 1) : 0;\n" +
+  "    var xAt = function (index) { return pad.left + (count > 1 ? index * stepX : innerW / 2); };\n" +
+  "    var yAt = function (value) { return pad.top + innerH - (yMax ? (value / yMax) * innerH : 0); };\n" +
   "\n" +
-  "    $('chart').innerHTML = list.map(function (row) {\n" +
-  "      var value = num(row.runs);\n" +
-  "      var height = max ? Math.max(3, Math.round((value / max) * 100)) : 3;\n" +
-  "      return '<div class=\"col' + (row.month === current ? ' now' : '') + '\" title=\"' +\n" +
-  "        esc(monthLabel(row.month)) + ': ' + value + ' \u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\">' +\n" +
-  "        '<span class=\"n\">' + value + '</span>' +\n" +
-  "        '<span class=\"track\"><span class=\"bar\" style=\"height:' + height + '%\"></span></span>' +\n" +
-  "        '<span class=\"m\">' + esc(monthLabel(row.month)) + '</span>' +\n" +
-  "        '</div>';\n" +
-  "    }).join('');\n" +
+  "    var grid = '';\n" +
+  "    for (var t = 0; t <= 4; t++) {\n" +
+  "      var tick = Math.round((yMax / 4) * t);\n" +
+  "      var gy = yAt(tick);\n" +
+  "      grid += '<line class=\"grid-line\" x1=\"' + pad.left + '\" x2=\"' + (width - pad.right) + '\" y1=\"' + gy + '\" y2=\"' + gy + '\"/>' +\n" +
+  "        '<text class=\"grid-text\" x=\"' + (pad.left - 8) + '\" y=\"' + (gy + 3) + '\" text-anchor=\"end\">' + tick + '</text>';\n" +
+  "    }\n" +
+  "\n" +
+  "    var want = Math.min(6, count);\n" +
+  "    var every = Math.max(1, Math.round((count - 1) / (want - 1 || 1)));\n" +
+  "    var axis = '';\n" +
+  "    for (var i = 0; i < count; i++) {\n" +
+  "      if (i % every !== 0 && i !== count - 1) continue;\n" +
+  "      axis += '<text class=\"axis-text\" x=\"' + xAt(i).toFixed(1) + '\" y=\"' + (height - 8) + '\" text-anchor=\"middle\">' +\n" +
+  "        esc(tickLabel(points[i].key, range)) + '</text>';\n" +
+  "    }\n" +
+  "\n" +
+  "    var line = points.map(function (p, index) {\n" +
+  "      return (index ? 'L' : 'M') + xAt(index).toFixed(1) + ' ' + yAt(p.value).toFixed(1);\n" +
+  "    }).join(' ');\n" +
+  "    var area = line + ' L' + xAt(count - 1).toFixed(1) + ' ' + (pad.top + innerH) +\n" +
+  "      ' L' + xAt(0).toFixed(1) + ' ' + (pad.top + innerH) + ' Z';\n" +
+  "\n" +
+  "    host.innerHTML =\n" +
+  "      '<svg viewBox=\"0 0 ' + width + ' ' + height + '\" preserveAspectRatio=\"none\" role=\"img\" aria-label=\"\u0e01\u0e23\u0e32\u0e1f\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\">' +\n" +
+  "        '<defs><linearGradient id=\"areaFill\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">' +\n" +
+  "          '<stop offset=\"0%\" stop-color=\"#ffffff\" stop-opacity=\"0.30\"/>' +\n" +
+  "          '<stop offset=\"100%\" stop-color=\"#ffffff\" stop-opacity=\"0\"/>' +\n" +
+  "        '</linearGradient></defs>' +\n" +
+  "        grid + axis +\n" +
+  "        '<path class=\"spark-area\" d=\"' + area + '\"/>' +\n" +
+  "        '<path class=\"spark-line\" d=\"' + line + '\"/>' +\n" +
+  "        '<line class=\"spark-cross\" id=\"crossX\" x1=\"0\" x2=\"0\" y1=\"' + pad.top + '\" y2=\"' + (pad.top + innerH) + '\" style=\"opacity:0\"/>' +\n" +
+  "        '<circle class=\"spark-dot\" id=\"crossDot\" r=\"4.5\" style=\"opacity:0\"/>' +\n" +
+  "        '<circle class=\"spark-dot\" cx=\"' + xAt(count - 1).toFixed(1) + '\" cy=\"' + yAt(points[count - 1].value).toFixed(1) + '\" r=\"4\"/>' +\n" +
+  "        '<rect id=\"hitArea\" x=\"' + pad.left + '\" y=\"' + pad.top + '\" width=\"' + Math.max(1, innerW) + '\" height=\"' + innerH + '\" fill=\"transparent\"/>' +\n" +
+  "      '</svg>';\n" +
+  "\n" +
+  "    chartGeom = {\n" +
+  "      pad: pad, innerW: innerW, innerH: innerH, stepX: stepX, yMax: yMax,\n" +
+  "      points: points, range: range, x: xAt, y: yAt, vbWidth: width, vbHeight: height,\n" +
+  "    };\n" +
+  "\n" +
+  "    var busiest = 0;\n" +
+  "    points.forEach(function (p, index) { if (p.value > points[busiest].value) busiest = index; });\n" +
+  "    var avg = count ? (total / count) : 0;\n" +
+  "    $('chartFoot').innerHTML =\n" +
+  "      '<span>\u0e23\u0e27\u0e21 <b>' + total + '</b> \u0e01\u0e32\u0e23\u0e23\u0e31\u0e19</span>' +\n" +
+  "      '<span>\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 <b>' + peak + '</b> \u00b7 ' + esc(fullLabel(points[busiest].key, range)) + '</span>' +\n" +
+  "      '<span>\u0e40\u0e09\u0e25\u0e35\u0e48\u0e22 <b>' + avg.toFixed(1) + '</b> \u0e15\u0e48\u0e2d' + (RANGES[range] || RANGES['12m']).unit + '</span>' +\n" +
+  "      '<span>\u0e08\u0e38\u0e14\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25 <b>' + count + '</b></span>';\n" +
+  "\n" +
+  "    bindHover();\n" +
+  "  }\n" +
+  "\n" +
+  "  function bindHover() {\n" +
+  "    var host = $('chart');\n" +
+  "    var tip = $('tip');\n" +
+  "    var cross = document.getElementById('crossX');\n" +
+  "    var dot = document.getElementById('crossDot');\n" +
+  "    var hit = document.getElementById('hitArea');\n" +
+  "    if (!host || !tip || !cross || !dot || !hit || !chartGeom) return;\n" +
+  "\n" +
+  "    function update(event) {\n" +
+  "      var rect = host.getBoundingClientRect();\n" +
+  "      if (!rect.width || !rect.height) return;\n" +
+  "      var clientX = (event.touches && event.touches[0]) ? event.touches[0].clientX : event.clientX;\n" +
+  "      var scaleX = chartGeom.vbWidth / rect.width;\n" +
+  "      var scaleY = rect.height / chartGeom.vbHeight;\n" +
+  "      var svgX = (clientX - rect.left) * scaleX;\n" +
+  "      var index = Math.round((svgX - chartGeom.pad.left) / (chartGeom.stepX || 1));\n" +
+  "      index = Math.max(0, Math.min(chartGeom.points.length - 1, index));\n" +
+  "      var point = chartGeom.points[index];\n" +
+  "      var cx = chartGeom.x(index);\n" +
+  "      var cy = chartGeom.y(point.value);\n" +
+  "\n" +
+  "      cross.setAttribute('x1', cx);\n" +
+  "      cross.setAttribute('x2', cx);\n" +
+  "      cross.style.opacity = '1';\n" +
+  "      dot.setAttribute('cx', cx);\n" +
+  "      dot.setAttribute('cy', cy);\n" +
+  "      dot.style.opacity = '1';\n" +
+  "\n" +
+  "      tip.innerHTML = '<b>' + point.value + '</b> \u0e01\u0e32\u0e23\u0e23\u0e31\u0e19 \u00b7 <span>' + esc(fullLabel(point.key, chartGeom.range)) + '</span>';\n" +
+  "      tip.style.opacity = '1';\n" +
+  "      var left = cx / scaleX;\n" +
+  "      tip.style.left = Math.max(70, Math.min(rect.width - 70, left)) + 'px';\n" +
+  "      tip.style.top = Math.max(14, (cy * scaleY) - 14) + 'px';\n" +
+  "    }\n" +
+  "\n" +
+  "    function hide() {\n" +
+  "      cross.style.opacity = '0';\n" +
+  "      dot.style.opacity = '0';\n" +
+  "      tip.style.opacity = '0';\n" +
+  "    }\n" +
+  "\n" +
+  "    host.addEventListener('mousemove', update);\n" +
+  "    host.addEventListener('mouseleave', hide);\n" +
+  "    host.addEventListener('touchstart', update, { passive: true });\n" +
+  "    host.addEventListener('touchmove', update, { passive: true });\n" +
+  "    host.addEventListener('touchend', hide);\n" +
   "  }\n" +
   "\n" +
   "  function renderRecent(list) {\n" +
@@ -911,7 +1124,10 @@ const STATS_PAGE =
   "      }\n" +
   "      notice('');\n" +
   "      renderTotals(data.totals || {});\n" +
-  "      renderMonthly(data.monthly || [], data.totals || {});\n" +
+  "      series.monthly = data.monthly || [];\n" +
+  "      series.daily = data.daily || [];\n" +
+  "      series.hourly = data.hourly || [];\n" +
+  "      renderChart();\n" +
   "      renderRecent(data.recent || []);\n" +
   "      $('updated').textContent = new Date().toLocaleTimeString('th-TH');\n" +
   "      $('sideStatus').textContent = '\u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15 ' + new Date().toLocaleTimeString('th-TH').slice(0, 8);\n" +
@@ -961,6 +1177,23 @@ const STATS_PAGE =
   "  });\n" +
   "\n" +
   "  $('refreshBtn').addEventListener('click', function () { load(); });\n" +
+  "\n" +
+  "  Array.prototype.forEach.call(document.querySelectorAll('.range'), function (button) {\n" +
+  "    button.addEventListener('click', function () {\n" +
+  "      currentRange = button.getAttribute('data-range') || '12m';\n" +
+  "      Array.prototype.forEach.call(document.querySelectorAll('.range'), function (other) {\n" +
+  "        other.classList.remove('is-active');\n" +
+  "      });\n" +
+  "      button.classList.add('is-active');\n" +
+  "      renderChart();\n" +
+  "    });\n" +
+  "  });\n" +
+  "\n" +
+  "  var resizeTimer = null;\n" +
+  "  window.addEventListener('resize', function () {\n" +
+  "    if (resizeTimer) clearTimeout(resizeTimer);\n" +
+  "    resizeTimer = setTimeout(function () { if ($('chart').clientWidth) renderChart(); }, 150);\n" +
+  "  });\n" +
   "\n" +
   "  Array.prototype.forEach.call(document.querySelectorAll('.side-link'), function (link) {\n" +
   "    link.addEventListener('click', function () {\n" +
@@ -5876,6 +6109,8 @@ async function handleControlStats(req, res) {
     supabaseFetch('/rest/v1/v_exec_totals?select=*'),
     supabaseFetch('/rest/v1/v_exec_monthly?select=*'),
     supabaseFetch('/rest/v1/v_recent_runs?select=*'),
+    supabaseFetch('/rest/v1/v_exec_daily?select=*'),
+    supabaseFetch('/rest/v1/v_exec_hourly?select=*'),
   ]);
   const totals = results[0];
   if (!Array.isArray(totals)) {
@@ -5886,6 +6121,8 @@ async function handleControlStats(req, res) {
     totals: totals[0] || {},
     monthly: Array.isArray(results[1]) ? results[1] : [],
     recent: Array.isArray(results[2]) ? results[2] : [],
+    daily: Array.isArray(results[3]) ? results[3] : [],
+    hourly: Array.isArray(results[4]) ? results[4] : [],
     scope: 'supabase',
     note: 'บันทึกทุก heartbeat ลง Supabase — ข้อมูลอยู่ข้าม instance และไม่หายเมื่อรีสตาร์ท',
   });

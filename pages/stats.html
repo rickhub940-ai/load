@@ -463,23 +463,56 @@
     .tile .bar { margin-top: 12px; height: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
     .tile .bar i { display: block; height: 100%; border-radius: 999px; background: #fff; box-shadow: 0 0 12px rgba(255, 255, 255, 0.6); }
 
-    /* monthly chart */
+    /* stock-style chart */
     .chart-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
     .chart-head .big { font-size: clamp(34px, 5vw, 52px); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }
-    .chart-head .cap { font-size: 0.78rem; color: var(--muted); }
-    .chart { display: flex; align-items: stretch; gap: 10px; height: 230px; margin-top: 22px; }
-    .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; min-width: 0; }
-    .col .track { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; }
-    .col .bar {
-      width: 100%; max-width: 46px; border-radius: 8px 8px 3px 3px; min-height: 3px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25));
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.12); transition: height 0.5s ease, filter 0.2s ease;
+    .chart-head .cap { font-size: 0.78rem; color: var(--muted); margin-left: auto; }
+
+    .ranges { display: flex; gap: 4px; padding: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--line); }
+    .range {
+      border: 0; background: transparent; color: var(--muted); font-family: inherit;
+      font-size: 0.72rem; font-weight: 600; padding: 5px 12px; border-radius: 999px; cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
     }
-    .col:hover .bar { filter: brightness(1.35); }
-    .col.now .bar { background: linear-gradient(180deg, #4ade80, rgba(34, 197, 94, 0.3)); box-shadow: 0 0 20px rgba(34, 197, 94, 0.35); }
-    .col .n { font-size: 0.72rem; color: #d7d7db; font-variant-numeric: tabular-nums; }
-    .col .m { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }
-    .chart-empty { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.86rem; }
+    .range:hover { color: #fff; }
+    .range.is-active { background: #fff; color: #000; }
+
+    .delta {
+      display: inline-flex; align-items: center; gap: 4px; font-size: 0.76rem; font-weight: 600;
+      padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.05); color: var(--muted);
+    }
+    .delta.up { border-color: rgba(34, 197, 94, 0.4); background: rgba(34, 197, 94, 0.12); color: #86efac; }
+    .delta.down { border-color: rgba(255, 107, 129, 0.4); background: rgba(255, 107, 129, 0.12); color: #ffb3bf; }
+
+    .chart-wrap { position: relative; margin-top: 18px; }
+    .chart { position: relative; height: 280px; }
+    .chart svg { display: block; width: 100%; height: 100%; }
+    .chart-empty { padding: 60px 0; text-align: center; color: var(--muted); font-size: 0.86rem; height: 100%; }
+
+    .grid-line { stroke: rgba(255, 255, 255, 0.07); stroke-width: 1; }
+    .grid-text { fill: #6b6b70; font-size: 10px; font-family: var(--mono); }
+    .axis-text { fill: #6b6b70; font-size: 10px; font-family: var(--mono); }
+    .spark-area { fill: url(#areaFill); }
+    .spark-line {
+      fill: none; stroke: #fff; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round;
+      filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.35));
+    }
+    .spark-dot { fill: #22c55e; stroke: #000; stroke-width: 2; }
+    .spark-cross { stroke: rgba(255, 255, 255, 0.4); stroke-width: 1; stroke-dasharray: 3 3; }
+
+    .tip {
+      position: absolute; z-index: 4; pointer-events: none; opacity: 0;
+      transform: translate(-50%, -100%); transition: opacity 0.12s ease;
+      background: rgba(10, 10, 12, 0.95); border: 1px solid var(--line-2); border-radius: 10px;
+      padding: 8px 10px; font-size: 0.74rem; white-space: nowrap;
+      box-shadow: 0 12px 30px -12px #000; backdrop-filter: blur(8px);
+    }
+    .tip b { color: #fff; font-weight: 600; }
+    .tip span { color: var(--muted); }
+
+    .chart-foot { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 14px; font-size: 0.74rem; color: var(--muted); }
+    .chart-foot b { color: #d7d7db; font-weight: 600; }
 
     /* table */
     table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
@@ -567,8 +600,8 @@
     }
     @media (max-width: 640px) {
       .tiles { grid-template-columns: 1fr; }
-      .chart { gap: 4px; height: 170px; }
-      .col .m { font-size: 0.6rem; }
+      .chart { height: 210px; }
+      .ranges { order: 3; width: 100%; justify-content: center; }
     }
     @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
   </style>
@@ -675,16 +708,26 @@
         <section class="card pop-element" id="monthly">
           <div class="card-h">
             <h3>Execution</h3>
-            <span class="card-sub">การรันต่อเดือน (12 เดือนล่าสุด)</span>
+            <span class="card-sub">กราฟการรัน</span>
             <span class="spacer"></span>
-            <span class="pill mono" id="monthlyRange">—</span>
+            <div class="ranges">
+              <button class="range" type="button" data-range="24h">24 ชม.</button>
+              <button class="range" type="button" data-range="7d">7 วัน</button>
+              <button class="range" type="button" data-range="30d">30 วัน</button>
+              <button class="range is-active" type="button" data-range="12m">12 เดือน</button>
+            </div>
           </div>
           <div class="card-b">
             <div class="chart-head">
-              <span class="big" id="monthlyBig">0</span>
-              <span class="cap">การรันเดือนนี้ · <span id="monthlyUniques">0</span> ผู้ใช้/เครื่องไม่ซ้ำ</span>
+              <span class="big" id="chartBig">0</span>
+              <span class="delta" id="chartDelta">—</span>
+              <span class="cap" id="chartCap">การรันต่อเดือน · 12 เดือนล่าสุด</span>
             </div>
-            <div class="chart" id="chart"></div>
+            <div class="chart-wrap">
+              <div class="chart" id="chart"></div>
+              <div class="tip" id="tip"></div>
+            </div>
+            <div class="chart-foot" id="chartFoot"></div>
           </div>
         </section>
 
@@ -821,32 +864,202 @@
     $('statMachinesSub').textContent = 'HWID ไม่ซ้ำ · ผู้ใช้ ' + num(t.unique_users) + ' คน';
   }
 
-  function renderMonthly(list, totals) {
-    var now = new Date();
-    var current = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
-    $('monthlyBig').textContent = String(num(totals.runs_month));
-    $('monthlyUniques').textContent = String(num(totals.unique_machines));
+  var series = { monthly: [], daily: [], hourly: [] };
+  var currentRange = '12m';
+  var chartGeom = null;
 
-    if (!list.length) {
-      $('chart').innerHTML = '<div class="chart-empty" style="width:100%">ยังไม่มีข้อมูลการรัน — ให้สคริปต์ส่ง heartbeat แล้วกดรีเฟรช</div>';
-      $('monthlyRange').textContent = '—';
+  var RANGES = {
+    '24h': { cap: 'การรันชั่วโมงล่าสุด · ดูย้อนหลัง 24 ชั่วโมง', unit: ' ชม.' },
+    '7d': { cap: 'การรันวันล่าสุด · ดูย้อนหลัง 7 วัน', unit: ' วัน' },
+    '30d': { cap: 'การรันวันล่าสุด · ดูย้อนหลัง 30 วัน', unit: ' วัน' },
+    '12m': { cap: 'การรันเดือนล่าสุด · ดูย้อนหลัง 12 เดือน', unit: ' เดือน' },
+  };
+
+  function rangePoints(range) {
+    var hourly = series.hourly || [], daily = series.daily || [], monthly = series.monthly || [];
+    if (range === '24h') {
+      return hourly.slice(-24).map(function (r) { return { key: r.hour, value: num(r.runs) }; });
+    }
+    if (range === '7d') {
+      return daily.slice(-7).map(function (r) { return { key: r.day, value: num(r.runs) }; });
+    }
+    if (range === '30d') {
+      return daily.slice(-30).map(function (r) { return { key: r.day, value: num(r.runs) }; });
+    }
+    return monthly.slice(-12).map(function (r) { return { key: r.month, value: num(r.runs) }; });
+  }
+
+  function tickLabel(key, range) {
+    if (range === '24h') return String(key).slice(11, 16);
+    if (range === '12m') return monthLabel(key);
+    var parts = String(key).split('-');
+    var mi = parseInt(parts[1], 10);
+    if (!(mi >= 1 && mi <= 12)) return String(key);
+    return parseInt(parts[2], 10) + ' ' + THAI_MONTHS[mi - 1];
+  }
+
+  function fullLabel(key, range) {
+    if (range === '24h') return String(key).slice(5, 16);
+    if (range === '12m') return monthLabel(key);
+    var parts = String(key).split('-');
+    var mi = parseInt(parts[1], 10);
+    if (!(mi >= 1 && mi <= 12)) return String(key);
+    return parseInt(parts[2], 10) + ' ' + THAI_MONTHS[mi - 1] + ' ' + String(parts[0]).slice(2);
+  }
+
+  function niceMax(value) {
+    if (value <= 5) return 5;
+    var mag = Math.pow(10, Math.floor(Math.log10(value)));
+    var scaled = value / mag;
+    var step = scaled <= 1 ? 1 : scaled <= 2 ? 2 : scaled <= 5 ? 5 : 10;
+    return step * mag;
+  }
+
+  function renderChart() {
+    var host = $('chart');
+    var range = currentRange;
+    var points = rangePoints(range);
+    var total = points.reduce(function (acc, p) { return acc + p.value; }, 0);
+    var peak = points.reduce(function (acc, p) { return Math.max(acc, p.value); }, 0);
+    var latest = points.length ? points[points.length - 1].value : 0;
+    var previous = points.length > 1 ? points[points.length - 2].value : null;
+
+    $('chartBig').textContent = String(latest);
+    $('chartCap').textContent = (RANGES[range] || RANGES['12m']).cap;
+
+    // Stock-style change badge: latest point against the one before it.
+    var deltaEl = $('chartDelta');
+    if (previous == null) {
+      deltaEl.className = 'delta';
+      deltaEl.textContent = 'ยังไม่มีช่วงก่อนหน้า';
+    } else if (previous === 0) {
+      deltaEl.className = 'delta';
+      deltaEl.textContent = latest > 0 ? 'ช่วงก่อนหน้าไม่มีการรัน' : '—';
+    } else {
+      var pct = ((latest - previous) / previous) * 100;
+      deltaEl.className = 'delta ' + (pct >= 0 ? 'up' : 'down');
+      deltaEl.textContent = (pct >= 0 ? '▲ ' : '▼ ') + Math.abs(pct).toFixed(1) + '% เทียบกับก่อนหน้า';
+    }
+
+    if (!points.length) {
+      host.innerHTML = '<div class="chart-empty">ยังไม่มีข้อมูลการรัน — ให้สคริปต์ส่ง heartbeat แล้วกดรีเฟรช</div>';
+      $('chartFoot').innerHTML = '';
+      chartGeom = null;
       return;
     }
 
-    var max = 0;
-    list.forEach(function (row) { max = Math.max(max, num(row.runs)); });
-    $('monthlyRange').textContent = monthLabel(list[0].month) + ' — ' + monthLabel(list[list.length - 1].month);
+    var width = Math.max(320, Math.round(host.clientWidth || 640));
+    var height = 280;
+    var pad = { top: 18, right: 14, bottom: 26, left: 44 };
+    var innerW = width - pad.left - pad.right;
+    var innerH = height - pad.top - pad.bottom;
+    var yMax = niceMax(peak);
+    var count = points.length;
+    var stepX = count > 1 ? innerW / (count - 1) : 0;
+    var xAt = function (index) { return pad.left + (count > 1 ? index * stepX : innerW / 2); };
+    var yAt = function (value) { return pad.top + innerH - (yMax ? (value / yMax) * innerH : 0); };
 
-    $('chart').innerHTML = list.map(function (row) {
-      var value = num(row.runs);
-      var height = max ? Math.max(3, Math.round((value / max) * 100)) : 3;
-      return '<div class="col' + (row.month === current ? ' now' : '') + '" title="' +
-        esc(monthLabel(row.month)) + ': ' + value + ' การรัน">' +
-        '<span class="n">' + value + '</span>' +
-        '<span class="track"><span class="bar" style="height:' + height + '%"></span></span>' +
-        '<span class="m">' + esc(monthLabel(row.month)) + '</span>' +
-        '</div>';
-    }).join('');
+    var grid = '';
+    for (var t = 0; t <= 4; t++) {
+      var tick = Math.round((yMax / 4) * t);
+      var gy = yAt(tick);
+      grid += '<line class="grid-line" x1="' + pad.left + '" x2="' + (width - pad.right) + '" y1="' + gy + '" y2="' + gy + '"/>' +
+        '<text class="grid-text" x="' + (pad.left - 8) + '" y="' + (gy + 3) + '" text-anchor="end">' + tick + '</text>';
+    }
+
+    var want = Math.min(6, count);
+    var every = Math.max(1, Math.round((count - 1) / (want - 1 || 1)));
+    var axis = '';
+    for (var i = 0; i < count; i++) {
+      if (i % every !== 0 && i !== count - 1) continue;
+      axis += '<text class="axis-text" x="' + xAt(i).toFixed(1) + '" y="' + (height - 8) + '" text-anchor="middle">' +
+        esc(tickLabel(points[i].key, range)) + '</text>';
+    }
+
+    var line = points.map(function (p, index) {
+      return (index ? 'L' : 'M') + xAt(index).toFixed(1) + ' ' + yAt(p.value).toFixed(1);
+    }).join(' ');
+    var area = line + ' L' + xAt(count - 1).toFixed(1) + ' ' + (pad.top + innerH) +
+      ' L' + xAt(0).toFixed(1) + ' ' + (pad.top + innerH) + ' Z';
+
+    host.innerHTML =
+      '<svg viewBox="0 0 ' + width + ' ' + height + '" preserveAspectRatio="none" role="img" aria-label="กราฟการรัน">' +
+        '<defs><linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">' +
+          '<stop offset="0%" stop-color="#ffffff" stop-opacity="0.30"/>' +
+          '<stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>' +
+        '</linearGradient></defs>' +
+        grid + axis +
+        '<path class="spark-area" d="' + area + '"/>' +
+        '<path class="spark-line" d="' + line + '"/>' +
+        '<line class="spark-cross" id="crossX" x1="0" x2="0" y1="' + pad.top + '" y2="' + (pad.top + innerH) + '" style="opacity:0"/>' +
+        '<circle class="spark-dot" id="crossDot" r="4.5" style="opacity:0"/>' +
+        '<circle class="spark-dot" cx="' + xAt(count - 1).toFixed(1) + '" cy="' + yAt(points[count - 1].value).toFixed(1) + '" r="4"/>' +
+        '<rect id="hitArea" x="' + pad.left + '" y="' + pad.top + '" width="' + Math.max(1, innerW) + '" height="' + innerH + '" fill="transparent"/>' +
+      '</svg>';
+
+    chartGeom = {
+      pad: pad, innerW: innerW, innerH: innerH, stepX: stepX, yMax: yMax,
+      points: points, range: range, x: xAt, y: yAt, vbWidth: width, vbHeight: height,
+    };
+
+    var busiest = 0;
+    points.forEach(function (p, index) { if (p.value > points[busiest].value) busiest = index; });
+    var avg = count ? (total / count) : 0;
+    $('chartFoot').innerHTML =
+      '<span>รวม <b>' + total + '</b> การรัน</span>' +
+      '<span>สูงสุด <b>' + peak + '</b> · ' + esc(fullLabel(points[busiest].key, range)) + '</span>' +
+      '<span>เฉลี่ย <b>' + avg.toFixed(1) + '</b> ต่อ' + (RANGES[range] || RANGES['12m']).unit + '</span>' +
+      '<span>จุดข้อมูล <b>' + count + '</b></span>';
+
+    bindHover();
+  }
+
+  function bindHover() {
+    var host = $('chart');
+    var tip = $('tip');
+    var cross = document.getElementById('crossX');
+    var dot = document.getElementById('crossDot');
+    var hit = document.getElementById('hitArea');
+    if (!host || !tip || !cross || !dot || !hit || !chartGeom) return;
+
+    function update(event) {
+      var rect = host.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
+      var clientX = (event.touches && event.touches[0]) ? event.touches[0].clientX : event.clientX;
+      var scaleX = chartGeom.vbWidth / rect.width;
+      var scaleY = rect.height / chartGeom.vbHeight;
+      var svgX = (clientX - rect.left) * scaleX;
+      var index = Math.round((svgX - chartGeom.pad.left) / (chartGeom.stepX || 1));
+      index = Math.max(0, Math.min(chartGeom.points.length - 1, index));
+      var point = chartGeom.points[index];
+      var cx = chartGeom.x(index);
+      var cy = chartGeom.y(point.value);
+
+      cross.setAttribute('x1', cx);
+      cross.setAttribute('x2', cx);
+      cross.style.opacity = '1';
+      dot.setAttribute('cx', cx);
+      dot.setAttribute('cy', cy);
+      dot.style.opacity = '1';
+
+      tip.innerHTML = '<b>' + point.value + '</b> การรัน · <span>' + esc(fullLabel(point.key, chartGeom.range)) + '</span>';
+      tip.style.opacity = '1';
+      var left = cx / scaleX;
+      tip.style.left = Math.max(70, Math.min(rect.width - 70, left)) + 'px';
+      tip.style.top = Math.max(14, (cy * scaleY) - 14) + 'px';
+    }
+
+    function hide() {
+      cross.style.opacity = '0';
+      dot.style.opacity = '0';
+      tip.style.opacity = '0';
+    }
+
+    host.addEventListener('mousemove', update);
+    host.addEventListener('mouseleave', hide);
+    host.addEventListener('touchstart', update, { passive: true });
+    host.addEventListener('touchmove', update, { passive: true });
+    host.addEventListener('touchend', hide);
   }
 
   function renderRecent(list) {
@@ -895,7 +1108,10 @@
       }
       notice('');
       renderTotals(data.totals || {});
-      renderMonthly(data.monthly || [], data.totals || {});
+      series.monthly = data.monthly || [];
+      series.daily = data.daily || [];
+      series.hourly = data.hourly || [];
+      renderChart();
       renderRecent(data.recent || []);
       $('updated').textContent = new Date().toLocaleTimeString('th-TH');
       $('sideStatus').textContent = 'อัปเดต ' + new Date().toLocaleTimeString('th-TH').slice(0, 8);
@@ -945,6 +1161,23 @@
   });
 
   $('refreshBtn').addEventListener('click', function () { load(); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('.range'), function (button) {
+    button.addEventListener('click', function () {
+      currentRange = button.getAttribute('data-range') || '12m';
+      Array.prototype.forEach.call(document.querySelectorAll('.range'), function (other) {
+        other.classList.remove('is-active');
+      });
+      button.classList.add('is-active');
+      renderChart();
+    });
+  });
+
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () { if ($('chart').clientWidth) renderChart(); }, 150);
+  });
 
   Array.prototype.forEach.call(document.querySelectorAll('.side-link'), function (link) {
     link.addEventListener('click', function () {
