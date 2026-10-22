@@ -12,6 +12,980 @@ const EMBEDDED_PAGES = {
   // Pages are appended below from pages/ by scripts/embed-page.js (`npm run pages`).
 };
 
+// BEGIN PAGE /stats - generated from pages/stats.html; run `npm run pages` to refresh.
+const STATS_PAGE =
+  "<!DOCTYPE html>\n" +
+  "<html lang=\"th\">\n" +
+  "<head>\n" +
+  "  <meta charset=\"UTF-8\" />\n" +
+  "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\" />\n" +
+  "  <meta name=\"robots\" content=\"noindex,nofollow\" />\n" +
+  "  <title>999MS \u00b7 Stats</title>\n" +
+  "  <meta name=\"theme-color\" content=\"#000000\" />\n" +
+  "  <link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0c14'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2338d6ff'/%3E%3C/svg%3E\" />\n" +
+  "\n" +
+  "  <!-- 1. Inter (UI) -->\n" +
+  "  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\n" +
+  "  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n" +
+  "  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" />\n" +
+  "\n" +
+  "  <!-- 2. BubbledotICG-FinePos (Display - Dot-matrix) -->\n" +
+  "  <link href=\"https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos\" rel=\"stylesheet\" />\n" +
+  "\n" +
+  "  <!-- 3. Font Awesome 6.5.2 -->\n" +
+  "  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css\" integrity=\"sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />\n" +
+  "\n" +
+  "  <style>\n" +
+  "    /* ===== Variables ===== */\n" +
+  "    :root {\n" +
+  "      --bg: #000000;\n" +
+  "      --text: #ffffff;\n" +
+  "      --muted: #8e8e93;\n" +
+  "      --pill-dark: #1a1a1a;\n" +
+  "      --nav-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);\n" +
+  "      \n" +
+  "      /* \u0e1f\u0e2d\u0e19\u0e15\u0e4c Dot-matrix \u0e17\u0e31\u0e49\u0e07\u0e2b\u0e19\u0e49\u0e32 */\n" +
+  "      --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
+  "      --font-display: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
+  "    }\n" +
+  "\n" +
+  "    *, *::before, *::after {\n" +
+  "      box-sizing: border-box;\n" +
+  "      margin: 0;\n" +
+  "      padding: 0;\n" +
+  "    }\n" +
+  "\n" +
+  "    html { scroll-behavior: smooth; }\n" +
+  "\n" +
+  "    body {\n" +
+  "      background: var(--bg);\n" +
+  "      color: var(--text);\n" +
+  "      font-family: var(--font-sans);\n" +
+  "      -webkit-font-smoothing: antialiased;\n" +
+  "      -moz-osx-font-smoothing: grayscale;\n" +
+  "      overflow-x: hidden;\n" +
+  "      letter-spacing: 0.02em;\n" +
+  "    }\n" +
+  "\n" +
+  "    a { text-decoration: none; color: inherit; }\n" +
+  "    button { font-family: inherit; border: none; background: none; cursor: pointer; }\n" +
+  "    img { display: block; max-width: 100%; }\n" +
+  "\n" +
+  "    /* ===== Background ===== */\n" +
+  "    .bg-wave {\n" +
+  "      position: fixed; inset: 0; z-index: 0;\n" +
+  "      background-color: #000; overflow: hidden;\n" +
+  "    }\n" +
+  "\n" +
+  "    .bg-wave::before {\n" +
+  "      content: \"\"; position: absolute; top: -50%; left: -50%;\n" +
+  "      width: 200%; height: 200%;\n" +
+  "      background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),\n" +
+  "                  radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);\n" +
+  "      filter: blur(80px);\n" +
+  "      animation: waveMove1 20s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .bg-wave::after {\n" +
+  "      content: \"\"; position: absolute; bottom: -50%; right: -50%;\n" +
+  "      width: 150%; height: 150%;\n" +
+  "      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);\n" +
+  "      filter: blur(100px);\n" +
+  "      animation: waveMove2 25s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .green-orb {\n" +
+  "      position: absolute; border-radius: 50%;\n" +
+  "      filter: blur(60px); z-index: 1; pointer-events: none;\n" +
+  "    }\n" +
+  "\n" +
+  "    .orb-1 {\n" +
+  "      width: 45vw; height: 45vw;\n" +
+  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, transparent 70%);\n" +
+  "      top: -15%; right: -10%;\n" +
+  "      animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .orb-2 {\n" +
+  "      width: 35vw; height: 35vw;\n" +
+  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%);\n" +
+  "      bottom: 5%; left: -5%;\n" +
+  "      animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .orb-3 {\n" +
+  "      width: 25vw; height: 25vw;\n" +
+  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
+  "      top: 40%; left: 30%;\n" +
+  "      animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .bg-wave .noise {\n" +
+  "      position: absolute; inset: 0; opacity: 0.15;\n" +
+  "      background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\");\n" +
+  "      mix-blend-mode: overlay; pointer-events: none; z-index: 2;\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes waveMove1 {\n" +
+  "      0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
+  "      50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
+  "      100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes waveMove2 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
+  "      50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
+  "      100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes orbFloat1 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }\n" +
+  "      100% { transform: translate(-15%, 20%) scale(1.3); opacity: 0.8; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes orbFloat2 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }\n" +
+  "      100% { transform: translate(20%, -15%) scale(1.4); opacity: 0.7; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes orbFloat3 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }\n" +
+  "      100% { transform: translate(-10%, -20%) scale(1.5); opacity: 0.5; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Page Layout ===== */\n" +
+  "    .page {\n" +
+  "      position: relative; z-index: 3;\n" +
+  "      display: flex; flex-direction: column; align-items: center;\n" +
+  "      min-height: 100vh; padding: 0 clamp(14px, 3vw, 32px) 80px;\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Header ===== */\n" +
+  "    .site-header {\n" +
+  "      width: 100%; max-width: 900px;\n" +
+  "      display: flex; align-items: center; justify-content: center;\n" +
+  "      position: sticky; top: 20px; z-index: 50; margin-bottom: 80px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .nav-pill {\n" +
+  "      display: flex; align-items: center; justify-content: space-between;\n" +
+  "      width: 100%; height: 64px; padding: 0 8px 0 16px;\n" +
+  "      border-radius: 999px; background: rgba(10, 10, 12, 0.4);\n" +
+  "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
+  "      border: 1px solid rgba(255, 255, 255, 0.1);\n" +
+  "      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    .brand {\n" +
+  "      flex-shrink: 0; display: grid; place-items: center;\n" +
+  "      width: 44px; height: 44px; border-radius: 50%;\n" +
+  "      background: #fff; overflow: hidden;\n" +
+  "      transition: transform 0.25s ease;\n" +
+  "      box-shadow: 0 0 15px rgba(255,255,255,0.3);\n" +
+  "    }\n" +
+  "\n" +
+  "    .brand:hover { transform: scale(1.04); }\n" +
+  "    .brand img { width: 72%; height: 72%; object-fit: contain; }\n" +
+  "\n" +
+  "    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }\n" +
+  "    .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s ease; }\n" +
+  "    .nav-link:hover, .nav-link.is-active { color: #fff; }\n" +
+  "\n" +
+  "    .sign-in {\n" +
+  "      display: inline-flex; align-items: center; justify-content: center;\n" +
+  "      height: 48px; padding: 0 24px; border-radius: 999px;\n" +
+  "      background: #fff; color: #000; font-size: 14px; font-weight: 600;\n" +
+  "      transition: transform 0.2s ease, opacity 0.2s, box-shadow 0.2s;\n" +
+  "    }\n" +
+  "\n" +
+  "    .sign-in:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,255,255,0.4); }\n" +
+  "\n" +
+  "    .burger {\n" +
+  "      display: none; flex-direction: column; align-items: center; justify-content: center;\n" +
+  "      gap: 5px; width: 48px; height: 48px; border-radius: 50%;\n" +
+  "      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);\n" +
+  "    }\n" +
+  "    .burger span {\n" +
+  "      display: block; width: 18px; height: 1.5px;\n" +
+  "      background: #fff; border-radius: 2px;\n" +
+  "      transition: transform 0.25s ease, background 0.25s ease;\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Hero Section ===== */\n" +
+  "    .hero {\n" +
+  "      width: 100%; max-width: 900px;\n" +
+  "      display: flex; flex-direction: column; align-items: center;\n" +
+  "      text-align: center; padding: 40px 0 100px;\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       HEADLINE: \u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07 \u0e44\u0e01\u0e25\u0e46 \u0e0a\u0e49\u0e32\u0e46\n" +
+  "       ========================================= */\n" +
+  "    .headline {\n" +
+  "      display: flex; align-items: center; justify-content: center;\n" +
+  "      flex-wrap: wrap; gap: 0.05em;\n" +
+  "      font-weight: 400; font-size: clamp(48px, 9vw, 110px);\n" +
+  "      letter-spacing: -0.02em; line-height: 1.1;\n" +
+  "      margin-bottom: 24px; perspective: 1000px;\n" +
+  "      min-height: 1.2em;\n" +
+  "    }\n" +
+  "\n" +
+  "    .char {\n" +
+  "      display: inline-block;\n" +
+  "      background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
+  "      -webkit-background-clip: text; background-clip: text;\n" +
+  "      color: transparent;\n" +
+  "      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));\n" +
+  "      opacity: 0; visibility: hidden; /* \u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e23\u0e2d\u0e04\u0e34\u0e27 */\n" +
+  "    }\n" +
+  "\n" +
+  "    .char.pop-in {\n" +
+  "      visibility: visible;\n" +
+  "      animation: bouncyRandomPop 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
+  "      animation-delay: var(--delay);\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes bouncyRandomPop {\n" +
+  "      0% {\n" +
+  "        opacity: 0;\n" +
+  "        transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--tr));\n" +
+  "        filter: blur(15px);\n" +
+  "      }\n" +
+  "      60% {\n" +
+  "        opacity: 1;\n" +
+  "        transform: translate(0, 0) scale(1.1) rotate(0deg);\n" +
+  "        filter: blur(0);\n" +
+  "      }\n" +
+  "      80% {\n" +
+  "        transform: translate(0, 0) scale(0.95) rotate(0deg);\n" +
+  "      }\n" +
+  "      100% {\n" +
+  "        opacity: 1;\n" +
+  "        transform: translate(0, 0) scale(1) rotate(0deg);\n" +
+  "        filter: blur(0);\n" +
+  "      }\n" +
+  "    }\n" +
+  "\n" +
+  "    .char.shimmer-ready::after {\n" +
+  "      content: attr(data-char);\n" +
+  "      position: absolute; top: 0; left: 0; width: 100%; height: 100%;\n" +
+  "      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.9) 50%, transparent 100%);\n" +
+  "      background-size: 200% 100%;\n" +
+  "      -webkit-background-clip: text; background-clip: text;\n" +
+  "      color: transparent; animation: shimmer 3s infinite linear;\n" +
+  "      z-index: 1;\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes shimmer {\n" +
+  "      0% { background-position: -200% 0; }\n" +
+  "      100% { background-position: 200% 0; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
+  "       ========================================= */\n" +
+  "    .subhead {\n" +
+  "      max-width: 650px; font-size: clamp(16px, 2vw, 18px);\n" +
+  "      line-height: 1.6; color: #ccc; margin-bottom: 40px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .cta-group {\n" +
+  "      display: flex; justify-content: center;\n" +
+  "      width: 100%; max-width: 500px; margin-bottom: 32px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .cta-primary {\n" +
+  "      display: flex; align-items: center; justify-content: center;\n" +
+  "      /* \u0e1b\u0e23\u0e31\u0e1a\u0e43\u0e2b\u0e49\u0e01\u0e27\u0e49\u0e32\u0e07\u0e02\u0e36\u0e49\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e14\u0e39\u0e2a\u0e21\u0e14\u0e38\u0e25\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e21\u0e35\u0e1b\u0e38\u0e48\u0e21 Discord */\n" +
+  "      width: 100%; max-width: 280px; padding: 16px 24px;\n" +
+  "      border-radius: 999px; background: #fff; color: #000;\n" +
+  "      font-size: 15px; font-weight: 600;\n" +
+  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.2);\n" +
+  "      transition: transform 0.25s ease, box-shadow 0.25s ease;\n" +
+  "    }\n" +
+  "\n" +
+  "    .cta-primary:hover {\n" +
+  "      transform: translateY(-2px) scale(1.01);\n" +
+  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       Live Status\n" +
+  "       ========================================= */\n" +
+  "    .live-status {\n" +
+  "      display: flex; align-items: center; gap: 10px;\n" +
+  "      font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: #22c55e;\n" +
+  "      text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    .status-dot {\n" +
+  "      position: relative; width: 10px; height: 10px;\n" +
+  "      background: #22c55e; border-radius: 50%;\n" +
+  "      box-shadow: 0 0 10px #22c55e;\n" +
+  "    }\n" +
+  "\n" +
+  "    .status-dot::after {\n" +
+  "      content: \"\"; position: absolute; top: 50%; left: 50%;\n" +
+  "      width: 100%; height: 100%; background: #22c55e;\n" +
+  "      border-radius: 50%; transform: translate(-50%, -50%);\n" +
+  "      animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;\n" +
+  "      z-index: -1;\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes pulseRing {\n" +
+  "      0% { width: 100%; height: 100%; opacity: 0.8; }\n" +
+  "      100% { width: 300%; height: 300%; opacity: 0; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Stats Section ===== */\n" +
+  "    .stats-section {\n" +
+  "      width: 100%; max-width: 1000px; padding: 60px 20px;\n" +
+  "      margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1);\n" +
+  "    }\n" +
+  "\n" +
+  "    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }\n" +
+  "\n" +
+  "    .stat {\n" +
+  "      display: flex; flex-direction: column; align-items: center;\n" +
+  "      text-align: center; gap: 6px;\n" +
+  "      background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1);\n" +
+  "      padding: 24px 16px; border-radius: 16px;\n" +
+  "      backdrop-filter: blur(10px); transition: background 0.3s, border-color 0.3s;\n" +
+  "    }\n" +
+  "\n" +
+  "    .stat:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); }\n" +
+  "\n" +
+  "    .stat-icon {\n" +
+  "      font-size: clamp(22px, 3vw, 33px); color: #fff; line-height: 1;\n" +
+  "      text-shadow: 0 0 10px rgba(255,255,255,0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    .stat-value {\n" +
+  "      font-size: clamp(18px, 2.2vw, 26px); font-weight: 500; color: #fff;\n" +
+  "      font-variant-numeric: tabular-nums;\n" +
+  "    }\n" +
+  "\n" +
+  "    .stat-label { font-size: 12px; color: #aaa; }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       Elements \u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b: \u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\u0e2b\u0e21\u0e14!\n" +
+  "       ========================================= */\n" +
+  "    .pop-element {\n" +
+  "      opacity: 0;\n" +
+  "      visibility: hidden;\n" +
+  "      transform: translate(var(--tx), var(--ty)) scale(0.5) rotate(var(--tr));\n" +
+  "      filter: blur(10px);\n" +
+  "    }\n" +
+  "\n" +
+  "    .pop-element.pop-in {\n" +
+  "      visibility: visible;\n" +
+  "      animation: bouncyRandomPop 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
+  "      animation-delay: var(--delay);\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Mobile Responsive ===== */\n" +
+  "    @media (max-width: 900px) {\n" +
+  "      .nav-pill { display: none; }\n" +
+  "      .burger { display: flex; }\n" +
+  "      .site-header { justify-content: space-between; padding: 0 10px; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @media (max-width: 720px) {\n" +
+  "      .stats { grid-template-columns: repeat(2, 1fr); }\n" +
+  "    }\n" +
+  "  \n" +
+  "    /* =========================================\n" +
+  "       STATS \u2014 dashboard skin on the HUB theme\n" +
+  "       ========================================= */\n" +
+  "    :root {\n" +
+  "      --mint: #22c55e;\n" +
+  "      --danger: #ff6b81;\n" +
+  "      --amber: #ffc65c;\n" +
+  "      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace;\n" +
+  "      --line: rgba(255, 255, 255, 0.1);\n" +
+  "      --line-2: rgba(255, 255, 255, 0.18);\n" +
+  "      --panel: rgba(0, 0, 0, 0.4);\n" +
+  "      --shell: 1180px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .mono { font-family: var(--mono); }\n" +
+  "    .hide { display: none; }\n" +
+  "\n" +
+  "    .page { padding-bottom: 80px; }\n" +
+  "\n" +
+  "    /* shell: sidebar + content */\n" +
+  "    .shell {\n" +
+  "      position: relative; z-index: 3; display: flex; gap: 20px;\n" +
+  "      width: 100%; max-width: var(--shell); align-items: flex-start;\n" +
+  "    }\n" +
+  "    .sidebar {\n" +
+  "      width: 240px; flex-shrink: 0; position: sticky; top: 20px;\n" +
+  "      display: flex; flex-direction: column; gap: 16px; padding: 20px;\n" +
+  "      border-radius: 20px; background: rgba(10, 10, 12, 0.45);\n" +
+  "      border: 1px solid var(--line);\n" +
+  "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
+  "      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);\n" +
+  "    }\n" +
+  "    .side-brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }\n" +
+  "    .side-brand .mark {\n" +
+  "      width: 38px; height: 38px; border-radius: 50%; background: #fff;\n" +
+  "      display: grid; place-items: center; flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);\n" +
+  "    }\n" +
+  "    .side-brand small { display: block; font-size: 10px; font-weight: 500; color: var(--muted); letter-spacing: 0.08em; }\n" +
+  "    .side-nav { display: flex; flex-direction: column; gap: 4px; }\n" +
+  "    .side-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6b70; padding: 0 12px; }\n" +
+  "    .side-link {\n" +
+  "      display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px;\n" +
+  "      color: var(--muted); font-size: 13px; transition: background 0.2s ease, color 0.2s ease;\n" +
+  "    }\n" +
+  "    .side-link:hover { background: rgba(255, 255, 255, 0.07); color: #fff; }\n" +
+  "    .side-link.is-active { background: rgba(255, 255, 255, 0.11); color: #fff; }\n" +
+  "    .side-link i { width: 14px; text-align: center; font-size: 12px; }\n" +
+  "    .side-sep { height: 1px; background: var(--line); margin: 4px 0; }\n" +
+  "    .side-foot { margin-top: 8px; display: flex; flex-direction: column; gap: 8px; }\n" +
+  "\n" +
+  "    .content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 20px; }\n" +
+  "\n" +
+  "    /* page head */\n" +
+  "    .head-row { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }\n" +
+  "    .head-row h2 { font-size: clamp(28px, 4vw, 40px); font-weight: 600; margin: 0; letter-spacing: -0.01em;\n" +
+  "      background: linear-gradient(180deg, #fff 20%, #a0a0a0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }\n" +
+  "    .head-row p { margin: 6px 0 0; color: var(--muted); font-size: 0.86rem; }\n" +
+  "    .head-row .spacer { margin-left: auto; }\n" +
+  "\n" +
+  "    /* cards */\n" +
+  "    .card {\n" +
+  "      background: var(--panel); border: 1px solid var(--line); border-radius: 18px; overflow: hidden;\n" +
+  "      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n" +
+  "    }\n" +
+  "    .card-h { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--line); }\n" +
+  "    .card-h h3 { font-size: 0.95rem; font-weight: 600; margin: 0; }\n" +
+  "    .card-h .spacer { margin-left: auto; }\n" +
+  "    .card-b { padding: 18px 20px; }\n" +
+  "    .card-sub { font-size: 0.76rem; color: var(--muted); }\n" +
+  "\n" +
+  "    /* stat cards (LuaSync style: label above, big value below) */\n" +
+  "    .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }\n" +
+  "    .tile {\n" +
+  "      background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px;\n" +
+  "      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n" +
+  "      transition: border-color 0.3s ease, background 0.3s ease;\n" +
+  "    }\n" +
+  "    .tile:hover { border-color: rgba(255, 255, 255, 0.22); }\n" +
+  "    .tile .k { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }\n" +
+  "    .tile .v { font-size: clamp(30px, 4vw, 44px); font-weight: 600; line-height: 1.1; margin-top: 10px; font-variant-numeric: tabular-nums; }\n" +
+  "    .tile .v small { font-size: 0.42em; color: var(--muted); font-weight: 500; margin-left: 4px; }\n" +
+  "    .tile .s { font-size: 0.74rem; color: var(--muted); margin-top: 4px; }\n" +
+  "    .tile .bar { margin-top: 12px; height: 3px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }\n" +
+  "    .tile .bar i { display: block; height: 100%; border-radius: 999px; background: #fff; box-shadow: 0 0 12px rgba(255, 255, 255, 0.6); }\n" +
+  "\n" +
+  "    /* monthly chart */\n" +
+  "    .chart-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }\n" +
+  "    .chart-head .big { font-size: clamp(34px, 5vw, 52px); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; }\n" +
+  "    .chart-head .cap { font-size: 0.78rem; color: var(--muted); }\n" +
+  "    .chart { display: flex; align-items: stretch; gap: 10px; height: 230px; margin-top: 22px; }\n" +
+  "    .col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; min-width: 0; }\n" +
+  "    .col .track { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; }\n" +
+  "    .col .bar {\n" +
+  "      width: 100%; max-width: 46px; border-radius: 8px 8px 3px 3px; min-height: 3px;\n" +
+  "      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.25));\n" +
+  "      box-shadow: 0 0 18px rgba(255, 255, 255, 0.12); transition: height 0.5s ease, filter 0.2s ease;\n" +
+  "    }\n" +
+  "    .col:hover .bar { filter: brightness(1.35); }\n" +
+  "    .col.now .bar { background: linear-gradient(180deg, #4ade80, rgba(34, 197, 94, 0.3)); box-shadow: 0 0 20px rgba(34, 197, 94, 0.35); }\n" +
+  "    .col .n { font-size: 0.72rem; color: #d7d7db; font-variant-numeric: tabular-nums; }\n" +
+  "    .col .m { font-size: 0.68rem; color: var(--muted); white-space: nowrap; }\n" +
+  "    .chart-empty { padding: 40px 0; text-align: center; color: var(--muted); font-size: 0.86rem; }\n" +
+  "\n" +
+  "    /* table */\n" +
+  "    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }\n" +
+  "    th {\n" +
+  "      text-align: left; font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase;\n" +
+  "      color: var(--muted); font-weight: 600; padding: 10px 12px; border-bottom: 1px solid var(--line);\n" +
+  "    }\n" +
+  "    td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); vertical-align: middle; color: #d7d7db; }\n" +
+  "    tr:last-child td { border-bottom: 0; }\n" +
+  "    tbody tr:hover { background: rgba(255, 255, 255, 0.03); }\n" +
+  "    .ident { display: flex; flex-direction: column; gap: 2px; }\n" +
+  "    .ident b { font-weight: 600; font-size: 0.84rem; }\n" +
+  "    .ident span { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); }\n" +
+  "    .empty { padding: 36px 18px; text-align: center; color: var(--muted); font-size: 0.86rem; }\n" +
+  "\n" +
+  "    /* buttons / pills / gate */\n" +
+  "    .btn {\n" +
+  "      display: inline-flex; align-items: center; justify-content: center; gap: 8px;\n" +
+  "      padding: 9px 16px; border-radius: 999px;\n" +
+  "      border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.06); color: #fff;\n" +
+  "      font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;\n" +
+  "      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;\n" +
+  "      white-space: nowrap;\n" +
+  "    }\n" +
+  "    .btn:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.4); }\n" +
+  "    .btn:disabled { opacity: 0.45; cursor: not-allowed; }\n" +
+  "    .btn-primary { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 20px rgba(255, 255, 255, 0.18); }\n" +
+  "    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 32px rgba(255, 255, 255, 0.42); }\n" +
+  "    .btn-sm { padding: 6px 12px; font-size: 0.76rem; width: 100%; }\n" +
+  "    .btn-ghost { background: transparent; }\n" +
+  "    .rotate { animation: spin 1s linear infinite; }\n" +
+  "    @keyframes spin { to { transform: rotate(360deg); } }\n" +
+  "\n" +
+  "    .pill {\n" +
+  "      display: inline-flex; align-items: center; gap: 6px; font-size: 0.7rem; color: var(--muted);\n" +
+  "      border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; background: rgba(255, 255, 255, 0.04);\n" +
+  "      white-space: nowrap;\n" +
+  "    }\n" +
+  "    .tag {\n" +
+  "      display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 600;\n" +
+  "      padding: 3px 10px; border-radius: 999px; border: 1px solid rgba(34, 197, 94, 0.3);\n" +
+  "      background: rgba(34, 197, 94, 0.1); color: #86efac; white-space: nowrap;\n" +
+  "    }\n" +
+  "    .tag.warn { border-color: rgba(255, 198, 92, 0.35); background: rgba(255, 198, 92, 0.1); color: #ffd899; }\n" +
+  "    .tag.bad { border-color: rgba(255, 107, 129, 0.35); background: rgba(255, 107, 129, 0.12); color: #ffb3bf; }\n" +
+  "    .tag.mute { border-color: var(--line); background: rgba(255, 255, 255, 0.04); color: var(--muted); }\n" +
+  "\n" +
+  "    .notice {\n" +
+  "      border: 1px solid rgba(255, 198, 92, 0.35); background: rgba(255, 198, 92, 0.08);\n" +
+  "      color: #ffd899; border-radius: 14px; padding: 12px 16px; font-size: 0.82rem;\n" +
+  "    }\n" +
+  "\n" +
+  "    #gate {\n" +
+  "      position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;\n" +
+  "      background: rgba(0, 0, 0, 0.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px;\n" +
+  "    }\n" +
+  "    #gate.hide { display: none; }\n" +
+  "    .gate-card {\n" +
+  "      width: min(420px, 100%); border: 1px solid var(--line-2); border-radius: 20px; padding: 30px;\n" +
+  "      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));\n" +
+  "      box-shadow: 0 40px 90px -40px #000; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
+  "    }\n" +
+  "    .gate-card h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 8px; }\n" +
+  "    .gate-card p { color: var(--muted); font-size: 0.86rem; margin: 0 0 22px; line-height: 1.6; }\n" +
+  "    .gate-card .btn { width: 100%; margin-top: 14px; padding: 12px; }\n" +
+  "    .err { color: #ffb3bf; font-size: 0.82rem; min-height: 20px; margin-top: 10px; }\n" +
+  "    .brand-r { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 700; }\n" +
+  "    .mark { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: #fff; flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); }\n" +
+  "    label { display: block; font-size: 0.74rem; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }\n" +
+  "    input {\n" +
+  "      width: 100%; font-family: inherit; font-size: 0.85rem; color: #fff;\n" +
+  "      background: rgba(0, 0, 0, 0.45); border: 1px solid var(--line-2); border-radius: 12px;\n" +
+  "      padding: 10px 13px; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease;\n" +
+  "    }\n" +
+  "    input:focus { border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06); }\n" +
+  "    input::placeholder { color: #5d6580; }\n" +
+  "\n" +
+  "    @media (max-width: 1000px) {\n" +
+  "      .shell { flex-direction: column; }\n" +
+  "      .sidebar { width: 100%; position: static; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 10px; }\n" +
+  "      .side-nav { flex-direction: row; flex-wrap: wrap; }\n" +
+  "      .side-label { display: none; }\n" +
+  "      .side-foot { margin-left: auto; flex-direction: row; }\n" +
+  "      .tiles { grid-template-columns: repeat(2, 1fr); }\n" +
+  "    }\n" +
+  "    @media (max-width: 640px) {\n" +
+  "      .tiles { grid-template-columns: 1fr; }\n" +
+  "      .chart { gap: 4px; height: 170px; }\n" +
+  "      .col .m { font-size: 0.6rem; }\n" +
+  "    }\n" +
+  "    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }\n" +
+  "  </style>\n" +
+  "</head>\n" +
+  "<body>\n" +
+  "  <!-- Background -->\n" +
+  "  <div class=\"bg-wave\">\n" +
+  "    <div class=\"green-orb orb-1\"></div>\n" +
+  "    <div class=\"green-orb orb-2\"></div>\n" +
+  "    <div class=\"green-orb orb-3\"></div>\n" +
+  "    <div class=\"noise\"></div>\n" +
+  "  </div>\n" +
+  "\n" +
+  "  <!-- \u2500\u2500 login gate \u2500\u2500 -->\n" +
+  "  <div id=\"gate\">\n" +
+  "    <form class=\"gate-card\" id=\"gateForm\" autocomplete=\"off\">\n" +
+  "      <div class=\"brand-r\">\n" +
+  "        <span class=\"mark\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\"><path d=\"M5 19c3.6-6.2 6.2-9.6 9-14M8 5h9v3.4h-4.2L18 19h-3.6l-2.2-4.6L8.6 19H5l4.6-7.2H6.4z\" fill=\"#000\"/></svg></span>\n" +
+  "        <span>999MS \u00b7 Stats</span>\n" +
+  "      </div>\n" +
+  "      <h1>\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19</h1>\n" +
+  "      <p>\u0e43\u0e0a\u0e49 <span class=\"mono\">ADMIN_TOKEN</span> \u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e1a\u0e2b\u0e19\u0e49\u0e32 Control \u2014 \u0e23\u0e30\u0e1a\u0e1a\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e43\u0e19\u0e41\u0e17\u0e47\u0e1a\u0e19\u0e35\u0e49\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 (\u0e44\u0e21\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e25\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07)</p>\n" +
+  "      <label for=\"token\">Admin token</label>\n" +
+  "      <input id=\"token\" type=\"password\" placeholder=\"\u0e27\u0e32\u0e07 token \u0e17\u0e35\u0e48\u0e19\u0e35\u0e48\" spellcheck=\"false\" />\n" +
+  "      <button class=\"btn btn-primary\" id=\"loginBtn\" type=\"submit\">\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a</button>\n" +
+  "      <div class=\"err\" id=\"gateErr\"></div>\n" +
+  "    </form>\n" +
+  "  </div>\n" +
+  "\n" +
+  "  <div class=\"page\">\n" +
+  "    <div class=\"shell\">\n" +
+  "      <!-- \u2500\u2500 sidebar \u2500\u2500 -->\n" +
+  "      <aside class=\"sidebar pop-element\">\n" +
+  "        <div class=\"side-brand\">\n" +
+  "          <span class=\"mark\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\"><path d=\"M5 19c3.6-6.2 6.2-9.6 9-14M8 5h9v3.4h-4.2L18 19h-3.6l-2.2-4.6L8.6 19H5l4.6-7.2H6.4z\" fill=\"#000\"/></svg></span>\n" +
+  "          <span>999MS<small>OFFICIAL SERVICE</small></span>\n" +
+  "        </div>\n" +
+  "\n" +
+  "        <div class=\"side-sep\"></div>\n" +
+  "\n" +
+  "        <nav class=\"side-nav\">\n" +
+  "          <div class=\"side-label\">Overview</div>\n" +
+  "          <a class=\"side-link is-active\" href=\"#overview\"><i class=\"fa-solid fa-gauge-high\"></i> \u0e20\u0e32\u0e1e\u0e23\u0e27\u0e21</a>\n" +
+  "          <a class=\"side-link\" href=\"#monthly\"><i class=\"fa-solid fa-chart-column\"></i> \u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e23\u0e32\u0e22\u0e40\u0e14\u0e37\u0e2d\u0e19</a>\n" +
+  "          <a class=\"side-link\" href=\"#recent\"><i class=\"fa-solid fa-list\"></i> \u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</a>\n" +
+  "        </nav>\n" +
+  "\n" +
+  "        <div class=\"side-sep\"></div>\n" +
+  "\n" +
+  "        <nav class=\"side-nav\">\n" +
+  "          <div class=\"side-label\">Console</div>\n" +
+  "          <a class=\"side-link\" href=\"/control\"><i class=\"fa-solid fa-sliders\"></i> \u0e2b\u0e19\u0e49\u0e32 Control</a>\n" +
+  "          <a class=\"side-link\" href=\"/\"><i class=\"fa-solid fa-house\"></i> \u0e2b\u0e19\u0e49\u0e32\u0e41\u0e23\u0e01</a>\n" +
+  "        </nav>\n" +
+  "\n" +
+  "        <div class=\"side-foot\">\n" +
+  "          <span class=\"pill\"><span id=\"sideStatus\">\u0e23\u0e2d\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25</span></span>\n" +
+  "          <button class=\"btn btn-sm btn-ghost\" id=\"logoutBtn\" type=\"button\">\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01\u0e23\u0e30\u0e1a\u0e1a</button>\n" +
+  "        </div>\n" +
+  "      </aside>\n" +
+  "\n" +
+  "      <!-- \u2500\u2500 content \u2500\u2500 -->\n" +
+  "      <main class=\"content\">\n" +
+  "        <div class=\"head-row pop-element\" id=\"overview\">\n" +
+  "          <div>\n" +
+  "            <h2>Overview</h2>\n" +
+  "            <p>\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e08\u0e32\u0e01 Supabase \u2014 \u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e17\u0e38\u0e01 heartbeat \u0e02\u0e2d\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</p>\n" +
+  "          </div>\n" +
+  "          <span class=\"spacer\"></span>\n" +
+  "          <span class=\"pill mono\" id=\"updated\">\u2014</span>\n" +
+  "          <button class=\"btn\" id=\"refreshBtn\" type=\"button\">\n" +
+  "            <svg id=\"refreshIcon\" width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M21 12a9 9 0 1 1-2.6-6.4\"/><path d=\"M21 3v6h-6\"/></svg>\n" +
+  "            \u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\n" +
+  "          </button>\n" +
+  "        </div>\n" +
+  "\n" +
+  "        <div id=\"noticeHost\"></div>\n" +
+  "\n" +
+  "        <section class=\"tiles pop-element\">\n" +
+  "          <div class=\"tile\">\n" +
+  "            <div class=\"k\"><i class=\"fa-solid fa-play\"></i> Execution</div>\n" +
+  "            <div class=\"v\" id=\"statRuns\">0</div>\n" +
+  "            <div class=\"s\" id=\"statRunsSub\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14</div>\n" +
+  "            <div class=\"bar\"><i id=\"statRunsBar\" style=\"width:0%\"></i></div>\n" +
+  "          </div>\n" +
+  "          <div class=\"tile\">\n" +
+  "            <div class=\"k\"><i class=\"fa-solid fa-key\"></i> Keys</div>\n" +
+  "            <div class=\"v\" id=\"statLinks\">0</div>\n" +
+  "            <div class=\"s\" id=\"statLinksSub\">\u0e25\u0e34\u0e07\u0e01\u0e4c\u0e17\u0e35\u0e48\u0e2d\u0e2d\u0e01\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14</div>\n" +
+  "            <div class=\"bar\"><i id=\"statLinksBar\" style=\"width:0%\"></i></div>\n" +
+  "          </div>\n" +
+  "          <div class=\"tile\">\n" +
+  "            <div class=\"k\"><i class=\"fa-solid fa-code\"></i> Scripts</div>\n" +
+  "            <div class=\"v\" id=\"statScripts\">0</div>\n" +
+  "            <div class=\"s\" id=\"statScriptsSub\">\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e40\u0e04\u0e22\u0e23\u0e31\u0e19</div>\n" +
+  "          </div>\n" +
+  "          <div class=\"tile\">\n" +
+  "            <div class=\"k\"><i class=\"fa-solid fa-computer\"></i> Machines</div>\n" +
+  "            <div class=\"v\" id=\"statMachines\">0</div>\n" +
+  "            <div class=\"s\" id=\"statMachinesSub\">\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e0b\u0e49\u0e33\u0e01\u0e31\u0e19</div>\n" +
+  "          </div>\n" +
+  "        </section>\n" +
+  "\n" +
+  "        <section class=\"card pop-element\" id=\"monthly\">\n" +
+  "          <div class=\"card-h\">\n" +
+  "            <h3>Execution</h3>\n" +
+  "            <span class=\"card-sub\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e15\u0e48\u0e2d\u0e40\u0e14\u0e37\u0e2d\u0e19 (12 \u0e40\u0e14\u0e37\u0e2d\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14)</span>\n" +
+  "            <span class=\"spacer\"></span>\n" +
+  "            <span class=\"pill mono\" id=\"monthlyRange\">\u2014</span>\n" +
+  "          </div>\n" +
+  "          <div class=\"card-b\">\n" +
+  "            <div class=\"chart-head\">\n" +
+  "              <span class=\"big\" id=\"monthlyBig\">0</span>\n" +
+  "              <span class=\"cap\">\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e40\u0e14\u0e37\u0e2d\u0e19\u0e19\u0e35\u0e49 \u00b7 <span id=\"monthlyUniques\">0</span> \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49/\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e44\u0e21\u0e48\u0e0b\u0e49\u0e33</span>\n" +
+  "            </div>\n" +
+  "            <div class=\"chart\" id=\"chart\"></div>\n" +
+  "          </div>\n" +
+  "        </section>\n" +
+  "\n" +
+  "        <section class=\"card pop-element\" id=\"recent\">\n" +
+  "          <div class=\"card-h\">\n" +
+  "            <h3>\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</h3>\n" +
+  "            <span class=\"card-sub\">100 \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span>\n" +
+  "            <span class=\"spacer\"></span>\n" +
+  "            <span class=\"pill\" id=\"recentCount\">0</span>\n" +
+  "          </div>\n" +
+  "          <div id=\"recentHost\"><div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25</div></div>\n" +
+  "        </section>\n" +
+  "      </main>\n" +
+  "    </div>\n" +
+  "  </div>\n" +
+  "\n" +
+  "  <script>\n" +
+  "    /* HUB theme motion (same reveal as the HUB / Control pages) */\n" +
+  "    (function () {\n" +
+  "      \"use strict\";\n" +
+  "      function far() {\n" +
+  "        return {\n" +
+  "          tx: ((Math.random() - 0.5) * 420) + \"px\",\n" +
+  "          ty: ((Math.random() - 0.5) * 420) + \"px\",\n" +
+  "          tr: ((Math.random() - 0.5) * 140) + \"deg\"\n" +
+  "        };\n" +
+  "      }\n" +
+  "      try {\n" +
+  "        var pops = Array.prototype.slice.call(document.querySelectorAll(\".pop-element\"));\n" +
+  "        pops.forEach(function (el, index) {\n" +
+  "          var d = far();\n" +
+  "          el.style.setProperty(\"--tx\", d.tx);\n" +
+  "          el.style.setProperty(\"--ty\", d.ty);\n" +
+  "          el.style.setProperty(\"--tr\", d.tr);\n" +
+  "          el.style.setProperty(\"--delay\", (0.1 + index * 0.12) + \"s\");\n" +
+  "        });\n" +
+  "        setTimeout(function () {\n" +
+  "          pops.forEach(function (el) { el.classList.add(\"pop-in\"); });\n" +
+  "        }, 50);\n" +
+  "      } catch (err) {\n" +
+  "        Array.prototype.forEach.call(document.querySelectorAll(\".pop-element\"), function (el) {\n" +
+  "          el.classList.remove(\"pop-element\");\n" +
+  "          el.style.opacity = \"1\"; el.style.visibility = \"visible\";\n" +
+  "          el.style.transform = \"none\"; el.style.filter = \"none\";\n" +
+  "        });\n" +
+  "      }\n" +
+  "    })();\n" +
+  "  </script>\n" +
+  "\n" +
+  "  <script>\n" +
+  "(function () {\n" +
+  "  'use strict';\n" +
+  "  var KEY = 'ms999_admin_token';\n" +
+  "  var state = { token: sessionStorage.getItem(KEY) || '', timer: null, busy: false };\n" +
+  "\n" +
+  "  var $ = function (id) { return document.getElementById(id); };\n" +
+  "  var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');\n" +
+  "  var THAI_MONTHS = ['\u0e21.\u0e04.', '\u0e01.\u0e1e.', '\u0e21\u0e35.\u0e04.', '\u0e40\u0e21.\u0e22.', '\u0e1e.\u0e04.', '\u0e21\u0e34.\u0e22.', '\u0e01.\u0e04.', '\u0e2a.\u0e04.', '\u0e01.\u0e22.', '\u0e15.\u0e04.', '\u0e1e.\u0e22.', '\u0e18.\u0e04.'];\n" +
+  "\n" +
+  "  function num(v) { var n = Number(v); return Number.isFinite(n) ? n : 0; }\n" +
+  "  function esc(v) {\n" +
+  "    return String(v == null ? '' : v).replace(/[&<>\"']/g, function (ch) {\n" +
+  "      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', \"'\": '&#39;' }[ch];\n" +
+  "    });\n" +
+  "  }\n" +
+  "  function monthLabel(value) {\n" +
+  "    var parts = String(value || '').split('-');\n" +
+  "    var index = parseInt(parts[1], 10);\n" +
+  "    if (!(index >= 1 && index <= 12)) return String(value || '-');\n" +
+  "    return THAI_MONTHS[index - 1] + ' ' + String(parts[0] || '').slice(2);\n" +
+  "  }\n" +
+  "  function timeTh(value) {\n" +
+  "    if (!value) return '\u2014';\n" +
+  "    var d = new Date(value);\n" +
+  "    if (isNaN(d.getTime())) return '\u2014';\n" +
+  "    return d.toLocaleDateString('th-TH', { day: '2-digit', month: 'short' }) + ' ' +\n" +
+  "      d.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });\n" +
+  "  }\n" +
+  "  function ago(value) {\n" +
+  "    if (!value) return '\u2014';\n" +
+  "    var s = Math.max(0, Math.floor((Date.now() - new Date(value).getTime()) / 1000));\n" +
+  "    if (s < 60) return s + ' \u0e27\u0e34\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
+  "    var m = Math.floor(s / 60);\n" +
+  "    if (m < 60) return m + ' \u0e19\u0e32\u0e17\u0e35\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
+  "    var h = Math.floor(m / 60);\n" +
+  "    if (h < 24) return h + ' \u0e0a\u0e21.\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
+  "    return Math.floor(h / 24) + ' \u0e27\u0e31\u0e19\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
+  "  }\n" +
+  "  function dur(sec) {\n" +
+  "    var s = Math.max(0, num(sec));\n" +
+  "    if (s < 60) return s + ' \u0e27\u0e34';\n" +
+  "    var m = Math.floor(s / 60);\n" +
+  "    if (m < 60) return m + ' \u0e19\u0e32\u0e17\u0e35';\n" +
+  "    var h = Math.floor(m / 60);\n" +
+  "    if (h < 24) return h + ' \u0e0a\u0e21. ' + (m % 60) + ' \u0e19.';\n" +
+  "    return Math.floor(h / 24) + ' \u0e27\u0e31\u0e19 ' + (h % 24) + ' \u0e0a\u0e21.';\n" +
+  "  }\n" +
+  "\n" +
+  "  function api(path, body) {\n" +
+  "    return fetch(path, {\n" +
+  "      method: 'POST',\n" +
+  "      headers: { 'content-type': 'application/json', 'x-admin-token': state.token },\n" +
+  "      body: JSON.stringify(body || {}),\n" +
+  "      cache: 'no-store',\n" +
+  "    }).then(function (res) {\n" +
+  "      return res.json().catch(function () { return {}; }).then(function (data) {\n" +
+  "        return { status: res.status, data: data };\n" +
+  "      });\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  function notice(message) {\n" +
+  "    $('noticeHost').innerHTML = message\n" +
+  "      ? '<div class=\"notice\">' + esc(message) + '</div>'\n" +
+  "      : '';\n" +
+  "  }\n" +
+  "\n" +
+  "  function renderTotals(t) {\n" +
+  "    var runs = num(t.total_runs), month = num(t.runs_month), today = num(t.runs_today);\n" +
+  "    var links = num(t.total_links), active = num(t.active_links);\n" +
+  "\n" +
+  "    $('statRuns').textContent = String(runs);\n" +
+  "    $('statRunsSub').textContent = '\u0e27\u0e31\u0e19\u0e19\u0e35\u0e49 ' + today + ' \u00b7 \u0e40\u0e14\u0e37\u0e2d\u0e19\u0e19\u0e35\u0e49 ' + month + ' \u00b7 ' + (t.last_run_at ? ago(t.last_run_at) : '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19');\n" +
+  "    $('statRunsBar').style.width = (runs ? Math.min(100, Math.round((month / runs) * 100)) : 0) + '%';\n" +
+  "\n" +
+  "    $('statLinks').textContent = String(links);\n" +
+  "    $('statLinksSub').textContent = '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49 ' + active + ' \u00b7 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38 ' + Math.max(0, links - active);\n" +
+  "    $('statLinksBar').style.width = (links ? Math.min(100, Math.round((active / links) * 100)) : 0) + '%';\n" +
+  "\n" +
+  "    $('statScripts').textContent = String(num(t.unique_scripts));\n" +
+  "    $('statScriptsSub').textContent = '\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e40\u0e04\u0e22\u0e23\u0e31\u0e19';\n" +
+  "\n" +
+  "    $('statMachines').textContent = String(num(t.unique_machines));\n" +
+  "    $('statMachinesSub').textContent = 'HWID \u0e44\u0e21\u0e48\u0e0b\u0e49\u0e33 \u00b7 \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49 ' + num(t.unique_users) + ' \u0e04\u0e19';\n" +
+  "  }\n" +
+  "\n" +
+  "  function renderMonthly(list, totals) {\n" +
+  "    var now = new Date();\n" +
+  "    var current = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');\n" +
+  "    $('monthlyBig').textContent = String(num(totals.runs_month));\n" +
+  "    $('monthlyUniques').textContent = String(num(totals.unique_machines));\n" +
+  "\n" +
+  "    if (!list.length) {\n" +
+  "      $('chart').innerHTML = '<div class=\"chart-empty\" style=\"width:100%\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19 \u2014 \u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2a\u0e48\u0e07 heartbeat \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a</div>';\n" +
+  "      $('monthlyRange').textContent = '\u2014';\n" +
+  "      return;\n" +
+  "    }\n" +
+  "\n" +
+  "    var max = 0;\n" +
+  "    list.forEach(function (row) { max = Math.max(max, num(row.runs)); });\n" +
+  "    $('monthlyRange').textContent = monthLabel(list[0].month) + ' \u2014 ' + monthLabel(list[list.length - 1].month);\n" +
+  "\n" +
+  "    $('chart').innerHTML = list.map(function (row) {\n" +
+  "      var value = num(row.runs);\n" +
+  "      var height = max ? Math.max(3, Math.round((value / max) * 100)) : 3;\n" +
+  "      return '<div class=\"col' + (row.month === current ? ' now' : '') + '\" title=\"' +\n" +
+  "        esc(monthLabel(row.month)) + ': ' + value + ' \u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\">' +\n" +
+  "        '<span class=\"n\">' + value + '</span>' +\n" +
+  "        '<span class=\"track\"><span class=\"bar\" style=\"height:' + height + '%\"></span></span>' +\n" +
+  "        '<span class=\"m\">' + esc(monthLabel(row.month)) + '</span>' +\n" +
+  "        '</div>';\n" +
+  "    }).join('');\n" +
+  "  }\n" +
+  "\n" +
+  "  function renderRecent(list) {\n" +
+  "    var host = $('recentHost');\n" +
+  "    $('recentCount').textContent = String(list.length);\n" +
+  "    if (!list.length) {\n" +
+  "      host.innerHTML = '<div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25</div>';\n" +
+  "      return;\n" +
+  "    }\n" +
+  "    var rows = list.map(function (r) {\n" +
+  "      var who = r.display_name || r.username || '\u0e44\u0e21\u0e48\u0e23\u0e30\u0e1a\u0e38\u0e0a\u0e37\u0e48\u0e2d';\n" +
+  "      var sub = r.user_id ? 'id ' + r.user_id : (r.hwid_hash ? 'hwid ' + String(r.hwid_hash).slice(0, 12) : '\u2014');\n" +
+  "      var state = r.status === 'kicked' ? '<span class=\"tag bad\">\u0e40\u0e15\u0e30</span>'\n" +
+  "        : r.status === 'banned' ? '<span class=\"tag bad\">\u0e41\u0e1a\u0e19</span>'\n" +
+  "        : r.status === 'expired' ? '<span class=\"tag mute\">\u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38</span>'\n" +
+  "        : r.online ? '<span class=\"tag\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e23\u0e31\u0e19</span>'\n" +
+  "        : '<span class=\"tag warn\">\u0e44\u0e21\u0e48\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07</span>';\n" +
+  "      return '<tr>' +\n" +
+  "        '<td class=\"mono\" style=\"font-size:.74rem;white-space:nowrap\">' + esc(timeTh(r.started_at)) + '</td>' +\n" +
+  "        '<td><div class=\"ident\"><b>' + esc(who) + '</b><span>' + esc(sub) + '</span></div></td>' +\n" +
+  "        '<td class=\"mono\" style=\"font-size:.76rem\">' + esc(r.script_name || '-') + '</td>' +\n" +
+  "        '<td class=\"mono\" style=\"font-size:.74rem\">' + esc(r.executor || '-') + '</td>' +\n" +
+  "        '<td class=\"mono\" style=\"font-size:.74rem\">' + esc(dur(r.duration_seconds)) + '</td>' +\n" +
+  "        '<td class=\"mono\" style=\"font-size:.74rem\">' + esc(num(r.beats)) + ' \u0e04\u0e23\u0e31\u0e49\u0e07 \u00b7 ' + esc(ago(r.last_beat_at)) + '</td>' +\n" +
+  "        '<td>' + state + '</td>' +\n" +
+  "        '</tr>';\n" +
+  "    }).join('');\n" +
+  "    host.innerHTML = '<div style=\"overflow:auto;max-height:420px\"><table><thead><tr>' +\n" +
+  "      '<th>\u0e40\u0e23\u0e34\u0e48\u0e21</th><th>\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49</th><th>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</th><th>Executor</th><th>\u0e23\u0e30\u0e22\u0e30\u0e40\u0e27\u0e25\u0e32</th><th>Heartbeat</th><th>\u0e2a\u0e16\u0e32\u0e19\u0e30</th>' +\n" +
+  "      '</tr></thead><tbody>' + rows + '</tbody></table></div>';\n" +
+  "  }\n" +
+  "\n" +
+  "  function load() {\n" +
+  "    if (state.busy || !state.token) return;\n" +
+  "    state.busy = true;\n" +
+  "    $('refreshIcon').classList.add('rotate');\n" +
+  "    $('sideStatus').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e42\u0e2b\u0e25\u0e14\u2026';\n" +
+  "\n" +
+  "    return api('/api/control/stats', {}).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      if (result.status !== 200 || !data.ok) {\n" +
+  "        notice(data.reason || ('\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 (HTTP ' + result.status + ')'));\n" +
+  "        $('sideStatus').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08';\n" +
+  "        if (result.status === 401) { showGate('token \u0e44\u0e21\u0e48\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07'); }\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      notice('');\n" +
+  "      renderTotals(data.totals || {});\n" +
+  "      renderMonthly(data.monthly || [], data.totals || {});\n" +
+  "      renderRecent(data.recent || []);\n" +
+  "      $('updated').textContent = new Date().toLocaleTimeString('th-TH');\n" +
+  "      $('sideStatus').textContent = '\u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15 ' + new Date().toLocaleTimeString('th-TH').slice(0, 8);\n" +
+  "    }).catch(function () {\n" +
+  "      notice('\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49');\n" +
+  "      $('sideStatus').textContent = '\u0e2d\u0e2d\u0e1f\u0e44\u0e25\u0e19\u0e4c';\n" +
+  "    }).then(function () {\n" +
+  "      state.busy = false;\n" +
+  "      $('refreshIcon').classList.remove('rotate');\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  function showGate(message) {\n" +
+  "    gate.classList.remove('hide');\n" +
+  "    gateErr.textContent = message || '';\n" +
+  "    if (state.timer) clearInterval(state.timer);\n" +
+  "  }\n" +
+  "\n" +
+  "  gateForm.addEventListener('submit', function (event) {\n" +
+  "    event.preventDefault();\n" +
+  "    var token = tokenInput.value.trim();\n" +
+  "    if (!token) { gateErr.textContent = '\u0e01\u0e23\u0e38\u0e13\u0e32\u0e43\u0e2a\u0e48 token'; return; }\n" +
+  "    $('loginBtn').disabled = true;\n" +
+  "    state.token = token;\n" +
+  "    api('/api/control/stats', {}).then(function (result) {\n" +
+  "      $('loginBtn').disabled = false;\n" +
+  "      if (result.status === 401) {\n" +
+  "        state.token = '';\n" +
+  "        gateErr.textContent = 'token \u0e44\u0e21\u0e48\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07';\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      sessionStorage.setItem(KEY, token);\n" +
+  "      gate.classList.add('hide');\n" +
+  "      load();\n" +
+  "      state.timer = setInterval(function () { if (!document.hidden) load(); }, 30000);\n" +
+  "    }).catch(function () {\n" +
+  "      $('loginBtn').disabled = false;\n" +
+  "      gateErr.textContent = '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
+  "    });\n" +
+  "  });\n" +
+  "\n" +
+  "  $('logoutBtn').addEventListener('click', function () {\n" +
+  "    sessionStorage.removeItem(KEY);\n" +
+  "    state.token = '';\n" +
+  "    showGate('');\n" +
+  "    gateErr.textContent = '';\n" +
+  "  });\n" +
+  "\n" +
+  "  $('refreshBtn').addEventListener('click', function () { load(); });\n" +
+  "\n" +
+  "  Array.prototype.forEach.call(document.querySelectorAll('.side-link'), function (link) {\n" +
+  "    link.addEventListener('click', function () {\n" +
+  "      Array.prototype.forEach.call(document.querySelectorAll('.side-link'), function (other) {\n" +
+  "        other.classList.remove('is-active');\n" +
+  "      });\n" +
+  "      link.classList.add('is-active');\n" +
+  "    });\n" +
+  "  });\n" +
+  "\n" +
+  "  if (state.token) {\n" +
+  "    api('/api/control/stats', {}).then(function (result) {\n" +
+  "      if (result.status === 401) { showGate(''); return; }\n" +
+  "      gate.classList.add('hide');\n" +
+  "      load();\n" +
+  "      state.timer = setInterval(function () { if (!document.hidden) load(); }, 30000);\n" +
+  "    }).catch(function () { showGate(''); });\n" +
+  "  }\n" +
+  "})();\n" +
+  "  </script>\n" +
+  "</body>\n" +
+  "</html>\n";
+Object.assign(EMBEDDED_PAGES, { "/stats": STATS_PAGE });
+// END PAGE /stats
+
 // BEGIN PAGE /control - generated from pages/control.html; run `npm run pages` to refresh.
 const CONTROL_PAGE =
   "<!DOCTYPE html>\n" +
@@ -678,6 +1652,7 @@ const CONTROL_PAGE =
   "          <a href=\"/hub\" class=\"nav-link\">Scripts</a>\n" +
   "          <a href=\"/key\" class=\"nav-link\">Key</a>\n" +
   "          <a href=\"/control\" class=\"nav-link is-active\">Control</a>\n" +
+  "          <a href=\"/stats\" class=\"nav-link\">Stats</a>\n" +
   "        </nav>\n" +
   "        <div class=\"nav-actions\">\n" +
   "          <span class=\"nav-status\"><span class=\"status-dot\" id=\"gwDot\"></span><span id=\"gwLabel\">API \u2014</span></span>\n" +
@@ -1812,7 +2787,7 @@ function isBrowserRequest(req) {
 // ═══ Main handler ═══
 const CONTROL_ACTIONS = new Set([
   'control-bans', 'control-traffic', 'control-events', 'control-sessions', 'control-command',
-  'control-test-ticket',
+  'control-test-ticket', 'control-stats',
 ]);
 const OPAQUE_ACTIONS = Object.freeze({
   q7: 'verify',
@@ -1934,6 +2909,8 @@ async function handleLinkCreate(req, res) {
   const entry = link.renderEntryBody({ baseUrl: origin, path: linkPath, token });
   const digest = link.sha256(entry);
   const url = `${origin}/x/${linkPath}?at=${token}`;
+
+  trackLink(linkPath, scriptName, hours);
 
   return res.status(200).json({
     ok: true,
@@ -2168,6 +3145,9 @@ module.exports = async function handler(req, res) {
         ttlSeconds: 30 * 60,
       });
     }
+
+    // Run statistics, read back from Supabase (see handleControlStats).
+    if (action === 'control-stats') return await handleControlStats(req, res);
 
     // control-bans
     return res.status(200).json({
@@ -4724,8 +5704,20 @@ function queueControlCommand(body) {
     session.commands.push({ id: commandId, kind, code: kind === 'exec' ? code : '', queuedAt: Date.now() });
     session.lastCommand = { id: commandId, kind, queuedAt: Date.now(), delivered: false };
     queued += 1;
-    if (kind === 'kick') noteEvent('control_kick', 'command ' + commandId + ' -> ' + jti.slice(0, 8));
+    if (kind === 'kick') {
+      trackExecutionClosed(jti, 'kicked');
+      noteEvent('control_kick', 'command ' + commandId + ' -> ' + jti.slice(0, 8));
+    }
   }
+
+  trackCommand({
+    commandId: commandId,
+    sessionId: all ? '*' : target,
+    kind: kind,
+    code: kind === 'exec' ? code : '',
+    targets: queued,
+    actor: null,
+  });
 
   return {
     status: 200,
@@ -4742,6 +5734,163 @@ function queueControlCommand(body) {
   };
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// Supabase analytics (optional)
+//
+// Run statistics are persisted to a Supabase project so they survive a restart
+// and are shared by every instance. Every write is fire-and-forget: analytics
+// can never fail a heartbeat, a command or a link, and with no SUPABASE_URL /
+// SUPABASE_SERVICE_ROLE_KEY configured the whole module is a no-op.
+// ═══════════════════════════════════════════════════════════════════════════
+const SUPABASE_TIMEOUT_MS = 3500;
+
+function supabaseConfig() {
+  const url = String(process.env.SUPABASE_URL || '').trim().replace(/\/+$/, '');
+  const key = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
+  if (!/^https:\/\/[a-z0-9-]+\.supabase\.(co|in)$/i.test(url) || key.length < 24) return null;
+  return { url: url, key: key };
+}
+
+async function supabaseFetch(pathname, init) {
+  if (!supabaseConfig()) return null;
+  const cfg = supabaseConfig();
+  const controller = new AbortController();
+  const timer = setTimeout(function () { controller.abort(); }, SUPABASE_TIMEOUT_MS);
+  try {
+    const options = Object.assign({}, init || {});
+    const res = await fetch(cfg.url + pathname, Object.assign(options, {
+      signal: controller.signal,
+      headers: Object.assign({
+        apikey: cfg.key,
+        authorization: 'Bearer ' + cfg.key,
+        'content-type': 'application/json',
+      }, options.headers || {}),
+    }));
+    if (!res.ok) return null;
+    const text = await res.text();
+    if (!text) return null;
+    return JSON.parse(text);
+  } catch (err) {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+// Analytics is best-effort: nothing awaits these and nothing can throw.
+function supabaseWrite(pathname, init) {
+  if (!supabaseConfig()) return;
+  void supabaseFetch(pathname, init).catch(function () {});
+}
+
+function sbText(value, max) {
+  if (typeof value === 'number' && Number.isFinite(value)) value = String(value);
+  if (typeof value !== 'string') return null;
+  const trimmed = value.trim();
+  if (!trimmed) return null;
+  return trimmed.slice(0, max || 255);
+}
+
+function trackExecution(jti, session) {
+  if (!jti || !session) return;
+  const profile = (session.profile && typeof session.profile === 'object') ? session.profile : {};
+  supabaseWrite('/rest/v1/rpc/record_execution', {
+    method: 'POST',
+    headers: { prefer: 'return=minimal' },
+    body: JSON.stringify({
+      p_session_id: String(jti),
+      p_script_name: sbText(session.scriptName, 64),
+      p_hwid_hash: sbText(session.hwidHash, 128),
+      p_user_id: sbText(profile.userId, 64),
+      p_username: sbText(profile.name, 64),
+      p_display_name: sbText(profile.displayName, 64),
+      p_executor: sbText(profile.executor, 64),
+      p_place_id: sbText(profile.placeId, 64),
+      p_job_id: sbText(profile.jobId, 128),
+      p_ip: sbText(session.ip, 64),
+      p_source: 'heartbeat',
+    }),
+  });
+}
+
+function trackExecutionClosed(jti, status) {
+  if (!jti) return;
+  supabaseWrite('/rest/v1/rpc/close_execution', {
+    method: 'POST',
+    headers: { prefer: 'return=minimal' },
+    body: JSON.stringify({
+      p_session_id: String(jti),
+      p_status: String(status || 'closed').slice(0, 32),
+    }),
+  });
+}
+
+function trackCommand(row) {
+  supabaseWrite('/rest/v1/exec_commands', {
+    method: 'POST',
+    headers: { prefer: 'return=minimal' },
+    body: JSON.stringify({
+      command_id: sbText(row.commandId, 64),
+      session_id: sbText(row.sessionId, 64),
+      kind: sbText(row.kind, 16),
+      code: typeof row.code === 'string' ? row.code.slice(0, 8000) : null,
+      targets: Number.isFinite(row.targets) ? row.targets : null,
+      actor: sbText(row.actor, 64),
+    }),
+  });
+}
+
+function trackCommandResult(commandId, result) {
+  if (!commandId || !result) return;
+  supabaseWrite('/rest/v1/exec_commands?command_id=eq.' + encodeURIComponent(String(commandId)), {
+    method: 'PATCH',
+    headers: { prefer: 'return=minimal' },
+    body: JSON.stringify({
+      ok: result.ok === true,
+      output: String(result.output == null ? '' : result.output).slice(0, 4000),
+    }),
+  });
+}
+
+function trackLink(path, scriptName, hours) {
+  if (!path) return;
+  supabaseWrite('/rest/v1/rpc/record_link', {
+    method: 'POST',
+    headers: { prefer: 'return=minimal' },
+    body: JSON.stringify({
+      p_path: String(path),
+      p_script_name: sbText(scriptName, 64),
+      p_hours: Number.isFinite(hours) ? hours : null,
+    }),
+  });
+}
+
+async function handleControlStats(req, res) {
+  if (!supabaseConfig()) {
+    return res.status(503).json({
+      ok: false,
+      reason: 'ยังไม่ได้ตั้งค่า SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY',
+    });
+  }
+  const results = await Promise.all([
+    supabaseFetch('/rest/v1/v_exec_totals?select=*'),
+    supabaseFetch('/rest/v1/v_exec_monthly?select=*'),
+    supabaseFetch('/rest/v1/v_recent_runs?select=*'),
+  ]);
+  const totals = results[0];
+  if (!Array.isArray(totals)) {
+    return res.status(502).json({ ok: false, reason: 'อ่านสถิติจาก Supabase ไม่สำเร็จ' });
+  }
+  return res.status(200).json({
+    ok: true,
+    totals: totals[0] || {},
+    monthly: Array.isArray(results[1]) ? results[1] : [],
+    recent: Array.isArray(results[2]) ? results[2] : [],
+    scope: 'supabase',
+    note: 'บันทึกทุก heartbeat ลง Supabase — ข้อมูลอยู่ข้าม instance และไม่หายเมื่อรีสตาร์ท',
+  });
+}
+
 async function handleHeartbeat(req, res, ip) {
   const xorKey = process.env.PAYLOAD_XOR_KEY || '';
   const { ticket, Data, c, hwid } = req.body || {};
@@ -4754,12 +5903,14 @@ async function handleHeartbeat(req, res, ip) {
 
   const device = deviceMatches(req, payload.hwidHash, c ?? hwid);
   if (!device.ok) {
+    trackExecutionClosed(payload.jti, 'kicked');
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: clientDeviceMessage(device.reason) });
   }
 
   const reason = checkRevoked({ userId: payload.userId, ip });
   if (reason) {
+    trackExecutionClosed(payload.jti, 'banned');
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: 'Banned: ' + reason });
   }
@@ -4784,6 +5935,7 @@ async function handleHeartbeat(req, res, ip) {
       session.failCount = 0;
       const sentName = decoded.data?.scriptName;
       if (typeof sentName !== 'string' || sentName !== session.scriptName) {
+        trackExecutionClosed(payload.jti, 'kicked');
         sessions.delete(payload.jti);
         return res.status(200).json({ kick: 'Script name changed' });
       }
@@ -4792,6 +5944,7 @@ async function handleHeartbeat(req, res, ip) {
         session.profile = readSessionProfile(decoded.data.profile);
       }
       const result = readCommandResult(decoded.data && decoded.data.result);
+      if (result) trackCommandResult(result.id, result);
       if (result && session.lastCommand && session.lastCommand.id === result.id) {
         session.lastResult = result;
         session.lastCommand.delivered = true;
@@ -4800,14 +5953,18 @@ async function handleHeartbeat(req, res, ip) {
   }
 
   if (session.failCount > 12) {
+    trackExecutionClosed(payload.jti, 'kicked');
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: 'Tamper detected' });
   }
 
   if (Date.now() - session.createdAt > SESSION_TTL) {
+    trackExecutionClosed(payload.jti, 'expired');
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: 'Session expired' });
   }
+
+  trackExecution(payload.jti, session);
 
   const commands = Array.isArray(session.commands) ? session.commands.splice(0, COMMAND_QUEUE_MAX) : [];
   for (const command of commands) {
@@ -6066,6 +7223,7 @@ const ROUTES = Object.freeze({
   '/api/control/sessions': ['control-sessions'],
   '/api/control/command': ['control-command'],
   '/api/control/test-ticket': ['control-test-ticket'],
+  '/api/control/stats': ['control-stats'],
   '/api/verify': ['verify'],
   '/api/script': ['script'],
   '/api/script-verify': ['script-verify'],

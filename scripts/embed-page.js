@@ -21,6 +21,7 @@ const PAGE_SOURCES = Object.freeze({
   '/hub': 'pages/hub.html',
   '/key': 'pages/key.html',
   '/control': 'pages/control.html',
+  '/stats': 'pages/stats.html',
 });
 
 // Escape as a JS string literal, keeping non-ASCII as \uXXXX so the bundle
