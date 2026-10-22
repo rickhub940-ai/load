@@ -5,7 +5,8 @@
   "type": "commonjs",
   "scripts": {
     "start": "node Server/core.js",
-    "check": "node --check api/auth.js && node --check Server/core.js"
+    "check": "node --check api/auth.js && node --check Server/core.js",
+    "pages": "node scripts/embed-page.js"
   },
   "engines": {
     "node": "22.x"

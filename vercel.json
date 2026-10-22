@@ -15,6 +15,10 @@
       "dest": "/api/auth?page=/control"
     },
     {
+      "src": "/hub",
+      "dest": "/api/auth?page=/hub"
+    },
+    {
       "src": "/api/link",
       "dest": "/api/auth?action=link-create"
     },
