@@ -856,6 +856,35 @@ const ROOT_PAGE =
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
+  "       Copy output (loader line)\n" +
+  "       ========================================= */\n" +
+  "    .copy-out {\n" +
+  "      width: 100%; max-width: 560px; margin: -8px 0 32px;\n" +
+  "      padding: 14px 16px; border-radius: 14px;\n" +
+  "      background: rgba(255, 255, 255, 0.05);\n" +
+  "      border: 1px solid rgba(255, 255, 255, 0.14);\n" +
+  "      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n" +
+  "      animation: fadeUp 0.35s ease both;\n" +
+  "    }\n" +
+  "    .copy-out[hidden] { display: none; }\n" +
+  "    .copy-out .hint {\n" +
+  "      font-size: 11px; letter-spacing: 0.5px; color: #8e8e93; margin-bottom: 8px;\n" +
+  "    }\n" +
+  "    .copy-out code {\n" +
+  "      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;\n" +
+  "      font-size: 12.5px; line-height: 1.65; color: #e8e8ee; word-break: break-all;\n" +
+  "      user-select: all; -webkit-user-select: all;\n" +
+  "    }\n" +
+  "    .cta-primary.copied, .sign-in.copied {\n" +
+  "      background: #22c55e; color: #04160a;\n" +
+  "      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 0 32px rgba(34, 197, 94, 0.55);\n" +
+  "    }\n" +
+  "    @keyframes fadeUp {\n" +
+  "      from { opacity: 0; transform: translateY(8px); }\n" +
+  "      to { opacity: 1; transform: none; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
   "       Live Status\n" +
   "       ========================================= */\n" +
   "    .live-status {\n" +
@@ -967,7 +996,7 @@ const ROOT_PAGE =
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
-  "        <a href=\"#\" class=\"sign-in\">Get Started</a>\n" +
+  "        <button type=\"button\" class=\"sign-in\" id=\"signIn\">Get Started</button>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -985,18 +1014,24 @@ const ROOT_PAGE =
   "\n" +
   "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e14\u0e35\u0e22\u0e27 -->\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"#\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <button type=\"button\" class=\"cta-primary\" id=\"ctaPrimary\">Get Started</button>\n" +
+  "      </div>\n" +
+  "\n" +
+  "      <!-- \u0e1a\u0e23\u0e23\u0e17\u0e31\u0e14\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c \u2014 \u0e40\u0e1c\u0e37\u0e48\u0e2d\u0e01\u0e23\u0e13\u0e35\u0e04\u0e25\u0e34\u0e1b\u0e1a\u0e2d\u0e23\u0e4c\u0e14\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01 -->\n" +
+  "      <div class=\"copy-out\" id=\"copyOut\" hidden>\n" +
+  "        <div class=\"hint\">LOADER LINE \u2014 PASTE THIS IN YOUR EXECUTOR</div>\n" +
+  "        <code id=\"copyLine\"></code>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
-  "        <span class=\"status-dot\"></span> LIVE - 99.9% UPTIME\n" +
+  "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">LIVE - 99.9% UPTIME</span>\n" +
   "      </div>\n" +
   "    </main>\n" +
   "\n" +
   "    <!-- Stats Section -->\n" +
   "    <section class=\"stats-section pop-element\">\n" +
   "      <div class=\"stats\">\n" +
-  "        <div class=\"stat\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
+  "        <div class=\"stat\" id=\"statLatency\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
   "          <span class=\"stat-icon\">&lt;</span>\n" +
   "          <span class=\"stat-value\">0ms</span>\n" +
   "          <span class=\"stat-label\">Inference Time</span>\n" +
@@ -1177,6 +1212,106 @@ const ROOT_PAGE =
   "      } else {\n" +
   "        setTimeout(startCounters, 3500);\n" +
   "      }\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 5. Get Started \u2192 copy the loader line\n" +
+  "      // =========================================\n" +
+  "      const FALLBACK_HOST = \"loader999mss.vercel.app\";\n" +
+  "      const liveHost = location.host && location.host.indexOf(\"localhost\") !== 0 && location.host !== \"\"\n" +
+  "        ? location.host\n" +
+  "        : FALLBACK_HOST;\n" +
+  "      const loaderUrl = \"https://\" + liveHost + \"/loadc.lua\";\n" +
+  "      const command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + loaderUrl + '\"))(License, Script)';\n" +
+  "\n" +
+  "      const copyOut = document.getElementById(\"copyOut\");\n" +
+  "      const copyLine = document.getElementById(\"copyLine\");\n" +
+  "      if (copyLine) copyLine.textContent = command;\n" +
+  "\n" +
+  "      function legacyCopy(text) {\n" +
+  "        const ta = document.createElement(\"textarea\");\n" +
+  "        ta.value = text;\n" +
+  "        ta.setAttribute(\"readonly\", \"\");\n" +
+  "        ta.style.position = \"fixed\";\n" +
+  "        ta.style.opacity = \"0\";\n" +
+  "        document.body.appendChild(ta);\n" +
+  "        ta.select();\n" +
+  "        let ok = false;\n" +
+  "        try { ok = document.execCommand(\"copy\"); } catch (e) { ok = false; }\n" +
+  "        document.body.removeChild(ta);\n" +
+  "        return ok;\n" +
+  "      }\n" +
+  "\n" +
+  "      function flash(btn) {\n" +
+  "        const original = btn.getAttribute(\"data-label\") || btn.textContent;\n" +
+  "        btn.setAttribute(\"data-label\", original);\n" +
+  "        btn.classList.add(\"copied\");\n" +
+  "        btn.textContent = \"Copied \u2713\";\n" +
+  "        clearTimeout(btn._t);\n" +
+  "        btn._t = setTimeout(() => {\n" +
+  "          btn.classList.remove(\"copied\");\n" +
+  "          btn.textContent = original;\n" +
+  "        }, 1600);\n" +
+  "      }\n" +
+  "\n" +
+  "      function copyScript(btn) {\n" +
+  "        if (copyOut) copyOut.hidden = false;\n" +
+  "        const done = () => flash(btn);\n" +
+  "        if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
+  "          navigator.clipboard.writeText(command).then(done, () => {\n" +
+  "            if (legacyCopy(command)) done();\n" +
+  "          });\n" +
+  "          return;\n" +
+  "        }\n" +
+  "        if (legacyCopy(command)) done();\n" +
+  "      }\n" +
+  "\n" +
+  "      [\"signIn\", \"ctaPrimary\"].forEach((id) => {\n" +
+  "        const btn = document.getElementById(id);\n" +
+  "        if (btn) btn.addEventListener(\"click\", () => copyScript(btn));\n" +
+  "      });\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 6. Real latency instead of a fake number\n" +
+  "      // =========================================\n" +
+  "      const liveText = document.getElementById(\"liveText\");\n" +
+  "      const liveDot = document.getElementById(\"liveDot\");\n" +
+  "      const latencyCard = document.getElementById(\"statLatency\");\n" +
+  "      const latencyValue = latencyCard ? latencyCard.querySelector(\".stat-value\") : null;\n" +
+  "\n" +
+  "      function applyLatency(ms) {\n" +
+  "        if (latencyCard) {\n" +
+  "          latencyCard.dataset.target = String(ms);\n" +
+  "          latencyCard.dataset.suffix = \"ms\";\n" +
+  "          latencyCard.dataset.decimals = \"0\";\n" +
+  "        }\n" +
+  "        // The counter only runs once; if it already fired, write the value now.\n" +
+  "        if (started && latencyValue) latencyValue.textContent = ms + \"ms\";\n" +
+  "      }\n" +
+  "\n" +
+  "      const probeStart = Date.now();\n" +
+  "      fetch(\"/api/health\", { cache: \"no-store\" })\n" +
+  "        .then((res) => {\n" +
+  "          if (!res.ok) throw new Error(\"HTTP \" + res.status);\n" +
+  "          return res.json();\n" +
+  "        })\n" +
+  "        .then((data) => {\n" +
+  "          const ms = Date.now() - probeStart;\n" +
+  "          applyLatency(ms);\n" +
+  "          if (liveText) liveText.textContent = \"LIVE \u00b7 \" + ms + \" MS \u00b7 v\" + (data.version || \"\");\n" +
+  "        })\n" +
+  "        .catch(() => {\n" +
+  "          if (latencyCard) latencyCard.dataset.target = \"0\";\n" +
+  "          if (started && latencyValue) latencyValue.textContent = \"\u2014\";\n" +
+  "          if (liveText) {\n" +
+  "            liveText.textContent = \"OFFLINE \u2014 API NOT REACHABLE\";\n" +
+  "            liveText.style.color = \"#ff6b81\";\n" +
+  "            liveText.style.textShadow = \"0 0 10px rgba(255, 107, 129, 0.5)\";\n" +
+  "          }\n" +
+  "          if (liveDot) {\n" +
+  "            liveDot.style.background = \"#ff6b81\";\n" +
+  "            liveDot.style.boxShadow = \"0 0 10px #ff6b81\";\n" +
+  "          }\n" +
+  "        });\n" +
   "    })();\n" +
   "  </script>\n" +
   "</body>\n" +
@@ -1478,6 +1613,35 @@ const HUB_PAGE =
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
+  "       Copy output (loader line)\n" +
+  "       ========================================= */\n" +
+  "    .copy-out {\n" +
+  "      width: 100%; max-width: 560px; margin: -8px 0 32px;\n" +
+  "      padding: 14px 16px; border-radius: 14px;\n" +
+  "      background: rgba(255, 255, 255, 0.05);\n" +
+  "      border: 1px solid rgba(255, 255, 255, 0.14);\n" +
+  "      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);\n" +
+  "      animation: fadeUp 0.35s ease both;\n" +
+  "    }\n" +
+  "    .copy-out[hidden] { display: none; }\n" +
+  "    .copy-out .hint {\n" +
+  "      font-size: 11px; letter-spacing: 0.5px; color: #8e8e93; margin-bottom: 8px;\n" +
+  "    }\n" +
+  "    .copy-out code {\n" +
+  "      display: block; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;\n" +
+  "      font-size: 12.5px; line-height: 1.65; color: #e8e8ee; word-break: break-all;\n" +
+  "      user-select: all; -webkit-user-select: all;\n" +
+  "    }\n" +
+  "    .cta-primary.copied, .sign-in.copied {\n" +
+  "      background: #22c55e; color: #04160a;\n" +
+  "      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 0 32px rgba(34, 197, 94, 0.55);\n" +
+  "    }\n" +
+  "    @keyframes fadeUp {\n" +
+  "      from { opacity: 0; transform: translateY(8px); }\n" +
+  "      to { opacity: 1; transform: none; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
   "       Live Status\n" +
   "       ========================================= */\n" +
   "    .live-status {\n" +
@@ -1589,7 +1753,7 @@ const HUB_PAGE =
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
-  "        <a href=\"#\" class=\"sign-in\">Get Started</a>\n" +
+  "        <button type=\"button\" class=\"sign-in\" id=\"signIn\">Get Started</button>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -1607,18 +1771,24 @@ const HUB_PAGE =
   "\n" +
   "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e14\u0e35\u0e22\u0e27 -->\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"#\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <button type=\"button\" class=\"cta-primary\" id=\"ctaPrimary\">Get Started</button>\n" +
+  "      </div>\n" +
+  "\n" +
+  "      <!-- \u0e1a\u0e23\u0e23\u0e17\u0e31\u0e14\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c \u2014 \u0e40\u0e1c\u0e37\u0e48\u0e2d\u0e01\u0e23\u0e13\u0e35\u0e04\u0e25\u0e34\u0e1b\u0e1a\u0e2d\u0e23\u0e4c\u0e14\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01 -->\n" +
+  "      <div class=\"copy-out\" id=\"copyOut\" hidden>\n" +
+  "        <div class=\"hint\">LOADER LINE \u2014 PASTE THIS IN YOUR EXECUTOR</div>\n" +
+  "        <code id=\"copyLine\"></code>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
-  "        <span class=\"status-dot\"></span> LIVE - 99.9% UPTIME\n" +
+  "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">LIVE - 99.9% UPTIME</span>\n" +
   "      </div>\n" +
   "    </main>\n" +
   "\n" +
   "    <!-- Stats Section -->\n" +
   "    <section class=\"stats-section pop-element\">\n" +
   "      <div class=\"stats\">\n" +
-  "        <div class=\"stat\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
+  "        <div class=\"stat\" id=\"statLatency\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
   "          <span class=\"stat-icon\">&lt;</span>\n" +
   "          <span class=\"stat-value\">0ms</span>\n" +
   "          <span class=\"stat-label\">Inference Time</span>\n" +
@@ -1799,6 +1969,106 @@ const HUB_PAGE =
   "      } else {\n" +
   "        setTimeout(startCounters, 3500);\n" +
   "      }\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 5. Get Started \u2192 copy the loader line\n" +
+  "      // =========================================\n" +
+  "      const FALLBACK_HOST = \"loader999mss.vercel.app\";\n" +
+  "      const liveHost = location.host && location.host.indexOf(\"localhost\") !== 0 && location.host !== \"\"\n" +
+  "        ? location.host\n" +
+  "        : FALLBACK_HOST;\n" +
+  "      const loaderUrl = \"https://\" + liveHost + \"/loadc.lua\";\n" +
+  "      const command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + loaderUrl + '\"))(License, Script)';\n" +
+  "\n" +
+  "      const copyOut = document.getElementById(\"copyOut\");\n" +
+  "      const copyLine = document.getElementById(\"copyLine\");\n" +
+  "      if (copyLine) copyLine.textContent = command;\n" +
+  "\n" +
+  "      function legacyCopy(text) {\n" +
+  "        const ta = document.createElement(\"textarea\");\n" +
+  "        ta.value = text;\n" +
+  "        ta.setAttribute(\"readonly\", \"\");\n" +
+  "        ta.style.position = \"fixed\";\n" +
+  "        ta.style.opacity = \"0\";\n" +
+  "        document.body.appendChild(ta);\n" +
+  "        ta.select();\n" +
+  "        let ok = false;\n" +
+  "        try { ok = document.execCommand(\"copy\"); } catch (e) { ok = false; }\n" +
+  "        document.body.removeChild(ta);\n" +
+  "        return ok;\n" +
+  "      }\n" +
+  "\n" +
+  "      function flash(btn) {\n" +
+  "        const original = btn.getAttribute(\"data-label\") || btn.textContent;\n" +
+  "        btn.setAttribute(\"data-label\", original);\n" +
+  "        btn.classList.add(\"copied\");\n" +
+  "        btn.textContent = \"Copied \u2713\";\n" +
+  "        clearTimeout(btn._t);\n" +
+  "        btn._t = setTimeout(() => {\n" +
+  "          btn.classList.remove(\"copied\");\n" +
+  "          btn.textContent = original;\n" +
+  "        }, 1600);\n" +
+  "      }\n" +
+  "\n" +
+  "      function copyScript(btn) {\n" +
+  "        if (copyOut) copyOut.hidden = false;\n" +
+  "        const done = () => flash(btn);\n" +
+  "        if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
+  "          navigator.clipboard.writeText(command).then(done, () => {\n" +
+  "            if (legacyCopy(command)) done();\n" +
+  "          });\n" +
+  "          return;\n" +
+  "        }\n" +
+  "        if (legacyCopy(command)) done();\n" +
+  "      }\n" +
+  "\n" +
+  "      [\"signIn\", \"ctaPrimary\"].forEach((id) => {\n" +
+  "        const btn = document.getElementById(id);\n" +
+  "        if (btn) btn.addEventListener(\"click\", () => copyScript(btn));\n" +
+  "      });\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 6. Real latency instead of a fake number\n" +
+  "      // =========================================\n" +
+  "      const liveText = document.getElementById(\"liveText\");\n" +
+  "      const liveDot = document.getElementById(\"liveDot\");\n" +
+  "      const latencyCard = document.getElementById(\"statLatency\");\n" +
+  "      const latencyValue = latencyCard ? latencyCard.querySelector(\".stat-value\") : null;\n" +
+  "\n" +
+  "      function applyLatency(ms) {\n" +
+  "        if (latencyCard) {\n" +
+  "          latencyCard.dataset.target = String(ms);\n" +
+  "          latencyCard.dataset.suffix = \"ms\";\n" +
+  "          latencyCard.dataset.decimals = \"0\";\n" +
+  "        }\n" +
+  "        // The counter only runs once; if it already fired, write the value now.\n" +
+  "        if (started && latencyValue) latencyValue.textContent = ms + \"ms\";\n" +
+  "      }\n" +
+  "\n" +
+  "      const probeStart = Date.now();\n" +
+  "      fetch(\"/api/health\", { cache: \"no-store\" })\n" +
+  "        .then((res) => {\n" +
+  "          if (!res.ok) throw new Error(\"HTTP \" + res.status);\n" +
+  "          return res.json();\n" +
+  "        })\n" +
+  "        .then((data) => {\n" +
+  "          const ms = Date.now() - probeStart;\n" +
+  "          applyLatency(ms);\n" +
+  "          if (liveText) liveText.textContent = \"LIVE \u00b7 \" + ms + \" MS \u00b7 v\" + (data.version || \"\");\n" +
+  "        })\n" +
+  "        .catch(() => {\n" +
+  "          if (latencyCard) latencyCard.dataset.target = \"0\";\n" +
+  "          if (started && latencyValue) latencyValue.textContent = \"\u2014\";\n" +
+  "          if (liveText) {\n" +
+  "            liveText.textContent = \"OFFLINE \u2014 API NOT REACHABLE\";\n" +
+  "            liveText.style.color = \"#ff6b81\";\n" +
+  "            liveText.style.textShadow = \"0 0 10px rgba(255, 107, 129, 0.5)\";\n" +
+  "          }\n" +
+  "          if (liveDot) {\n" +
+  "            liveDot.style.background = \"#ff6b81\";\n" +
+  "            liveDot.style.boxShadow = \"0 0 10px #ff6b81\";\n" +
+  "          }\n" +
+  "        });\n" +
   "    })();\n" +
   "  </script>\n" +
   "</body>\n" +
