@@ -17,6 +17,7 @@ const CORE = path.join(PROJECT_ROOT, 'Server', 'core.js');
 // Route -> source file. Add a row here and the page becomes servable once the
 // route is also reachable (vercel.json rewrite + the page lookup in core.js).
 const PAGE_SOURCES = Object.freeze({
+  '/': 'pages/index.html',
   '/hub': 'pages/hub.html',
 });
 
@@ -30,8 +31,8 @@ function jsLiteral(line) {
 }
 
 function constName(route) {
-  const name = route.replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '').toUpperCase();
-  return `${name}_PAGE`;
+  const slug = route.replace(/[^a-z0-9]+/gi, '_').replace(/^_+|_+$/g, '').toUpperCase();
+  return `${slug || 'ROOT'}_PAGE`;
 }
 
 function renderBlock(route, html) {

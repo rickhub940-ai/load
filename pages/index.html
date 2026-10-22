@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>999MS — Key System &amp; Loader</title>
+<meta name="description" content="999MS — ระบบคีย์และตัวโหลดสำหรับ Roblox: ผูก HWID, ออก ticket อายุสั้น, โหลดสคริปต์แบบหลายชั้นพร้อมตรวจ SHA-256 ทุกครั้ง" />
+<meta name="theme-color" content="#000000" />
+<meta property="og:title" content="999MS — Key System &amp; Loader" />
+<meta property="og:description" content="คีย์เดียว ปลดล็อกทุกสคริปต์ — ตรวจ HWID, ticket อายุสั้น, stage chain ตรวจ SHA-256" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2322c55e'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
+<link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+
+<script>
+  // Animation is progressive enhancement: if JS or motion is unavailable the
+  // page still renders fully, it simply appears without the fly-in.
+  try {
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('js-anim');
+    }
+  } catch (e) {}
+</script>
+
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --muted: #9a9aa2;
+    --line: rgba(255, 255, 255, 0.1);
+    --line-2: rgba(255, 255, 255, 0.2);
+    --green: #22c55e;
+    --glass: rgba(255, 255, 255, 0.035);
+    --glass-2: rgba(255, 255, 255, 0.06);
+    --radius: 18px;
+    /* Dot-matrix for Latin/digits, Thai falls through to the system Thai font. */
+    --font-sans: "BubbledotICG-FinePos", "Geist Pixel Circle", "Leelawadee UI", "Thonburi",
+                 "Noto Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+    overflow-x: hidden;
+    letter-spacing: 0.02em;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+  .wrap { width: min(1120px, 92vw); margin-inline: auto; }
+  .mono { font-family: var(--font-mono); }
+
+  /* ═══════ background ═══════ */
+  .bg-wave { position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden; }
+  .bg-wave::before {
+    content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.07) 0%, transparent 40%);
+    filter: blur(80px);
+    animation: waveMove1 20s ease-in-out infinite alternate;
+  }
+  .bg-wave::after {
+    content: ""; position: absolute; bottom: -50%; right: -50%; width: 150%; height: 150%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+    filter: blur(100px);
+    animation: waveMove2 25s ease-in-out infinite alternate;
+  }
+  .green-orb { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; }
+  .orb-1 {
+    width: 45vw; height: 45vw; top: -15%; right: -10%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.32) 0%, transparent 70%);
+    animation: orbFloat1 15s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 35vw; height: 35vw; bottom: 5%; left: -5%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+    animation: orbFloat2 18s ease-in-out infinite alternate;
+  }
+  .orb-3 {
+    width: 25vw; height: 25vw; top: 40%; left: 30%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, transparent 70%);
+    animation: orbFloat3 12s ease-in-out infinite alternate;
+  }
+  .bg-wave .noise {
+    position: absolute; inset: 0; opacity: 0.12; z-index: 2; pointer-events: none;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @keyframes waveMove1 {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }
+    100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }
+  }
+  @keyframes waveMove2 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }
+    100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }
+  }
+  @keyframes orbFloat1 { 0% { transform: translate(0,0) scale(1); opacity:.35 } 100% { transform: translate(-15%,20%) scale(1.3); opacity:.7 } }
+  @keyframes orbFloat2 { 0% { transform: translate(0,0) scale(1); opacity:.25 } 100% { transform: translate(20%,-15%) scale(1.4); opacity:.6 } }
+  @keyframes orbFloat3 { 0% { transform: translate(0,0) scale(1); opacity:.18 } 100% { transform: translate(-10%,-20%) scale(1.5); opacity:.45 } }
+
+  .page { position: relative; z-index: 3; }
+
+  /* ═══════ nav ═══════ */
+  .site-header {
+    position: sticky; top: 18px; z-index: 50;
+    display: flex; justify-content: center;
+    padding: 0 clamp(10px, 2vw, 20px);
+  }
+  .nav-pill {
+    width: 100%; max-width: 1120px;
+    display: flex; align-items: center; gap: 18px;
+    height: 64px; padding: 0 8px 0 14px;
+    border-radius: 999px;
+    background: rgba(10, 10, 12, 0.55);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--line);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; flex-shrink: 0; }
+  .mark {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #fff; overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+    transition: transform .25s ease;
+  }
+  .brand:hover .mark { transform: scale(1.05); }
+  .mark svg { width: 60%; height: 60%; }
+  .brand-name { font-size: 1.02rem; letter-spacing: .04em; }
+  .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); margin-left: auto; }
+  .nav-link { font-size: 14px; color: var(--muted); transition: color .2s ease; }
+  .nav-link:hover { color: #fff; }
+  .burger {
+    display: none; width: 44px; height: 44px; border-radius: 50%;
+    flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    background: rgba(255,255,255,.06); border: 1px solid var(--line); cursor: pointer;
+  }
+  .burger span { display: block; width: 18px; height: 1.5px; background: #fff; border-radius: 2px; }
+
+  /* ═══════ buttons ═══════ */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 12px 22px; border-radius: 999px;
+    border: 1px solid var(--line-2);
+    background: var(--glass); color: var(--text);
+    font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: var(--glass-2); }
+  .btn-primary {
+    border: 0; background: #fff; color: #000;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 0 22px rgba(255,255,255,.22);
+  }
+  .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 38px rgba(255,255,255,.45); }
+  .btn-primary.copied {
+    background: var(--green); color: #04160a;
+    box-shadow: 0 0 0 1px rgba(34,197,94,.5), 0 0 32px rgba(34,197,94,.6);
+  }
+  .btn-ghost { background: transparent; }
+  .btn svg { flex-shrink: 0; }
+
+  /* ═══════ hero ═══════ */
+  .hero {
+    display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center;
+    padding: 64px 0 72px;
+  }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;
+    color: #cfd4e4; border: 1px solid var(--line-2);
+    background: rgba(255,255,255,.04); padding: 7px 14px; border-radius: 999px;
+  }
+  .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+  .headline {
+    display: flex; flex-wrap: wrap; gap: 0.02em;
+    font-size: clamp(34px, 5vw, 60px); line-height: 1.25;
+    font-weight: 700; letter-spacing: -0.01em;
+    margin: 22px 0 18px; perspective: 1000px; min-height: 1.2em;
+  }
+  .char {
+    display: inline-block; position: relative; white-space: pre;
+    background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.18));
+  }
+  .char-accent {
+    background: linear-gradient(180deg, #4ade80 15%, #16a34a 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 18px rgba(34, 197, 94, 0.35));
+  }
+  .char-space { display: inline-block; width: 0.32em; }
+  .char.shimmer-ready::after {
+    content: attr(data-char);
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.85) 50%, transparent 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 3.5s infinite linear; z-index: 1;
+  }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+  .lede { color: var(--muted); font-size: 1.04rem; max-width: 52ch; margin: 0 0 30px; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .status-line { display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: .92rem; color: var(--muted); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5c6478; flex-shrink: 0; }
+  .dot.ok {
+    background: var(--green); box-shadow: 0 0 10px var(--green);
+    animation: dotPulse 1.8s cubic-bezier(.215,.61,.355,1) infinite;
+  }
+  .dot.bad { background: #ff6b81; box-shadow: 0 0 10px rgba(255,107,129,.6); }
+  @keyframes dotPulse {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+    100% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+  }
+
+  /* ═══════ code card ═══════ */
+  .code-card {
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+    transition: transform .2s ease;
+  }
+  .code-top {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+    background: rgba(0,0,0,.35);
+  }
+  .tl { width: 10px; height: 10px; border-radius: 50%; }
+  .tl:nth-child(1) { background: #ff5f57; }
+  .tl:nth-child(2) { background: #febc2e; }
+  .tl:nth-child(3) { background: #28c840; }
+  .code-name { margin-left: 8px; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+  .code-body {
+    padding: 22px 18px; font-family: var(--font-mono);
+    font-size: .86rem; line-height: 1.8; overflow-x: auto;
+  }
+  .code-body .c { color: #6b7280; }
+  .code-body .f { color: var(--green); }
+  .code-body .s { color: #a3e635; }
+  .code-body .p { color: #e7e9f0; }
+  .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }
+  .copy-row .btn { flex: 1; justify-content: center; }
+
+  /* ═══════ sections ═══════ */
+  section { padding: 68px 0; }
+  .sec-head { max-width: 62ch; margin-bottom: 34px; }
+  .kicker {
+    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--green); margin: 0 0 10px;
+  }
+  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }
+  .sec-head p { color: var(--muted); margin: 0; }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .stat {
+    background: rgba(0,0,0,.4); border: 1px solid var(--line);
+    border-radius: 16px; padding: 20px 18px; text-align: center;
+    backdrop-filter: blur(10px); transition: background .3s, border-color .3s;
+  }
+  .stat:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.28); }
+  .stat b { display: block; font-size: 1rem; font-weight: 600; letter-spacing: .01em; }
+  .stat span { color: var(--muted); font-size: .82rem; }
+
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .step {
+    border: 1px solid var(--line); background: var(--glass);
+    border-radius: var(--radius); padding: 24px; position: relative; overflow: hidden;
+    backdrop-filter: blur(10px);
+  }
+  .step::after {
+    content: ""; position: absolute; inset: 0 auto auto 0; height: 2px; width: 100%;
+    background: linear-gradient(90deg, rgba(34,197,94,.9), rgba(255,255,255,.35)); opacity: .7;
+  }
+  .step .n { font-family: var(--font-mono); font-size: .76rem; color: var(--green); letter-spacing: .16em; }
+  .step h3 { margin: 12px 0 8px; font-size: 1.02rem; }
+  .step p { margin: 0; color: var(--muted); font-size: .92rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card {
+    border: 1px solid var(--line); background: var(--glass);
+    border-radius: var(--radius); padding: 24px;
+    transition: border-color .25s, transform .25s, background .25s;
+    backdrop-filter: blur(10px);
+  }
+  .card:hover { border-color: var(--line-2); transform: translateY(-2px); background: var(--glass-2); }
+  .ico {
+    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
+    background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.25); margin-bottom: 14px;
+  }
+  .ico svg { width: 19px; height: 19px; stroke: var(--green); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .card h3 { margin: 0 0 7px; font-size: 1rem; }
+  .card p { margin: 0; color: var(--muted); font-size: .91rem; }
+
+  /* status panel */
+  .panel {
+    border: 1px solid var(--line-2); border-radius: 22px;
+    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+    padding: 26px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 26px;
+    backdrop-filter: blur(12px);
+  }
+  .ping { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .ping .big { font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+  .ping small { color: var(--muted); }
+  .kv {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem;
+  }
+  .kv span { color: var(--muted); }
+  .kv b { font-weight: 500; }
+
+  /* faq */
+  .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 0; }
+  .faq summary {
+    cursor: pointer; padding: 18px 22px; font-weight: 600; list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--green); font-size: 1.2rem; line-height: 1; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }
+
+  /* cta */
+  .cta {
+    border: 1px solid var(--line-2); border-radius: 24px; padding: 44px 28px; text-align: center;
+    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
+    backdrop-filter: blur(12px);
+  }
+  .cta p { color: var(--muted); max-width: 52ch; margin: 0 auto 24px; }
+  .cta .hero-actions { justify-content: center; }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }
+  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }
+  .foot a:hover { color: #fff; }
+  .disclaimer { color: #6b6b74; font-size: .8rem; margin: 18px 0 0; max-width: 90ch; }
+
+  /* ═══════ fly-in animation ═══════ */
+  .js-anim .char,
+  .js-anim .pop-element {
+    opacity: 0; visibility: hidden;
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.6) rotate(var(--tr, 0deg));
+    filter: blur(10px);
+  }
+  .js-anim .pop-in {
+    visibility: visible;
+    animation: bouncyRandomPop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes bouncyRandomPop {
+    0% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.25) rotate(var(--tr, 0deg)); filter: blur(14px); }
+    60% { opacity: 1; transform: translate(0, 0) scale(1.06) rotate(0deg); filter: blur(0); }
+    80% { transform: translate(0, 0) scale(.97) rotate(0deg); }
+    100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js-anim .char,
+    .js-anim .pop-element {
+      opacity: 1 !important; visibility: visible !important;
+      transform: none !important; filter: none !important; animation: none !important;
+    }
+  }
+
+  /* ═══════ responsive ═══════ */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }
+    .code-card { transform: none; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .steps, .cards { grid-template-columns: 1fr; }
+    .panel { grid-template-columns: 1fr; gap: 18px; }
+  }
+  @media (max-width: 900px) {
+    .nav-links, .nav-pill .btn { display: none; }
+    .burger { display: flex; margin-left: auto; }
+    .nav-pill.is-open {
+      flex-wrap: wrap; height: auto; padding-bottom: 14px; border-radius: 26px;
+    }
+    .nav-pill.is-open .nav-links {
+      display: flex; flex-direction: column; align-items: stretch;
+      gap: 4px; order: 3; width: 100%; margin: 12px 0 0;
+      padding: 12px; border-radius: 18px;
+      background: rgba(10,10,12,.9); border: 1px solid var(--line);
+    }
+    .nav-pill.is-open .nav-link { padding: 10px 12px; border-radius: 12px; }
+    .nav-pill.is-open .nav-link:hover { background: rgba(255,255,255,.06); }
+    .nav-pill.is-open .btn { display: inline-flex; order: 4; width: 100%; margin-top: 10px; }
+  }
+  @media (max-width: 560px) {
+    .stats { grid-template-columns: 1fr; }
+    .headline { font-size: clamp(28px, 8vw, 40px); }
+  }
+</style>
+</head>
+<body>
+<div class="bg-wave">
+  <div class="green-orb orb-1"></div>
+  <div class="green-orb orb-2"></div>
+  <div class="green-orb orb-3"></div>
+  <div class="noise"></div>
+</div>
+
+<div class="page">
+  <header class="site-header">
+    <div class="wrap nav-pill" id="navPill">
+      <a class="brand" href="#top" aria-label="999MS home">
+        <span class="mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#000"/>
+            <path d="M2 17L12 22L22 17" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">999MS</span>
+      </a>
+      <nav class="nav-links" aria-label="หลัก">
+        <a class="nav-link" href="#how">วิธีใช้</a>
+        <a class="nav-link" href="#features">ฟีเจอร์</a>
+        <a class="nav-link" href="#status">สถานะ</a>
+        <a class="nav-link" href="#faq">คำถามบ่อย</a>
+      </nav>
+      <button class="btn btn-primary" id="copyNav" type="button">คัดลอกสคริปต์</button>
+      <button class="burger" id="burger" type="button" aria-label="เปิดเมนู" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <span class="eyebrow pop-element"><i></i> Key system · Loader · v2.1</span>
+        <h1 class="headline" id="headline" data-text="คีย์เดียว ปลดล็อกทุกสคริปต์" data-accent="10" aria-label="คีย์เดียว ปลดล็อกทุกสคริปต์"></h1>
+        <p class="lede pop-element">
+          999MS ตรวจคีย์ผ่าน Platoboost แล้วผูกกับ HWID ของเครื่อง ออก ticket อายุ 30 นาที
+          และโหลดสคริปต์เป็นทอด ๆ โดยตรวจ SHA-256 ของทุก stage ก่อนรัน
+        </p>
+        <div class="hero-actions pop-element">
+          <button class="btn btn-primary" id="copyHero" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            คัดลอก loadstring
+          </button>
+          <a class="btn btn-ghost" href="#how">ดูวิธีใช้งาน</a>
+        </div>
+        <div class="status-line pop-element">
+          <span class="dot" id="heroDot"></span>
+          <span id="heroStatus">กำลังตรวจสอบสถานะระบบ…</span>
+        </div>
+      </div>
+
+      <div class="code-card pop-element">
+        <div class="code-top">
+          <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+          <span class="code-name">loadstring.lua</span>
+        </div>
+        <div class="code-body">
+<span class="c">-- วางใน executor แล้วกด Execute</span><br />
+<span class="p">local License = ""</span><br />
+<span class="p">local Script = ""</span><br />
+<span class="p">loadstring(</span><span class="f">game:HttpGet</span>(<span class="s" id="scriptUrl">"https://loader999mss.vercel.app/loadc.lua"</span><span class="p">))(License, Script)</span>
+        </div>
+        <div class="copy-row">
+          <button class="btn" id="copyCard" type="button">คัดลอกโค้ด</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat pop-element"><b>HMAC-SHA256</b><span>ticket ลงนามทุกใบ</span></div>
+        <div class="stat pop-element"><b>30 นาที</b><span>อายุ ticket</span></div>
+        <div class="stat pop-element"><b>&lt; 60 วิ</b><span>อายุ runtime proof</span></div>
+        <div class="stat pop-element"><b>SHA-256 pinned</b><span>ตรวจทุก stage ก่อนรัน</span></div>
+      </div>
+    </div>
+
+    <section id="how">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker">Getting started</p>
+          <h2 class="pop-element">ใช้งานใน 3 ขั้นตอน</h2>
+          <p class="pop-element">ไม่ต้องติดตั้งอะไรเพิ่ม ใช้ executor ที่รองรับ <span class="mono">game:HttpGet</span> และ <span class="mono">loadstring</span></p>
+        </div>
+        <div class="steps">
+          <article class="step pop-element">
+            <div class="n">STEP 01</div>
+            <h3>เปิด executor แล้วรัน loadstring</h3>
+            <p>คัดลอกโค้ดด้านบนไปวางใน executor ระบบจะดึง stage 1 มาให้อัตโนมัติ</p>
+          </article>
+          <article class="step pop-element">
+            <div class="n">STEP 02</div>
+            <h3>รับคีย์จากหน้า Platoboost</h3>
+            <p>ตัวโหลดจะพาไปหน้าแลกคีย์ คีย์จะผูกกับ HWID ของเครื่องคุณทันทีที่ยืนยัน</p>
+          </article>
+          <article class="step pop-element">
+            <div class="n">STEP 03</div>
+            <h3>วางคีย์แล้วรอโหลด</h3>
+            <p>หลังคีย์ผ่าน ระบบจะดาวน์โหลดสคริปต์และตรวจสอบก่อนรัน — เสร็จแล้วใช้งานได้เลย</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="features">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker">Under the hood</p>
+          <h2 class="pop-element">ระบบป้องกันที่ทำงานเบื้องหลัง</h2>
+          <p class="pop-element">ทุกอย่างตรวจฝั่งเซิร์ฟเวอร์ ไม่ได้เชื่อสิ่งที่ client ส่งมาเพียงอย่างเดียว</p>
+        </div>
+        <div class="cards">
+          <article class="card pop-element">
+            <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+            <h3>ผูกกับ HWID</h3>
+            <p>คีย์หนึ่งใบใช้ได้กับเครื่องเดียว ticket ถูกผูกกับ hash ของ HWID ตั้งแต่ตอนตรวจคีย์</p>
+          </article>
+          <article class="card pop-element">
+            <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M5 9h14"/><path d="M7 9v5a5 5 0 0 0 10 0V9"/><path d="M9 21h6"/></svg></div>
+            <h3>Ticket อายุสั้น</h3>
+            <p>ลงนามด้วย HMAC-SHA256 หมดอายุใน 30 นาที และมี runtime proof แยกที่อายุไม่เกิน 60 วินาที</p>
+          </article>
+          <article class="card pop-element">
+            <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h10"/><path d="M4 17h7"/><circle cx="18" cy="16" r="3"/></svg></div>
+            <h3>Stage chain หลายชั้น</h3>
+            <p>แต่ละทอดมี capability เฉพาะ ออกใหม่ทุกครั้งและใช้ได้ครั้งเดียวภายใน 20 วินาที</p>
+          </article>
+          <article class="card pop-element">
+            <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
+            <h3>ตรวจความถูกต้องของไฟล์</h3>
+            <p>ไฟล์ stage 2 ถูก pin ด้วย SHA-256 ไว้ในตัวเซิร์ฟเวอร์ ถ้าเนื้อหาเปลี่ยนจะไม่ยอมรัน</p>
+          </article>
+          <article class="card pop-element">
+            <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12L16 12h5"/></svg></div>
+            <h3>Heartbeat ระหว่างเล่น</h3>
+            <p>เซิร์ฟเวอร์ตรวจ session เป็นระยะ ถ้าถูกแบนหรือแก้สคริปต์ระหว่างทางจะตัดการเชื่อมต่อ</p>
+          </article>
+          <article class="card pop-element">
+            <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg></div>
+            <h3>รหัส diagnostic</h3>
+            <p>ถ้าถูกปฏิเสธ ระบบแสดงรหัสอย่าง <span class="mono">D2_HWID_MISMATCH</span> เพื่อแจ้งทีมซัพพอร์ตได้ตรงจุด</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="status">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker">Live status</p>
+          <h2 class="pop-element">สถานะระบบ</h2>
+          <p class="pop-element">ตรวจจาก endpoint จริงของเซิร์ฟเวอร์นี้ ไม่ใช่ข้อความที่พิมพ์ไว้</p>
+        </div>
+        <div class="panel pop-element">
+          <div>
+            <div class="ping">
+              <span class="dot" id="panelDot"></span>
+              <div>
+                <div class="big" id="latency">—</div>
+                <small>เวลาตอบสนอง API</small>
+              </div>
+            </div>
+            <div class="kv"><span>สถานะ</span><b id="stState">กำลังตรวจสอบ…</b></div>
+            <div class="kv"><span>เวอร์ชัน</span><b id="stVersion">—</b></div>
+            <div class="kv"><span>Stage chain</span><b id="stChain">—</b></div>
+            <div class="kv"><span>ตรวจล่าสุด</span><b id="stChecked">—</b></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
+            <p style="margin:0;color:var(--muted);font-size:.93rem">
+              หน้านี้เรียก <span class="mono">/api/health</span> แบบไม่ส่งข้อมูลใด ๆ ต่อเซิร์ฟเวอร์
+              เพื่อวัดว่า API ตอบสนองหรือไม่
+            </p>
+            <button class="btn" id="refresh" type="button">ตรวจอีกครั้ง</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker">FAQ</p>
+          <h2 class="pop-element">คำถามที่พบบ่อย</h2>
+        </div>
+        <div class="faq pop-element">
+          <details>
+            <summary>คีย์ใช้กับเครื่องอื่นได้ไหม</summary>
+            <p>ไม่ได้ คีย์ถูกผูกกับ HWID ตั้งแต่ตอนยืนยัน ถ้าเปลี่ยนเครื่องหรือเปลี่ยนอุปกรณ์ ให้ติดต่อทีมซัพพอร์ตเพื่อรีเซ็ตการผูก</p>
+          </details>
+          <details>
+            <summary>ขึ้นว่า HWID mismatch ต้องทำอย่างไร</summary>
+            <p>แปลว่าระบบตรวจพบว่าคีย์นี้ผูกกับเครื่องอื่น หรือตัว executor รายงานค่า HWID ไม่คงที่ ลองรีสตาร์ท executor แล้วรันใหม่ หากยังขึ้นอยู่ให้ติดต่อซัพพอร์ตพร้อมรหัส diagnostic</p>
+          </details>
+          <details>
+            <summary>ทำไมต้องรันผ่าน loadc.lua เท่านั้น</summary>
+            <p>เพราะสคริปต์หลักถูกล็อกกับ chain <span class="mono">loadc → loada → loader → payload</span> การข้ามขั้นจะทำให้การตรวจสอบ state ล้มเหลวและถูกตัดการทำงาน</p>
+          </details>
+          <details>
+            <summary>ระบบเก็บข้อมูลอะไรบ้าง</summary>
+            <p>เซิร์ฟเวอร์เก็บเฉพาะ hash ของ HWID, หมายเลข ticket และสถานะ session ที่มีอายุสั้น ไม่ได้เก็บคีย์หรือข้อมูลส่วนตัวแบบถาวร</p>
+          </details>
+          <details>
+            <summary>รองรับ executor ตัวไหนบ้าง</summary>
+            <p>ต้องรองรับ <span class="mono">game:HttpGet</span>, <span class="mono">loadstring</span> และ <span class="mono">request/syn.request</span> ขึ้นไป ถ้าไม่รองรับ ตัวโหลดจะแจ้งรหัส <span class="mono">MS999:S1:E04</span></p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="cta pop-element">
+          <h2>พร้อมเริ่มแล้วหรือยัง</h2>
+          <p>คัดลอก loadstring ไปวางใน executor แล้วทำตามขั้นตอน ระบบจะพาไปแลกคีย์เอง</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="copyCta" type="button">คัดลอก loadstring</button>
+            <a class="btn btn-ghost" href="#how">อ่านวิธีใช้</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <span>© 2026 999MS · Key system &amp; loader</span>
+        <span style="display:flex;gap:18px">
+          <a href="#status">สถานะ</a>
+          <a href="#faq">คำถามบ่อย</a>
+          <a href="/control">Control</a>
+          <a href="https://yura.lol/09ms" rel="noopener">Discord</a>
+        </span>
+      </div>
+      <p class="disclaimer">
+        999MS ไม่ได้มีความเกี่ยวข้องกับ Roblox Corporation หรือผู้พัฒนาเกมใด ๆ การใช้สคริปต์อัตโนมัติอาจผิดข้อกำหนดการใช้งานของเกม
+        ผู้ใช้รับผิดชอบความเสี่ยงด้วยตนเอง
+      </p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ─── loader line + clipboard ─── */
+  var FALLBACK_HOST = 'loader999mss.vercel.app';
+  var host = location.host && location.host.indexOf('localhost') !== 0 && location.host !== ''
+    ? location.host
+    : FALLBACK_HOST;
+  var url = 'https://' + host + '/loadc.lua';
+  var command = 'local License = ""\nlocal Script = ""\nloadstring(game:HttpGet("' + url + '"))(License, Script)';
+
+  var scriptUrlEl = document.getElementById('scriptUrl');
+  if (scriptUrlEl) scriptUrlEl.textContent = '"' + url + '"';
+
+  function flash(btn) {
+    if (!btn) return;
+    var original = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', original);
+    btn.classList.add('copied');
+    btn.textContent = 'คัดลอกแล้ว ✓';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(function () {
+      btn.classList.remove('copied');
+      btn.textContent = original;
+    }, 1600);
+  }
+
+  function legacy(text, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); flash(btn); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copy(text, btn) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });
+      return;
+    }
+    legacy(text, btn);
+  }
+
+  ['copyNav', 'copyHero', 'copyCard', 'copyCta'].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function () { copy(command, btn); });
+  });
+
+  /* ─── live API status ─── */
+  var dot = document.getElementById('panelDot');
+  var heroDot = document.getElementById('heroDot');
+  var latencyEl = document.getElementById('latency');
+  var stateEl = document.getElementById('stState');
+  var versionEl = document.getElementById('stVersion');
+  var chainEl = document.getElementById('stChain');
+  var checkedEl = document.getElementById('stChecked');
+  var heroStatus = document.getElementById('heroStatus');
+
+  function setDot(el, cls) {
+    if (!el) return;
+    el.classList.remove('ok', 'bad');
+    if (cls) el.classList.add(cls);
+  }
+
+  function check() {
+    var started = Date.now();
+    if (stateEl) stateEl.textContent = 'กำลังตรวจสอบ…';
+    setDot(dot, '');
+    setDot(heroDot, '');
+
+    var controller = window.AbortController ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;
+
+    fetch('/api/health', { cache: 'no-store', signal: controller ? controller.signal : undefined })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var ms = Date.now() - started;
+        if (latencyEl) latencyEl.textContent = ms + ' ms';
+        if (stateEl) stateEl.textContent = 'ออนไลน์';
+        if (versionEl) versionEl.textContent = 'v' + (data.version || '—');
+        if (chainEl) chainEl.textContent = data.chain || '—';
+        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');
+        if (heroStatus) heroStatus.textContent = 'ระบบออนไลน์ · ' + ms + ' ms';
+        setDot(dot, 'ok');
+        setDot(heroDot, 'ok');
+      })
+      .catch(function () {
+        var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;
+        if (latencyEl) latencyEl.textContent = '—';
+        if (stateEl) stateEl.textContent = offlinePreview ? 'ตรวจสอบได้บนเว็บจริง' : 'ติดต่อไม่ได้';
+        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');
+        if (heroStatus) {
+          heroStatus.textContent = offlinePreview
+            ? 'พรีวิวแบบไม่ต่อเน็ต — เปิดบนเว็บจริงเพื่อดูสถานะ'
+            : 'ตรวจสถานะไม่ได้ (อาจถูกบล็อกหรือออฟไลน์)';
+        }
+        setDot(dot, offlinePreview ? '' : 'bad');
+        setDot(heroDot, offlinePreview ? '' : 'bad');
+      })
+      .then(function () { if (timer) clearTimeout(timer); });
+  }
+
+  var refreshBtn = document.getElementById('refresh');
+  if (refreshBtn) refreshBtn.addEventListener('click', check);
+  check();
+
+  /* ─── mobile menu ─── */
+  var burger = document.getElementById('burger');
+  var navPill = document.getElementById('navPill');
+  if (burger && navPill) {
+    burger.addEventListener('click', function () {
+      var open = navPill.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
+    });
+    navPill.addEventListener('click', function (event) {
+      if (event.target.closest('.nav-link')) {
+        navPill.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ─── fly-in: random direction per element ─── */
+  var animated = document.documentElement.classList.contains('js-anim');
+
+  function randomDir() {
+    return {
+      tx: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',
+      ty: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',
+      tr: ((Math.random() - 0.5) * 120).toFixed(1) + 'deg'
+    };
+  }
+
+  function arm(el, delay) {
+    var d = randomDir();
+    el.style.setProperty('--tx', d.tx);
+    el.style.setProperty('--ty', d.ty);
+    el.style.setProperty('--tr', d.tr);
+    el.style.setProperty('--delay', delay + 's');
+    el.classList.add('pop-in');
+  }
+
+  /* headline: split into grapheme clusters so Thai combining marks stay put */
+  var headline = document.getElementById('headline');
+  if (headline) {
+    var text = headline.getAttribute('data-text') || headline.textContent;
+    var accent = parseInt(headline.getAttribute('data-accent') || '-1', 10);
+    var clusters;
+    if (window.Intl && window.Intl.Segmenter) {
+      try {
+        clusters = Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text))
+          .map(function (part) { return part.segment; });
+      } catch (e) { clusters = null; }
+    }
+    if (!clusters) clusters = Array.from(text);
+
+    var fragment = document.createDocumentFragment();
+    var chars = [];
+    clusters.forEach(function (ch, index) {
+      if (ch === ' ' || ch === '\u00a0') {
+        var space = document.createElement('span');
+        space.className = 'char-space';
+        space.innerHTML = '&nbsp;';
+        fragment.appendChild(space);
+        return;
+      }
+      var span = document.createElement('span');
+      span.className = 'char' + (accent >= 0 && index >= accent ? ' char-accent' : '');
+      span.textContent = ch;
+      span.setAttribute('data-char', ch);
+      fragment.appendChild(span);
+      chars.push(span);
+    });
+    headline.textContent = '';
+    headline.appendChild(fragment);
+
+    if (animated) {
+      setTimeout(function () {
+        var total = 0;
+        chars.forEach(function (span, index) {
+          arm(span, 0.15 + index * 0.05);
+          total = 0.15 + index * 0.05;
+        });
+        setTimeout(function () {
+          chars.forEach(function (span) { span.classList.add('shimmer-ready'); });
+        }, (total + 1.8) * 1000);
+      }, 80);
+    }
+  }
+
+  /* everything else: fly in when it scrolls into view */
+  var pops = [].slice.call(document.querySelectorAll('.pop-element'));
+  if (!animated) {
+    pops.forEach(function (el) { el.classList.add('pop-in'); });
+  } else if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      var shown = 0;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        arm(entry.target, shown * 0.09);
+        shown += 1;
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.06 });
+    pops.forEach(function (el) { io.observe(el); });
+  } else {
+    pops.forEach(function (el, index) { arm(el, index * 0.08); });
+  }
+
+  /* pointer tilt on the code card */
+  var card = document.querySelector('.code-card');
+  if (card && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    card.addEventListener('pointermove', function (event) {
+      if (window.innerWidth < 960) return;
+      var r = card.getBoundingClientRect();
+      var x = (event.clientX - r.left) / r.width - 0.5;
+      var y = (event.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(1200px) rotateY(' + (-4 + x * 5).toFixed(2) + 'deg) rotateX(' + (2 - y * 5).toFixed(2) + 'deg)';
+    });
+    card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+  }
+})();
+</script>
+</body>
+</html>
+
+<!-- deploy trigger: 2026-10-22T00:00:00Z -->
