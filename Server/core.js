@@ -1008,10 +1008,6 @@ const KEY_PAGE =
   "      <div>\n" +
   "        <span class=\"eyebrow pop-element\"><i></i> Key system \u00b7 Loader \u00b7 v2.1</span>\n" +
   "        <h1 class=\"headline\" id=\"headline\" data-text=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\" data-accent=\"10\" aria-label=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\"></h1>\n" +
-  "        <p class=\"lede pop-element\">\n" +
-  "          999MS \u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 Platoboost \u0e41\u0e25\u0e49\u0e27\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38 30 \u0e19\u0e32\u0e17\u0e35\n" +
-  "          \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e2d\u0e14 \u0e46 \u0e42\u0e14\u0e22\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e02\u0e2d\u0e07\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\n" +
-  "        </p>\n" +
   "        <div class=\"hero-actions pop-element\">\n" +
   "          <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
   "            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
