@@ -564,894 +564,623 @@ module.exports = async function handler(req, res) {
 // BEGIN PAGE / - generated from pages/index.html; run `npm run pages` to refresh.
 const ROOT_PAGE =
   "<!DOCTYPE html>\n" +
-  "<html lang=\"th\">\n" +
+  "<html lang=\"en\">\n" +
   "<head>\n" +
-  "<meta charset=\"utf-8\" />\n" +
-  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n" +
-  "<title>999MS \u2014 Key System &amp; Loader</title>\n" +
-  "<meta name=\"description\" content=\"999MS \u2014 \u0e23\u0e30\u0e1a\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Roblox: \u0e1c\u0e39\u0e01 HWID, \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, \u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\" />\n" +
-  "<meta name=\"theme-color\" content=\"#000000\" />\n" +
-  "<meta property=\"og:title\" content=\"999MS \u2014 Key System &amp; Loader\" />\n" +
-  "<meta property=\"og:description\" content=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e15\u0e23\u0e27\u0e08 HWID, ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, stage chain \u0e15\u0e23\u0e27\u0e08 SHA-256\" />\n" +
-  "<meta property=\"og:type\" content=\"website\" />\n" +
-  "<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2322c55e'/%3E%3C/svg%3E\" />\n" +
+  "  <meta charset=\"UTF-8\" />\n" +
+  "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\" />\n" +
+  "  <title>999MS HUB \u2014 Premium Roblox Scripts</title>\n" +
   "\n" +
-  "<link rel=\"preconnect\" href=\"https://db.onlinewebfonts.com\" crossorigin />\n" +
-  "<link href=\"https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos\" rel=\"stylesheet\" />\n" +
+  "  <!-- 1. Inter (UI) -->\n" +
+  "  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\n" +
+  "  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n" +
+  "  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap\" rel=\"stylesheet\" />\n" +
   "\n" +
-  "<script>\n" +
-  "  // Animation is progressive enhancement: if JS or motion is unavailable the\n" +
-  "  // page still renders fully, it simply appears without the fly-in.\n" +
-  "  try {\n" +
-  "    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
-  "      document.documentElement.classList.add('js-anim');\n" +
+  "  <!-- 2. BubbledotICG-FinePos (Display - Dot-matrix) -->\n" +
+  "  <link href=\"https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos\" rel=\"stylesheet\" />\n" +
+  "\n" +
+  "  <!-- 3. Font Awesome 6.5.2 -->\n" +
+  "  <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css\" integrity=\"sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />\n" +
+  "\n" +
+  "  <style>\n" +
+  "    /* ===== Variables ===== */\n" +
+  "    :root {\n" +
+  "      --bg: #000000;\n" +
+  "      --text: #ffffff;\n" +
+  "      --muted: #8e8e93;\n" +
+  "      --pill-dark: #1a1a1a;\n" +
+  "      --nav-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);\n" +
+  "      \n" +
+  "      /* \u0e1f\u0e2d\u0e19\u0e15\u0e4c Dot-matrix \u0e17\u0e31\u0e49\u0e07\u0e2b\u0e19\u0e49\u0e32 */\n" +
+  "      --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
+  "      --font-display: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
   "    }\n" +
-  "  } catch (e) {}\n" +
-  "</script>\n" +
   "\n" +
-  "<style>\n" +
-  "  :root {\n" +
-  "    --bg: #000000;\n" +
-  "    --text: #ffffff;\n" +
-  "    --muted: #9a9aa2;\n" +
-  "    --line: rgba(255, 255, 255, 0.1);\n" +
-  "    --line-2: rgba(255, 255, 255, 0.2);\n" +
-  "    --green: #22c55e;\n" +
-  "    --glass: rgba(255, 255, 255, 0.035);\n" +
-  "    --glass-2: rgba(255, 255, 255, 0.06);\n" +
-  "    --radius: 18px;\n" +
-  "    /* Dot-matrix for Latin/digits, Thai falls through to the system Thai font. */\n" +
-  "    --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", \"Leelawadee UI\", \"Thonburi\",\n" +
-  "                 \"Noto Sans Thai\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
-  "    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace;\n" +
-  "  }\n" +
-  "\n" +
-  "  * { box-sizing: border-box; }\n" +
-  "  html { scroll-behavior: smooth; }\n" +
-  "  body {\n" +
-  "    margin: 0;\n" +
-  "    background: var(--bg);\n" +
-  "    color: var(--text);\n" +
-  "    font-family: var(--font-sans);\n" +
-  "    -webkit-font-smoothing: antialiased;\n" +
-  "    line-height: 1.65;\n" +
-  "    overflow-x: hidden;\n" +
-  "    letter-spacing: 0.02em;\n" +
-  "  }\n" +
-  "  a { color: inherit; text-decoration: none; }\n" +
-  "  button { font-family: inherit; }\n" +
-  "  .wrap { width: min(1120px, 92vw); margin-inline: auto; }\n" +
-  "  .mono { font-family: var(--font-mono); }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 background \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .bg-wave { position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden; }\n" +
-  "  .bg-wave::before {\n" +
-  "    content: \"\"; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;\n" +
-  "    background:\n" +
-  "      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),\n" +
-  "      radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.07) 0%, transparent 40%);\n" +
-  "    filter: blur(80px);\n" +
-  "    animation: waveMove1 20s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .bg-wave::after {\n" +
-  "    content: \"\"; position: absolute; bottom: -50%; right: -50%; width: 150%; height: 150%;\n" +
-  "    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);\n" +
-  "    filter: blur(100px);\n" +
-  "    animation: waveMove2 25s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .green-orb { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; }\n" +
-  "  .orb-1 {\n" +
-  "    width: 45vw; height: 45vw; top: -15%; right: -10%;\n" +
-  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.32) 0%, transparent 70%);\n" +
-  "    animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .orb-2 {\n" +
-  "    width: 35vw; height: 35vw; bottom: 5%; left: -5%;\n" +
-  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
-  "    animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .orb-3 {\n" +
-  "    width: 25vw; height: 25vw; top: 40%; left: 30%;\n" +
-  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, transparent 70%);\n" +
-  "    animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .bg-wave .noise {\n" +
-  "    position: absolute; inset: 0; opacity: 0.12; z-index: 2; pointer-events: none;\n" +
-  "    mix-blend-mode: overlay;\n" +
-  "    background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");\n" +
-  "  }\n" +
-  "  @keyframes waveMove1 {\n" +
-  "    0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
-  "    50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
-  "    100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
-  "  }\n" +
-  "  @keyframes waveMove2 {\n" +
-  "    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
-  "    50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
-  "    100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
-  "  }\n" +
-  "  @keyframes orbFloat1 { 0% { transform: translate(0,0) scale(1); opacity:.35 } 100% { transform: translate(-15%,20%) scale(1.3); opacity:.7 } }\n" +
-  "  @keyframes orbFloat2 { 0% { transform: translate(0,0) scale(1); opacity:.25 } 100% { transform: translate(20%,-15%) scale(1.4); opacity:.6 } }\n" +
-  "  @keyframes orbFloat3 { 0% { transform: translate(0,0) scale(1); opacity:.18 } 100% { transform: translate(-10%,-20%) scale(1.5); opacity:.45 } }\n" +
-  "\n" +
-  "  .page { position: relative; z-index: 3; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 nav \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .site-header {\n" +
-  "    position: sticky; top: 18px; z-index: 50;\n" +
-  "    display: flex; justify-content: center;\n" +
-  "    padding: 0 clamp(10px, 2vw, 20px);\n" +
-  "  }\n" +
-  "  .nav-pill {\n" +
-  "    width: 100%; max-width: 1120px;\n" +
-  "    display: flex; align-items: center; gap: 18px;\n" +
-  "    height: 64px; padding: 0 8px 0 14px;\n" +
-  "    border-radius: 999px;\n" +
-  "    background: rgba(10, 10, 12, 0.55);\n" +
-  "    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
-  "    border: 1px solid var(--line);\n" +
-  "    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55);\n" +
-  "  }\n" +
-  "  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; flex-shrink: 0; }\n" +
-  "  .mark {\n" +
-  "    width: 44px; height: 44px; border-radius: 50%;\n" +
-  "    display: grid; place-items: center;\n" +
-  "    background: #fff; overflow: hidden;\n" +
-  "    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);\n" +
-  "    transition: transform .25s ease;\n" +
-  "  }\n" +
-  "  .brand:hover .mark { transform: scale(1.05); }\n" +
-  "  .mark svg { width: 60%; height: 60%; }\n" +
-  "  .brand-name { font-size: 1.02rem; letter-spacing: .04em; }\n" +
-  "  .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); margin-left: auto; }\n" +
-  "  .nav-link { font-size: 14px; color: var(--muted); transition: color .2s ease; }\n" +
-  "  .nav-link:hover { color: #fff; }\n" +
-  "  .burger {\n" +
-  "    display: none; width: 44px; height: 44px; border-radius: 50%;\n" +
-  "    flex-direction: column; align-items: center; justify-content: center; gap: 5px;\n" +
-  "    background: rgba(255,255,255,.06); border: 1px solid var(--line); cursor: pointer;\n" +
-  "  }\n" +
-  "  .burger span { display: block; width: 18px; height: 1.5px; background: #fff; border-radius: 2px; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 buttons \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .btn {\n" +
-  "    display: inline-flex; align-items: center; justify-content: center; gap: 9px;\n" +
-  "    padding: 12px 22px; border-radius: 999px;\n" +
-  "    border: 1px solid var(--line-2);\n" +
-  "    background: var(--glass); color: var(--text);\n" +
-  "    font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap;\n" +
-  "    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;\n" +
-  "  }\n" +
-  "  .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: var(--glass-2); }\n" +
-  "  .btn-primary {\n" +
-  "    border: 0; background: #fff; color: #000;\n" +
-  "    box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 0 22px rgba(255,255,255,.22);\n" +
-  "  }\n" +
-  "  .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 38px rgba(255,255,255,.45); }\n" +
-  "  .btn-primary.copied {\n" +
-  "    background: var(--green); color: #04160a;\n" +
-  "    box-shadow: 0 0 0 1px rgba(34,197,94,.5), 0 0 32px rgba(34,197,94,.6);\n" +
-  "  }\n" +
-  "  .btn-ghost { background: transparent; }\n" +
-  "  .btn svg { flex-shrink: 0; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 hero \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .hero {\n" +
-  "    display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center;\n" +
-  "    padding: 64px 0 72px;\n" +
-  "  }\n" +
-  "  .eyebrow {\n" +
-  "    display: inline-flex; align-items: center; gap: 9px;\n" +
-  "    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;\n" +
-  "    color: #cfd4e4; border: 1px solid var(--line-2);\n" +
-  "    background: rgba(255,255,255,.04); padding: 7px 14px; border-radius: 999px;\n" +
-  "  }\n" +
-  "  .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }\n" +
-  "\n" +
-  "  .headline {\n" +
-  "    display: flex; flex-wrap: wrap; gap: 0.02em;\n" +
-  "    font-size: clamp(34px, 5vw, 60px); line-height: 1.25;\n" +
-  "    font-weight: 700; letter-spacing: -0.01em;\n" +
-  "    margin: 22px 0 18px; perspective: 1000px; min-height: 1.2em;\n" +
-  "  }\n" +
-  "  .char {\n" +
-  "    display: inline-block; position: relative; white-space: pre;\n" +
-  "    background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
-  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
-  "    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.18));\n" +
-  "  }\n" +
-  "  .char-accent {\n" +
-  "    background: linear-gradient(180deg, #4ade80 15%, #16a34a 100%);\n" +
-  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
-  "    filter: drop-shadow(0 0 18px rgba(34, 197, 94, 0.35));\n" +
-  "  }\n" +
-  "  .char-space { display: inline-block; width: 0.32em; }\n" +
-  "  .char.shimmer-ready::after {\n" +
-  "    content: attr(data-char);\n" +
-  "    position: absolute; top: 0; left: 0; width: 100%; height: 100%;\n" +
-  "    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.85) 50%, transparent 100%);\n" +
-  "    background-size: 200% 100%;\n" +
-  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
-  "    animation: shimmer 3.5s infinite linear; z-index: 1;\n" +
-  "  }\n" +
-  "  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }\n" +
-  "\n" +
-  "  .lede { color: var(--muted); font-size: 1.04rem; max-width: 52ch; margin: 0 0 30px; }\n" +
-  "  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }\n" +
-  "  .status-line { display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: .92rem; color: var(--muted); }\n" +
-  "  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5c6478; flex-shrink: 0; }\n" +
-  "  .dot.ok {\n" +
-  "    background: var(--green); box-shadow: 0 0 10px var(--green);\n" +
-  "    animation: dotPulse 1.8s cubic-bezier(.215,.61,.355,1) infinite;\n" +
-  "  }\n" +
-  "  .dot.bad { background: #ff6b81; box-shadow: 0 0 10px rgba(255,107,129,.6); }\n" +
-  "  @keyframes dotPulse {\n" +
-  "    0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }\n" +
-  "    100% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 code card \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .code-card {\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));\n" +
-  "    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;\n" +
-  "    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);\n" +
-  "    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
-  "    transition: transform .2s ease;\n" +
-  "  }\n" +
-  "  .code-top {\n" +
-  "    display: flex; align-items: center; gap: 8px;\n" +
-  "    padding: 12px 16px; border-bottom: 1px solid var(--line);\n" +
-  "    background: rgba(0,0,0,.35);\n" +
-  "  }\n" +
-  "  .tl { width: 10px; height: 10px; border-radius: 50%; }\n" +
-  "  .tl:nth-child(1) { background: #ff5f57; }\n" +
-  "  .tl:nth-child(2) { background: #febc2e; }\n" +
-  "  .tl:nth-child(3) { background: #28c840; }\n" +
-  "  .code-name { margin-left: 8px; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }\n" +
-  "  .code-body {\n" +
-  "    padding: 22px 18px; font-family: var(--font-mono);\n" +
-  "    font-size: .86rem; line-height: 1.8; overflow-x: auto;\n" +
-  "  }\n" +
-  "  .code-body .c { color: #6b7280; }\n" +
-  "  .code-body .f { color: var(--green); }\n" +
-  "  .code-body .s { color: #a3e635; }\n" +
-  "  .code-body .p { color: #e7e9f0; }\n" +
-  "  .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }\n" +
-  "  .copy-row .btn { flex: 1; justify-content: center; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 sections \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  section { padding: 68px 0; }\n" +
-  "  .sec-head { max-width: 62ch; margin-bottom: 34px; }\n" +
-  "  .kicker {\n" +
-  "    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .2em;\n" +
-  "    text-transform: uppercase; color: var(--green); margin: 0 0 10px;\n" +
-  "  }\n" +
-  "  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }\n" +
-  "  .sec-head p { color: var(--muted); margin: 0; }\n" +
-  "\n" +
-  "  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }\n" +
-  "  .stat {\n" +
-  "    background: rgba(0,0,0,.4); border: 1px solid var(--line);\n" +
-  "    border-radius: 16px; padding: 20px 18px; text-align: center;\n" +
-  "    backdrop-filter: blur(10px); transition: background .3s, border-color .3s;\n" +
-  "  }\n" +
-  "  .stat:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.28); }\n" +
-  "  .stat b { display: block; font-size: 1rem; font-weight: 600; letter-spacing: .01em; }\n" +
-  "  .stat span { color: var(--muted); font-size: .82rem; }\n" +
-  "\n" +
-  "  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
-  "  .step {\n" +
-  "    border: 1px solid var(--line); background: var(--glass);\n" +
-  "    border-radius: var(--radius); padding: 24px; position: relative; overflow: hidden;\n" +
-  "    backdrop-filter: blur(10px);\n" +
-  "  }\n" +
-  "  .step::after {\n" +
-  "    content: \"\"; position: absolute; inset: 0 auto auto 0; height: 2px; width: 100%;\n" +
-  "    background: linear-gradient(90deg, rgba(34,197,94,.9), rgba(255,255,255,.35)); opacity: .7;\n" +
-  "  }\n" +
-  "  .step .n { font-family: var(--font-mono); font-size: .76rem; color: var(--green); letter-spacing: .16em; }\n" +
-  "  .step h3 { margin: 12px 0 8px; font-size: 1.02rem; }\n" +
-  "  .step p { margin: 0; color: var(--muted); font-size: .92rem; }\n" +
-  "\n" +
-  "  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
-  "  .card {\n" +
-  "    border: 1px solid var(--line); background: var(--glass);\n" +
-  "    border-radius: var(--radius); padding: 24px;\n" +
-  "    transition: border-color .25s, transform .25s, background .25s;\n" +
-  "    backdrop-filter: blur(10px);\n" +
-  "  }\n" +
-  "  .card:hover { border-color: var(--line-2); transform: translateY(-2px); background: var(--glass-2); }\n" +
-  "  .ico {\n" +
-  "    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;\n" +
-  "    background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.25); margin-bottom: 14px;\n" +
-  "  }\n" +
-  "  .ico svg { width: 19px; height: 19px; stroke: var(--green); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }\n" +
-  "  .card h3 { margin: 0 0 7px; font-size: 1rem; }\n" +
-  "  .card p { margin: 0; color: var(--muted); font-size: .91rem; }\n" +
-  "\n" +
-  "  /* status panel */\n" +
-  "  .panel {\n" +
-  "    border: 1px solid var(--line-2); border-radius: 22px;\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015));\n" +
-  "    padding: 26px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 26px;\n" +
-  "    backdrop-filter: blur(12px);\n" +
-  "  }\n" +
-  "  .ping { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }\n" +
-  "  .ping .big { font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }\n" +
-  "  .ping small { color: var(--muted); }\n" +
-  "  .kv {\n" +
-  "    display: flex; justify-content: space-between; gap: 12px;\n" +
-  "    padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem;\n" +
-  "  }\n" +
-  "  .kv span { color: var(--muted); }\n" +
-  "  .kv b { font-weight: 500; }\n" +
-  "\n" +
-  "  /* faq */\n" +
-  "  .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }\n" +
-  "  .faq details { border-bottom: 1px solid var(--line); }\n" +
-  "  .faq details:last-child { border-bottom: 0; }\n" +
-  "  .faq summary {\n" +
-  "    cursor: pointer; padding: 18px 22px; font-weight: 600; list-style: none;\n" +
-  "    display: flex; align-items: center; justify-content: space-between; gap: 12px;\n" +
-  "  }\n" +
-  "  .faq summary::-webkit-details-marker { display: none; }\n" +
-  "  .faq summary::after { content: \"+\"; color: var(--green); font-size: 1.2rem; line-height: 1; }\n" +
-  "  .faq details[open] summary::after { content: \"\u2013\"; }\n" +
-  "  .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }\n" +
-  "\n" +
-  "  /* cta */\n" +
-  "  .cta {\n" +
-  "    border: 1px solid var(--line-2); border-radius: 24px; padding: 44px 28px; text-align: center;\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));\n" +
-  "    backdrop-filter: blur(12px);\n" +
-  "  }\n" +
-  "  .cta p { color: var(--muted); max-width: 52ch; margin: 0 auto 24px; }\n" +
-  "  .cta .hero-actions { justify-content: center; }\n" +
-  "\n" +
-  "  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }\n" +
-  "  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }\n" +
-  "  .foot a:hover { color: #fff; }\n" +
-  "  .disclaimer { color: #6b6b74; font-size: .8rem; margin: 18px 0 0; max-width: 90ch; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 fly-in animation \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .js-anim .char,\n" +
-  "  .js-anim .pop-element {\n" +
-  "    opacity: 0; visibility: hidden;\n" +
-  "    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.6) rotate(var(--tr, 0deg));\n" +
-  "    filter: blur(10px);\n" +
-  "  }\n" +
-  "  .js-anim .pop-in {\n" +
-  "    visibility: visible;\n" +
-  "    animation: bouncyRandomPop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
-  "    animation-delay: var(--delay, 0s);\n" +
-  "  }\n" +
-  "  @keyframes bouncyRandomPop {\n" +
-  "    0% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.25) rotate(var(--tr, 0deg)); filter: blur(14px); }\n" +
-  "    60% { opacity: 1; transform: translate(0, 0) scale(1.06) rotate(0deg); filter: blur(0); }\n" +
-  "    80% { transform: translate(0, 0) scale(.97) rotate(0deg); }\n" +
-  "    100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(0); }\n" +
-  "  }\n" +
-  "  @media (prefers-reduced-motion: reduce) {\n" +
-  "    .js-anim .char,\n" +
-  "    .js-anim .pop-element {\n" +
-  "      opacity: 1 !important; visibility: visible !important;\n" +
-  "      transform: none !important; filter: none !important; animation: none !important;\n" +
+  "    *, *::before, *::after {\n" +
+  "      box-sizing: border-box;\n" +
+  "      margin: 0;\n" +
+  "      padding: 0;\n" +
   "    }\n" +
-  "  }\n" +
   "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 responsive \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  @media (max-width: 960px) {\n" +
-  "    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }\n" +
-  "    .code-card { transform: none; }\n" +
-  "    .stats { grid-template-columns: repeat(2, 1fr); }\n" +
-  "    .steps, .cards { grid-template-columns: 1fr; }\n" +
-  "    .panel { grid-template-columns: 1fr; gap: 18px; }\n" +
-  "  }\n" +
-  "  @media (max-width: 900px) {\n" +
-  "    .nav-links, .nav-pill .btn { display: none; }\n" +
-  "    .burger { display: flex; margin-left: auto; }\n" +
-  "    .nav-pill.is-open {\n" +
-  "      flex-wrap: wrap; height: auto; padding-bottom: 14px; border-radius: 26px;\n" +
+  "    html { scroll-behavior: smooth; }\n" +
+  "\n" +
+  "    body {\n" +
+  "      background: var(--bg);\n" +
+  "      color: var(--text);\n" +
+  "      font-family: var(--font-sans);\n" +
+  "      -webkit-font-smoothing: antialiased;\n" +
+  "      -moz-osx-font-smoothing: grayscale;\n" +
+  "      overflow-x: hidden;\n" +
+  "      letter-spacing: 0.02em;\n" +
   "    }\n" +
-  "    .nav-pill.is-open .nav-links {\n" +
-  "      display: flex; flex-direction: column; align-items: stretch;\n" +
-  "      gap: 4px; order: 3; width: 100%; margin: 12px 0 0;\n" +
-  "      padding: 12px; border-radius: 18px;\n" +
-  "      background: rgba(10,10,12,.9); border: 1px solid var(--line);\n" +
+  "\n" +
+  "    a { text-decoration: none; color: inherit; }\n" +
+  "    button { font-family: inherit; border: none; background: none; cursor: pointer; }\n" +
+  "    img { display: block; max-width: 100%; }\n" +
+  "\n" +
+  "    /* ===== Background ===== */\n" +
+  "    .bg-wave {\n" +
+  "      position: fixed; inset: 0; z-index: 0;\n" +
+  "      background-color: #000; overflow: hidden;\n" +
   "    }\n" +
-  "    .nav-pill.is-open .nav-link { padding: 10px 12px; border-radius: 12px; }\n" +
-  "    .nav-pill.is-open .nav-link:hover { background: rgba(255,255,255,.06); }\n" +
-  "    .nav-pill.is-open .btn { display: inline-flex; order: 4; width: 100%; margin-top: 10px; }\n" +
-  "  }\n" +
-  "  @media (max-width: 560px) {\n" +
-  "    .stats { grid-template-columns: 1fr; }\n" +
-  "    .headline { font-size: clamp(28px, 8vw, 40px); }\n" +
-  "  }\n" +
-  "</style>\n" +
+  "\n" +
+  "    .bg-wave::before {\n" +
+  "      content: \"\"; position: absolute; top: -50%; left: -50%;\n" +
+  "      width: 200%; height: 200%;\n" +
+  "      background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),\n" +
+  "                  radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);\n" +
+  "      filter: blur(80px);\n" +
+  "      animation: waveMove1 20s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .bg-wave::after {\n" +
+  "      content: \"\"; position: absolute; bottom: -50%; right: -50%;\n" +
+  "      width: 150%; height: 150%;\n" +
+  "      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);\n" +
+  "      filter: blur(100px);\n" +
+  "      animation: waveMove2 25s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .green-orb {\n" +
+  "      position: absolute; border-radius: 50%;\n" +
+  "      filter: blur(60px); z-index: 1; pointer-events: none;\n" +
+  "    }\n" +
+  "\n" +
+  "    .orb-1 {\n" +
+  "      width: 45vw; height: 45vw;\n" +
+  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, transparent 70%);\n" +
+  "      top: -15%; right: -10%;\n" +
+  "      animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .orb-2 {\n" +
+  "      width: 35vw; height: 35vw;\n" +
+  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%);\n" +
+  "      bottom: 5%; left: -5%;\n" +
+  "      animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .orb-3 {\n" +
+  "      width: 25vw; height: 25vw;\n" +
+  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
+  "      top: 40%; left: 30%;\n" +
+  "      animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
+  "    }\n" +
+  "\n" +
+  "    .bg-wave .noise {\n" +
+  "      position: absolute; inset: 0; opacity: 0.15;\n" +
+  "      background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\");\n" +
+  "      mix-blend-mode: overlay; pointer-events: none; z-index: 2;\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes waveMove1 {\n" +
+  "      0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
+  "      50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
+  "      100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes waveMove2 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
+  "      50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
+  "      100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes orbFloat1 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }\n" +
+  "      100% { transform: translate(-15%, 20%) scale(1.3); opacity: 0.8; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes orbFloat2 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }\n" +
+  "      100% { transform: translate(20%, -15%) scale(1.4); opacity: 0.7; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes orbFloat3 {\n" +
+  "      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }\n" +
+  "      100% { transform: translate(-10%, -20%) scale(1.5); opacity: 0.5; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Page Layout ===== */\n" +
+  "    .page {\n" +
+  "      position: relative; z-index: 3;\n" +
+  "      display: flex; flex-direction: column; align-items: center;\n" +
+  "      min-height: 100vh; padding: 0 clamp(14px, 3vw, 32px) 80px;\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Header ===== */\n" +
+  "    .site-header {\n" +
+  "      width: 100%; max-width: 900px;\n" +
+  "      display: flex; align-items: center; justify-content: center;\n" +
+  "      position: sticky; top: 20px; z-index: 50; margin-bottom: 80px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .nav-pill {\n" +
+  "      display: flex; align-items: center; justify-content: space-between;\n" +
+  "      width: 100%; height: 64px; padding: 0 8px 0 16px;\n" +
+  "      border-radius: 999px; background: rgba(10, 10, 12, 0.4);\n" +
+  "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
+  "      border: 1px solid rgba(255, 255, 255, 0.1);\n" +
+  "      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    .brand {\n" +
+  "      flex-shrink: 0; display: grid; place-items: center;\n" +
+  "      width: 44px; height: 44px; border-radius: 50%;\n" +
+  "      background: #fff; overflow: hidden;\n" +
+  "      transition: transform 0.25s ease;\n" +
+  "      box-shadow: 0 0 15px rgba(255,255,255,0.3);\n" +
+  "    }\n" +
+  "\n" +
+  "    .brand:hover { transform: scale(1.04); }\n" +
+  "    .brand img { width: 72%; height: 72%; object-fit: contain; }\n" +
+  "\n" +
+  "    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }\n" +
+  "    .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s ease; }\n" +
+  "    .nav-link:hover, .nav-link.is-active { color: #fff; }\n" +
+  "\n" +
+  "    .sign-in {\n" +
+  "      display: inline-flex; align-items: center; justify-content: center;\n" +
+  "      height: 48px; padding: 0 24px; border-radius: 999px;\n" +
+  "      background: #fff; color: #000; font-size: 14px; font-weight: 600;\n" +
+  "      transition: transform 0.2s ease, opacity 0.2s, box-shadow 0.2s;\n" +
+  "    }\n" +
+  "\n" +
+  "    .sign-in:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,255,255,0.4); }\n" +
+  "\n" +
+  "    .burger {\n" +
+  "      display: none; flex-direction: column; align-items: center; justify-content: center;\n" +
+  "      gap: 5px; width: 48px; height: 48px; border-radius: 50%;\n" +
+  "      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);\n" +
+  "    }\n" +
+  "    .burger span {\n" +
+  "      display: block; width: 18px; height: 1.5px;\n" +
+  "      background: #fff; border-radius: 2px;\n" +
+  "      transition: transform 0.25s ease, background 0.25s ease;\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Hero Section ===== */\n" +
+  "    .hero {\n" +
+  "      width: 100%; max-width: 900px;\n" +
+  "      display: flex; flex-direction: column; align-items: center;\n" +
+  "      text-align: center; padding: 40px 0 100px;\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       HEADLINE: \u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07 \u0e44\u0e01\u0e25\u0e46 \u0e0a\u0e49\u0e32\u0e46\n" +
+  "       ========================================= */\n" +
+  "    .headline {\n" +
+  "      display: flex; align-items: center; justify-content: center;\n" +
+  "      flex-wrap: wrap; gap: 0.05em;\n" +
+  "      font-weight: 400; font-size: clamp(48px, 9vw, 110px);\n" +
+  "      letter-spacing: -0.02em; line-height: 1.1;\n" +
+  "      margin-bottom: 24px; perspective: 1000px;\n" +
+  "      min-height: 1.2em;\n" +
+  "    }\n" +
+  "\n" +
+  "    .char {\n" +
+  "      display: inline-block;\n" +
+  "      background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
+  "      -webkit-background-clip: text; background-clip: text;\n" +
+  "      color: transparent;\n" +
+  "      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));\n" +
+  "      opacity: 0; visibility: hidden; /* \u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e23\u0e2d\u0e04\u0e34\u0e27 */\n" +
+  "    }\n" +
+  "\n" +
+  "    .char.pop-in {\n" +
+  "      visibility: visible;\n" +
+  "      animation: bouncyRandomPop 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
+  "      animation-delay: var(--delay);\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes bouncyRandomPop {\n" +
+  "      0% {\n" +
+  "        opacity: 0;\n" +
+  "        transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--tr));\n" +
+  "        filter: blur(15px);\n" +
+  "      }\n" +
+  "      60% {\n" +
+  "        opacity: 1;\n" +
+  "        transform: translate(0, 0) scale(1.1) rotate(0deg);\n" +
+  "        filter: blur(0);\n" +
+  "      }\n" +
+  "      80% {\n" +
+  "        transform: translate(0, 0) scale(0.95) rotate(0deg);\n" +
+  "      }\n" +
+  "      100% {\n" +
+  "        opacity: 1;\n" +
+  "        transform: translate(0, 0) scale(1) rotate(0deg);\n" +
+  "        filter: blur(0);\n" +
+  "      }\n" +
+  "    }\n" +
+  "\n" +
+  "    .char.shimmer-ready::after {\n" +
+  "      content: attr(data-char);\n" +
+  "      position: absolute; top: 0; left: 0; width: 100%; height: 100%;\n" +
+  "      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.9) 50%, transparent 100%);\n" +
+  "      background-size: 200% 100%;\n" +
+  "      -webkit-background-clip: text; background-clip: text;\n" +
+  "      color: transparent; animation: shimmer 3s infinite linear;\n" +
+  "      z-index: 1;\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes shimmer {\n" +
+  "      0% { background-position: -200% 0; }\n" +
+  "      100% { background-position: 200% 0; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
+  "       ========================================= */\n" +
+  "    .subhead {\n" +
+  "      max-width: 650px; font-size: clamp(16px, 2vw, 18px);\n" +
+  "      line-height: 1.6; color: #ccc; margin-bottom: 40px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .cta-group {\n" +
+  "      display: flex; justify-content: center;\n" +
+  "      width: 100%; max-width: 500px; margin-bottom: 32px;\n" +
+  "    }\n" +
+  "\n" +
+  "    .cta-primary {\n" +
+  "      display: flex; align-items: center; justify-content: center;\n" +
+  "      /* \u0e1b\u0e23\u0e31\u0e1a\u0e43\u0e2b\u0e49\u0e01\u0e27\u0e49\u0e32\u0e07\u0e02\u0e36\u0e49\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e14\u0e39\u0e2a\u0e21\u0e14\u0e38\u0e25\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e21\u0e35\u0e1b\u0e38\u0e48\u0e21 Discord */\n" +
+  "      width: 100%; max-width: 280px; padding: 16px 24px;\n" +
+  "      border-radius: 999px; background: #fff; color: #000;\n" +
+  "      font-size: 15px; font-weight: 600;\n" +
+  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.2);\n" +
+  "      transition: transform 0.25s ease, box-shadow 0.25s ease;\n" +
+  "    }\n" +
+  "\n" +
+  "    .cta-primary:hover {\n" +
+  "      transform: translateY(-2px) scale(1.01);\n" +
+  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       Live Status\n" +
+  "       ========================================= */\n" +
+  "    .live-status {\n" +
+  "      display: flex; align-items: center; gap: 10px;\n" +
+  "      font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: #22c55e;\n" +
+  "      text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    .status-dot {\n" +
+  "      position: relative; width: 10px; height: 10px;\n" +
+  "      background: #22c55e; border-radius: 50%;\n" +
+  "      box-shadow: 0 0 10px #22c55e;\n" +
+  "    }\n" +
+  "\n" +
+  "    .status-dot::after {\n" +
+  "      content: \"\"; position: absolute; top: 50%; left: 50%;\n" +
+  "      width: 100%; height: 100%; background: #22c55e;\n" +
+  "      border-radius: 50%; transform: translate(-50%, -50%);\n" +
+  "      animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;\n" +
+  "      z-index: -1;\n" +
+  "    }\n" +
+  "\n" +
+  "    @keyframes pulseRing {\n" +
+  "      0% { width: 100%; height: 100%; opacity: 0.8; }\n" +
+  "      100% { width: 300%; height: 300%; opacity: 0; }\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Stats Section ===== */\n" +
+  "    .stats-section {\n" +
+  "      width: 100%; max-width: 1000px; padding: 60px 20px;\n" +
+  "      margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1);\n" +
+  "    }\n" +
+  "\n" +
+  "    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }\n" +
+  "\n" +
+  "    .stat {\n" +
+  "      display: flex; flex-direction: column; align-items: center;\n" +
+  "      text-align: center; gap: 6px;\n" +
+  "      background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1);\n" +
+  "      padding: 24px 16px; border-radius: 16px;\n" +
+  "      backdrop-filter: blur(10px); transition: background 0.3s, border-color 0.3s;\n" +
+  "    }\n" +
+  "\n" +
+  "    .stat:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); }\n" +
+  "\n" +
+  "    .stat-icon {\n" +
+  "      font-size: clamp(22px, 3vw, 33px); color: #fff; line-height: 1;\n" +
+  "      text-shadow: 0 0 10px rgba(255,255,255,0.5);\n" +
+  "    }\n" +
+  "\n" +
+  "    .stat-value {\n" +
+  "      font-size: clamp(18px, 2.2vw, 26px); font-weight: 500; color: #fff;\n" +
+  "      font-variant-numeric: tabular-nums;\n" +
+  "    }\n" +
+  "\n" +
+  "    .stat-label { font-size: 12px; color: #aaa; }\n" +
+  "\n" +
+  "    /* =========================================\n" +
+  "       Elements \u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b: \u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\u0e2b\u0e21\u0e14!\n" +
+  "       ========================================= */\n" +
+  "    .pop-element {\n" +
+  "      opacity: 0;\n" +
+  "      visibility: hidden;\n" +
+  "      transform: translate(var(--tx), var(--ty)) scale(0.5) rotate(var(--tr));\n" +
+  "      filter: blur(10px);\n" +
+  "    }\n" +
+  "\n" +
+  "    .pop-element.pop-in {\n" +
+  "      visibility: visible;\n" +
+  "      animation: bouncyRandomPop 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
+  "      animation-delay: var(--delay);\n" +
+  "    }\n" +
+  "\n" +
+  "    /* ===== Mobile Responsive ===== */\n" +
+  "    @media (max-width: 900px) {\n" +
+  "      .nav-pill { display: none; }\n" +
+  "      .burger { display: flex; }\n" +
+  "      .site-header { justify-content: space-between; padding: 0 10px; }\n" +
+  "    }\n" +
+  "\n" +
+  "    @media (max-width: 720px) {\n" +
+  "      .stats { grid-template-columns: repeat(2, 1fr); }\n" +
+  "    }\n" +
+  "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
-  "<div class=\"bg-wave\">\n" +
-  "  <div class=\"green-orb orb-1\"></div>\n" +
-  "  <div class=\"green-orb orb-2\"></div>\n" +
-  "  <div class=\"green-orb orb-3\"></div>\n" +
-  "  <div class=\"noise\"></div>\n" +
-  "</div>\n" +
+  "  <!-- Background -->\n" +
+  "  <div class=\"bg-wave\">\n" +
+  "    <div class=\"green-orb orb-1\"></div>\n" +
+  "    <div class=\"green-orb orb-2\"></div>\n" +
+  "    <div class=\"green-orb orb-3\"></div>\n" +
+  "    <div class=\"noise\"></div>\n" +
+  "  </div>\n" +
   "\n" +
-  "<div class=\"page\">\n" +
-  "  <header class=\"site-header\">\n" +
-  "    <div class=\"wrap nav-pill\" id=\"navPill\">\n" +
-  "      <a class=\"brand\" href=\"#top\" aria-label=\"999MS home\">\n" +
-  "        <span class=\"mark\">\n" +
-  "          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n" +
+  "  <div class=\"page\">\n" +
+  "    <!-- Header -->\n" +
+  "    <header class=\"site-header pop-element\">\n" +
+  "      <div class=\"nav-pill\">\n" +
+  "        <a href=\"#\" class=\"brand\" aria-label=\"Home\">\n" +
+  "          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 60%; height: 60%;\">\n" +
   "            <path d=\"M12 2L2 7L12 12L22 7L12 2Z\" fill=\"#000\"/>\n" +
   "            <path d=\"M2 17L12 22L22 17\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
   "            <path d=\"M2 12L12 17L22 12\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
   "          </svg>\n" +
-  "        </span>\n" +
-  "        <span class=\"brand-name\">999MS</span>\n" +
-  "      </a>\n" +
-  "      <nav class=\"nav-links\" aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
-  "        <a class=\"nav-link\" href=\"#how\">\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
-  "        <a class=\"nav-link\" href=\"#features\">\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c</a>\n" +
-  "        <a class=\"nav-link\" href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
-  "        <a class=\"nav-link\" href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
-  "      </nav>\n" +
-  "      <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
-  "      <button class=\"burger\" id=\"burger\" type=\"button\" aria-label=\"\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39\" aria-expanded=\"false\">\n" +
+  "        </a>\n" +
+  "        <nav class=\"nav-links\">\n" +
+  "          <a href=\"#\" class=\"nav-link is-active\">Home</a>\n" +
+  "          <a href=\"#\" class=\"nav-link\">Scripts</a>\n" +
+  "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
+  "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
+  "        </nav>\n" +
+  "        <a href=\"#\" class=\"sign-in\">Get Started</a>\n" +
+  "      </div>\n" +
+  "      \n" +
+  "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
   "        <span></span><span></span><span></span>\n" +
   "      </button>\n" +
-  "    </div>\n" +
-  "  </header>\n" +
+  "    </header>\n" +
   "\n" +
-  "  <main id=\"top\">\n" +
-  "    <div class=\"wrap hero\">\n" +
-  "      <div>\n" +
-  "        <span class=\"eyebrow pop-element\"><i></i> Key system \u00b7 Loader \u00b7 v2.1</span>\n" +
-  "        <h1 class=\"headline\" id=\"headline\" data-text=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\" data-accent=\"10\" aria-label=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\"></h1>\n" +
-  "        <p class=\"lede pop-element\">\n" +
-  "          999MS \u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 Platoboost \u0e41\u0e25\u0e49\u0e27\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38 30 \u0e19\u0e32\u0e17\u0e35\n" +
-  "          \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e2d\u0e14 \u0e46 \u0e42\u0e14\u0e22\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e02\u0e2d\u0e07\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\n" +
-  "        </p>\n" +
-  "        <div class=\"hero-actions pop-element\">\n" +
-  "          <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
-  "            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
-  "            \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
-  "          </button>\n" +
-  "          <a class=\"btn btn-ghost\" href=\"#how\">\u0e14\u0e39\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19</a>\n" +
-  "        </div>\n" +
-  "        <div class=\"status-line pop-element\">\n" +
-  "          <span class=\"dot\" id=\"heroDot\"></span>\n" +
-  "          <span id=\"heroStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a\u2026</span>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
+  "    <!-- Hero -->\n" +
+  "    <main class=\"hero\">\n" +
+  "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
-  "      <div class=\"code-card pop-element\">\n" +
-  "        <div class=\"code-top\">\n" +
-  "          <span class=\"tl\"></span><span class=\"tl\"></span><span class=\"tl\"></span>\n" +
-  "          <span class=\"code-name\">loadstring.lua</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"code-body\">\n" +
-  "<span class=\"c\">-- \u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14 Execute</span><br />\n" +
-  "<span class=\"p\">local License = \"\"</span><br />\n" +
-  "<span class=\"p\">local Script = \"\"</span><br />\n" +
-  "<span class=\"p\">loadstring(</span><span class=\"f\">game:HttpGet</span>(<span class=\"s\" id=\"scriptUrl\">\"https://loader999mss.vercel.app/loadc.lua\"</span><span class=\"p\">))(License, Script)</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"copy-row\">\n" +
-  "          <button class=\"btn\" id=\"copyCard\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14</button>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </div>\n" +
-  "\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"stats\">\n" +
-  "        <div class=\"stat pop-element\"><b>HMAC-SHA256</b><span>ticket \u0e25\u0e07\u0e19\u0e32\u0e21\u0e17\u0e38\u0e01\u0e43\u0e1a</span></div>\n" +
-  "        <div class=\"stat pop-element\"><b>30 \u0e19\u0e32\u0e17\u0e35</b><span>\u0e2d\u0e32\u0e22\u0e38 ticket</span></div>\n" +
-  "        <div class=\"stat pop-element\"><b>&lt; 60 \u0e27\u0e34</b><span>\u0e2d\u0e32\u0e22\u0e38 runtime proof</span></div>\n" +
-  "        <div class=\"stat pop-element\"><b>SHA-256 pinned</b><span>\u0e15\u0e23\u0e27\u0e08\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19</span></div>\n" +
-  "      </div>\n" +
-  "    </div>\n" +
-  "\n" +
-  "    <section id=\"how\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">Getting started</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e43\u0e19 3 \u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19</h2>\n" +
-  "          <p class=\"pop-element\">\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e2d\u0e30\u0e44\u0e23\u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e43\u0e0a\u0e49 executor \u0e17\u0e35\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span> \u0e41\u0e25\u0e30 <span class=\"mono\">loadstring</span></p>\n" +
-  "        </div>\n" +
-  "        <div class=\"steps\">\n" +
-  "          <article class=\"step pop-element\">\n" +
-  "            <div class=\"n\">STEP 01</div>\n" +
-  "            <h3>\u0e40\u0e1b\u0e34\u0e14 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19 loadstring</h3>\n" +
-  "            <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e36\u0e07 stage 1 \u0e21\u0e32\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"step pop-element\">\n" +
-  "            <div class=\"n\">STEP 02</div>\n" +
-  "            <h3>\u0e23\u0e31\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32 Platoboost</h3>\n" +
-  "            <p>\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c \u0e04\u0e35\u0e22\u0e4c\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e17\u0e31\u0e19\u0e17\u0e35\u0e17\u0e35\u0e48\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"step pop-element\">\n" +
-  "            <div class=\"n\">STEP 03</div>\n" +
-  "            <h3>\u0e27\u0e32\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e23\u0e2d\u0e42\u0e2b\u0e25\u0e14</h3>\n" +
-  "            <p>\u0e2b\u0e25\u0e31\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19 \u2014 \u0e40\u0e2a\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22</p>\n" +
-  "          </article>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "\n" +
-  "    <section id=\"features\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">Under the hood</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e23\u0e30\u0e1a\u0e1a\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e17\u0e35\u0e48\u0e17\u0e33\u0e07\u0e32\u0e19\u0e40\u0e1a\u0e37\u0e49\u0e2d\u0e07\u0e2b\u0e25\u0e31\u0e07</h2>\n" +
-  "          <p class=\"pop-element\">\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e15\u0e23\u0e27\u0e08\u0e1d\u0e31\u0e48\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48 client \u0e2a\u0e48\u0e07\u0e21\u0e32\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27</p>\n" +
-  "        </div>\n" +
-  "        <div class=\"cards\">\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"10\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 10V7a4 4 0 0 1 8 0v3\"/></svg></div>\n" +
-  "            <h3>\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID</h3>\n" +
-  "            <p>\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e1a\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 ticket \u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a hash \u0e02\u0e2d\u0e07 HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v6\"/><path d=\"M5 9h14\"/><path d=\"M7 9v5a5 5 0 0 0 10 0V9\"/><path d=\"M9 21h6\"/></svg></div>\n" +
-  "            <h3>Ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19</h3>\n" +
-  "            <p>\u0e25\u0e07\u0e19\u0e32\u0e21\u0e14\u0e49\u0e27\u0e22 HMAC-SHA256 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 30 \u0e19\u0e32\u0e17\u0e35 \u0e41\u0e25\u0e30\u0e21\u0e35 runtime proof \u0e41\u0e22\u0e01\u0e17\u0e35\u0e48\u0e2d\u0e32\u0e22\u0e38\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 60 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M4 7h16\"/><path d=\"M4 12h10\"/><path d=\"M4 17h7\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/></svg></div>\n" +
-  "            <h3>Stage chain \u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19</h3>\n" +
-  "            <p>\u0e41\u0e15\u0e48\u0e25\u0e30\u0e17\u0e2d\u0e14\u0e21\u0e35 capability \u0e40\u0e09\u0e1e\u0e32\u0e30 \u0e2d\u0e2d\u0e01\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e25\u0e30\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e20\u0e32\u0e22\u0e43\u0e19 20 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z\"/><path d=\"M9.5 12l1.8 1.8L15 10\"/></svg></div>\n" +
-  "            <h3>\u0e15\u0e23\u0e27\u0e08\u0e04\u0e27\u0e32\u0e21\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e02\u0e2d\u0e07\u0e44\u0e1f\u0e25\u0e4c</h3>\n" +
-  "            <p>\u0e44\u0e1f\u0e25\u0e4c stage 2 \u0e16\u0e39\u0e01 pin \u0e14\u0e49\u0e27\u0e22 SHA-256 \u0e44\u0e27\u0e49\u0e43\u0e19\u0e15\u0e31\u0e27\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e16\u0e49\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e30\u0e44\u0e21\u0e48\u0e22\u0e2d\u0e21\u0e23\u0e31\u0e19</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 12h4l2.5-6 4 12L16 12h5\"/></svg></div>\n" +
-  "            <h3>Heartbeat \u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e40\u0e25\u0e48\u0e19</h3>\n" +
-  "            <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e23\u0e27\u0e08 session \u0e40\u0e1b\u0e47\u0e19\u0e23\u0e30\u0e22\u0e30 \u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e41\u0e1a\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e41\u0e01\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e17\u0e32\u0e07\u0e08\u0e30\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 8v5\"/><path d=\"M12 16.5h.01\"/></svg></div>\n" +
-  "            <h3>\u0e23\u0e2b\u0e31\u0e2a diagnostic</h3>\n" +
-  "            <p>\u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18 \u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e2d\u0e22\u0e48\u0e32\u0e07 <span class=\"mono\">D2_HWID_MISMATCH</span> \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e08\u0e49\u0e07\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e44\u0e14\u0e49\u0e15\u0e23\u0e07\u0e08\u0e38\u0e14</p>\n" +
-  "          </article>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "\n" +
-  "    <section id=\"status\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">Live status</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a</h2>\n" +
-  "          <p class=\"pop-element\">\u0e15\u0e23\u0e27\u0e08\u0e08\u0e32\u0e01 endpoint \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e19\u0e35\u0e49 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e44\u0e27\u0e49</p>\n" +
-  "        </div>\n" +
-  "        <div class=\"panel pop-element\">\n" +
-  "          <div>\n" +
-  "            <div class=\"ping\">\n" +
-  "              <span class=\"dot\" id=\"panelDot\"></span>\n" +
-  "              <div>\n" +
-  "                <div class=\"big\" id=\"latency\">\u2014</div>\n" +
-  "                <small>\u0e40\u0e27\u0e25\u0e32\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07 API</small>\n" +
-  "              </div>\n" +
-  "            </div>\n" +
-  "            <div class=\"kv\"><span>\u0e2a\u0e16\u0e32\u0e19\u0e30</span><b id=\"stState\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026</b></div>\n" +
-  "            <div class=\"kv\"><span>\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19</span><b id=\"stVersion\">\u2014</b></div>\n" +
-  "            <div class=\"kv\"><span>Stage chain</span><b id=\"stChain\">\u2014</b></div>\n" +
-  "            <div class=\"kv\"><span>\u0e15\u0e23\u0e27\u0e08\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span><b id=\"stChecked\">\u2014</b></div>\n" +
-  "          </div>\n" +
-  "          <div style=\"display:flex;flex-direction:column;gap:12px;justify-content:center\">\n" +
-  "            <p style=\"margin:0;color:var(--muted);font-size:.93rem\">\n" +
-  "              \u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49\u0e40\u0e23\u0e35\u0e22\u0e01 <span class=\"mono\">/api/health</span> \u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e43\u0e14 \u0e46 \u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\n" +
-  "              \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e27\u0e31\u0e14\u0e27\u0e48\u0e32 API \u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\n" +
-  "            </p>\n" +
-  "            <button class=\"btn\" id=\"refresh\" type=\"button\">\u0e15\u0e23\u0e27\u0e08\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07</button>\n" +
-  "          </div>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "\n" +
-  "    <section id=\"faq\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">FAQ</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22</h2>\n" +
-  "        </div>\n" +
-  "        <div class=\"faq pop-element\">\n" +
-  "          <details>\n" +
-  "            <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
-  "            <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 \u0e16\u0e49\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01</p>\n" +
-  "          </details>\n" +
-  "          <details>\n" +
-  "            <summary>\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32 HWID mismatch \u0e15\u0e49\u0e2d\u0e07\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23</summary>\n" +
-  "            <p>\u0e41\u0e1b\u0e25\u0e27\u0e48\u0e32\u0e23\u0e30\u0e1a\u0e1a\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e27\u0e48\u0e32\u0e04\u0e35\u0e22\u0e4c\u0e19\u0e35\u0e49\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e31\u0e27 executor \u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e04\u0e48\u0e32 HWID \u0e44\u0e21\u0e48\u0e04\u0e07\u0e17\u0e35\u0e48 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e21\u0e48 \u0e2b\u0e32\u0e01\u0e22\u0e31\u0e07\u0e02\u0e36\u0e49\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e23\u0e2b\u0e31\u0e2a diagnostic</p>\n" +
-  "          </details>\n" +
-  "          <details>\n" +
-  "            <summary>\u0e17\u0e33\u0e44\u0e21\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e31\u0e19\u0e1c\u0e48\u0e32\u0e19 loadc.lua \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19</summary>\n" +
-  "            <p>\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2b\u0e25\u0e31\u0e01\u0e16\u0e39\u0e01\u0e25\u0e47\u0e2d\u0e01\u0e01\u0e31\u0e1a chain <span class=\"mono\">loadc \u2192 loada \u2192 loader \u2192 payload</span> \u0e01\u0e32\u0e23\u0e02\u0e49\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e01\u0e32\u0e23\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a state \u0e25\u0e49\u0e21\u0e40\u0e2b\u0e25\u0e27\u0e41\u0e25\u0e30\u0e16\u0e39\u0e01\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19</p>\n" +
-  "          </details>\n" +
-  "          <details>\n" +
-  "            <summary>\u0e23\u0e30\u0e1a\u0e1a\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2d\u0e30\u0e44\u0e23\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
-  "            <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e40\u0e09\u0e1e\u0e32\u0e30 hash \u0e02\u0e2d\u0e07 HWID, \u0e2b\u0e21\u0e32\u0e22\u0e40\u0e25\u0e02 ticket \u0e41\u0e25\u0e30\u0e2a\u0e16\u0e32\u0e19\u0e30 session \u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19 \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e01\u0e47\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e41\u0e1a\u0e1a\u0e16\u0e32\u0e27\u0e23</p>\n" +
-  "          </details>\n" +
-  "          <details>\n" +
-  "            <summary>\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a executor \u0e15\u0e31\u0e27\u0e44\u0e2b\u0e19\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
-  "            <p>\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span>, <span class=\"mono\">loadstring</span> \u0e41\u0e25\u0e30 <span class=\"mono\">request/syn.request</span> \u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b \u0e16\u0e49\u0e32\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a \u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e41\u0e08\u0e49\u0e07\u0e23\u0e2b\u0e31\u0e2a <span class=\"mono\">MS999:S1:E04</span></p>\n" +
-  "          </details>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "\n" +
-  "    <section>\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"cta pop-element\">\n" +
-  "          <h2>\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e25\u0e49\u0e27\u0e2b\u0e23\u0e37\u0e2d\u0e22\u0e31\u0e07</h2>\n" +
-  "          <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e2d\u0e07</p>\n" +
-  "          <div class=\"hero-actions\">\n" +
-  "            <button class=\"btn btn-primary\" id=\"copyCta\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring</button>\n" +
-  "            <a class=\"btn btn-ghost\" href=\"#how\">\u0e2d\u0e48\u0e32\u0e19\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
-  "          </div>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "  </main>\n" +
-  "\n" +
-  "  <footer>\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"foot\">\n" +
-  "        <span>\u00a9 2026 999MS \u00b7 Key system &amp; loader</span>\n" +
-  "        <span style=\"display:flex;gap:18px\">\n" +
-  "          <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
-  "          <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
-  "          <a href=\"/control\">Control</a>\n" +
-  "          <a href=\"https://yura.lol/09ms\" rel=\"noopener\">Discord</a>\n" +
-  "        </span>\n" +
-  "      </div>\n" +
-  "      <p class=\"disclaimer\">\n" +
-  "        999MS \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e02\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e1a Roblox Corporation \u0e2b\u0e23\u0e37\u0e2d\u0e1c\u0e39\u0e49\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e40\u0e01\u0e21\u0e43\u0e14 \u0e46 \u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e2d\u0e32\u0e08\u0e1c\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e02\u0e2d\u0e07\u0e40\u0e01\u0e21\n" +
-  "        \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e14\u0e49\u0e27\u0e22\u0e15\u0e19\u0e40\u0e2d\u0e07\n" +
+  "      <p class=\"subhead pop-element\">\n" +
+  "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
   "      </p>\n" +
-  "    </div>\n" +
-  "  </footer>\n" +
-  "</div>\n" +
   "\n" +
-  "<script>\n" +
-  "(function () {\n" +
-  "  'use strict';\n" +
+  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e14\u0e35\u0e22\u0e27 -->\n" +
+  "      <div class=\"cta-group pop-element\">\n" +
+  "        <a href=\"#\" class=\"cta-primary\">Get Started</a>\n" +
+  "      </div>\n" +
   "\n" +
-  "  /* \u2500\u2500\u2500 loader line + clipboard \u2500\u2500\u2500 */\n" +
-  "  var FALLBACK_HOST = 'loader999mss.vercel.app';\n" +
-  "  var host = location.host && location.host.indexOf('localhost') !== 0 && location.host !== ''\n" +
-  "    ? location.host\n" +
-  "    : FALLBACK_HOST;\n" +
-  "  var url = 'https://' + host + '/loadc.lua';\n" +
-  "  var command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + url + '\"))(License, Script)';\n" +
+  "      <div class=\"live-status pop-element\">\n" +
+  "        <span class=\"status-dot\"></span> LIVE - 99.9% UPTIME\n" +
+  "      </div>\n" +
+  "    </main>\n" +
   "\n" +
-  "  var scriptUrlEl = document.getElementById('scriptUrl');\n" +
-  "  if (scriptUrlEl) scriptUrlEl.textContent = '\"' + url + '\"';\n" +
+  "    <!-- Stats Section -->\n" +
+  "    <section class=\"stats-section pop-element\">\n" +
+  "      <div class=\"stats\">\n" +
+  "        <div class=\"stat\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
+  "          <span class=\"stat-icon\">&lt;</span>\n" +
+  "          <span class=\"stat-value\">0ms</span>\n" +
+  "          <span class=\"stat-label\">Inference Time</span>\n" +
+  "        </div>\n" +
+  "        <div class=\"stat\" data-target=\"99.99\" data-suffix=\"%\" data-decimals=\"2\">\n" +
+  "          <span class=\"stat-icon\">%</span>\n" +
+  "          <span class=\"stat-value\">0%</span>\n" +
+  "          <span class=\"stat-label\">Platform Uptime</span>\n" +
+  "        </div>\n" +
+  "        <div class=\"stat\" data-target=\"24\" data-suffix=\"/7\" data-decimals=\"0\">\n" +
+  "          <span class=\"stat-icon\">*</span>\n" +
+  "          <span class=\"stat-value\">0/7</span>\n" +
+  "          <span class=\"stat-label\">Autonomous Runtime</span>\n" +
+  "        </div>\n" +
+  "        <div class=\"stat\" data-target=\"2.4\" data-suffix=\"M\" data-decimals=\"1\">\n" +
+  "          <span class=\"stat-icon\">#</span>\n" +
+  "          <span class=\"stat-value\">0M</span>\n" +
+  "          <span class=\"stat-label\">Context Windows</span>\n" +
+  "        </div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "  </div>\n" +
   "\n" +
-  "  function flash(btn) {\n" +
-  "    if (!btn) return;\n" +
-  "    var original = btn.getAttribute('data-label') || btn.textContent;\n" +
-  "    btn.setAttribute('data-label', original);\n" +
-  "    btn.classList.add('copied');\n" +
-  "    btn.textContent = '\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27 \u2713';\n" +
-  "    clearTimeout(btn._t);\n" +
-  "    btn._t = setTimeout(function () {\n" +
-  "      btn.classList.remove('copied');\n" +
-  "      btn.textContent = original;\n" +
-  "    }, 1600);\n" +
-  "  }\n" +
+  "  <script>\n" +
+  "    (function () {\n" +
+  "      \"use strict\";\n" +
   "\n" +
-  "  function legacy(text, btn) {\n" +
-  "    var ta = document.createElement('textarea');\n" +
-  "    ta.value = text;\n" +
-  "    ta.setAttribute('readonly', '');\n" +
-  "    ta.style.position = 'fixed';\n" +
-  "    ta.style.opacity = '0';\n" +
-  "    document.body.appendChild(ta);\n" +
-  "    ta.select();\n" +
-  "    try { document.execCommand('copy'); flash(btn); } catch (e) {}\n" +
-  "    document.body.removeChild(ta);\n" +
-  "  }\n" +
+  "      // \u0e1f\u0e31\u0e07\u0e01\u0e4c\u0e0a\u0e31\u0e19\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e04\u0e48\u0e32\u0e2a\u0e38\u0e48\u0e21 (\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e14\u0e49\u0e07\u0e44\u0e01\u0e25\u0e46)\n" +
+  "      function getFarRandomDirection() {\n" +
+  "        const tx = (Math.random() - 0.5) * 600; // \u0e2a\u0e38\u0e48\u0e21\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 -300px \u0e16\u0e36\u0e07 300px\n" +
+  "        const ty = (Math.random() - 0.5) * 600;\n" +
+  "        const tr = (Math.random() - 0.5) * 180; // \u0e2a\u0e38\u0e48\u0e21\u0e21\u0e38\u0e21\u0e40\u0e2d\u0e35\u0e22\u0e07\n" +
+  "        return { tx: `${tx}px`, ty: `${ty}px`, tr: `${tr}deg` };\n" +
+  "      }\n" +
   "\n" +
-  "  function copy(text, btn) {\n" +
-  "    if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
-  "      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });\n" +
-  "      return;\n" +
-  "    }\n" +
-  "    legacy(text, btn);\n" +
-  "  }\n" +
-  "\n" +
-  "  ['copyNav', 'copyHero', 'copyCard', 'copyCta'].forEach(function (id) {\n" +
-  "    var btn = document.getElementById(id);\n" +
-  "    if (btn) btn.addEventListener('click', function () { copy(command, btn); });\n" +
-  "  });\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 live API status \u2500\u2500\u2500 */\n" +
-  "  var dot = document.getElementById('panelDot');\n" +
-  "  var heroDot = document.getElementById('heroDot');\n" +
-  "  var latencyEl = document.getElementById('latency');\n" +
-  "  var stateEl = document.getElementById('stState');\n" +
-  "  var versionEl = document.getElementById('stVersion');\n" +
-  "  var chainEl = document.getElementById('stChain');\n" +
-  "  var checkedEl = document.getElementById('stChecked');\n" +
-  "  var heroStatus = document.getElementById('heroStatus');\n" +
-  "\n" +
-  "  function setDot(el, cls) {\n" +
-  "    if (!el) return;\n" +
-  "    el.classList.remove('ok', 'bad');\n" +
-  "    if (cls) el.classList.add(cls);\n" +
-  "  }\n" +
-  "\n" +
-  "  function check() {\n" +
-  "    var started = Date.now();\n" +
-  "    if (stateEl) stateEl.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026';\n" +
-  "    setDot(dot, '');\n" +
-  "    setDot(heroDot, '');\n" +
-  "\n" +
-  "    var controller = window.AbortController ? new AbortController() : null;\n" +
-  "    var timer = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;\n" +
-  "\n" +
-  "    fetch('/api/health', { cache: 'no-store', signal: controller ? controller.signal : undefined })\n" +
-  "      .then(function (res) {\n" +
-  "        if (!res.ok) throw new Error('HTTP ' + res.status);\n" +
-  "        return res.json();\n" +
-  "      })\n" +
-  "      .then(function (data) {\n" +
-  "        var ms = Date.now() - started;\n" +
-  "        if (latencyEl) latencyEl.textContent = ms + ' ms';\n" +
-  "        if (stateEl) stateEl.textContent = '\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c';\n" +
-  "        if (versionEl) versionEl.textContent = 'v' + (data.version || '\u2014');\n" +
-  "        if (chainEl) chainEl.textContent = data.chain || '\u2014';\n" +
-  "        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');\n" +
-  "        if (heroStatus) heroStatus.textContent = '\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c \u00b7 ' + ms + ' ms';\n" +
-  "        setDot(dot, 'ok');\n" +
-  "        setDot(heroDot, 'ok');\n" +
-  "      })\n" +
-  "      .catch(function () {\n" +
-  "        var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;\n" +
-  "        if (latencyEl) latencyEl.textContent = '\u2014';\n" +
-  "        if (stateEl) stateEl.textContent = offlinePreview ? '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e44\u0e14\u0e49\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07' : '\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
-  "        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');\n" +
-  "        if (heroStatus) {\n" +
-  "          heroStatus.textContent = offlinePreview\n" +
-  "            ? '\u0e1e\u0e23\u0e35\u0e27\u0e34\u0e27\u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e47\u0e15 \u2014 \u0e40\u0e1b\u0e34\u0e14\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e2a\u0e16\u0e32\u0e19\u0e30'\n" +
-  "            : '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 (\u0e2d\u0e32\u0e08\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01\u0e2b\u0e23\u0e37\u0e2d\u0e2d\u0e2d\u0e1f\u0e44\u0e25\u0e19\u0e4c)';\n" +
+  "      // =========================================\n" +
+  "      // 1. \u0e2a\u0e23\u0e49\u0e32\u0e07\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e41\u0e25\u0e30\u0e2a\u0e31\u0e48\u0e07\u0e43\u0e2b\u0e49\u0e40\u0e14\u0e49\u0e07\n" +
+  "      // =========================================\n" +
+  "      const headlineEl = document.getElementById('dynamicHeadline');\n" +
+  "      const text = \"999MS HUB\";\n" +
+  "      \n" +
+  "      // \u0e2a\u0e23\u0e49\u0e32\u0e07 Element \u0e44\u0e27\u0e49\u0e01\u0e48\u0e2d\u0e19 (\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e42\u0e1c\u0e25\u0e48)\n" +
+  "      text.split(\"\").forEach((char) => {\n" +
+  "        if (char === \" \") {\n" +
+  "          const space = document.createElement('span');\n" +
+  "          space.innerHTML = \"&nbsp;\";\n" +
+  "          space.style.width = \"0.4em\";\n" +
+  "          headlineEl.appendChild(space);\n" +
+  "        } else {\n" +
+  "          const span = document.createElement('span');\n" +
+  "          span.className = 'char';\n" +
+  "          span.textContent = char;\n" +
+  "          span.setAttribute('data-char', char);\n" +
+  "          headlineEl.appendChild(span);\n" +
   "        }\n" +
-  "        setDot(dot, offlinePreview ? '' : 'bad');\n" +
-  "        setDot(heroDot, offlinePreview ? '' : 'bad');\n" +
-  "      })\n" +
-  "      .then(function () { if (timer) clearTimeout(timer); });\n" +
-  "  }\n" +
-  "\n" +
-  "  var refreshBtn = document.getElementById('refresh');\n" +
-  "  if (refreshBtn) refreshBtn.addEventListener('click', check);\n" +
-  "  check();\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 mobile menu \u2500\u2500\u2500 */\n" +
-  "  var burger = document.getElementById('burger');\n" +
-  "  var navPill = document.getElementById('navPill');\n" +
-  "  if (burger && navPill) {\n" +
-  "    burger.addEventListener('click', function () {\n" +
-  "      var open = navPill.classList.toggle('is-open');\n" +
-  "      burger.setAttribute('aria-expanded', open ? 'true' : 'false');\n" +
-  "      burger.setAttribute('aria-label', open ? '\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39' : '\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39');\n" +
-  "    });\n" +
-  "    navPill.addEventListener('click', function (event) {\n" +
-  "      if (event.target.closest('.nav-link')) {\n" +
-  "        navPill.classList.remove('is-open');\n" +
-  "        burger.setAttribute('aria-expanded', 'false');\n" +
-  "      }\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 fly-in: random direction per element \u2500\u2500\u2500 */\n" +
-  "  var animated = document.documentElement.classList.contains('js-anim');\n" +
-  "\n" +
-  "  function randomDir() {\n" +
-  "    return {\n" +
-  "      tx: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',\n" +
-  "      ty: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',\n" +
-  "      tr: ((Math.random() - 0.5) * 120).toFixed(1) + 'deg'\n" +
-  "    };\n" +
-  "  }\n" +
-  "\n" +
-  "  function arm(el, delay) {\n" +
-  "    var d = randomDir();\n" +
-  "    el.style.setProperty('--tx', d.tx);\n" +
-  "    el.style.setProperty('--ty', d.ty);\n" +
-  "    el.style.setProperty('--tr', d.tr);\n" +
-  "    el.style.setProperty('--delay', delay + 's');\n" +
-  "    el.classList.add('pop-in');\n" +
-  "  }\n" +
-  "\n" +
-  "  /* headline: split into grapheme clusters so Thai combining marks stay put */\n" +
-  "  var headline = document.getElementById('headline');\n" +
-  "  if (headline) {\n" +
-  "    var text = headline.getAttribute('data-text') || headline.textContent;\n" +
-  "    var accent = parseInt(headline.getAttribute('data-accent') || '-1', 10);\n" +
-  "    var clusters;\n" +
-  "    if (window.Intl && window.Intl.Segmenter) {\n" +
-  "      try {\n" +
-  "        clusters = Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text))\n" +
-  "          .map(function (part) { return part.segment; });\n" +
-  "      } catch (e) { clusters = null; }\n" +
-  "    }\n" +
-  "    if (!clusters) clusters = Array.from(text);\n" +
-  "\n" +
-  "    var fragment = document.createDocumentFragment();\n" +
-  "    var chars = [];\n" +
-  "    clusters.forEach(function (ch, index) {\n" +
-  "      if (ch === ' ' || ch === '\\u00a0') {\n" +
-  "        var space = document.createElement('span');\n" +
-  "        space.className = 'char-space';\n" +
-  "        space.innerHTML = '&nbsp;';\n" +
-  "        fragment.appendChild(space);\n" +
-  "        return;\n" +
-  "      }\n" +
-  "      var span = document.createElement('span');\n" +
-  "      span.className = 'char' + (accent >= 0 && index >= accent ? ' char-accent' : '');\n" +
-  "      span.textContent = ch;\n" +
-  "      span.setAttribute('data-char', ch);\n" +
-  "      fragment.appendChild(span);\n" +
-  "      chars.push(span);\n" +
-  "    });\n" +
-  "    headline.textContent = '';\n" +
-  "    headline.appendChild(fragment);\n" +
-  "\n" +
-  "    if (animated) {\n" +
-  "      setTimeout(function () {\n" +
-  "        var total = 0;\n" +
-  "        chars.forEach(function (span, index) {\n" +
-  "          arm(span, 0.15 + index * 0.05);\n" +
-  "          total = 0.15 + index * 0.05;\n" +
-  "        });\n" +
-  "        setTimeout(function () {\n" +
-  "          chars.forEach(function (span) { span.classList.add('shimmer-ready'); });\n" +
-  "        }, (total + 1.8) * 1000);\n" +
-  "      }, 80);\n" +
-  "    }\n" +
-  "  }\n" +
-  "\n" +
-  "  /* everything else: fly in when it scrolls into view */\n" +
-  "  var pops = [].slice.call(document.querySelectorAll('.pop-element'));\n" +
-  "  if (!animated) {\n" +
-  "    pops.forEach(function (el) { el.classList.add('pop-in'); });\n" +
-  "  } else if ('IntersectionObserver' in window) {\n" +
-  "    var io = new IntersectionObserver(function (entries) {\n" +
-  "      var shown = 0;\n" +
-  "      entries.forEach(function (entry) {\n" +
-  "        if (!entry.isIntersecting) return;\n" +
-  "        arm(entry.target, shown * 0.09);\n" +
-  "        shown += 1;\n" +
-  "        io.unobserve(entry.target);\n" +
   "      });\n" +
-  "    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.06 });\n" +
-  "    pops.forEach(function (el) { io.observe(el); });\n" +
-  "  } else {\n" +
-  "    pops.forEach(function (el, index) { arm(el, index * 0.08); });\n" +
-  "  }\n" +
   "\n" +
-  "  /* pointer tilt on the code card */\n" +
-  "  var card = document.querySelector('.code-card');\n" +
-  "  if (card && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
-  "    card.addEventListener('pointermove', function (event) {\n" +
-  "      if (window.innerWidth < 960) return;\n" +
-  "      var r = card.getBoundingClientRect();\n" +
-  "      var x = (event.clientX - r.left) / r.width - 0.5;\n" +
-  "      var y = (event.clientY - r.top) / r.height - 0.5;\n" +
-  "      card.style.transform = 'perspective(1200px) rotateY(' + (-4 + x * 5).toFixed(2) + 'deg) rotateX(' + (2 - y * 5).toFixed(2) + 'deg)';\n" +
-  "    });\n" +
-  "    card.addEventListener('pointerleave', function () { card.style.transform = ''; });\n" +
-  "  }\n" +
-  "})();\n" +
-  "</script>\n" +
+  "      // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c\u0e27\u0e32\u0e14\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e40\u0e2a\u0e23\u0e47\u0e08\u0e01\u0e48\u0e2d\u0e19 1 Tick \u0e41\u0e25\u0e49\u0e27\u0e04\u0e48\u0e2d\u0e22\u0e2a\u0e31\u0e48\u0e07\u0e41\u0e2d\u0e19\u0e34\u0e40\u0e21\u0e0a\u0e31\u0e19\n" +
+  "      setTimeout(() => {\n" +
+  "        const chars = headlineEl.querySelectorAll('.char');\n" +
+  "        chars.forEach((span, index) => {\n" +
+  "          const dir = getFarRandomDirection();\n" +
+  "          span.style.setProperty('--tx', dir.tx);\n" +
+  "          span.style.setProperty('--ty', dir.ty);\n" +
+  "          span.style.setProperty('--tr', dir.tr);\n" +
+  "          \n" +
+  "          // \u0e2b\u0e19\u0e48\u0e27\u0e07\u0e40\u0e27\u0e25\u0e32\u0e43\u0e2b\u0e49\u0e21\u0e32\u0e17\u0e35\u0e25\u0e30\u0e15\u0e31\u0e27 (\u0e0a\u0e49\u0e32\u0e25\u0e07 0.15s \u0e15\u0e48\u0e2d\u0e15\u0e31\u0e27)\n" +
+  "          const delay = 0.2 + (index * 0.15); \n" +
+  "          span.style.setProperty('--delay', `${delay}s`);\n" +
+  "          \n" +
+  "          span.classList.add('pop-in');\n" +
+  "\n" +
+  "          if (index === chars.length - 1) {\n" +
+  "            setTimeout(() => {\n" +
+  "              chars.forEach(c => c.classList.add('shimmer-ready'));\n" +
+  "            }, (delay + 2) * 1000); // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e15\u0e31\u0e27\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e40\u0e14\u0e49\u0e07\u0e40\u0e2a\u0e23\u0e47\u0e08\u0e01\u0e48\u0e2d\u0e19\u0e04\u0e48\u0e2d\u0e22\u0e27\u0e34\u0e48\u0e07\u0e41\u0e2a\u0e07\n" +
+  "          }\n" +
+  "        });\n" +
+  "      }, 50);\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 2. Elements \u0e2d\u0e37\u0e48\u0e19\u0e46 \u0e43\u0e2b\u0e49\u0e40\u0e14\u0e49\u0e07\u0e41\u0e1a\u0e1a\u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\n" +
+  "      // =========================================\n" +
+  "      const popElements = document.querySelectorAll('.pop-element');\n" +
+  "      \n" +
+  "      popElements.forEach((el, index) => {\n" +
+  "        // \u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e43\u0e2b\u0e49 Element \u0e19\u0e31\u0e49\u0e19\u0e46\n" +
+  "        const dir = getFarRandomDirection();\n" +
+  "        el.style.setProperty('--tx', dir.tx);\n" +
+  "        el.style.setProperty('--ty', dir.ty);\n" +
+  "        el.style.setProperty('--tr', dir.tr);\n" +
+  "        \n" +
+  "        // \u0e43\u0e2b\u0e49\u0e40\u0e23\u0e34\u0e48\u0e21\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e40\u0e23\u0e34\u0e48\u0e21\u0e42\u0e1c\u0e25\u0e48\u0e44\u0e1b\u0e41\u0e25\u0e49\u0e27\u0e19\u0e34\u0e14\u0e19\u0e36\u0e07 (\u0e40\u0e23\u0e34\u0e48\u0e21\u0e17\u0e35\u0e48 1.8 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35)\n" +
+  "        const delay = 1.8 + (index * 0.2);\n" +
+  "        el.style.setProperty('--delay', `${delay}s`);\n" +
+  "        \n" +
+  "        setTimeout(() => {\n" +
+  "          el.classList.add('pop-in');\n" +
+  "        }, 50);\n" +
+  "      });\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 3. Mobile Menu Toggle\n" +
+  "      // =========================================\n" +
+  "      const burger = document.getElementById(\"burger\");\n" +
+  "      const navLinks = document.querySelector(\".nav-links\");\n" +
+  "      const signIn = document.querySelector(\".sign-in\");\n" +
+  "\n" +
+  "      if (burger) {\n" +
+  "        burger.addEventListener(\"click\", () => {\n" +
+  "          const isExpanded = burger.getAttribute(\"aria-expanded\") === \"true\";\n" +
+  "          burger.setAttribute(\"aria-expanded\", !isExpanded);\n" +
+  "          \n" +
+  "          if (!isExpanded) {\n" +
+  "            navLinks.style.display = \"flex\";\n" +
+  "            navLinks.style.flexDirection = \"column\";\n" +
+  "            navLinks.style.position = \"absolute\";\n" +
+  "            navLinks.style.top = \"70px\";\n" +
+  "            navLinks.style.left = \"0\";\n" +
+  "            navLinks.style.width = \"100%\";\n" +
+  "            navLinks.style.background = \"rgba(10,10,12,0.95)\";\n" +
+  "            navLinks.style.padding = \"20px\";\n" +
+  "            navLinks.style.borderRadius = \"16px\";\n" +
+  "            navLinks.style.border = \"1px solid rgba(255,255,255,0.1)\";\n" +
+  "            signIn.style.display = \"none\";\n" +
+  "          } else {\n" +
+  "            navLinks.style.display = \"\";\n" +
+  "            signIn.style.display = \"\";\n" +
+  "          }\n" +
+  "        });\n" +
+  "      }\n" +
+  "\n" +
+  "      // =========================================\n" +
+  "      // 4. Stats Count-up Animation\n" +
+  "      // =========================================\n" +
+  "      const stats = document.querySelectorAll(\".stat\");\n" +
+  "      let started = false;\n" +
+  "      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);\n" +
+  "\n" +
+  "      function animateStat(el, index) {\n" +
+  "        const target = parseFloat(el.dataset.target);\n" +
+  "        const suffix = el.dataset.suffix || \"\";\n" +
+  "        const decimals = parseInt(el.dataset.decimals || \"0\", 10);\n" +
+  "        const valueEl = el.querySelector(\".stat-value\");\n" +
+  "        const duration = 1500 + index * 80;\n" +
+  "        const delay = 3500 + (index * 90); // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e02\u0e49\u0e32\u0e17\u0e35\u0e48\u0e01\u0e48\u0e2d\u0e19\n" +
+  "\n" +
+  "        setTimeout(() => {\n" +
+  "          const startTime = performance.now();\n" +
+  "          function frame(now) {\n" +
+  "            const elapsed = now - startTime;\n" +
+  "            const progress = Math.min(elapsed / duration, 1);\n" +
+  "            const eased = easeOutCubic(progress);\n" +
+  "            valueEl.textContent = (target * eased).toFixed(decimals) + suffix;\n" +
+  "            if (progress < 1) requestAnimationFrame(frame);\n" +
+  "            else valueEl.textContent = target.toFixed(decimals) + suffix;\n" +
+  "          }\n" +
+  "          requestAnimationFrame(frame);\n" +
+  "        }, delay);\n" +
+  "      }\n" +
+  "\n" +
+  "      function startCounters() {\n" +
+  "        if (started) return;\n" +
+  "        started = true;\n" +
+  "        stats.forEach(animateStat);\n" +
+  "      }\n" +
+  "\n" +
+  "      if (\"IntersectionObserver\" in window && stats.length) {\n" +
+  "        const observer = new IntersectionObserver((entries) => {\n" +
+  "          entries.forEach((entry) => {\n" +
+  "            if (entry.isIntersecting) {\n" +
+  "              startCounters();\n" +
+  "              observer.disconnect();\n" +
+  "            }\n" +
+  "          });\n" +
+  "        }, { threshold: 0.25 });\n" +
+  "        observer.observe(stats[0]);\n" +
+  "      } else {\n" +
+  "        setTimeout(startCounters, 3500);\n" +
+  "      }\n" +
+  "    })();\n" +
+  "  </script>\n" +
   "</body>\n" +
-  "</html>\n" +
-  "\n" +
-  "<!-- deploy trigger: 2026-10-22T00:00:00Z -->\n";
+  "</html>";
 Object.assign(EMBEDDED_PAGES, { "/": ROOT_PAGE });
 // END PAGE /
 // BEGIN PAGE /hub - generated from pages/hub.html; run `npm run pages` to refresh.
