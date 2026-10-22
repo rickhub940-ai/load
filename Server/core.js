@@ -567,443 +567,660 @@ const KEY_PAGE =
   "<html lang=\"th\">\n" +
   "<head>\n" +
   "<meta charset=\"utf-8\" />\n" +
-  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n" +
+  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n" +
   "<title>999MS \u2014 Key System &amp; Loader</title>\n" +
   "<meta name=\"description\" content=\"999MS \u2014 \u0e23\u0e30\u0e1a\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Roblox: \u0e1c\u0e39\u0e01 HWID, \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, \u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\" />\n" +
-  "<meta name=\"theme-color\" content=\"#05060b\" />\n" +
+  "<meta name=\"theme-color\" content=\"#000000\" />\n" +
   "<meta property=\"og:title\" content=\"999MS \u2014 Key System &amp; Loader\" />\n" +
   "<meta property=\"og:description\" content=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e15\u0e23\u0e27\u0e08 HWID, ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, stage chain \u0e15\u0e23\u0e27\u0e08 SHA-256\" />\n" +
   "<meta property=\"og:type\" content=\"website\" />\n" +
-  "<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%2338d6ff'/%3E%3Cstop offset='.55' stop-color='%238b7bff'/%3E%3Cstop offset='1' stop-color='%233ee6b0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='%230a0c14'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='url(%23g)'/%3E%3C/svg%3E\" />\n" +
+  "<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2322c55e'/%3E%3C/svg%3E\" />\n" +
+  "\n" +
+  "<link rel=\"preconnect\" href=\"https://db.onlinewebfonts.com\" crossorigin />\n" +
+  "<link href=\"https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos\" rel=\"stylesheet\" />\n" +
+  "\n" +
+  "<script>\n" +
+  "  // Animation is progressive enhancement: if JS or motion is unavailable the\n" +
+  "  // page still renders fully, it simply appears without the fly-in.\n" +
+  "  try {\n" +
+  "    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
+  "      document.documentElement.classList.add('js-anim');\n" +
+  "    }\n" +
+  "  } catch (e) {}\n" +
+  "</script>\n" +
+  "\n" +
   "<style>\n" +
-  "  :root{\n" +
-  "    --bg:#05060b;\n" +
-  "    --bg-2:#080a12;\n" +
-  "    --panel:rgba(255,255,255,.035);\n" +
-  "    --panel-2:rgba(255,255,255,.055);\n" +
-  "    --line:rgba(255,255,255,.085);\n" +
-  "    --line-2:rgba(255,255,255,.14);\n" +
-  "    --text:#e9ecf7;\n" +
-  "    --muted:#8b93ad;\n" +
-  "    --cyan:#38d6ff;\n" +
-  "    --violet:#8b7bff;\n" +
-  "    --mint:#3ee6b0;\n" +
-  "    --danger:#ff6b81;\n" +
-  "    --grad:linear-gradient(100deg,var(--cyan),var(--violet) 55%,var(--mint));\n" +
-  "    --radius:18px;\n" +
-  "    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,\"Liberation Mono\",monospace;\n" +
-  "    --sans:system-ui,-apple-system,\"Segoe UI\",\"Noto Sans Thai\",\"Leelawadee UI\",sans-serif;\n" +
+  "  :root {\n" +
+  "    --bg: #000000;\n" +
+  "    --text: #ffffff;\n" +
+  "    --muted: #9a9aa2;\n" +
+  "    --line: rgba(255, 255, 255, 0.1);\n" +
+  "    --line-2: rgba(255, 255, 255, 0.2);\n" +
+  "    --green: #22c55e;\n" +
+  "    --glass: rgba(255, 255, 255, 0.035);\n" +
+  "    --glass-2: rgba(255, 255, 255, 0.06);\n" +
+  "    --radius: 18px;\n" +
+  "    /* Dot-matrix for Latin/digits, Thai falls through to the system Thai font. */\n" +
+  "    --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", \"Leelawadee UI\", \"Thonburi\",\n" +
+  "                 \"Noto Sans Thai\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
+  "    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace;\n" +
   "  }\n" +
-  "  *{box-sizing:border-box}\n" +
-  "  html{scroll-behavior:smooth}\n" +
-  "  body{\n" +
-  "    margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);\n" +
-  "    -webkit-font-smoothing:antialiased;line-height:1.65;overflow-x:hidden;\n" +
+  "\n" +
+  "  * { box-sizing: border-box; }\n" +
+  "  html { scroll-behavior: smooth; }\n" +
+  "  body {\n" +
+  "    margin: 0;\n" +
+  "    background: var(--bg);\n" +
+  "    color: var(--text);\n" +
+  "    font-family: var(--font-sans);\n" +
+  "    -webkit-font-smoothing: antialiased;\n" +
+  "    line-height: 1.65;\n" +
+  "    overflow-x: hidden;\n" +
+  "    letter-spacing: 0.02em;\n" +
   "  }\n" +
-  "  body::before{\n" +
-  "    content:\"\";position:fixed;inset:-20% -10% auto -10%;height:70vh;z-index:-2;\n" +
+  "  a { color: inherit; text-decoration: none; }\n" +
+  "  button { font-family: inherit; }\n" +
+  "  .wrap { width: min(1120px, 92vw); margin-inline: auto; }\n" +
+  "  .mono { font-family: var(--font-mono); }\n" +
+  "\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 background \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .bg-wave { position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden; }\n" +
+  "  .bg-wave::before {\n" +
+  "    content: \"\"; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;\n" +
   "    background:\n" +
-  "      radial-gradient(42% 55% at 18% 20%, rgba(56,214,255,.16), transparent 70%),\n" +
-  "      radial-gradient(40% 60% at 82% 8%, rgba(139,123,255,.16), transparent 70%),\n" +
-  "      radial-gradient(35% 45% at 55% 45%, rgba(62,230,176,.09), transparent 70%);\n" +
-  "    filter:blur(12px);animation:drift 22s ease-in-out infinite alternate;\n" +
+  "      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),\n" +
+  "      radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.07) 0%, transparent 40%);\n" +
+  "    filter: blur(80px);\n" +
+  "    animation: waveMove1 20s ease-in-out infinite alternate;\n" +
   "  }\n" +
-  "  body::after{\n" +
-  "    content:\"\";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.35;\n" +
-  "    background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),\n" +
-  "                     linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);\n" +
-  "    background-size:64px 64px;\n" +
-  "    mask-image:radial-gradient(80% 60% at 50% 0%,#000 20%,transparent 80%);\n" +
-  "    -webkit-mask-image:radial-gradient(80% 60% at 50% 0%,#000 20%,transparent 80%);\n" +
+  "  .bg-wave::after {\n" +
+  "    content: \"\"; position: absolute; bottom: -50%; right: -50%; width: 150%; height: 150%;\n" +
+  "    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);\n" +
+  "    filter: blur(100px);\n" +
+  "    animation: waveMove2 25s ease-in-out infinite alternate;\n" +
   "  }\n" +
-  "  @keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1)}to{transform:translate3d(3%,2%,0) scale(1.08)}}\n" +
-  "  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(62,230,176,.45)}50%{box-shadow:0 0 0 6px rgba(62,230,176,0)}}\n" +
-  "\n" +
-  "  a{color:inherit;text-decoration:none}\n" +
-  "  .wrap{width:min(1120px,92vw);margin-inline:auto}\n" +
-  "  .mono{font-family:var(--mono)}\n" +
-  "  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}\n" +
-  "\n" +
-  "  /* \u2500\u2500 nav \u2500\u2500 */\n" +
-  "  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(5,6,11,.62);border-bottom:1px solid var(--line)}\n" +
-  "  .nav{display:flex;align-items:center;gap:18px;height:68px}\n" +
-  "  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.3px}\n" +
-  "  .mark{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(160deg,rgba(56,214,255,.22),rgba(139,123,255,.22));border:1px solid var(--line-2)}\n" +
-  "  .mark svg{width:20px;height:20px}\n" +
-  "  .nav nav{display:flex;gap:26px;margin-left:auto;font-size:.94rem;color:var(--muted)}\n" +
-  "  .nav nav a{transition:color .2s}\n" +
-  "  .nav nav a:hover{color:var(--text)}\n" +
-  "  .btn{\n" +
-  "    display:inline-flex;align-items:center;justify-content:center;gap:9px;\n" +
-  "    padding:11px 20px;border-radius:12px;border:1px solid var(--line-2);\n" +
-  "    font:inherit;font-weight:600;font-size:.94rem;cursor:pointer;\n" +
-  "    background:var(--panel);color:var(--text);transition:transform .15s ease,border-color .2s,background .2s;\n" +
-  "    white-space:nowrap;\n" +
+  "  .green-orb { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; }\n" +
+  "  .orb-1 {\n" +
+  "    width: 45vw; height: 45vw; top: -15%; right: -10%;\n" +
+  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.32) 0%, transparent 70%);\n" +
+  "    animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
   "  }\n" +
-  "  .btn:hover{transform:translateY(-1px);border-color:rgba(255,255,255,.28);background:var(--panel-2)}\n" +
-  "  .btn-primary{\n" +
-  "    border:0;background:var(--grad);color:#04060d;\n" +
-  "    box-shadow:0 10px 30px -12px rgba(88,150,255,.9);\n" +
+  "  .orb-2 {\n" +
+  "    width: 35vw; height: 35vw; bottom: 5%; left: -5%;\n" +
+  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
+  "    animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
   "  }\n" +
-  "  .btn-primary:hover{filter:brightness(1.06)}\n" +
-  "  .btn-ghost{background:transparent}\n" +
-  "  .nav .btn{padding:9px 16px}\n" +
-  "\n" +
-  "  /* \u2500\u2500 hero \u2500\u2500 */\n" +
-  "  .hero{padding:88px 0 56px;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}\n" +
-  "  .eyebrow{\n" +
-  "    display:inline-flex;align-items:center;gap:9px;font-size:.78rem;letter-spacing:.16em;\n" +
-  "    text-transform:uppercase;color:#b9c2dc;border:1px solid var(--line-2);\n" +
-  "    background:rgba(255,255,255,.03);padding:7px 13px;border-radius:999px;\n" +
+  "  .orb-3 {\n" +
+  "    width: 25vw; height: 25vw; top: 40%; left: 30%;\n" +
+  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, transparent 70%);\n" +
+  "    animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
   "  }\n" +
-  "  .eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 2.4s infinite}\n" +
-  "  h1{font-size:clamp(2.2rem,4.6vw,3.6rem);line-height:1.18;margin:22px 0 18px;letter-spacing:-.02em;font-weight:800}\n" +
-  "  .lede{color:var(--muted);font-size:1.06rem;max-width:52ch;margin:0 0 30px}\n" +
-  "  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center}\n" +
-  "  .status-line{display:flex;align-items:center;gap:9px;margin-top:22px;font-size:.9rem;color:var(--muted)}\n" +
-  "  .dot{width:9px;height:9px;border-radius:50%;background:#5c6478;box-shadow:0 0 0 0 rgba(62,230,176,.45)}\n" +
-  "  .dot.ok{background:var(--mint);animation:pulse 2.4s infinite}\n" +
-  "  .dot.bad{background:var(--danger)}\n" +
-  "\n" +
-  "  /* code card */\n" +
-  "  .code-card{\n" +
-  "    background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));\n" +
-  "    border:1px solid var(--line-2);border-radius:var(--radius);overflow:hidden;\n" +
-  "    box-shadow:0 30px 80px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.06);\n" +
-  "    transform:perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
+  "  .bg-wave .noise {\n" +
+  "    position: absolute; inset: 0; opacity: 0.12; z-index: 2; pointer-events: none;\n" +
+  "    mix-blend-mode: overlay;\n" +
+  "    background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");\n" +
   "  }\n" +
-  "  .code-top{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.25)}\n" +
-  "  .tl{width:10px;height:10px;border-radius:50%}\n" +
-  "  .tl:nth-child(1){background:#ff5f57}.tl:nth-child(2){background:#febc2e}.tl:nth-child(3){background:#28c840}\n" +
-  "  .code-name{margin-left:8px;font-family:var(--mono);font-size:.78rem;color:var(--muted)}\n" +
-  "  .code-body{padding:22px 18px;font-family:var(--mono);font-size:.9rem;line-height:1.7;overflow-x:auto}\n" +
-  "  .code-body .c{color:#5a6480}\n" +
-  "  .code-body .f{color:var(--cyan)}\n" +
-  "  .code-body .s{color:var(--mint)}\n" +
-  "  .code-body .p{color:#c9d3ee}\n" +
-  "  .copy-row{display:flex;gap:10px;padding:0 16px 16px}\n" +
-  "  .copy-row .btn{flex:1;justify-content:center}\n" +
-  "  .copied{color:var(--mint)!important;border-color:rgba(62,230,176,.45)!important}\n" +
+  "  @keyframes waveMove1 {\n" +
+  "    0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
+  "    50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
+  "    100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
+  "  }\n" +
+  "  @keyframes waveMove2 {\n" +
+  "    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
+  "    50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
+  "    100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
+  "  }\n" +
+  "  @keyframes orbFloat1 { 0% { transform: translate(0,0) scale(1); opacity:.35 } 100% { transform: translate(-15%,20%) scale(1.3); opacity:.7 } }\n" +
+  "  @keyframes orbFloat2 { 0% { transform: translate(0,0) scale(1); opacity:.25 } 100% { transform: translate(20%,-15%) scale(1.4); opacity:.6 } }\n" +
+  "  @keyframes orbFloat3 { 0% { transform: translate(0,0) scale(1); opacity:.18 } 100% { transform: translate(-10%,-20%) scale(1.5); opacity:.45 } }\n" +
   "\n" +
-  "  /* stats */\n" +
-  "  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:14px 0 8px}\n" +
-  "  .stat{border:1px solid var(--line);background:var(--panel);border-radius:14px;padding:18px}\n" +
-  "  .stat b{display:block;font-size:1.02rem;letter-spacing:-.01em}\n" +
-  "  .stat span{color:var(--muted);font-size:.83rem}\n" +
+  "  .page { position: relative; z-index: 3; }\n" +
   "\n" +
-  "  /* sections */\n" +
-  "  section{padding:76px 0}\n" +
-  "  .sec-head{max-width:62ch;margin-bottom:34px}\n" +
-  "  .kicker{font-family:var(--mono);font-size:.76rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin:0 0 10px}\n" +
-  "  h2{font-size:clamp(1.5rem,2.6vw,2.1rem);margin:0 0 12px;letter-spacing:-.02em}\n" +
-  "  .sec-head p{color:var(--muted);margin:0}\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 nav \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .site-header {\n" +
+  "    position: sticky; top: 20px; z-index: 50;\n" +
+  "    display: flex; justify-content: center;\n" +
+  "    padding: 0 clamp(10px, 2vw, 20px);\n" +
+  "  }\n" +
+  "  .nav-pill {\n" +
+  "    width: 100%; max-width: 1120px;\n" +
+  "    display: flex; align-items: center; gap: 18px;\n" +
+  "    height: 64px; padding: 0 8px 0 14px;\n" +
+  "    border-radius: 999px;\n" +
+  "    background: rgba(10, 10, 12, 0.4);\n" +
+  "    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
+  "    border: 1px solid rgba(255, 255, 255, 0.1);\n" +
+  "    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n" +
+  "  }\n" +
+  "  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; flex-shrink: 0; }\n" +
+  "  .mark {\n" +
+  "    width: 44px; height: 44px; border-radius: 50%;\n" +
+  "    display: grid; place-items: center;\n" +
+  "    background: #fff; overflow: hidden;\n" +
+  "    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);\n" +
+  "    transition: transform .25s ease;\n" +
+  "  }\n" +
+  "  .brand:hover .mark { transform: scale(1.05); }\n" +
+  "  .mark svg { width: 60%; height: 60%; }\n" +
+  "  .brand-name { font-size: 1.02rem; letter-spacing: .04em; }\n" +
+  "  .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); margin-left: auto; }\n" +
+  "  .nav-link { font-size: 14px; color: var(--muted); transition: color .2s ease; }\n" +
+  "  .nav-link:hover { color: #fff; }\n" +
+  "  .burger {\n" +
+  "    display: none; width: 44px; height: 44px; border-radius: 50%;\n" +
+  "    flex-direction: column; align-items: center; justify-content: center; gap: 5px;\n" +
+  "    background: rgba(255,255,255,.06); border: 1px solid var(--line); cursor: pointer;\n" +
+  "  }\n" +
+  "  .burger span { display: block; width: 18px; height: 1.5px; background: #fff; border-radius: 2px; }\n" +
   "\n" +
-  "  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}\n" +
-  "  .step{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:24px;position:relative;overflow:hidden}\n" +
-  "  .step::after{content:\"\";position:absolute;inset:0 auto auto 0;height:2px;width:100%;background:var(--grad);opacity:.55}\n" +
-  "  .step .n{font-family:var(--mono);font-size:.78rem;color:var(--cyan);letter-spacing:.16em}\n" +
-  "  .step h3{margin:12px 0 8px;font-size:1.06rem}\n" +
-  "  .step p{margin:0;color:var(--muted);font-size:.93rem}\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 buttons \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .btn {\n" +
+  "    display: inline-flex; align-items: center; justify-content: center; gap: 9px;\n" +
+  "    padding: 12px 22px; border-radius: 999px;\n" +
+  "    border: 1px solid var(--line-2);\n" +
+  "    background: var(--glass); color: var(--text);\n" +
+  "    font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap;\n" +
+  "    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;\n" +
+  "  }\n" +
+  "  .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: var(--glass-2); }\n" +
+  "  .btn-primary {\n" +
+  "    border: 0; background: #fff; color: #000;\n" +
+  "    box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 0 22px rgba(255,255,255,.22);\n" +
+  "  }\n" +
+  "  .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 38px rgba(255,255,255,.45); }\n" +
+  "  .btn-primary.copied {\n" +
+  "    background: var(--green); color: #04160a;\n" +
+  "    box-shadow: 0 0 0 1px rgba(34,197,94,.5), 0 0 32px rgba(34,197,94,.6);\n" +
+  "  }\n" +
+  "  .btn-ghost { background: transparent; }\n" +
+  "  .btn svg { flex-shrink: 0; }\n" +
   "\n" +
-  "  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}\n" +
-  "  .card{border:1px solid var(--line);background:var(--panel);border-radius:var(--radius);padding:24px;transition:border-color .25s,transform .25s,background .25s}\n" +
-  "  .card:hover{border-color:var(--line-2);transform:translateY(-2px);background:var(--panel-2)}\n" +
-  "  .ico{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(56,214,255,.1);border:1px solid rgba(56,214,255,.22);margin-bottom:14px}\n" +
-  "  .ico svg{width:19px;height:19px;stroke:var(--cyan);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}\n" +
-  "  .card h3{margin:0 0 7px;font-size:1rem}\n" +
-  "  .card p{margin:0;color:var(--muted);font-size:.92rem}\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 hero \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .hero {\n" +
+  "    display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center;\n" +
+  "    padding: 64px 0 72px;\n" +
+  "  }\n" +
+  "  .eyebrow {\n" +
+  "    display: inline-flex; align-items: center; gap: 9px;\n" +
+  "    font-size: .76rem; letter-spacing: .16em; text-transform: uppercase;\n" +
+  "    color: #cfd4e4; border: 1px solid var(--line-2);\n" +
+  "    background: rgba(255,255,255,.04); padding: 7px 14px; border-radius: 999px;\n" +
+  "  }\n" +
+  "  .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }\n" +
+  "\n" +
+  "  .headline {\n" +
+  "    display: flex; flex-wrap: wrap; gap: 0.02em;\n" +
+  "    font-size: clamp(34px, 5vw, 60px); line-height: 1.25;\n" +
+  "    font-weight: 700; letter-spacing: -0.01em;\n" +
+  "    margin: 22px 0 18px; perspective: 1000px; min-height: 1.2em;\n" +
+  "  }\n" +
+  "  .char {\n" +
+  "    display: inline-block; position: relative; white-space: pre;\n" +
+  "    background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
+  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
+  "    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.18));\n" +
+  "  }\n" +
+  "  .char-accent {\n" +
+  "    background: linear-gradient(180deg, #4ade80 15%, #16a34a 100%);\n" +
+  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
+  "    filter: drop-shadow(0 0 18px rgba(34, 197, 94, 0.35));\n" +
+  "  }\n" +
+  "  .char-space { display: inline-block; width: 0.32em; }\n" +
+  "  .char.shimmer-ready::after {\n" +
+  "    content: attr(data-char);\n" +
+  "    position: absolute; top: 0; left: 0; width: 100%; height: 100%;\n" +
+  "    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.85) 50%, transparent 100%);\n" +
+  "    background-size: 200% 100%;\n" +
+  "    -webkit-background-clip: text; background-clip: text; color: transparent;\n" +
+  "    animation: shimmer 3.5s infinite linear; z-index: 1;\n" +
+  "  }\n" +
+  "  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }\n" +
+  "\n" +
+  "  .lede { color: var(--muted); font-size: 1.04rem; max-width: 52ch; margin: 0 0 30px; }\n" +
+  "  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }\n" +
+  "  .status-line { display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: .92rem; color: var(--muted); }\n" +
+  "  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5c6478; flex-shrink: 0; }\n" +
+  "  .dot.ok {\n" +
+  "    background: var(--green); box-shadow: 0 0 10px var(--green);\n" +
+  "    animation: dotPulse 1.8s cubic-bezier(.215,.61,.355,1) infinite;\n" +
+  "  }\n" +
+  "  .dot.bad { background: #ff6b81; box-shadow: 0 0 10px rgba(255,107,129,.6); }\n" +
+  "  @keyframes dotPulse {\n" +
+  "    0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }\n" +
+  "    100% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }\n" +
+  "  }\n" +
+  "\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 code card \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .code-card {\n" +
+  "    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));\n" +
+  "    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;\n" +
+  "    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);\n" +
+  "    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
+  "    transition: transform .2s ease;\n" +
+  "  }\n" +
+  "  .code-top {\n" +
+  "    display: flex; align-items: center; gap: 8px;\n" +
+  "    padding: 12px 16px; border-bottom: 1px solid var(--line);\n" +
+  "    background: rgba(0,0,0,.35);\n" +
+  "  }\n" +
+  "  .tl { width: 10px; height: 10px; border-radius: 50%; }\n" +
+  "  .tl:nth-child(1) { background: #ff5f57; }\n" +
+  "  .tl:nth-child(2) { background: #febc2e; }\n" +
+  "  .tl:nth-child(3) { background: #28c840; }\n" +
+  "  .code-name { margin-left: 8px; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }\n" +
+  "  .code-body {\n" +
+  "    padding: 22px 18px; font-family: var(--font-mono);\n" +
+  "    font-size: .86rem; line-height: 1.8; overflow-x: auto;\n" +
+  "  }\n" +
+  "  .code-body .c { color: #6b7280; }\n" +
+  "  .code-body .f { color: var(--green); }\n" +
+  "  .code-body .s { color: #a3e635; }\n" +
+  "  .code-body .p { color: #e7e9f0; }\n" +
+  "  .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }\n" +
+  "  .copy-row .btn { flex: 1; justify-content: center; }\n" +
+  "\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 sections \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  section { padding: 68px 0; }\n" +
+  "  .sec-head { max-width: 62ch; margin-bottom: 34px; }\n" +
+  "  .kicker {\n" +
+  "    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .2em;\n" +
+  "    text-transform: uppercase; color: var(--green); margin: 0 0 10px;\n" +
+  "  }\n" +
+  "  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }\n" +
+  "  .sec-head p { color: var(--muted); margin: 0; }\n" +
+  "\n" +
+  "  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }\n" +
+  "  .stat {\n" +
+  "    background: rgba(0,0,0,.4); border: 1px solid var(--line);\n" +
+  "    border-radius: 16px; padding: 20px 18px; text-align: center;\n" +
+  "    backdrop-filter: blur(10px); transition: background .3s, border-color .3s;\n" +
+  "  }\n" +
+  "  .stat:hover { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.28); }\n" +
+  "  .stat b { display: block; font-size: 1rem; font-weight: 600; letter-spacing: .01em; }\n" +
+  "  .stat span { color: var(--muted); font-size: .82rem; }\n" +
+  "\n" +
+  "  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
+  "  .step {\n" +
+  "    border: 1px solid var(--line); background: var(--glass);\n" +
+  "    border-radius: var(--radius); padding: 24px; position: relative; overflow: hidden;\n" +
+  "    backdrop-filter: blur(10px);\n" +
+  "  }\n" +
+  "  .step::after {\n" +
+  "    content: \"\"; position: absolute; inset: 0 auto auto 0; height: 2px; width: 100%;\n" +
+  "    background: linear-gradient(90deg, rgba(34,197,94,.9), rgba(255,255,255,.35)); opacity: .7;\n" +
+  "  }\n" +
+  "  .step .n { font-family: var(--font-mono); font-size: .76rem; color: var(--green); letter-spacing: .16em; }\n" +
+  "  .step h3 { margin: 12px 0 8px; font-size: 1.02rem; }\n" +
+  "  .step p { margin: 0; color: var(--muted); font-size: .92rem; }\n" +
+  "\n" +
+  "  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
+  "  .card {\n" +
+  "    border: 1px solid var(--line); background: var(--glass);\n" +
+  "    border-radius: var(--radius); padding: 24px;\n" +
+  "    transition: border-color .25s, transform .25s, background .25s;\n" +
+  "    backdrop-filter: blur(10px);\n" +
+  "  }\n" +
+  "  .card:hover { border-color: var(--line-2); transform: translateY(-2px); background: var(--glass-2); }\n" +
+  "  .ico {\n" +
+  "    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;\n" +
+  "    background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.25); margin-bottom: 14px;\n" +
+  "  }\n" +
+  "  .ico svg { width: 19px; height: 19px; stroke: var(--green); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }\n" +
+  "  .card h3 { margin: 0 0 7px; font-size: 1rem; }\n" +
+  "  .card p { margin: 0; color: var(--muted); font-size: .91rem; }\n" +
   "\n" +
   "  /* status panel */\n" +
-  "  .panel{border:1px solid var(--line-2);border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.05),rgba(255,255,255,.015));padding:26px;display:grid;grid-template-columns:1.1fr .9fr;gap:26px}\n" +
-  "  .kv{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px dashed var(--line);font-size:.93rem}\n" +
-  "  .kv:last-child{border-bottom:0}\n" +
-  "  .kv span{color:var(--muted)}\n" +
-  "  .kv b{font-family:var(--mono);font-weight:500}\n" +
-  "  .ping{display:flex;align-items:center;gap:14px;margin-bottom:8px}\n" +
-  "  .ping .big{font-family:var(--mono);font-size:2rem;letter-spacing:-.03em}\n" +
-  "  .ping small{color:var(--muted);display:block;font-size:.8rem}\n" +
-  "  .refresh{align-self:flex-start}\n" +
+  "  .panel {\n" +
+  "    border: 1px solid var(--line-2); border-radius: 22px;\n" +
+  "    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015));\n" +
+  "    padding: 26px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 26px;\n" +
+  "    backdrop-filter: blur(12px);\n" +
+  "  }\n" +
+  "  .ping { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }\n" +
+  "  .ping .big { font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }\n" +
+  "  .ping small { color: var(--muted); }\n" +
+  "  .kv {\n" +
+  "    display: flex; justify-content: space-between; gap: 12px;\n" +
+  "    padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem;\n" +
+  "  }\n" +
+  "  .kv span { color: var(--muted); }\n" +
+  "  .kv b { font-weight: 500; }\n" +
   "\n" +
   "  /* faq */\n" +
-  "  .faq{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:var(--panel)}\n" +
-  "  details{border-bottom:1px solid var(--line)}\n" +
-  "  details:last-child{border-bottom:0}\n" +
-  "  summary{cursor:pointer;padding:18px 22px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center}\n" +
-  "  summary::-webkit-details-marker{display:none}\n" +
-  "  summary::after{content:\"+\";font-family:var(--mono);color:var(--cyan);font-size:1.15rem;transition:transform .2s}\n" +
-  "  details[open] summary::after{transform:rotate(45deg)}\n" +
-  "  details p{margin:0;padding:0 22px 20px;color:var(--muted);font-size:.94rem;max-width:80ch}\n" +
+  "  .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }\n" +
+  "  .faq details { border-bottom: 1px solid var(--line); }\n" +
+  "  .faq details:last-child { border-bottom: 0; }\n" +
+  "  .faq summary {\n" +
+  "    cursor: pointer; padding: 18px 22px; font-weight: 600; list-style: none;\n" +
+  "    display: flex; align-items: center; justify-content: space-between; gap: 12px;\n" +
+  "  }\n" +
+  "  .faq summary::-webkit-details-marker { display: none; }\n" +
+  "  .faq summary::after { content: \"+\"; color: var(--green); font-size: 1.2rem; line-height: 1; }\n" +
+  "  .faq details[open] summary::after { content: \"\u2013\"; }\n" +
+  "  .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }\n" +
   "\n" +
   "  /* cta */\n" +
-  "  .cta{border:1px solid var(--line-2);border-radius:24px;padding:44px;text-align:center;background:radial-gradient(70% 130% at 50% 0%,rgba(139,123,255,.16),transparent 70%),var(--panel)}\n" +
-  "  .cta h2{margin-bottom:10px}\n" +
-  "  .cta p{color:var(--muted);margin:0 auto 24px;max-width:60ch}\n" +
-  "  .cta .hero-actions{justify-content:center}\n" +
-  "\n" +
-  "  footer{border-top:1px solid var(--line);padding:30px 0 44px;color:var(--muted);font-size:.86rem}\n" +
-  "  .foot{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}\n" +
-  "  .foot a:hover{color:var(--text)}\n" +
-  "  .disclaimer{margin-top:14px;color:#6d7590;font-size:.8rem;max-width:80ch}\n" +
-  "\n" +
-  "  /* reveal */\n" +
-  "  .reveal{opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.3,1)}\n" +
-  "  .reveal.in{opacity:1;transform:none}\n" +
-  "\n" +
-  "  @media(max-width:960px){\n" +
-  "    .hero{grid-template-columns:1fr;padding-top:56px}\n" +
-  "    .code-card{transform:none}\n" +
-  "    .steps,.cards{grid-template-columns:1fr 1fr}\n" +
-  "    .panel{grid-template-columns:1fr}\n" +
-  "    .stats{grid-template-columns:1fr 1fr}\n" +
-  "    .nav nav{display:none}\n" +
+  "  .cta {\n" +
+  "    border: 1px solid var(--line-2); border-radius: 24px; padding: 44px 28px; text-align: center;\n" +
+  "    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));\n" +
+  "    backdrop-filter: blur(12px);\n" +
   "  }\n" +
-  "  @media(max-width:620px){\n" +
-  "    .steps,.cards{grid-template-columns:1fr}\n" +
-  "    .cta{padding:30px 20px}\n" +
-  "    .hero{padding-bottom:20px}\n" +
+  "  .cta p { color: var(--muted); max-width: 52ch; margin: 0 auto 24px; }\n" +
+  "  .cta .hero-actions { justify-content: center; }\n" +
+  "\n" +
+  "  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }\n" +
+  "  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }\n" +
+  "  .foot a:hover { color: #fff; }\n" +
+  "  .disclaimer { color: #6b6b74; font-size: .8rem; margin: 18px 0 0; max-width: 90ch; }\n" +
+  "\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 fly-in animation \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .js-anim .char,\n" +
+  "  .js-anim .pop-element {\n" +
+  "    opacity: 0; visibility: hidden;\n" +
+  "    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.6) rotate(var(--tr, 0deg));\n" +
+  "    filter: blur(10px);\n" +
   "  }\n" +
-  "  @media(prefers-reduced-motion:reduce){\n" +
-  "    *{animation:none!important;transition:none!important;scroll-behavior:auto!important}\n" +
-  "    .reveal{opacity:1;transform:none}\n" +
+  "  .js-anim .pop-in {\n" +
+  "    visibility: visible;\n" +
+  "    animation: bouncyRandomPop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
+  "    animation-delay: var(--delay, 0s);\n" +
+  "  }\n" +
+  "  @keyframes bouncyRandomPop {\n" +
+  "    0% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.25) rotate(var(--tr, 0deg)); filter: blur(14px); }\n" +
+  "    60% { opacity: 1; transform: translate(0, 0) scale(1.06) rotate(0deg); filter: blur(0); }\n" +
+  "    80% { transform: translate(0, 0) scale(.97) rotate(0deg); }\n" +
+  "    100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(0); }\n" +
+  "  }\n" +
+  "  @media (prefers-reduced-motion: reduce) {\n" +
+  "    .js-anim .char,\n" +
+  "    .js-anim .pop-element {\n" +
+  "      opacity: 1 !important; visibility: visible !important;\n" +
+  "      transform: none !important; filter: none !important; animation: none !important;\n" +
+  "    }\n" +
+  "  }\n" +
+  "\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 responsive \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  @media (max-width: 960px) {\n" +
+  "    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }\n" +
+  "    .code-card { transform: none; }\n" +
+  "    .stats { grid-template-columns: repeat(2, 1fr); }\n" +
+  "    .steps, .cards { grid-template-columns: 1fr; }\n" +
+  "    .panel { grid-template-columns: 1fr; gap: 18px; }\n" +
+  "  }\n" +
+  "  @media (max-width: 900px) {\n" +
+  "    .nav-links, .nav-pill .btn { display: none; }\n" +
+  "    .burger { display: flex; margin-left: auto; }\n" +
+  "    .nav-pill.is-open {\n" +
+  "      flex-wrap: wrap; height: auto; padding-bottom: 14px; border-radius: 26px;\n" +
+  "    }\n" +
+  "    .nav-pill.is-open .nav-links {\n" +
+  "      display: flex; flex-direction: column; align-items: stretch;\n" +
+  "      gap: 4px; order: 3; width: 100%; margin: 12px 0 0;\n" +
+  "      padding: 12px; border-radius: 18px;\n" +
+  "      background: rgba(10,10,12,.9); border: 1px solid var(--line);\n" +
+  "    }\n" +
+  "    .nav-pill.is-open .nav-link { padding: 10px 12px; border-radius: 12px; }\n" +
+  "    .nav-pill.is-open .nav-link:hover { background: rgba(255,255,255,.06); }\n" +
+  "    .nav-pill.is-open .btn { display: inline-flex; order: 4; width: 100%; margin-top: 10px; }\n" +
+  "  }\n" +
+  "  @media (max-width: 560px) {\n" +
+  "    .stats { grid-template-columns: 1fr; }\n" +
+  "    .headline { font-size: clamp(28px, 8vw, 40px); }\n" +
   "  }\n" +
   "</style>\n" +
   "</head>\n" +
   "<body>\n" +
+  "<div class=\"bg-wave\">\n" +
+  "  <div class=\"green-orb orb-1\"></div>\n" +
+  "  <div class=\"green-orb orb-2\"></div>\n" +
+  "  <div class=\"green-orb orb-3\"></div>\n" +
+  "  <div class=\"noise\"></div>\n" +
+  "</div>\n" +
   "\n" +
-  "<header>\n" +
-  "  <div class=\"wrap nav\">\n" +
-  "    <a class=\"brand\" href=\"#top\" aria-label=\"999MS home\">\n" +
-  "      <span class=\"mark\">\n" +
-  "        <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><defs><linearGradient id=\"lg\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#38d6ff\"/><stop offset=\".6\" stop-color=\"#8b7bff\"/><stop offset=\"1\" stop-color=\"#3ee6b0\"/></linearGradient></defs><path d=\"M5 19c3.6-6.2 6.2-9.6 9-14M8 5h9v3.4h-4.2L18 19h-3.6l-2.2-4.6L8.6 19H5l4.6-7.2H6.4z\" fill=\"url(#lg)\"/></svg>\n" +
-  "      </span>\n" +
-  "      <span>999<span class=\"grad\">MS</span></span>\n" +
-  "    </a>\n" +
-  "    <nav aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
-  "      <a href=\"#how\">\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
-  "      <a href=\"#features\">\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c</a>\n" +
-  "      <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
-  "      <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
-  "    </nav>\n" +
-  "    <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
-  "  </div>\n" +
-  "</header>\n" +
-  "\n" +
-  "<main id=\"top\">\n" +
-  "  <div class=\"wrap hero\">\n" +
-  "    <div>\n" +
-  "      <span class=\"eyebrow\"><i></i> Key system \u00b7 Loader \u00b7 v2.1</span>\n" +
-  "      <h1>\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 <span class=\"grad\">\u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span></h1>\n" +
-  "      <p class=\"lede\">\n" +
-  "        999MS \u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 Platoboost \u0e41\u0e25\u0e49\u0e27\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38 30 \u0e19\u0e32\u0e17\u0e35\n" +
-  "        \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e2d\u0e14 \u0e46 \u0e42\u0e14\u0e22\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e02\u0e2d\u0e07\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\n" +
-  "      </p>\n" +
-  "      <div class=\"hero-actions\">\n" +
-  "        <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
-  "          <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
-  "          \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
-  "        </button>\n" +
-  "        <a class=\"btn btn-ghost\" href=\"#how\">\u0e14\u0e39\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19</a>\n" +
-  "      </div>\n" +
-  "      <div class=\"status-line\">\n" +
-  "        <span class=\"dot\" id=\"heroDot\"></span>\n" +
-  "        <span id=\"heroStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a\u2026</span>\n" +
-  "      </div>\n" +
+  "<div class=\"page\">\n" +
+  "  <header class=\"site-header\">\n" +
+  "    <div class=\"wrap nav-pill\" id=\"navPill\">\n" +
+  "      <a class=\"brand\" href=\"#top\" aria-label=\"999MS home\">\n" +
+  "        <span class=\"mark\">\n" +
+  "          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n" +
+  "            <path d=\"M12 2L2 7L12 12L22 7L12 2Z\" fill=\"#000\"/>\n" +
+  "            <path d=\"M2 17L12 22L22 17\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
+  "            <path d=\"M2 12L12 17L22 12\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
+  "          </svg>\n" +
+  "        </span>\n" +
+  "        <span class=\"brand-name\">999MS</span>\n" +
+  "      </a>\n" +
+  "      <nav class=\"nav-links\" aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
+  "        <a class=\"nav-link\" href=\"#how\">\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
+  "        <a class=\"nav-link\" href=\"#features\">\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c</a>\n" +
+  "        <a class=\"nav-link\" href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
+  "        <a class=\"nav-link\" href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
+  "      </nav>\n" +
+  "      <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
+  "      <button class=\"burger\" id=\"burger\" type=\"button\" aria-label=\"\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39\" aria-expanded=\"false\">\n" +
+  "        <span></span><span></span><span></span>\n" +
+  "      </button>\n" +
   "    </div>\n" +
+  "  </header>\n" +
   "\n" +
-  "    <div class=\"code-card\">\n" +
-  "      <div class=\"code-top\">\n" +
-  "        <span class=\"tl\"></span><span class=\"tl\"></span><span class=\"tl\"></span>\n" +
-  "        <span class=\"code-name\">loadstring.lua</span>\n" +
+  "  <main id=\"top\">\n" +
+  "    <div class=\"wrap hero\">\n" +
+  "      <div>\n" +
+  "        <span class=\"eyebrow pop-element\"><i></i> Key system \u00b7 Loader \u00b7 v2.1</span>\n" +
+  "        <h1 class=\"headline\" id=\"headline\" data-text=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\" data-accent=\"10\" aria-label=\"\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e14\u0e35\u0e22\u0e27 \u0e1b\u0e25\u0e14\u0e25\u0e47\u0e2d\u0e01\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\"></h1>\n" +
+  "        <p class=\"lede pop-element\">\n" +
+  "          999MS \u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 Platoboost \u0e41\u0e25\u0e49\u0e27\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38 30 \u0e19\u0e32\u0e17\u0e35\n" +
+  "          \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e17\u0e2d\u0e14 \u0e46 \u0e42\u0e14\u0e22\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e02\u0e2d\u0e07\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\n" +
+  "        </p>\n" +
+  "        <div class=\"hero-actions pop-element\">\n" +
+  "          <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
+  "            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
+  "            \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
+  "          </button>\n" +
+  "          <a class=\"btn btn-ghost\" href=\"#how\">\u0e14\u0e39\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19</a>\n" +
+  "        </div>\n" +
+  "        <div class=\"status-line pop-element\">\n" +
+  "          <span class=\"dot\" id=\"heroDot\"></span>\n" +
+  "          <span id=\"heroStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a\u2026</span>\n" +
+  "        </div>\n" +
   "      </div>\n" +
-  "      <div class=\"code-body\">\n" +
+  "\n" +
+  "      <div class=\"code-card pop-element\">\n" +
+  "        <div class=\"code-top\">\n" +
+  "          <span class=\"tl\"></span><span class=\"tl\"></span><span class=\"tl\"></span>\n" +
+  "          <span class=\"code-name\">loadstring.lua</span>\n" +
+  "        </div>\n" +
+  "        <div class=\"code-body\">\n" +
   "<span class=\"c\">-- \u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14 Execute</span><br />\n" +
   "<span class=\"p\">local License = \"\"</span><br />\n" +
   "<span class=\"p\">local Script = \"\"</span><br />\n" +
   "<span class=\"p\">loadstring(</span><span class=\"f\">game:HttpGet</span>(<span class=\"s\" id=\"scriptUrl\">\"https://loader999mss.vercel.app/loadc.lua\"</span><span class=\"p\">))(License, Script)</span>\n" +
-  "      </div>\n" +
-  "      <div class=\"copy-row\">\n" +
-  "        <button class=\"btn\" id=\"copyCard\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14</button>\n" +
+  "        </div>\n" +
+  "        <div class=\"copy-row\">\n" +
+  "          <button class=\"btn\" id=\"copyCard\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14</button>\n" +
+  "        </div>\n" +
   "      </div>\n" +
   "    </div>\n" +
-  "  </div>\n" +
   "\n" +
-  "  <div class=\"wrap\">\n" +
-  "    <div class=\"stats reveal\">\n" +
-  "      <div class=\"stat\"><b>HMAC-SHA256</b><span>ticket \u0e25\u0e07\u0e19\u0e32\u0e21\u0e17\u0e38\u0e01\u0e43\u0e1a</span></div>\n" +
-  "      <div class=\"stat\"><b>30 \u0e19\u0e32\u0e17\u0e35</b><span>\u0e2d\u0e32\u0e22\u0e38 ticket</span></div>\n" +
-  "      <div class=\"stat\"><b>&lt; 60 \u0e27\u0e34</b><span>\u0e2d\u0e32\u0e22\u0e38 runtime proof</span></div>\n" +
-  "      <div class=\"stat\"><b>SHA-256 pinned</b><span>\u0e15\u0e23\u0e27\u0e08\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19</span></div>\n" +
-  "    </div>\n" +
-  "  </div>\n" +
-  "\n" +
-  "  <section id=\"how\">\n" +
   "    <div class=\"wrap\">\n" +
-  "      <div class=\"sec-head reveal\">\n" +
-  "        <p class=\"kicker\">Getting started</p>\n" +
-  "        <h2>\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e43\u0e19 3 \u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19</h2>\n" +
-  "        <p>\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e2d\u0e30\u0e44\u0e23\u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e43\u0e0a\u0e49 executor \u0e17\u0e35\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span> \u0e41\u0e25\u0e30 <span class=\"mono\">loadstring</span></p>\n" +
-  "      </div>\n" +
-  "      <div class=\"steps\">\n" +
-  "        <article class=\"step reveal\">\n" +
-  "          <div class=\"n\">STEP 01</div>\n" +
-  "          <h3>\u0e40\u0e1b\u0e34\u0e14 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19 loadstring</h3>\n" +
-  "          <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e36\u0e07 stage 1 \u0e21\u0e32\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"step reveal\">\n" +
-  "          <div class=\"n\">STEP 02</div>\n" +
-  "          <h3>\u0e23\u0e31\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32 Platoboost</h3>\n" +
-  "          <p>\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c \u0e04\u0e35\u0e22\u0e4c\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e17\u0e31\u0e19\u0e17\u0e35\u0e17\u0e35\u0e48\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"step reveal\">\n" +
-  "          <div class=\"n\">STEP 03</div>\n" +
-  "          <h3>\u0e27\u0e32\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e23\u0e2d\u0e42\u0e2b\u0e25\u0e14</h3>\n" +
-  "          <p>\u0e2b\u0e25\u0e31\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19 \u2014 \u0e40\u0e2a\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22</p>\n" +
-  "        </article>\n" +
+  "      <div class=\"stats\">\n" +
+  "        <div class=\"stat pop-element\"><b>HMAC-SHA256</b><span>ticket \u0e25\u0e07\u0e19\u0e32\u0e21\u0e17\u0e38\u0e01\u0e43\u0e1a</span></div>\n" +
+  "        <div class=\"stat pop-element\"><b>30 \u0e19\u0e32\u0e17\u0e35</b><span>\u0e2d\u0e32\u0e22\u0e38 ticket</span></div>\n" +
+  "        <div class=\"stat pop-element\"><b>&lt; 60 \u0e27\u0e34</b><span>\u0e2d\u0e32\u0e22\u0e38 runtime proof</span></div>\n" +
+  "        <div class=\"stat pop-element\"><b>SHA-256 pinned</b><span>\u0e15\u0e23\u0e27\u0e08\u0e17\u0e38\u0e01 stage \u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19</span></div>\n" +
   "      </div>\n" +
   "    </div>\n" +
-  "  </section>\n" +
   "\n" +
-  "  <section id=\"features\">\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"sec-head reveal\">\n" +
-  "        <p class=\"kicker\">Under the hood</p>\n" +
-  "        <h2>\u0e23\u0e30\u0e1a\u0e1a\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e17\u0e35\u0e48\u0e17\u0e33\u0e07\u0e32\u0e19\u0e40\u0e1a\u0e37\u0e49\u0e2d\u0e07\u0e2b\u0e25\u0e31\u0e07</h2>\n" +
-  "        <p>\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e15\u0e23\u0e27\u0e08\u0e1d\u0e31\u0e48\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48 client \u0e2a\u0e48\u0e07\u0e21\u0e32\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27</p>\n" +
+  "    <section id=\"how\">\n" +
+  "      <div class=\"wrap\">\n" +
+  "        <div class=\"sec-head\">\n" +
+  "          <p class=\"kicker\">Getting started</p>\n" +
+  "          <h2 class=\"pop-element\">\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e43\u0e19 3 \u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19</h2>\n" +
+  "          <p class=\"pop-element\">\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e34\u0e14\u0e15\u0e31\u0e49\u0e07\u0e2d\u0e30\u0e44\u0e23\u0e40\u0e1e\u0e34\u0e48\u0e21 \u0e43\u0e0a\u0e49 executor \u0e17\u0e35\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span> \u0e41\u0e25\u0e30 <span class=\"mono\">loadstring</span></p>\n" +
+  "        </div>\n" +
+  "        <div class=\"steps\">\n" +
+  "          <article class=\"step pop-element\">\n" +
+  "            <div class=\"n\">STEP 01</div>\n" +
+  "            <h3>\u0e40\u0e1b\u0e34\u0e14 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19 loadstring</h3>\n" +
+  "            <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e49\u0e32\u0e19\u0e1a\u0e19\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e36\u0e07 stage 1 \u0e21\u0e32\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"step pop-element\">\n" +
+  "            <div class=\"n\">STEP 02</div>\n" +
+  "            <h3>\u0e23\u0e31\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e08\u0e32\u0e01\u0e2b\u0e19\u0e49\u0e32 Platoboost</h3>\n" +
+  "            <p>\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c \u0e04\u0e35\u0e22\u0e4c\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e17\u0e31\u0e19\u0e17\u0e35\u0e17\u0e35\u0e48\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"step pop-element\">\n" +
+  "            <div class=\"n\">STEP 03</div>\n" +
+  "            <h3>\u0e27\u0e32\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e23\u0e2d\u0e42\u0e2b\u0e25\u0e14</h3>\n" +
+  "            <p>\u0e2b\u0e25\u0e31\u0e07\u0e04\u0e35\u0e22\u0e4c\u0e1c\u0e48\u0e32\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e14\u0e32\u0e27\u0e19\u0e4c\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19 \u2014 \u0e40\u0e2a\u0e23\u0e47\u0e08\u0e41\u0e25\u0e49\u0e27\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22</p>\n" +
+  "          </article>\n" +
+  "        </div>\n" +
   "      </div>\n" +
-  "      <div class=\"cards\">\n" +
-  "        <article class=\"card reveal\">\n" +
-  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"10\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 10V7a4 4 0 0 1 8 0v3\"/></svg></div>\n" +
-  "          <h3>\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID</h3>\n" +
-  "          <p>\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e1a\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 ticket \u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a hash \u0e02\u0e2d\u0e07 HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"card reveal\">\n" +
-  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v6\"/><path d=\"M5 9h14\"/><path d=\"M7 9v5a5 5 0 0 0 10 0V9\"/><path d=\"M9 21h6\"/></svg></div>\n" +
-  "          <h3>Ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19</h3>\n" +
-  "          <p>\u0e25\u0e07\u0e19\u0e32\u0e21\u0e14\u0e49\u0e27\u0e22 HMAC-SHA256 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 30 \u0e19\u0e32\u0e17\u0e35 \u0e41\u0e25\u0e30\u0e21\u0e35 runtime proof \u0e41\u0e22\u0e01\u0e17\u0e35\u0e48\u0e2d\u0e32\u0e22\u0e38\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 60 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"card reveal\">\n" +
-  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M4 7h16\"/><path d=\"M4 12h10\"/><path d=\"M4 17h7\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/></svg></div>\n" +
-  "          <h3>Stage chain \u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19</h3>\n" +
-  "          <p>\u0e41\u0e15\u0e48\u0e25\u0e30\u0e17\u0e2d\u0e14\u0e21\u0e35 capability \u0e40\u0e09\u0e1e\u0e32\u0e30 \u0e2d\u0e2d\u0e01\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e25\u0e30\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e20\u0e32\u0e22\u0e43\u0e19 20 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"card reveal\">\n" +
-  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z\"/><path d=\"M9.5 12l1.8 1.8L15 10\"/></svg></div>\n" +
-  "          <h3>\u0e15\u0e23\u0e27\u0e08\u0e04\u0e27\u0e32\u0e21\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e02\u0e2d\u0e07\u0e44\u0e1f\u0e25\u0e4c</h3>\n" +
-  "          <p>\u0e44\u0e1f\u0e25\u0e4c stage 2 \u0e16\u0e39\u0e01 pin \u0e14\u0e49\u0e27\u0e22 SHA-256 \u0e44\u0e27\u0e49\u0e43\u0e19\u0e15\u0e31\u0e27\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e16\u0e49\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e30\u0e44\u0e21\u0e48\u0e22\u0e2d\u0e21\u0e23\u0e31\u0e19</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"card reveal\">\n" +
-  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 12h4l2.5-6 4 12L16 12h5\"/></svg></div>\n" +
-  "          <h3>Heartbeat \u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e40\u0e25\u0e48\u0e19</h3>\n" +
-  "          <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e23\u0e27\u0e08 session \u0e40\u0e1b\u0e47\u0e19\u0e23\u0e30\u0e22\u0e30 \u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e41\u0e1a\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e41\u0e01\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e17\u0e32\u0e07\u0e08\u0e30\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</p>\n" +
-  "        </article>\n" +
-  "        <article class=\"card reveal\">\n" +
-  "          <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 8v5\"/><path d=\"M12 16.5h.01\"/></svg></div>\n" +
-  "          <h3>\u0e23\u0e2b\u0e31\u0e2a diagnostic</h3>\n" +
-  "          <p>\u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18 \u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e2d\u0e22\u0e48\u0e32\u0e07 <span class=\"mono\">D2_HWID_MISMATCH</span> \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e08\u0e49\u0e07\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e44\u0e14\u0e49\u0e15\u0e23\u0e07\u0e08\u0e38\u0e14</p>\n" +
-  "        </article>\n" +
-  "      </div>\n" +
-  "    </div>\n" +
-  "  </section>\n" +
+  "    </section>\n" +
   "\n" +
-  "  <section id=\"status\">\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"sec-head reveal\">\n" +
-  "        <p class=\"kicker\">Live status</p>\n" +
-  "        <h2>\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a</h2>\n" +
-  "        <p>\u0e15\u0e23\u0e27\u0e08\u0e08\u0e32\u0e01 endpoint \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e19\u0e35\u0e49 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e44\u0e27\u0e49</p>\n" +
+  "    <section id=\"features\">\n" +
+  "      <div class=\"wrap\">\n" +
+  "        <div class=\"sec-head\">\n" +
+  "          <p class=\"kicker\">Under the hood</p>\n" +
+  "          <h2 class=\"pop-element\">\u0e23\u0e30\u0e1a\u0e1a\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e17\u0e35\u0e48\u0e17\u0e33\u0e07\u0e32\u0e19\u0e40\u0e1a\u0e37\u0e49\u0e2d\u0e07\u0e2b\u0e25\u0e31\u0e07</h2>\n" +
+  "          <p class=\"pop-element\">\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e15\u0e23\u0e27\u0e08\u0e1d\u0e31\u0e48\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48 client \u0e2a\u0e48\u0e07\u0e21\u0e32\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27</p>\n" +
+  "        </div>\n" +
+  "        <div class=\"cards\">\n" +
+  "          <article class=\"card pop-element\">\n" +
+  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"10\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 10V7a4 4 0 0 1 8 0v3\"/></svg></div>\n" +
+  "            <h3>\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID</h3>\n" +
+  "            <p>\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e1a\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 ticket \u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a hash \u0e02\u0e2d\u0e07 HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"card pop-element\">\n" +
+  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v6\"/><path d=\"M5 9h14\"/><path d=\"M7 9v5a5 5 0 0 0 10 0V9\"/><path d=\"M9 21h6\"/></svg></div>\n" +
+  "            <h3>Ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19</h3>\n" +
+  "            <p>\u0e25\u0e07\u0e19\u0e32\u0e21\u0e14\u0e49\u0e27\u0e22 HMAC-SHA256 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 30 \u0e19\u0e32\u0e17\u0e35 \u0e41\u0e25\u0e30\u0e21\u0e35 runtime proof \u0e41\u0e22\u0e01\u0e17\u0e35\u0e48\u0e2d\u0e32\u0e22\u0e38\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 60 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"card pop-element\">\n" +
+  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M4 7h16\"/><path d=\"M4 12h10\"/><path d=\"M4 17h7\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/></svg></div>\n" +
+  "            <h3>Stage chain \u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19</h3>\n" +
+  "            <p>\u0e41\u0e15\u0e48\u0e25\u0e30\u0e17\u0e2d\u0e14\u0e21\u0e35 capability \u0e40\u0e09\u0e1e\u0e32\u0e30 \u0e2d\u0e2d\u0e01\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e25\u0e30\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e20\u0e32\u0e22\u0e43\u0e19 20 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"card pop-element\">\n" +
+  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z\"/><path d=\"M9.5 12l1.8 1.8L15 10\"/></svg></div>\n" +
+  "            <h3>\u0e15\u0e23\u0e27\u0e08\u0e04\u0e27\u0e32\u0e21\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e02\u0e2d\u0e07\u0e44\u0e1f\u0e25\u0e4c</h3>\n" +
+  "            <p>\u0e44\u0e1f\u0e25\u0e4c stage 2 \u0e16\u0e39\u0e01 pin \u0e14\u0e49\u0e27\u0e22 SHA-256 \u0e44\u0e27\u0e49\u0e43\u0e19\u0e15\u0e31\u0e27\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e16\u0e49\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e30\u0e44\u0e21\u0e48\u0e22\u0e2d\u0e21\u0e23\u0e31\u0e19</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"card pop-element\">\n" +
+  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 12h4l2.5-6 4 12L16 12h5\"/></svg></div>\n" +
+  "            <h3>Heartbeat \u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e40\u0e25\u0e48\u0e19</h3>\n" +
+  "            <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e23\u0e27\u0e08 session \u0e40\u0e1b\u0e47\u0e19\u0e23\u0e30\u0e22\u0e30 \u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e41\u0e1a\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e41\u0e01\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e17\u0e32\u0e07\u0e08\u0e30\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</p>\n" +
+  "          </article>\n" +
+  "          <article class=\"card pop-element\">\n" +
+  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 8v5\"/><path d=\"M12 16.5h.01\"/></svg></div>\n" +
+  "            <h3>\u0e23\u0e2b\u0e31\u0e2a diagnostic</h3>\n" +
+  "            <p>\u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18 \u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e2d\u0e22\u0e48\u0e32\u0e07 <span class=\"mono\">D2_HWID_MISMATCH</span> \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e08\u0e49\u0e07\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e44\u0e14\u0e49\u0e15\u0e23\u0e07\u0e08\u0e38\u0e14</p>\n" +
+  "          </article>\n" +
+  "        </div>\n" +
   "      </div>\n" +
-  "      <div class=\"panel reveal\">\n" +
-  "        <div>\n" +
-  "          <div class=\"ping\">\n" +
-  "            <span class=\"dot\" id=\"panelDot\"></span>\n" +
-  "            <div>\n" +
-  "              <div class=\"big\" id=\"latency\">\u2014</div>\n" +
-  "              <small>\u0e40\u0e27\u0e25\u0e32\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07 API</small>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <section id=\"status\">\n" +
+  "      <div class=\"wrap\">\n" +
+  "        <div class=\"sec-head\">\n" +
+  "          <p class=\"kicker\">Live status</p>\n" +
+  "          <h2 class=\"pop-element\">\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a</h2>\n" +
+  "          <p class=\"pop-element\">\u0e15\u0e23\u0e27\u0e08\u0e08\u0e32\u0e01 endpoint \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e19\u0e35\u0e49 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e44\u0e27\u0e49</p>\n" +
+  "        </div>\n" +
+  "        <div class=\"panel pop-element\">\n" +
+  "          <div>\n" +
+  "            <div class=\"ping\">\n" +
+  "              <span class=\"dot\" id=\"panelDot\"></span>\n" +
+  "              <div>\n" +
+  "                <div class=\"big\" id=\"latency\">\u2014</div>\n" +
+  "                <small>\u0e40\u0e27\u0e25\u0e32\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07 API</small>\n" +
+  "              </div>\n" +
   "            </div>\n" +
+  "            <div class=\"kv\"><span>\u0e2a\u0e16\u0e32\u0e19\u0e30</span><b id=\"stState\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026</b></div>\n" +
+  "            <div class=\"kv\"><span>\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19</span><b id=\"stVersion\">\u2014</b></div>\n" +
+  "            <div class=\"kv\"><span>Stage chain</span><b id=\"stChain\">\u2014</b></div>\n" +
+  "            <div class=\"kv\"><span>\u0e15\u0e23\u0e27\u0e08\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span><b id=\"stChecked\">\u2014</b></div>\n" +
   "          </div>\n" +
-  "          <div class=\"kv\"><span>\u0e2a\u0e16\u0e32\u0e19\u0e30</span><b id=\"stState\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026</b></div>\n" +
-  "          <div class=\"kv\"><span>\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19</span><b id=\"stVersion\">\u2014</b></div>\n" +
-  "          <div class=\"kv\"><span>Stage chain</span><b id=\"stChain\">\u2014</b></div>\n" +
-  "          <div class=\"kv\"><span>\u0e15\u0e23\u0e27\u0e08\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span><b id=\"stChecked\">\u2014</b></div>\n" +
-  "        </div>\n" +
-  "        <div style=\"display:flex;flex-direction:column;gap:12px;justify-content:center\">\n" +
-  "          <p style=\"margin:0;color:var(--muted);font-size:.93rem\">\n" +
-  "            \u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49\u0e40\u0e23\u0e35\u0e22\u0e01 <span class=\"mono\">/api/health</span> \u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e43\u0e14 \u0e46 \u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\n" +
-  "            \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e27\u0e31\u0e14\u0e27\u0e48\u0e32 API \u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\n" +
-  "          </p>\n" +
-  "          <button class=\"btn refresh\" id=\"refresh\" type=\"button\">\u0e15\u0e23\u0e27\u0e08\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07</button>\n" +
+  "          <div style=\"display:flex;flex-direction:column;gap:12px;justify-content:center\">\n" +
+  "            <p style=\"margin:0;color:var(--muted);font-size:.93rem\">\n" +
+  "              \u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49\u0e40\u0e23\u0e35\u0e22\u0e01 <span class=\"mono\">/api/health</span> \u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e43\u0e14 \u0e46 \u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\n" +
+  "              \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e27\u0e31\u0e14\u0e27\u0e48\u0e32 API \u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\n" +
+  "            </p>\n" +
+  "            <button class=\"btn\" id=\"refresh\" type=\"button\">\u0e15\u0e23\u0e27\u0e08\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07</button>\n" +
+  "          </div>\n" +
   "        </div>\n" +
   "      </div>\n" +
-  "    </div>\n" +
-  "  </section>\n" +
+  "    </section>\n" +
   "\n" +
-  "  <section id=\"faq\">\n" +
+  "    <section id=\"faq\">\n" +
+  "      <div class=\"wrap\">\n" +
+  "        <div class=\"sec-head\">\n" +
+  "          <p class=\"kicker\">FAQ</p>\n" +
+  "          <h2 class=\"pop-element\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22</h2>\n" +
+  "        </div>\n" +
+  "        <div class=\"faq pop-element\">\n" +
+  "          <details>\n" +
+  "            <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
+  "            <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 \u0e16\u0e49\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01</p>\n" +
+  "          </details>\n" +
+  "          <details>\n" +
+  "            <summary>\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32 HWID mismatch \u0e15\u0e49\u0e2d\u0e07\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23</summary>\n" +
+  "            <p>\u0e41\u0e1b\u0e25\u0e27\u0e48\u0e32\u0e23\u0e30\u0e1a\u0e1a\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e27\u0e48\u0e32\u0e04\u0e35\u0e22\u0e4c\u0e19\u0e35\u0e49\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e31\u0e27 executor \u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e04\u0e48\u0e32 HWID \u0e44\u0e21\u0e48\u0e04\u0e07\u0e17\u0e35\u0e48 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e21\u0e48 \u0e2b\u0e32\u0e01\u0e22\u0e31\u0e07\u0e02\u0e36\u0e49\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e23\u0e2b\u0e31\u0e2a diagnostic</p>\n" +
+  "          </details>\n" +
+  "          <details>\n" +
+  "            <summary>\u0e17\u0e33\u0e44\u0e21\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e31\u0e19\u0e1c\u0e48\u0e32\u0e19 loadc.lua \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19</summary>\n" +
+  "            <p>\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2b\u0e25\u0e31\u0e01\u0e16\u0e39\u0e01\u0e25\u0e47\u0e2d\u0e01\u0e01\u0e31\u0e1a chain <span class=\"mono\">loadc \u2192 loada \u2192 loader \u2192 payload</span> \u0e01\u0e32\u0e23\u0e02\u0e49\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e01\u0e32\u0e23\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a state \u0e25\u0e49\u0e21\u0e40\u0e2b\u0e25\u0e27\u0e41\u0e25\u0e30\u0e16\u0e39\u0e01\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19</p>\n" +
+  "          </details>\n" +
+  "          <details>\n" +
+  "            <summary>\u0e23\u0e30\u0e1a\u0e1a\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2d\u0e30\u0e44\u0e23\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
+  "            <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e40\u0e09\u0e1e\u0e32\u0e30 hash \u0e02\u0e2d\u0e07 HWID, \u0e2b\u0e21\u0e32\u0e22\u0e40\u0e25\u0e02 ticket \u0e41\u0e25\u0e30\u0e2a\u0e16\u0e32\u0e19\u0e30 session \u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19 \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e01\u0e47\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e41\u0e1a\u0e1a\u0e16\u0e32\u0e27\u0e23</p>\n" +
+  "          </details>\n" +
+  "          <details>\n" +
+  "            <summary>\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a executor \u0e15\u0e31\u0e27\u0e44\u0e2b\u0e19\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
+  "            <p>\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span>, <span class=\"mono\">loadstring</span> \u0e41\u0e25\u0e30 <span class=\"mono\">request/syn.request</span> \u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b \u0e16\u0e49\u0e32\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a \u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e41\u0e08\u0e49\u0e07\u0e23\u0e2b\u0e31\u0e2a <span class=\"mono\">MS999:S1:E04</span></p>\n" +
+  "          </details>\n" +
+  "        </div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <section>\n" +
+  "      <div class=\"wrap\">\n" +
+  "        <div class=\"cta pop-element\">\n" +
+  "          <h2>\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e25\u0e49\u0e27\u0e2b\u0e23\u0e37\u0e2d\u0e22\u0e31\u0e07</h2>\n" +
+  "          <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e2d\u0e07</p>\n" +
+  "          <div class=\"hero-actions\">\n" +
+  "            <button class=\"btn btn-primary\" id=\"copyCta\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring</button>\n" +
+  "            <a class=\"btn btn-ghost\" href=\"#how\">\u0e2d\u0e48\u0e32\u0e19\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
+  "          </div>\n" +
+  "        </div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "  </main>\n" +
+  "\n" +
+  "  <footer>\n" +
   "    <div class=\"wrap\">\n" +
-  "      <div class=\"sec-head reveal\">\n" +
-  "        <p class=\"kicker\">FAQ</p>\n" +
-  "        <h2>\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22</h2>\n" +
+  "      <div class=\"foot\">\n" +
+  "        <span>\u00a9 2026 999MS \u00b7 Key system &amp; loader</span>\n" +
+  "        <span style=\"display:flex;gap:18px\">\n" +
+  "          <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
+  "          <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
+  "          <a href=\"/control\">Control</a>\n" +
+  "          <a href=\"https://yura.lol/09ms\" rel=\"noopener\">Discord</a>\n" +
+  "        </span>\n" +
   "      </div>\n" +
-  "      <div class=\"faq reveal\">\n" +
-  "        <details>\n" +
-  "          <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
-  "          <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 \u0e16\u0e49\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01</p>\n" +
-  "        </details>\n" +
-  "        <details>\n" +
-  "          <summary>\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32 HWID mismatch \u0e15\u0e49\u0e2d\u0e07\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23</summary>\n" +
-  "          <p>\u0e41\u0e1b\u0e25\u0e27\u0e48\u0e32\u0e23\u0e30\u0e1a\u0e1a\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e27\u0e48\u0e32\u0e04\u0e35\u0e22\u0e4c\u0e19\u0e35\u0e49\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e31\u0e27 executor \u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e04\u0e48\u0e32 HWID \u0e44\u0e21\u0e48\u0e04\u0e07\u0e17\u0e35\u0e48 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e21\u0e48 \u0e2b\u0e32\u0e01\u0e22\u0e31\u0e07\u0e02\u0e36\u0e49\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e23\u0e2b\u0e31\u0e2a diagnostic</p>\n" +
-  "        </details>\n" +
-  "        <details>\n" +
-  "          <summary>\u0e17\u0e33\u0e44\u0e21\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e31\u0e19\u0e1c\u0e48\u0e32\u0e19 loadc.lua \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19</summary>\n" +
-  "          <p>\u0e40\u0e1e\u0e23\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2b\u0e25\u0e31\u0e01\u0e16\u0e39\u0e01\u0e25\u0e47\u0e2d\u0e01\u0e01\u0e31\u0e1a chain <span class=\"mono\">loadc \u2192 loada \u2192 loader \u2192 payload</span> \u0e01\u0e32\u0e23\u0e02\u0e49\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e08\u0e30\u0e17\u0e33\u0e43\u0e2b\u0e49\u0e01\u0e32\u0e23\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a state \u0e25\u0e49\u0e21\u0e40\u0e2b\u0e25\u0e27\u0e41\u0e25\u0e30\u0e16\u0e39\u0e01\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19</p>\n" +
-  "        </details>\n" +
-  "        <details>\n" +
-  "          <summary>\u0e23\u0e30\u0e1a\u0e1a\u0e40\u0e01\u0e47\u0e1a\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2d\u0e30\u0e44\u0e23\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
-  "          <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e40\u0e09\u0e1e\u0e32\u0e30 hash \u0e02\u0e2d\u0e07 HWID, \u0e2b\u0e21\u0e32\u0e22\u0e40\u0e25\u0e02 ticket \u0e41\u0e25\u0e30\u0e2a\u0e16\u0e32\u0e19\u0e30 session \u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19 \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e01\u0e47\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27\u0e41\u0e1a\u0e1a\u0e16\u0e32\u0e27\u0e23</p>\n" +
-  "        </details>\n" +
-  "        <details>\n" +
-  "          <summary>\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a executor \u0e15\u0e31\u0e27\u0e44\u0e2b\u0e19\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
-  "          <p>\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a <span class=\"mono\">game:HttpGet</span>, <span class=\"mono\">loadstring</span> \u0e41\u0e25\u0e30 <span class=\"mono\">request/syn.request</span> \u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b \u0e16\u0e49\u0e32\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a \u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e08\u0e30\u0e41\u0e08\u0e49\u0e07\u0e23\u0e2b\u0e31\u0e2a <span class=\"mono\">MS999:S1:E04</span></p>\n" +
-  "        </details>\n" +
-  "      </div>\n" +
+  "      <p class=\"disclaimer\">\n" +
+  "        999MS \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e02\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e1a Roblox Corporation \u0e2b\u0e23\u0e37\u0e2d\u0e1c\u0e39\u0e49\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e40\u0e01\u0e21\u0e43\u0e14 \u0e46 \u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e2d\u0e32\u0e08\u0e1c\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e02\u0e2d\u0e07\u0e40\u0e01\u0e21\n" +
+  "        \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e14\u0e49\u0e27\u0e22\u0e15\u0e19\u0e40\u0e2d\u0e07\n" +
+  "      </p>\n" +
   "    </div>\n" +
-  "  </section>\n" +
-  "\n" +
-  "  <section>\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"cta reveal\">\n" +
-  "        <h2>\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e25\u0e49\u0e27\u0e2b\u0e23\u0e37\u0e2d\u0e22\u0e31\u0e07</h2>\n" +
-  "        <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e2d\u0e07</p>\n" +
-  "        <div class=\"hero-actions\">\n" +
-  "          <button class=\"btn btn-primary\" id=\"copyCta\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring</button>\n" +
-  "          <a class=\"btn btn-ghost\" href=\"#how\">\u0e2d\u0e48\u0e32\u0e19\u0e27\u0e34\u0e18\u0e35\u0e43\u0e0a\u0e49</a>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </div>\n" +
-  "  </section>\n" +
-  "</main>\n" +
-  "\n" +
-  "<footer>\n" +
-  "  <div class=\"wrap\">\n" +
-  "    <div class=\"foot\">\n" +
-  "      <span>\u00a9 2026 999MS \u00b7 Key system &amp; loader</span>\n" +
-  "      <span style=\"display:flex;gap:18px\">\n" +
-  "        <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
-  "        <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
-  "        <a href=\"/control\">Control</a>\n" +
-  "        <a href=\"https://yura.lol/09ms\" rel=\"noopener\">Discord</a>\n" +
-  "      </span>\n" +
-  "    </div>\n" +
-  "    <p class=\"disclaimer\">\n" +
-  "      999MS \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e02\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e1a Roblox Corporation \u0e2b\u0e23\u0e37\u0e2d\u0e1c\u0e39\u0e49\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e40\u0e01\u0e21\u0e43\u0e14 \u0e46 \u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e2d\u0e32\u0e08\u0e1c\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e02\u0e2d\u0e07\u0e40\u0e01\u0e21\n" +
-  "      \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e14\u0e49\u0e27\u0e22\u0e15\u0e19\u0e40\u0e2d\u0e07\n" +
-  "    </p>\n" +
-  "  </div>\n" +
-  "</footer>\n" +
+  "  </footer>\n" +
+  "</div>\n" +
   "\n" +
   "<script>\n" +
   "(function () {\n" +
   "  'use strict';\n" +
   "\n" +
+  "  /* \u2500\u2500\u2500 loader line + clipboard \u2500\u2500\u2500 */\n" +
   "  var FALLBACK_HOST = 'loader999mss.vercel.app';\n" +
   "  var host = location.host && location.host.indexOf('localhost') !== 0 && location.host !== ''\n" +
   "    ? location.host\n" +
@@ -1027,14 +1244,6 @@ const KEY_PAGE =
   "    }, 1600);\n" +
   "  }\n" +
   "\n" +
-  "  function copy(text, btn) {\n" +
-  "    if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
-  "      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });\n" +
-  "      return;\n" +
-  "    }\n" +
-  "    legacy(text, btn);\n" +
-  "  }\n" +
-  "\n" +
   "  function legacy(text, btn) {\n" +
   "    var ta = document.createElement('textarea');\n" +
   "    ta.value = text;\n" +
@@ -1047,11 +1256,20 @@ const KEY_PAGE =
   "    document.body.removeChild(ta);\n" +
   "  }\n" +
   "\n" +
+  "  function copy(text, btn) {\n" +
+  "    if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
+  "      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });\n" +
+  "      return;\n" +
+  "    }\n" +
+  "    legacy(text, btn);\n" +
+  "  }\n" +
+  "\n" +
   "  ['copyNav', 'copyHero', 'copyCard', 'copyCta'].forEach(function (id) {\n" +
   "    var btn = document.getElementById(id);\n" +
   "    if (btn) btn.addEventListener('click', function () { copy(command, btn); });\n" +
   "  });\n" +
   "\n" +
+  "  /* \u2500\u2500\u2500 live API status \u2500\u2500\u2500 */\n" +
   "  var dot = document.getElementById('panelDot');\n" +
   "  var heroDot = document.getElementById('heroDot');\n" +
   "  var latencyEl = document.getElementById('latency');\n" +
@@ -1112,23 +1330,111 @@ const KEY_PAGE =
   "  if (refreshBtn) refreshBtn.addEventListener('click', check);\n" +
   "  check();\n" +
   "\n" +
-  "  // scroll reveal\n" +
-  "  var items = [].slice.call(document.querySelectorAll('.reveal'));\n" +
-  "  if ('IntersectionObserver' in window) {\n" +
-  "    var io = new IntersectionObserver(function (entries) {\n" +
-  "      entries.forEach(function (entry) {\n" +
-  "        if (entry.isIntersecting) {\n" +
-  "          entry.target.classList.add('in');\n" +
-  "          io.unobserve(entry.target);\n" +
-  "        }\n" +
-  "      });\n" +
-  "    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });\n" +
-  "    items.forEach(function (el) { io.observe(el); });\n" +
-  "  } else {\n" +
-  "    items.forEach(function (el) { el.classList.add('in'); });\n" +
+  "  /* \u2500\u2500\u2500 mobile menu \u2500\u2500\u2500 */\n" +
+  "  var burger = document.getElementById('burger');\n" +
+  "  var navPill = document.getElementById('navPill');\n" +
+  "  if (burger && navPill) {\n" +
+  "    burger.addEventListener('click', function () {\n" +
+  "      var open = navPill.classList.toggle('is-open');\n" +
+  "      burger.setAttribute('aria-expanded', open ? 'true' : 'false');\n" +
+  "      burger.setAttribute('aria-label', open ? '\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39' : '\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39');\n" +
+  "    });\n" +
+  "    navPill.addEventListener('click', function (event) {\n" +
+  "      if (event.target.closest('.nav-link')) {\n" +
+  "        navPill.classList.remove('is-open');\n" +
+  "        burger.setAttribute('aria-expanded', 'false');\n" +
+  "      }\n" +
+  "    });\n" +
   "  }\n" +
   "\n" +
-  "  // pointer glow on the hero card\n" +
+  "  /* \u2500\u2500\u2500 fly-in: random direction per element \u2500\u2500\u2500 */\n" +
+  "  var animated = document.documentElement.classList.contains('js-anim');\n" +
+  "\n" +
+  "  function randomDir() {\n" +
+  "    return {\n" +
+  "      tx: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',\n" +
+  "      ty: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',\n" +
+  "      tr: ((Math.random() - 0.5) * 120).toFixed(1) + 'deg'\n" +
+  "    };\n" +
+  "  }\n" +
+  "\n" +
+  "  function arm(el, delay) {\n" +
+  "    var d = randomDir();\n" +
+  "    el.style.setProperty('--tx', d.tx);\n" +
+  "    el.style.setProperty('--ty', d.ty);\n" +
+  "    el.style.setProperty('--tr', d.tr);\n" +
+  "    el.style.setProperty('--delay', delay + 's');\n" +
+  "    el.classList.add('pop-in');\n" +
+  "  }\n" +
+  "\n" +
+  "  /* headline: split into grapheme clusters so Thai combining marks stay put */\n" +
+  "  var headline = document.getElementById('headline');\n" +
+  "  if (headline) {\n" +
+  "    var text = headline.getAttribute('data-text') || headline.textContent;\n" +
+  "    var accent = parseInt(headline.getAttribute('data-accent') || '-1', 10);\n" +
+  "    var clusters;\n" +
+  "    if (window.Intl && window.Intl.Segmenter) {\n" +
+  "      try {\n" +
+  "        clusters = Array.from(new Intl.Segmenter(undefined, { granularity: 'grapheme' }).segment(text))\n" +
+  "          .map(function (part) { return part.segment; });\n" +
+  "      } catch (e) { clusters = null; }\n" +
+  "    }\n" +
+  "    if (!clusters) clusters = Array.from(text);\n" +
+  "\n" +
+  "    var fragment = document.createDocumentFragment();\n" +
+  "    var chars = [];\n" +
+  "    clusters.forEach(function (ch, index) {\n" +
+  "      if (ch === ' ' || ch === '\\u00a0') {\n" +
+  "        var space = document.createElement('span');\n" +
+  "        space.className = 'char-space';\n" +
+  "        space.innerHTML = '&nbsp;';\n" +
+  "        fragment.appendChild(space);\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      var span = document.createElement('span');\n" +
+  "      span.className = 'char' + (accent >= 0 && index >= accent ? ' char-accent' : '');\n" +
+  "      span.textContent = ch;\n" +
+  "      span.setAttribute('data-char', ch);\n" +
+  "      fragment.appendChild(span);\n" +
+  "      chars.push(span);\n" +
+  "    });\n" +
+  "    headline.textContent = '';\n" +
+  "    headline.appendChild(fragment);\n" +
+  "\n" +
+  "    if (animated) {\n" +
+  "      setTimeout(function () {\n" +
+  "        var total = 0;\n" +
+  "        chars.forEach(function (span, index) {\n" +
+  "          arm(span, 0.15 + index * 0.05);\n" +
+  "          total = 0.15 + index * 0.05;\n" +
+  "        });\n" +
+  "        setTimeout(function () {\n" +
+  "          chars.forEach(function (span) { span.classList.add('shimmer-ready'); });\n" +
+  "        }, (total + 1.8) * 1000);\n" +
+  "      }, 80);\n" +
+  "    }\n" +
+  "  }\n" +
+  "\n" +
+  "  /* everything else: fly in when it scrolls into view */\n" +
+  "  var pops = [].slice.call(document.querySelectorAll('.pop-element'));\n" +
+  "  if (!animated) {\n" +
+  "    pops.forEach(function (el) { el.classList.add('pop-in'); });\n" +
+  "  } else if ('IntersectionObserver' in window) {\n" +
+  "    var io = new IntersectionObserver(function (entries) {\n" +
+  "      var shown = 0;\n" +
+  "      entries.forEach(function (entry) {\n" +
+  "        if (!entry.isIntersecting) return;\n" +
+  "        arm(entry.target, shown * 0.09);\n" +
+  "        shown += 1;\n" +
+  "        io.unobserve(entry.target);\n" +
+  "      });\n" +
+  "    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.06 });\n" +
+  "    pops.forEach(function (el) { io.observe(el); });\n" +
+  "  } else {\n" +
+  "    pops.forEach(function (el, index) { arm(el, index * 0.08); });\n" +
+  "  }\n" +
+  "\n" +
+  "  /* pointer tilt on the code card */\n" +
   "  var card = document.querySelector('.code-card');\n" +
   "  if (card && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
   "    card.addEventListener('pointermove', function (event) {\n" +
@@ -1138,16 +1444,14 @@ const KEY_PAGE =
   "      var y = (event.clientY - r.top) / r.height - 0.5;\n" +
   "      card.style.transform = 'perspective(1200px) rotateY(' + (-4 + x * 5).toFixed(2) + 'deg) rotateX(' + (2 - y * 5).toFixed(2) + 'deg)';\n" +
   "    });\n" +
-  "    card.addEventListener('pointerleave', function () {\n" +
-  "      card.style.transform = '';\n" +
-  "    });\n" +
+  "    card.addEventListener('pointerleave', function () { card.style.transform = ''; });\n" +
   "  }\n" +
   "})();\n" +
   "</script>\n" +
   "</body>\n" +
   "</html>\n" +
   "\n" +
-  "<!-- deploy trigger: 2026-10-17T08:46:43Z -->\n";
+  "<!-- deploy trigger: 2026-10-22T00:00:00Z -->\n";
 Object.assign(EMBEDDED_PAGES, { "/key": KEY_PAGE });
 // END PAGE /key
 // BEGIN PAGE / - generated from pages/index.html; run `npm run pages` to refresh.
