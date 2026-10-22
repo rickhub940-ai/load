@@ -20,6 +20,7 @@ const PAGE_SOURCES = Object.freeze({
   '/': 'pages/index.html',
   '/hub': 'pages/hub.html',
   '/key': 'pages/key.html',
+  '/control': 'pages/control.html',
 });
 
 // Escape as a JS string literal, keeping non-ASCII as \uXXXX so the bundle
@@ -74,7 +75,7 @@ function insertAfterPages(source, block) {
   const close = source.indexOf('\n};\n', anchor);
   if (close === -1) throw new Error('end of EMBEDDED_PAGES object not found');
   const cut = close + '\n};\n'.length;
-  return source.slice(0, cut) + '\n' + block + source.slice(cut);
+  return source.slice(0, cut) + '\n' + block + '\n' + source.slice(cut);
 }
 
 function main() {
