@@ -230,6 +230,17 @@
           <div class="sess-list" id="sessList"><div class="empty">ยังไม่มีเครื่องที่เชื่อมต่อ</div></div>
           <div style="border-top:1px solid var(--line);padding-top:12px" class="stack">
             <div>
+              <label for="testHwid">HWID ของเครื่องทดสอบ</label>
+              <div style="display:flex;gap:8px">
+                <input id="testHwid" placeholder="วาง HWID ที่ได้จาก executor" spellcheck="false" />
+                <button class="btn btn-sm" type="button" data-copy="hwidSnippet">คัดลอกโค้ดดู HWID</button>
+              </div>
+              <input id="hwidSnippet" readonly class="mono" style="margin-top:8px;font-size:.74rem"
+                value='print(gethwid and gethwid() or (get_hwid and get_hwid()) or "no getter")' />
+              <p class="hint" style="margin:6px 0 0">executor แนบ fingerprint header ของตัวเองมาด้วย — ticket ต้องผูกกับ HWID จริง มิฉะนั้นเซิร์ฟเวอร์จะเตะ <span class="mono">BAD HWID : ]</span></p>
+            </div>
+
+            <div>
               <label for="testClientOut">client ทดสอบ (ไม่ผ่านตัวโหลดเดอร์)</label>
               <div class="row">
                 <button class="btn btn-sm" id="testClientBtn" type="button">สร้างสคริปต์ทดสอบ</button>
@@ -829,6 +840,7 @@ local function Kick(message)
 end
 
 print("[999MS] test client online - beat every " .. BEAT .. "s")
+print("[999MS] hwid " .. HWID .. " (ต้องตรงกับค่าที่ผูก ticket ไม่เช่นนั้นโดนเตะ BAD HWID)")
 
 task.spawn(function()
     local pending
@@ -862,8 +874,10 @@ end)`;
 
   $('testClientBtn').addEventListener('click', function () {
     var btn = $('testClientBtn');
+    var hwid = ($('testHwid').value || '').trim();
+    if (!hwid) { toast('ใส่ HWID ของเครื่องทดสอบก่อน', 'err'); return; }
     btn.disabled = true;
-    api('/api/control/test-ticket', { scriptName: 'main' }).then(function (result) {
+    api('/api/control/test-ticket', { scriptName: 'main', hwid: hwid }).then(function (result) {
       btn.disabled = false;
       var data = result.data || {};
       if (result.status !== 200 || !data.ok) { toast(data.reason || 'สร้าง ticket ไม่ได้', 'err'); return; }

@@ -246,6 +246,17 @@ const CONTROL_PAGE =
   "          <div class=\"sess-list\" id=\"sessList\"><div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</div></div>\n" +
   "          <div style=\"border-top:1px solid var(--line);padding-top:12px\" class=\"stack\">\n" +
   "            <div>\n" +
+  "              <label for=\"testHwid\">HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a</label>\n" +
+  "              <div style=\"display:flex;gap:8px\">\n" +
+  "                <input id=\"testHwid\" placeholder=\"\u0e27\u0e32\u0e07 HWID \u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e08\u0e32\u0e01 executor\" spellcheck=\"false\" />\n" +
+  "                <button class=\"btn btn-sm\" type=\"button\" data-copy=\"hwidSnippet\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e39 HWID</button>\n" +
+  "              </div>\n" +
+  "              <input id=\"hwidSnippet\" readonly class=\"mono\" style=\"margin-top:8px;font-size:.74rem\"\n" +
+  "                value='print(gethwid and gethwid() or (get_hwid and get_hwid()) or \"no getter\")' />\n" +
+  "              <p class=\"hint\" style=\"margin:6px 0 0\">executor \u0e41\u0e19\u0e1a fingerprint header \u0e02\u0e2d\u0e07\u0e15\u0e31\u0e27\u0e40\u0e2d\u0e07\u0e21\u0e32\u0e14\u0e49\u0e27\u0e22 \u2014 ticket \u0e15\u0e49\u0e2d\u0e07\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e08\u0e23\u0e34\u0e07 \u0e21\u0e34\u0e09\u0e30\u0e19\u0e31\u0e49\u0e19\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e08\u0e30\u0e40\u0e15\u0e30 <span class=\"mono\">BAD HWID : ]</span></p>\n" +
+  "            </div>\n" +
+  "\n" +
+  "            <div>\n" +
   "              <label for=\"testClientOut\">client \u0e17\u0e14\u0e2a\u0e2d\u0e1a (\u0e44\u0e21\u0e48\u0e1c\u0e48\u0e32\u0e19\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c)</label>\n" +
   "              <div class=\"row\">\n" +
   "                <button class=\"btn btn-sm\" id=\"testClientBtn\" type=\"button\">\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e14\u0e2a\u0e2d\u0e1a</button>\n" +
@@ -845,6 +856,7 @@ const CONTROL_PAGE =
   "end\n" +
   "\n" +
   "print(\"[999MS] test client online - beat every \" .. BEAT .. \"s\")\n" +
+  "print(\"[999MS] hwid \" .. HWID .. \" (\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e23\u0e07\u0e01\u0e31\u0e1a\u0e04\u0e48\u0e32\u0e17\u0e35\u0e48\u0e1c\u0e39\u0e01 ticket \u0e44\u0e21\u0e48\u0e40\u0e0a\u0e48\u0e19\u0e19\u0e31\u0e49\u0e19\u0e42\u0e14\u0e19\u0e40\u0e15\u0e30 BAD HWID)\")\n" +
   "\n" +
   "task.spawn(function()\n" +
   "    local pending\n" +
@@ -878,8 +890,10 @@ const CONTROL_PAGE =
   "\n" +
   "  $('testClientBtn').addEventListener('click', function () {\n" +
   "    var btn = $('testClientBtn');\n" +
+  "    var hwid = ($('testHwid').value || '').trim();\n" +
+  "    if (!hwid) { toast('\u0e43\u0e2a\u0e48 HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
   "    btn.disabled = true;\n" +
-  "    api('/api/control/test-ticket', { scriptName: 'main' }).then(function (result) {\n" +
+  "    api('/api/control/test-ticket', { scriptName: 'main', hwid: hwid }).then(function (result) {\n" +
   "      btn.disabled = false;\n" +
   "      var data = result.data || {};\n" +
   "      if (result.status !== 200 || !data.ok) { toast(data.reason || '\u0e2a\u0e23\u0e49\u0e32\u0e07 ticket \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err'); return; }\n" +
@@ -1500,7 +1514,14 @@ module.exports = async function handler(req, res) {
     if (action === 'control-test-ticket') {
       const requested = (req.body && req.body.scriptName) || 'main';
       const scriptName = isValidScriptName(requested) ? requested : 'main';
-      const hwid = 'test-' + crypto.randomBytes(12).toString('hex');
+      // Executors attach their own fingerprint header, and the server requires
+      // every fingerprint header to agree, so the ticket must be bound to the
+      // real gethwid() value of the machine-under-test. A fabricated id would
+      // be rejected with BAD HWID on the very first heartbeat.
+      const supplied = typeof (req.body && req.body.hwid) === 'string' ? req.body.hwid.trim() : '';
+      const hwid = (supplied.length >= 4 && supplied.length <= 512 && /^[\x20-\x7e]+$/.test(supplied))
+        ? supplied
+        : 'test-' + crypto.randomBytes(12).toString('hex');
       const ticket = issueTicket({
         hwidHash: hashBindingId(deviceBindingId(hwid)),
         userId: null,

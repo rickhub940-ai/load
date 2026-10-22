@@ -151,6 +151,7 @@ local function Kick(message)
 end
 
 print("[999MS] test client online - beat every " .. BEAT .. "s")
+print("[999MS] hwid " .. HWID .. " (ต้องตรงกับค่าที่ผูก ticket ไม่เช่นนั้นโดนเตะ BAD HWID)")
 
 task.spawn(function()
     local pending
