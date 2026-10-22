@@ -240,15 +240,6 @@
   .faq details[open] summary::after { content: "–"; }
   .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }
 
-  /* cta */
-  .cta {
-    border: 1px solid var(--line-2); border-radius: 24px; padding: 44px 28px; text-align: center;
-    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));
-    backdrop-filter: blur(12px);
-  }
-  .cta p { color: var(--muted); max-width: 52ch; margin: 0 auto 24px; }
-  .cta .hero-actions { justify-content: center; }
-
   footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }
   .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }
   .foot a:hover { color: #fff; }
@@ -389,17 +380,6 @@
       </div>
     </section>
 
-    <section>
-      <div class="wrap">
-        <div class="cta pop-element">
-          <h2>พร้อมเริ่มแล้วหรือยัง</h2>
-          <p>คัดลอก loadstring ไปวางใน executor แล้วทำตามขั้นตอน ระบบจะพาไปแลกคีย์เอง</p>
-          <div class="hero-actions">
-            <button class="btn btn-primary" id="copyCta" type="button">คัดลอก loadstring</button>
-          </div>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -468,7 +448,7 @@
     legacy(text, btn);
   }
 
-  ['copyNav', 'copyHero', 'copyCard', 'copyCta'].forEach(function (id) {
+  ['copyNav', 'copyHero', 'copyCard'].forEach(function (id) {
     var btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', function () { copy(command, btn); });
   });

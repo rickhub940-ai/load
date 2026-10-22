@@ -805,15 +805,6 @@ const KEY_PAGE =
   "  .faq details[open] summary::after { content: \"\u2013\"; }\n" +
   "  .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }\n" +
   "\n" +
-  "  /* cta */\n" +
-  "  .cta {\n" +
-  "    border: 1px solid var(--line-2); border-radius: 24px; padding: 44px 28px; text-align: center;\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015));\n" +
-  "    backdrop-filter: blur(12px);\n" +
-  "  }\n" +
-  "  .cta p { color: var(--muted); max-width: 52ch; margin: 0 auto 24px; }\n" +
-  "  .cta .hero-actions { justify-content: center; }\n" +
-  "\n" +
   "  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }\n" +
   "  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }\n" +
   "  .foot a:hover { color: #fff; }\n" +
@@ -954,17 +945,6 @@ const KEY_PAGE =
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <section>\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"cta pop-element\">\n" +
-  "          <h2>\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e40\u0e23\u0e34\u0e48\u0e21\u0e41\u0e25\u0e49\u0e27\u0e2b\u0e23\u0e37\u0e2d\u0e22\u0e31\u0e07</h2>\n" +
-  "          <p>\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e17\u0e33\u0e15\u0e32\u0e21\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 \u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1e\u0e32\u0e44\u0e1b\u0e41\u0e25\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e40\u0e2d\u0e07</p>\n" +
-  "          <div class=\"hero-actions\">\n" +
-  "            <button class=\"btn btn-primary\" id=\"copyCta\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring</button>\n" +
-  "          </div>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
   "  </main>\n" +
   "\n" +
   "  <footer>\n" +
@@ -1033,7 +1013,7 @@ const KEY_PAGE =
   "    legacy(text, btn);\n" +
   "  }\n" +
   "\n" +
-  "  ['copyNav', 'copyHero', 'copyCard', 'copyCta'].forEach(function (id) {\n" +
+  "  ['copyNav', 'copyHero', 'copyCard'].forEach(function (id) {\n" +
   "    var btn = document.getElementById(id);\n" +
   "    if (btn) btn.addEventListener('click', function () { copy(command, btn); });\n" +
   "  });\n" +
