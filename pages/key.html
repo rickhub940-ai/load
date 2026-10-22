@@ -227,39 +227,6 @@
   h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }
   .sec-head p { color: var(--muted); margin: 0; }
 
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .card {
-    border: 1px solid var(--line); background: var(--glass);
-    border-radius: var(--radius); padding: 24px;
-    transition: border-color .25s, transform .25s, background .25s;
-    backdrop-filter: blur(10px);
-  }
-  .card:hover { border-color: var(--line-2); transform: translateY(-2px); background: var(--glass-2); }
-  .ico {
-    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
-    background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.25); margin-bottom: 14px;
-  }
-  .ico svg { width: 19px; height: 19px; stroke: var(--green); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-  .card h3 { margin: 0 0 7px; font-size: 1rem; }
-  .card p { margin: 0; color: var(--muted); font-size: .91rem; }
-
-  /* status panel */
-  .panel {
-    border: 1px solid var(--line-2); border-radius: 22px;
-    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
-    padding: 26px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 26px;
-    backdrop-filter: blur(12px);
-  }
-  .ping { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
-  .ping .big { font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
-  .ping small { color: var(--muted); }
-  .kv {
-    display: flex; justify-content: space-between; gap: 12px;
-    padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem;
-  }
-  .kv span { color: var(--muted); }
-  .kv b { font-weight: 500; }
-
   /* faq */
   .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }
   .faq details { border-bottom: 1px solid var(--line); }
@@ -317,8 +284,6 @@
   @media (max-width: 960px) {
     .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }
     .code-card { transform: none; }
-    .cards { grid-template-columns: 1fr; }
-    .panel { grid-template-columns: 1fr; gap: 18px; }
   }
   @media (max-width: 900px) {
     .nav-links, .nav-pill .btn { display: none; }
@@ -360,8 +325,6 @@
         <span class="brand-name">999MS</span>
       </a>
       <nav class="nav-links" aria-label="หลัก">
-        <a class="nav-link" href="#features">ฟีเจอร์</a>
-        <a class="nav-link" href="#status">สถานะ</a>
         <a class="nav-link" href="#faq">คำถามบ่อย</a>
       </nav>
       <button class="btn btn-primary" id="copyNav" type="button">คัดลอกสคริปต์</button>
@@ -402,80 +365,6 @@
         </div>
       </div>
     </div>
-
-    <section id="features">
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="kicker">Under the hood</p>
-          <h2 class="pop-element">ระบบป้องกันที่ทำงานเบื้องหลัง</h2>
-          <p class="pop-element">ทุกอย่างตรวจฝั่งเซิร์ฟเวอร์ ไม่ได้เชื่อสิ่งที่ client ส่งมาเพียงอย่างเดียว</p>
-        </div>
-        <div class="cards">
-          <article class="card pop-element">
-            <div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
-            <h3>ผูกกับ HWID</h3>
-            <p>คีย์หนึ่งใบใช้ได้กับเครื่องเดียว ticket ถูกผูกกับ hash ของ HWID ตั้งแต่ตอนตรวจคีย์</p>
-          </article>
-          <article class="card pop-element">
-            <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v6"/><path d="M5 9h14"/><path d="M7 9v5a5 5 0 0 0 10 0V9"/><path d="M9 21h6"/></svg></div>
-            <h3>Ticket อายุสั้น</h3>
-            <p>ลงนามด้วย HMAC-SHA256 หมดอายุใน 30 นาที และมี runtime proof แยกที่อายุไม่เกิน 60 วินาที</p>
-          </article>
-          <article class="card pop-element">
-            <div class="ico"><svg viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h10"/><path d="M4 17h7"/><circle cx="18" cy="16" r="3"/></svg></div>
-            <h3>Stage chain หลายชั้น</h3>
-            <p>แต่ละทอดมี capability เฉพาะ ออกใหม่ทุกครั้งและใช้ได้ครั้งเดียวภายใน 20 วินาที</p>
-          </article>
-          <article class="card pop-element">
-            <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9.5 12l1.8 1.8L15 10"/></svg></div>
-            <h3>ตรวจความถูกต้องของไฟล์</h3>
-            <p>ไฟล์ stage 2 ถูก pin ด้วย SHA-256 ไว้ในตัวเซิร์ฟเวอร์ ถ้าเนื้อหาเปลี่ยนจะไม่ยอมรัน</p>
-          </article>
-          <article class="card pop-element">
-            <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h4l2.5-6 4 12L16 12h5"/></svg></div>
-            <h3>Heartbeat ระหว่างเล่น</h3>
-            <p>เซิร์ฟเวอร์ตรวจ session เป็นระยะ ถ้าถูกแบนหรือแก้สคริปต์ระหว่างทางจะตัดการเชื่อมต่อ</p>
-          </article>
-          <article class="card pop-element">
-            <div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5h.01"/></svg></div>
-            <h3>รหัส diagnostic</h3>
-            <p>ถ้าถูกปฏิเสธ ระบบแสดงรหัสอย่าง <span class="mono">D2_HWID_MISMATCH</span> เพื่อแจ้งทีมซัพพอร์ตได้ตรงจุด</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="status">
-      <div class="wrap">
-        <div class="sec-head">
-          <p class="kicker">Live status</p>
-          <h2 class="pop-element">สถานะระบบ</h2>
-          <p class="pop-element">ตรวจจาก endpoint จริงของเซิร์ฟเวอร์นี้ ไม่ใช่ข้อความที่พิมพ์ไว้</p>
-        </div>
-        <div class="panel pop-element">
-          <div>
-            <div class="ping">
-              <span class="dot" id="panelDot"></span>
-              <div>
-                <div class="big" id="latency">—</div>
-                <small>เวลาตอบสนอง API</small>
-              </div>
-            </div>
-            <div class="kv"><span>สถานะ</span><b id="stState">กำลังตรวจสอบ…</b></div>
-            <div class="kv"><span>เวอร์ชัน</span><b id="stVersion">—</b></div>
-            <div class="kv"><span>Stage chain</span><b id="stChain">—</b></div>
-            <div class="kv"><span>ตรวจล่าสุด</span><b id="stChecked">—</b></div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:12px;justify-content:center">
-            <p style="margin:0;color:var(--muted);font-size:.93rem">
-              หน้านี้เรียก <span class="mono">/api/health</span> แบบไม่ส่งข้อมูลใด ๆ ต่อเซิร์ฟเวอร์
-              เพื่อวัดว่า API ตอบสนองหรือไม่
-            </p>
-            <button class="btn" id="refresh" type="button">ตรวจอีกครั้ง</button>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <section id="faq">
       <div class="wrap">
@@ -526,7 +415,6 @@
       <div class="foot">
         <span>© 2026 999MS · Key system &amp; loader</span>
         <span style="display:flex;gap:18px">
-          <a href="#status">สถานะ</a>
           <a href="#faq">คำถามบ่อย</a>
           <a href="/control">Control</a>
           <a href="https://yura.lol/09ms" rel="noopener">Discord</a>
@@ -594,13 +482,7 @@
   });
 
   /* ─── live API status ─── */
-  var dot = document.getElementById('panelDot');
   var heroDot = document.getElementById('heroDot');
-  var latencyEl = document.getElementById('latency');
-  var stateEl = document.getElementById('stState');
-  var versionEl = document.getElementById('stVersion');
-  var chainEl = document.getElementById('stChain');
-  var checkedEl = document.getElementById('stChecked');
   var heroStatus = document.getElementById('heroStatus');
 
   function setDot(el, cls) {
@@ -611,8 +493,6 @@
 
   function check() {
     var started = Date.now();
-    if (stateEl) stateEl.textContent = 'กำลังตรวจสอบ…';
-    setDot(dot, '');
     setDot(heroDot, '');
 
     var controller = window.AbortController ? new AbortController() : null;
@@ -625,33 +505,21 @@
       })
       .then(function (data) {
         var ms = Date.now() - started;
-        if (latencyEl) latencyEl.textContent = ms + ' ms';
-        if (stateEl) stateEl.textContent = 'ออนไลน์';
-        if (versionEl) versionEl.textContent = 'v' + (data.version || '—');
-        if (chainEl) chainEl.textContent = data.chain || '—';
-        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');
         if (heroStatus) heroStatus.textContent = 'ระบบออนไลน์ · ' + ms + ' ms';
-        setDot(dot, 'ok');
         setDot(heroDot, 'ok');
       })
       .catch(function () {
         var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;
-        if (latencyEl) latencyEl.textContent = '—';
-        if (stateEl) stateEl.textContent = offlinePreview ? 'ตรวจสอบได้บนเว็บจริง' : 'ติดต่อไม่ได้';
-        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');
         if (heroStatus) {
           heroStatus.textContent = offlinePreview
             ? 'พรีวิวแบบไม่ต่อเน็ต — เปิดบนเว็บจริงเพื่อดูสถานะ'
             : 'ตรวจสถานะไม่ได้ (อาจถูกบล็อกหรือออฟไลน์)';
         }
-        setDot(dot, offlinePreview ? '' : 'bad');
         setDot(heroDot, offlinePreview ? '' : 'bad');
       })
       .then(function () { if (timer) clearTimeout(timer); });
   }
 
-  var refreshBtn = document.getElementById('refresh');
-  if (refreshBtn) refreshBtn.addEventListener('click', check);
   check();
 
   /* ─── mobile menu ─── */

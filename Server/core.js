@@ -792,39 +792,6 @@ const KEY_PAGE =
   "  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }\n" +
   "  .sec-head p { color: var(--muted); margin: 0; }\n" +
   "\n" +
-  "  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }\n" +
-  "  .card {\n" +
-  "    border: 1px solid var(--line); background: var(--glass);\n" +
-  "    border-radius: var(--radius); padding: 24px;\n" +
-  "    transition: border-color .25s, transform .25s, background .25s;\n" +
-  "    backdrop-filter: blur(10px);\n" +
-  "  }\n" +
-  "  .card:hover { border-color: var(--line-2); transform: translateY(-2px); background: var(--glass-2); }\n" +
-  "  .ico {\n" +
-  "    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;\n" +
-  "    background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.25); margin-bottom: 14px;\n" +
-  "  }\n" +
-  "  .ico svg { width: 19px; height: 19px; stroke: var(--green); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }\n" +
-  "  .card h3 { margin: 0 0 7px; font-size: 1rem; }\n" +
-  "  .card p { margin: 0; color: var(--muted); font-size: .91rem; }\n" +
-  "\n" +
-  "  /* status panel */\n" +
-  "  .panel {\n" +
-  "    border: 1px solid var(--line-2); border-radius: 22px;\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015));\n" +
-  "    padding: 26px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 26px;\n" +
-  "    backdrop-filter: blur(12px);\n" +
-  "  }\n" +
-  "  .ping { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }\n" +
-  "  .ping .big { font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }\n" +
-  "  .ping small { color: var(--muted); }\n" +
-  "  .kv {\n" +
-  "    display: flex; justify-content: space-between; gap: 12px;\n" +
-  "    padding: 9px 0; border-top: 1px solid var(--line); font-size: .92rem;\n" +
-  "  }\n" +
-  "  .kv span { color: var(--muted); }\n" +
-  "  .kv b { font-weight: 500; }\n" +
-  "\n" +
   "  /* faq */\n" +
   "  .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }\n" +
   "  .faq details { border-bottom: 1px solid var(--line); }\n" +
@@ -882,8 +849,6 @@ const KEY_PAGE =
   "  @media (max-width: 960px) {\n" +
   "    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }\n" +
   "    .code-card { transform: none; }\n" +
-  "    .cards { grid-template-columns: 1fr; }\n" +
-  "    .panel { grid-template-columns: 1fr; gap: 18px; }\n" +
   "  }\n" +
   "  @media (max-width: 900px) {\n" +
   "    .nav-links, .nav-pill .btn { display: none; }\n" +
@@ -925,8 +890,6 @@ const KEY_PAGE =
   "        <span class=\"brand-name\">999MS</span>\n" +
   "      </a>\n" +
   "      <nav class=\"nav-links\" aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
-  "        <a class=\"nav-link\" href=\"#features\">\u0e1f\u0e35\u0e40\u0e08\u0e2d\u0e23\u0e4c</a>\n" +
-  "        <a class=\"nav-link\" href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
   "        <a class=\"nav-link\" href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
   "      </nav>\n" +
   "      <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
@@ -967,80 +930,6 @@ const KEY_PAGE =
   "        </div>\n" +
   "      </div>\n" +
   "    </div>\n" +
-  "\n" +
-  "    <section id=\"features\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">Under the hood</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e23\u0e30\u0e1a\u0e1a\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e17\u0e35\u0e48\u0e17\u0e33\u0e07\u0e32\u0e19\u0e40\u0e1a\u0e37\u0e49\u0e2d\u0e07\u0e2b\u0e25\u0e31\u0e07</h2>\n" +
-  "          <p class=\"pop-element\">\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e15\u0e23\u0e27\u0e08\u0e1d\u0e31\u0e48\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48 client \u0e2a\u0e48\u0e07\u0e21\u0e32\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27</p>\n" +
-  "        </div>\n" +
-  "        <div class=\"cards\">\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><rect x=\"4\" y=\"10\" width=\"16\" height=\"10\" rx=\"2\"/><path d=\"M8 10V7a4 4 0 0 1 8 0v3\"/></svg></div>\n" +
-  "            <h3>\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID</h3>\n" +
-  "            <p>\u0e04\u0e35\u0e22\u0e4c\u0e2b\u0e19\u0e36\u0e48\u0e07\u0e43\u0e1a\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27 ticket \u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a hash \u0e02\u0e2d\u0e07 HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e15\u0e23\u0e27\u0e08\u0e04\u0e35\u0e22\u0e4c</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3v6\"/><path d=\"M5 9h14\"/><path d=\"M7 9v5a5 5 0 0 0 10 0V9\"/><path d=\"M9 21h6\"/></svg></div>\n" +
-  "            <h3>Ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19</h3>\n" +
-  "            <p>\u0e25\u0e07\u0e19\u0e32\u0e21\u0e14\u0e49\u0e27\u0e22 HMAC-SHA256 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 30 \u0e19\u0e32\u0e17\u0e35 \u0e41\u0e25\u0e30\u0e21\u0e35 runtime proof \u0e41\u0e22\u0e01\u0e17\u0e35\u0e48\u0e2d\u0e32\u0e22\u0e38\u0e44\u0e21\u0e48\u0e40\u0e01\u0e34\u0e19 60 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M4 7h16\"/><path d=\"M4 12h10\"/><path d=\"M4 17h7\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/></svg></div>\n" +
-  "            <h3>Stage chain \u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19</h3>\n" +
-  "            <p>\u0e41\u0e15\u0e48\u0e25\u0e30\u0e17\u0e2d\u0e14\u0e21\u0e35 capability \u0e40\u0e09\u0e1e\u0e32\u0e30 \u0e2d\u0e2d\u0e01\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e25\u0e30\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e04\u0e23\u0e31\u0e49\u0e07\u0e40\u0e14\u0e35\u0e22\u0e27\u0e20\u0e32\u0e22\u0e43\u0e19 20 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z\"/><path d=\"M9.5 12l1.8 1.8L15 10\"/></svg></div>\n" +
-  "            <h3>\u0e15\u0e23\u0e27\u0e08\u0e04\u0e27\u0e32\u0e21\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e02\u0e2d\u0e07\u0e44\u0e1f\u0e25\u0e4c</h3>\n" +
-  "            <p>\u0e44\u0e1f\u0e25\u0e4c stage 2 \u0e16\u0e39\u0e01 pin \u0e14\u0e49\u0e27\u0e22 SHA-256 \u0e44\u0e27\u0e49\u0e43\u0e19\u0e15\u0e31\u0e27\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c \u0e16\u0e49\u0e32\u0e40\u0e19\u0e37\u0e49\u0e2d\u0e2b\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e08\u0e30\u0e44\u0e21\u0e48\u0e22\u0e2d\u0e21\u0e23\u0e31\u0e19</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><path d=\"M3 12h4l2.5-6 4 12L16 12h5\"/></svg></div>\n" +
-  "            <h3>Heartbeat \u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e40\u0e25\u0e48\u0e19</h3>\n" +
-  "            <p>\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e23\u0e27\u0e08 session \u0e40\u0e1b\u0e47\u0e19\u0e23\u0e30\u0e22\u0e30 \u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e41\u0e1a\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e41\u0e01\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07\u0e17\u0e32\u0e07\u0e08\u0e30\u0e15\u0e31\u0e14\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</p>\n" +
-  "          </article>\n" +
-  "          <article class=\"card pop-element\">\n" +
-  "            <div class=\"ico\"><svg viewBox=\"0 0 24 24\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 8v5\"/><path d=\"M12 16.5h.01\"/></svg></div>\n" +
-  "            <h3>\u0e23\u0e2b\u0e31\u0e2a diagnostic</h3>\n" +
-  "            <p>\u0e16\u0e49\u0e32\u0e16\u0e39\u0e01\u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18 \u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e2a\u0e14\u0e07\u0e23\u0e2b\u0e31\u0e2a\u0e2d\u0e22\u0e48\u0e32\u0e07 <span class=\"mono\">D2_HWID_MISMATCH</span> \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e08\u0e49\u0e07\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e44\u0e14\u0e49\u0e15\u0e23\u0e07\u0e08\u0e38\u0e14</p>\n" +
-  "          </article>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "\n" +
-  "    <section id=\"status\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">Live status</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a</h2>\n" +
-  "          <p class=\"pop-element\">\u0e15\u0e23\u0e27\u0e08\u0e08\u0e32\u0e01 endpoint \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e19\u0e35\u0e49 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e34\u0e21\u0e1e\u0e4c\u0e44\u0e27\u0e49</p>\n" +
-  "        </div>\n" +
-  "        <div class=\"panel pop-element\">\n" +
-  "          <div>\n" +
-  "            <div class=\"ping\">\n" +
-  "              <span class=\"dot\" id=\"panelDot\"></span>\n" +
-  "              <div>\n" +
-  "                <div class=\"big\" id=\"latency\">\u2014</div>\n" +
-  "                <small>\u0e40\u0e27\u0e25\u0e32\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07 API</small>\n" +
-  "              </div>\n" +
-  "            </div>\n" +
-  "            <div class=\"kv\"><span>\u0e2a\u0e16\u0e32\u0e19\u0e30</span><b id=\"stState\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026</b></div>\n" +
-  "            <div class=\"kv\"><span>\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e19</span><b id=\"stVersion\">\u2014</b></div>\n" +
-  "            <div class=\"kv\"><span>Stage chain</span><b id=\"stChain\">\u2014</b></div>\n" +
-  "            <div class=\"kv\"><span>\u0e15\u0e23\u0e27\u0e08\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14</span><b id=\"stChecked\">\u2014</b></div>\n" +
-  "          </div>\n" +
-  "          <div style=\"display:flex;flex-direction:column;gap:12px;justify-content:center\">\n" +
-  "            <p style=\"margin:0;color:var(--muted);font-size:.93rem\">\n" +
-  "              \u0e2b\u0e19\u0e49\u0e32\u0e19\u0e35\u0e49\u0e40\u0e23\u0e35\u0e22\u0e01 <span class=\"mono\">/api/health</span> \u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e48\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e43\u0e14 \u0e46 \u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\n" +
-  "              \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e27\u0e31\u0e14\u0e27\u0e48\u0e32 API \u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\n" +
-  "            </p>\n" +
-  "            <button class=\"btn\" id=\"refresh\" type=\"button\">\u0e15\u0e23\u0e27\u0e08\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07</button>\n" +
-  "          </div>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
   "\n" +
   "    <section id=\"faq\">\n" +
   "      <div class=\"wrap\">\n" +
@@ -1091,7 +980,6 @@ const KEY_PAGE =
   "      <div class=\"foot\">\n" +
   "        <span>\u00a9 2026 999MS \u00b7 Key system &amp; loader</span>\n" +
   "        <span style=\"display:flex;gap:18px\">\n" +
-  "          <a href=\"#status\">\u0e2a\u0e16\u0e32\u0e19\u0e30</a>\n" +
   "          <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
   "          <a href=\"/control\">Control</a>\n" +
   "          <a href=\"https://yura.lol/09ms\" rel=\"noopener\">Discord</a>\n" +
@@ -1159,13 +1047,7 @@ const KEY_PAGE =
   "  });\n" +
   "\n" +
   "  /* \u2500\u2500\u2500 live API status \u2500\u2500\u2500 */\n" +
-  "  var dot = document.getElementById('panelDot');\n" +
   "  var heroDot = document.getElementById('heroDot');\n" +
-  "  var latencyEl = document.getElementById('latency');\n" +
-  "  var stateEl = document.getElementById('stState');\n" +
-  "  var versionEl = document.getElementById('stVersion');\n" +
-  "  var chainEl = document.getElementById('stChain');\n" +
-  "  var checkedEl = document.getElementById('stChecked');\n" +
   "  var heroStatus = document.getElementById('heroStatus');\n" +
   "\n" +
   "  function setDot(el, cls) {\n" +
@@ -1176,8 +1058,6 @@ const KEY_PAGE =
   "\n" +
   "  function check() {\n" +
   "    var started = Date.now();\n" +
-  "    if (stateEl) stateEl.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026';\n" +
-  "    setDot(dot, '');\n" +
   "    setDot(heroDot, '');\n" +
   "\n" +
   "    var controller = window.AbortController ? new AbortController() : null;\n" +
@@ -1190,33 +1070,21 @@ const KEY_PAGE =
   "      })\n" +
   "      .then(function (data) {\n" +
   "        var ms = Date.now() - started;\n" +
-  "        if (latencyEl) latencyEl.textContent = ms + ' ms';\n" +
-  "        if (stateEl) stateEl.textContent = '\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c';\n" +
-  "        if (versionEl) versionEl.textContent = 'v' + (data.version || '\u2014');\n" +
-  "        if (chainEl) chainEl.textContent = data.chain || '\u2014';\n" +
-  "        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');\n" +
   "        if (heroStatus) heroStatus.textContent = '\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c \u00b7 ' + ms + ' ms';\n" +
-  "        setDot(dot, 'ok');\n" +
   "        setDot(heroDot, 'ok');\n" +
   "      })\n" +
   "      .catch(function () {\n" +
   "        var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;\n" +
-  "        if (latencyEl) latencyEl.textContent = '\u2014';\n" +
-  "        if (stateEl) stateEl.textContent = offlinePreview ? '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e44\u0e14\u0e49\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07' : '\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
-  "        if (checkedEl) checkedEl.textContent = new Date().toLocaleTimeString('th-TH');\n" +
   "        if (heroStatus) {\n" +
   "          heroStatus.textContent = offlinePreview\n" +
   "            ? '\u0e1e\u0e23\u0e35\u0e27\u0e34\u0e27\u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e47\u0e15 \u2014 \u0e40\u0e1b\u0e34\u0e14\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e2a\u0e16\u0e32\u0e19\u0e30'\n" +
   "            : '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 (\u0e2d\u0e32\u0e08\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01\u0e2b\u0e23\u0e37\u0e2d\u0e2d\u0e2d\u0e1f\u0e44\u0e25\u0e19\u0e4c)';\n" +
   "        }\n" +
-  "        setDot(dot, offlinePreview ? '' : 'bad');\n" +
   "        setDot(heroDot, offlinePreview ? '' : 'bad');\n" +
   "      })\n" +
   "      .then(function () { if (timer) clearTimeout(timer); });\n" +
   "  }\n" +
   "\n" +
-  "  var refreshBtn = document.getElementById('refresh');\n" +
-  "  if (refreshBtn) refreshBtn.addEventListener('click', check);\n" +
   "  check();\n" +
   "\n" +
   "  /* \u2500\u2500\u2500 mobile menu \u2500\u2500\u2500 */\n" +
