@@ -621,10 +621,11 @@ local function PackRequest(path, payload, hwid)
     elseif path == "/api/heartbeat" then
         out.p, out.a = "v4", payload.ticket
         AddDeviceParts(out, hwid)
-        out.o = payload.Data
+        out.g, out.o = payload.scriptName, payload.Data
     elseif path == "/api/start" then
         out.p = "k8"
         AddDeviceParts(out, hwid)
+        out.g = payload.scriptName
     else
         return nil
     end
@@ -772,6 +773,7 @@ StartControlAgent = function(ticket, xorKey, hwid)
             pending = nil
             local beat = EncodeBody(beatBody)
             beat.ticket = ticket
+            beat.scriptName = SCRIPT_NAME_LOCKED
 
             local sent, response = pcall(postJSON, "/api/heartbeat", beat, hwid)
             if not sent or type(response) ~= "table" then
@@ -1362,7 +1364,7 @@ local function MakeUI()
     buyBtn.MouseButton1Click:Connect(function()
         task.spawn(function()
             local hwid = GetHWID()
-            local r, err = postJSON("/api/start", { c = hwid }, hwid)
+            local r, err = postJSON("/api/start", { c = hwid, scriptName = SCRIPT_NAME_LOCKED }, hwid)
             if not ChecksActive then return end
             if not r then setStatus(err or "Cannot open link"); return end
             if r.status ~= 200 or not r.data.url then

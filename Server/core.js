@@ -1955,14 +1955,15 @@ const CONTROL_PAGE =
   "          <div class=\"sess-list\" id=\"sessList\"><div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</div></div>\n" +
   "          <div style=\"border-top:1px solid var(--line);padding-top:12px\" class=\"stack\">\n" +
   "            <div>\n" +
-  "              <label for=\"testHwid\">HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a</label>\n" +
-  "              <div style=\"display:flex;gap:8px\">\n" +
-  "                <input id=\"testHwid\" placeholder=\"\u0e27\u0e32\u0e07 HWID \u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e08\u0e32\u0e01 executor\" spellcheck=\"false\" />\n" +
+  "              <label for=\"testHwid\">HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a (\u0e1c\u0e39\u0e01\u0e41\u0e1a\u0e1a <span class=\"mono\">hwid_\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span>)</label>\n" +
+  "              <div style=\"display:flex;gap:8px;flex-wrap:wrap\">\n" +
+  "                <input id=\"testHwid\" style=\"flex:2;min-width:160px\" placeholder=\"\u0e27\u0e32\u0e07 HWID \u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e08\u0e32\u0e01 executor\" spellcheck=\"false\" />\n" +
+  "                <input id=\"testScript\" style=\"flex:1;min-width:110px\" value=\"main\" placeholder=\"\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u0e40\u0e0a\u0e48\u0e19 T\" spellcheck=\"false\" />\n" +
   "                <button class=\"btn btn-sm\" type=\"button\" data-copy=\"hwidSnippet\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e39 HWID</button>\n" +
   "              </div>\n" +
   "              <input id=\"hwidSnippet\" readonly class=\"mono\" style=\"margin-top:8px;font-size:.74rem\"\n" +
   "                value='print(gethwid and gethwid() or (get_hwid and get_hwid()) or \"no getter\")' />\n" +
-  "              <p class=\"hint\" style=\"margin:6px 0 0\">executor \u0e41\u0e19\u0e1a fingerprint header \u0e02\u0e2d\u0e07\u0e15\u0e31\u0e27\u0e40\u0e2d\u0e07\u0e21\u0e32\u0e14\u0e49\u0e27\u0e22 \u2014 ticket \u0e15\u0e49\u0e2d\u0e07\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e08\u0e23\u0e34\u0e07 \u0e21\u0e34\u0e09\u0e30\u0e19\u0e31\u0e49\u0e19\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e08\u0e30\u0e40\u0e15\u0e30 <span class=\"mono\">BAD HWID : ]</span></p>\n" +
+  "              <p class=\"hint\" id=\"testBoundPreview\" style=\"margin:6px 0 0\">\u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30 ticket \u0e40\u0e1b\u0e47\u0e19 <span class=\"mono\">&lt;hwid&gt;_&lt;\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c&gt;</span> \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 (\u0e40\u0e0a\u0e48\u0e19 <span class=\"mono\">abc12345_T</span>)</p>\n" +
   "            </div>\n" +
   "\n" +
   "            <div>\n" +
@@ -2112,11 +2113,11 @@ const CONTROL_PAGE =
   "      <section class=\"card\">\n" +
   "        <div class=\"card-h\"><h2>\u0e41\u0e1a\u0e19 / \u0e15\u0e31\u0e14\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c</h2></div>\n" +
   "        <div class=\"card-b stack\">\n" +
-  "          <p class=\"hint\">\u0e41\u0e1a\u0e19\u0e21\u0e35\u0e1c\u0e25\u0e17\u0e31\u0e19\u0e17\u0e35\u0e01\u0e31\u0e1a\u0e04\u0e33\u0e02\u0e2d\u0e16\u0e31\u0e14\u0e44\u0e1b\u0e02\u0e2d\u0e07 HWID / user / IP \u0e19\u0e31\u0e49\u0e19 (\u0e15\u0e23\u0e27\u0e08\u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\u0e43\u0e19 /api/verify \u0e41\u0e25\u0e30 /api/script)</p>\n" +
+  "          <p class=\"hint\">\u0e41\u0e1a\u0e19\u0e21\u0e35\u0e1c\u0e25\u0e17\u0e31\u0e19\u0e17\u0e35\u0e01\u0e31\u0e1a\u0e04\u0e33\u0e02\u0e2d\u0e16\u0e31\u0e14\u0e44\u0e1b \u2014 \u0e43\u0e2a\u0e48 <span class=\"mono\">hwid_\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span> \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e1a\u0e19\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e19\u0e31\u0e49\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e43\u0e2a\u0e48 <span class=\"mono\">hwid</span> \u0e40\u0e1b\u0e25\u0e48\u0e32\u0e46 \u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e1a\u0e19\u0e17\u0e38\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</p>\n" +
   "          <div>\n" +
   "            <label for=\"banType\">\u0e1b\u0e23\u0e30\u0e40\u0e20\u0e17</label>\n" +
   "            <select id=\"banType\">\n" +
-  "              <option value=\"hwid\">HWID (\u0e04\u0e48\u0e32\u0e08\u0e32\u0e01 executor)</option>\n" +
+  "              <option value=\"hwid\">HWID / hwid_\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</option>\n" +
   "              <option value=\"hwidHash\">HWID hash (64 hex)</option>\n" +
   "              <option value=\"user\">User ID</option>\n" +
   "              <option value=\"ip\">IP address</option>\n" +
@@ -2882,8 +2883,9 @@ const CONTROL_PAGE =
   "  var CLIENT_TEMPLATE = `local BASE   = \"%BASE%\"     -- e.g. https://loader999xx-one.vercel.app\n" +
   "local TICKET = \"%TICKET%\"   -- short-lived test ticket (30 min)\n" +
   "local XKEY   = \"%XORKEY%\"   -- payload XOR key\n" +
-  "local HWID   = \"%HWID%\"     -- test hardware id that the ticket is bound to\n" +
-  "local SCRIPT = \"main\"\n" +
+  "local HWID   = \"%HWID%\"     -- raw executor hardware id (server binds HWID_SCRIPT)\n" +
+  "local BOUND  = \"%BOUND%\"    -- bound identifier: hwid_scriptName\n" +
+  "local SCRIPT = \"%SCRIPT%\"\n" +
   "local BEAT   = 10           -- seconds between heartbeats\n" +
   "\n" +
   "local HttpService = game:GetService(\"HttpService\")\n" +
@@ -3017,7 +3019,7 @@ const CONTROL_PAGE =
   "end\n" +
   "\n" +
   "print(\"[999MS] test client online - beat every \" .. BEAT .. \"s\")\n" +
-  "print(\"[999MS] hwid \" .. HWID .. \" (\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e23\u0e07\u0e01\u0e31\u0e1a\u0e04\u0e48\u0e32\u0e17\u0e35\u0e48\u0e1c\u0e39\u0e01 ticket \u0e44\u0e21\u0e48\u0e40\u0e0a\u0e48\u0e19\u0e19\u0e31\u0e49\u0e19\u0e42\u0e14\u0e19\u0e40\u0e15\u0e30 BAD HWID)\")\n" +
+  "print(\"[999MS] bound hwid: \" .. BOUND .. \" (\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e23\u0e07\u0e01\u0e31\u0e1a HWID \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e44\u0e21\u0e48\u0e40\u0e0a\u0e48\u0e19\u0e19\u0e31\u0e49\u0e19\u0e42\u0e14\u0e19\u0e40\u0e15\u0e30 BAD HWID)\")\n" +
   "\n" +
   "task.spawn(function()\n" +
   "    local pending\n" +
@@ -3049,24 +3051,45 @@ const CONTROL_PAGE =
   "    end\n" +
   "end)`;\n" +
   "\n" +
+  "  function refreshTestBoundPreview() {\n" +
+  "    var preview = $('testBoundPreview');\n" +
+  "    if (!preview) return;\n" +
+  "    var h = ($('testHwid') && $('testHwid').value || '').trim().toLowerCase();\n" +
+  "    var s = ($('testScript') && $('testScript').value || '').trim() || 'main';\n" +
+  "    if (!h) {\n" +
+  "      preview.innerHTML = '\u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30 ticket \u0e40\u0e1b\u0e47\u0e19 <span class=\"mono\">&lt;hwid&gt;_&lt;\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c&gt;</span> \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 (\u0e40\u0e0a\u0e48\u0e19 <span class=\"mono\">abc12345_' + esc(s) + '</span>)';\n" +
+  "    } else {\n" +
+  "      var cleanH = (h.slice(-(s.length + 1)) === '_' + s.toLowerCase() && h.length - s.length - 1 >= 4)\n" +
+  "        ? h.slice(0, -(s.length + 1))\n" +
+  "        : h;\n" +
+  "      preview.innerHTML = '\u0e04\u0e48\u0e32\u0e17\u0e35\u0e48\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e08\u0e23\u0e34\u0e07: <span class=\"mono\" style=\"color:var(--mint)\">' + esc(cleanH + '_' + s) + '</span>';\n" +
+  "    }\n" +
+  "  }\n" +
+  "  if ($('testHwid')) $('testHwid').addEventListener('input', refreshTestBoundPreview);\n" +
+  "  if ($('testScript')) $('testScript').addEventListener('input', refreshTestBoundPreview);\n" +
+  "\n" +
   "  $('testClientBtn').addEventListener('click', function () {\n" +
   "    var btn = $('testClientBtn');\n" +
   "    var hwid = ($('testHwid').value || '').trim();\n" +
+  "    var sname = ($('testScript') && $('testScript').value || '').trim() || 'main';\n" +
   "    if (!hwid) { toast('\u0e43\u0e2a\u0e48 HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
   "    btn.disabled = true;\n" +
-  "    api('/api/control/test-ticket', { scriptName: 'main', hwid: hwid }).then(function (result) {\n" +
+  "    api('/api/control/test-ticket', { scriptName: sname, hwid: hwid }).then(function (result) {\n" +
   "      btn.disabled = false;\n" +
   "      var data = result.data || {};\n" +
   "      if (result.status !== 200 || !data.ok) { toast(data.reason || '\u0e2a\u0e23\u0e49\u0e32\u0e07 ticket \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err'); return; }\n" +
+  "      var bound = data.boundHwid || (data.hwid + '_' + (data.scriptName || sname));\n" +
   "      $('testClientOut').value = CLIENT_TEMPLATE\n" +
   "        .split('%BASE%').join(location.origin)\n" +
   "        .split('%TICKET%').join(data.ticket)\n" +
   "        .split('%XORKEY%').join(data.xorKey)\n" +
-  "        .split('%HWID%').join(data.hwid);\n" +
+  "        .split('%HWID%').join(data.hwid)\n" +
+  "        .split('%BOUND%').join(bound)\n" +
+  "        .split('%SCRIPT%').join(data.scriptName || sname);\n" +
   "      $('testClientMeta').textContent = 'ticket \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 ' + Math.round((data.ttlSeconds || 1800) / 60)\n" +
-  "        + ' \u0e19\u0e32\u0e17\u0e35 \u00b7 hwid ' + data.hwid;\n" +
-  "      toast('\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor', 'ok');\n" +
-  "      logLine('\u0e2d\u0e2d\u0e01 ticket \u0e17\u0e14\u0e2a\u0e2d\u0e1a ' + (data.hwid || ''), 'ok');\n" +
+  "        + ' \u0e19\u0e32\u0e17\u0e35 \u00b7 \u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a ' + bound;\n" +
+  "      toast('\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a ' + bound, 'ok');\n" +
+  "      logLine('\u0e2d\u0e2d\u0e01 ticket \u0e17\u0e14\u0e2a\u0e2d\u0e1a ' + bound, 'ok');\n" +
   "    }).catch(function () {\n" +
   "      btn.disabled = false;\n" +
   "      toast('\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err');\n" +
@@ -3169,8 +3192,8 @@ const path = require('node:path');
 const APP_ROOT = path.resolve(__dirname, '..');
 const wire = require('../lib/wire-codec');
 
-const { verifyKey, createLink } = require('../lib/platoboost');
-const { resolveHwid, deviceBindingId, canonical } = require('../lib/hwid');
+const { verifyKey, createLink, probeIdentifier } = require('../lib/platoboost');
+const { resolveHwid, deviceBindingId, formatBoundHwid, canonical } = require('../lib/hwid');
 const { issueTicket, verifyTicket, hashHwid, hashBindingId } = require('../lib/ticket');
 const link = require('../lib/link');
 const chainLinks = require('../lib/chainlink');
@@ -3400,9 +3423,9 @@ function decodeOpaqueRequest(action, body = {}) {
         hop: body.q, runtimeSecret: body.s, scriptToken: body.t,
       };
     case 'heartbeat':
-      return { ticket: body.a, c: hwid, Data: body.o };
+      return { ticket: body.a, c: hwid, scriptName: body.g, Data: body.o };
     case 'start':
-      return { c: hwid };
+      return { c: hwid, scriptName: body.g };
     default:
       return {};
   }
@@ -3435,17 +3458,25 @@ function hwidFromRequest(req, bodyValue) {
   return result;
 }
 
-// A ticket is bound to the canonical HWID binding that earned it. Every
-// protected request re-resolves that value before checking the ticket.
-function deviceMatches(req, hwidHash, bodyValue) {
+// A ticket is bound to the per-script "<hwid>_<scriptName>" identifier that
+// earned it. Every protected request verifies both the physical executor
+// fingerprint header and the script-scoped binding.
+function deviceMatches(req, hwidHash, bodyValue, scriptName) {
   const device = hwidFromRequest(req, bodyValue);
   if (!device.ok) return { ok: false, reason: device.reason };
   if (typeof hwidHash !== 'string' || !hwidHash) return { ok: false, reason: 'ticket has no device' };
-  if (hashBindingId(device.bindingId) !== hwidHash) {
-    noteEvent('device_reject', 'ticket used with a different HWID binding');
+  const expectedBindingId = deviceBindingId(device.hwid, scriptName);
+  const boundHwid = formatBoundHwid(device.hwid, scriptName);
+  if (hashBindingId(expectedBindingId) !== hwidHash) {
+    noteEvent('device_reject', 'ticket used with a different HWID/script binding');
     return { ok: false, reason: 'device mismatch' };
   }
-  return { ok: true, ...device };
+  return {
+    ok: true,
+    ...device,
+    boundHwid,
+    bindingId: expectedBindingId,
+  };
 }
 
 // ═══ /api/link (admin) ═══
@@ -3649,6 +3680,9 @@ module.exports = async function handler(req, res) {
         };
       }
     }
+    if (req.query && req.query.plato === '1') {
+      out.platoboost = await probeIdentifier('probe1234_T');
+    }
     return res.status(200).json(out);
   }
 
@@ -3708,19 +3742,24 @@ module.exports = async function handler(req, res) {
     // Platoboost key. It is only an authorization bypass for whoever already
     // holds the admin token, and every issue is recorded as a security event.
     if (action === 'control-test-ticket') {
-      const requested = (req.body && req.body.scriptName) || 'main';
+      const requested = String((req.body && req.body.scriptName) || 'main').trim();
       const scriptName = isValidScriptName(requested) ? requested : 'main';
       // Executors attach their own fingerprint header, and the server requires
-      // every fingerprint header to agree, so the ticket must be bound to the
-      // real gethwid() value of the machine-under-test. A fabricated id would
-      // be rejected with BAD HWID on the very first heartbeat.
-      const supplied = typeof (req.body && req.body.hwid) === 'string' ? req.body.hwid.trim() : '';
-      const hwid = (supplied.length >= 4 && supplied.length <= 512 && /^[\x20-\x7e]+$/.test(supplied))
-        ? supplied
+      // every fingerprint header to agree, so the ticket binds "<hwid>_<scriptName>"
+      // while returning the raw physical hwid for X-Fingerprint matching.
+      const suppliedRaw = typeof (req.body && req.body.hwid) === 'string' ? req.body.hwid.trim() : '';
+      const suffix = '_' + scriptName;
+      const stripped = (suppliedRaw.endsWith(suffix) && suppliedRaw.length - suffix.length >= 4)
+        ? suppliedRaw.slice(0, -suffix.length)
+        : suppliedRaw;
+      const hwid = (stripped.length >= 4 && stripped.length <= 512 && /^[\x20-\x7e]+$/.test(stripped))
+        ? stripped
         : 'test-' + crypto.randomBytes(12).toString('hex');
-      const hwidHash = hashBindingId(deviceBindingId(hwid));
+      const boundHwid = formatBoundHwid(hwid, scriptName);
+      const hwidHash = hashBindingId(deviceBindingId(hwid, scriptName));
       const ticket = issueTicket({
         hwidHash,
+        boundHwid,
         userId: null,
         scope: 'script',
         scriptName,
@@ -3729,7 +3768,7 @@ module.exports = async function handler(req, res) {
       const jti = JSON.parse(Buffer.from(String(ticket).split('.')[1], 'base64url').toString('utf8')).jti;
       const equation = createEquationChallenge();
       const hop = issueHop(jti, { answer: equation.answer, hwidHash });
-      noteEvent('test_ticket', 'issued ' + jti.slice(0, 8) + ' for ' + scriptName);
+      noteEvent('test_ticket', 'issued ' + jti.slice(0, 8) + ' for ' + boundHwid);
       return res.status(200).json({
         ok: true,
         ticket,
@@ -3737,6 +3776,7 @@ module.exports = async function handler(req, res) {
         eq: equation.answer,
         xorKey: process.env.PAYLOAD_XOR_KEY || '',
         hwid,
+        boundHwid,
         scriptName,
         ttlSeconds: 30 * 60,
       });
@@ -4217,8 +4257,8 @@ const KEY_PAGE =
   "        </div>\n" +
   "        <div class=\"faq pop-element\">\n" +
   "          <details>\n" +
-  "            <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
-  "            <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a HWID \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 \u0e16\u0e49\u0e32\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01</p>\n" +
+  "            <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
+  "            <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e41\u0e1a\u0e1a <span class=\"mono\">hwid_\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span> \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 (\u0e1c\u0e39\u0e01\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e41\u0e25\u0e30\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e19\u0e31\u0e49\u0e19\u0e46) \u0e2b\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01 \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15</p>\n" +
   "          </details>\n" +
   "          <details>\n" +
   "            <summary>\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32 HWID mismatch \u0e15\u0e49\u0e2d\u0e07\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23</summary>\n" +
@@ -6049,14 +6089,16 @@ async function handleVerify(req, res, ip) {
     return res.status(403).json({ valid: false, error: message, message });
   }
   const clientHwid = hwidCheck.hwid;
-  const bindingId = hwidCheck.bindingId;
   if (typeof scriptName !== 'string' || scriptName.length < 1 || scriptName.length > 64)
     return res.status(400).json({ valid: false, error: 'scriptName required' });
   if (!isValidScriptName(scriptName))
     return res.status(400).json({ valid: false, error: 'invalid scriptName format' });
-  const reason = checkRevoked({ hwid: clientHwid, userId, ip });
+  const boundHwid = formatBoundHwid(clientHwid, scriptName);
+  const bindingId = deviceBindingId(clientHwid, scriptName);
+  const hwidHash = hashBindingId(bindingId);
+  const reason = checkRevoked({ hwid: clientHwid, boundHwid, hwidHash, userId, ip });
   if (reason) {
-    noteEvent('ban_hit', 'verify | hwid ' + hashHwid(clientHwid).slice(0, 12));
+    noteEvent('ban_hit', 'verify | hwid ' + boundHwid.slice(0, 28));
     return res.status(403).json({ valid: false, message: 'Banned: ' + reason });
   }
   if (!clientChallenge.ok) {
@@ -6064,7 +6106,8 @@ async function handleVerify(req, res, ip) {
     return res.status(400).json({ valid: false, error: clientChallenge.reason });
   }
 
-  const result = await verifyKey(key, bindingId);
+  // Bind and check Platoboost strictly against "<hwid>_<scriptName>".
+  const result = await verifyKey(key, boundHwid);
   if (!result.valid) {
     const failure = {
       valid: false,
@@ -6075,8 +6118,9 @@ async function handleVerify(req, res, ip) {
   }
 
   const ticket = issueTicket({
-    // Reuse the canonical Base64-HWID binding for tickets and runtime proof.
-    hwidHash: hashBindingId(bindingId),
+    // Bind ticket & runtime proof to "<hwid>_<scriptName>".
+    hwidHash,
+    boundHwid,
     scope: 'script',
     userId: userId || null,
     scriptName,
@@ -6112,7 +6156,15 @@ async function handleScript(req, res, ip) {
   const payload = verifyTicket(ticket);
   if (!payload) return res.status(401).json({ Valid: false, reason: 'invalid ticket' });
 
-  const device = deviceMatches(req, payload.hwidHash, req.body?.c ?? req.body?.hwid);
+  const name = (typeof scriptName === 'string' && scriptName.length > 0)
+    ? scriptName
+    : payload.scriptName;
+
+  if (!name) return res.status(400).json({ Valid: false, reason: 'no scriptName' });
+  if (name !== payload.scriptName)
+    return res.status(403).json({ Valid: false, reason: 'scriptName mismatch' });
+
+  const device = deviceMatches(req, payload.hwidHash, req.body?.c ?? req.body?.hwid, name);
   if (!device.ok)
     return res.status(403).json({ Valid: false, reason: clientDeviceMessage(device.reason) });
 
@@ -6130,17 +6182,15 @@ async function handleScript(req, res, ip) {
   if (payload.scope !== 'script')
     return res.status(403).json({ Valid: false, reason: 'scope' });
 
-  const reason = checkRevoked({ userId: payload.userId, ip });
+  const reason = checkRevoked({
+    hwid: device.hwid,
+    boundHwid: device.boundHwid,
+    hwidHash: payload.hwidHash,
+    userId: payload.userId,
+    ip,
+  });
   if (reason)
     return res.status(403).json({ Valid: false, reason: 'Banned: ' + reason });
-
-  const name = (typeof scriptName === 'string' && scriptName.length > 0)
-    ? scriptName
-    : payload.scriptName;
-
-  if (!name) return res.status(400).json({ Valid: false, reason: 'no scriptName' });
-  if (name !== payload.scriptName)
-    return res.status(403).json({ Valid: false, reason: 'scriptName mismatch' });
 
   if (!isValidScriptName(name))
     return res.status(200).json(encodeProtectedPayload({ Valid: false, reason: 'Invalid script name' }, xorKey));
@@ -6174,6 +6224,7 @@ async function handleScript(req, res, ip) {
     lastBeat: Date.now(),
     failCount: 0,
     hwidHash: payload.hwidHash,
+    boundHwid: device.boundHwid,
     userId: payload.userId || null,
     scriptToken,
     runtimeSecret,
@@ -6268,7 +6319,10 @@ async function handleScriptVerify(req, res) {
 
   // Resolve HWID before burning the next-step hop so an invalid device
   // request does not make a retried legitimate request look replayed.
-  const device = deviceMatches(req, payload.hwidHash, hwid);
+  const targetScript = (typeof scriptName === 'string' && scriptName.length > 0)
+    ? scriptName
+    : payload.scriptName;
+  const device = deviceMatches(req, payload.hwidHash, hwid, targetScript);
   if (!device.ok) {
     const category = BAD_DEVICE_REASONS.has(device.reason)
       ? BAD_HWID_CODE
@@ -6277,7 +6331,12 @@ async function handleScriptVerify(req, res) {
   }
   const clientHwid = device.hwid;
 
-  const banReason = checkRevoked({ hwid: clientHwid, userId: payload.userId });
+  const banReason = checkRevoked({
+    hwid: clientHwid,
+    boundHwid: device.boundHwid,
+    hwidHash: payload.hwidHash,
+    userId: payload.userId,
+  });
   if (banReason) return rejectRuntimeVerification(res, 403, 'D2_REVOKED');
 
   if (typeof runtimeSecret !== 'string' || runtimeSecret.length !== 64) {
@@ -6362,13 +6421,14 @@ function readCommandResult(raw) {
   return { id, ok: raw.ok === true, output: cleanText(raw.output, 2000), at: Date.now() };
 }
 
-function newSessionState(payload, ip) {
+function newSessionState(payload, ip, boundHwid) {
   return {
     createdAt: Date.now(),
     scriptIssuedAt: Date.now(),
     lastBeat: Date.now(),
     failCount: 0,
     hwidHash: payload.hwidHash,
+    boundHwid: boundHwid || payload.boundHwid || '',
     userId: payload.userId || null,
     scriptToken: '',
     runtimeSecret: '',
@@ -6386,6 +6446,7 @@ function newSessionState(payload, ip) {
 function sessionView(jti, session) {
   const profile = session.profile || {};
   const label = profile.displayName || profile.name || (session.userId ? 'user ' + session.userId : 'ไม่ระบุชื่อ');
+  const scriptSuffix = session.scriptName ? '_' + session.scriptName : '';
   return {
     id: jti,
     label,
@@ -6396,7 +6457,7 @@ function sessionView(jti, session) {
     placeId: profile.placeId || '',
     jobId: profile.jobId || '',
     scriptName: session.scriptName || '',
-    hwid: session.hwidHash ? session.hwidHash.slice(0, 12) : '',
+    hwid: session.boundHwid || (session.hwidHash ? session.hwidHash.slice(0, 12) + scriptSuffix : ''),
     ip: session.ip || '',
     startedAt: session.createdAt,
     lastBeat: session.lastBeat,
@@ -6450,6 +6511,7 @@ function queueControlCommand(body) {
   for (const [jti, session] of entries) {
     if (kind === 'kick') {
       session.kicked = true;
+      if (session.boundHwid) revokeHwid(session.boundHwid);
       if (session.hwidHash) { revokeHwidHash(session.hwidHash); banned += 1; }
       if (session.userId) { revokeUser(String(session.userId)); }
     }
@@ -7410,14 +7472,20 @@ async function handleHeartbeat(req, res, ip) {
   const payload = verifyTicket(ticket);
   if (!payload) return res.status(401).json({ kick: 'Session expired' });
 
-  const device = deviceMatches(req, payload.hwidHash, c ?? hwid);
+  const device = deviceMatches(req, payload.hwidHash, c ?? hwid, payload.scriptName);
   if (!device.ok) {
     forgetRun(payload.jti);
     sessions.delete(payload.jti);
     return res.status(200).json({ kick: clientDeviceMessage(device.reason) });
   }
 
-  const reason = checkRevoked({ userId: payload.userId, ip });
+  const reason = checkRevoked({
+    hwid: device.hwid,
+    boundHwid: device.boundHwid,
+    hwidHash: payload.hwidHash,
+    userId: payload.userId,
+    ip,
+  });
   if (reason) {
     forgetRun(payload.jti);
     sessions.delete(payload.jti);
@@ -7429,8 +7497,10 @@ async function handleHeartbeat(req, res, ip) {
   // client to talk to.
   let session = sessions.get(payload.jti);
   if (!session) {
-    session = newSessionState(payload, ip);
+    session = newSessionState(payload, ip, device.boundHwid);
     sessions.set(payload.jti, session);
+  } else if (device.boundHwid) {
+    session.boundHwid = device.boundHwid;
   }
 
   session.lastBeat = Date.now();
@@ -7492,26 +7562,40 @@ function verifiedScriptContext(ticket, req, hwid, scriptName, ip) {
   if (!device.ok) return { error: clientDeviceMessage(device.reason), status: 403 };
   const payload = verifyTicket(ticket);
   if (!payload || payload.scope !== 'script') return { error: 'invalid ticket', status: 401 };
-  if (!timingSafeStringEquals(payload.hwidHash, hashBindingId(device.bindingId))) return { error: 'device mismatch', status: 403 };
   const name = typeof scriptName === 'string' && scriptName.length ? scriptName : payload.scriptName;
   if (!isValidScriptName(name) || name !== payload.scriptName) return { error: 'scriptName mismatch', status: 403 };
-  const reason = checkRevoked({ hwid: device.hwid, userId: payload.userId, ip });
+  const expectedBindingId = deviceBindingId(device.hwid, name);
+  const boundHwid = formatBoundHwid(device.hwid, name);
+  if (!timingSafeStringEquals(payload.hwidHash, hashBindingId(expectedBindingId))) {
+    return { error: 'device mismatch', status: 403 };
+  }
+  const reason = checkRevoked({
+    hwid: device.hwid,
+    boundHwid,
+    hwidHash: payload.hwidHash,
+    userId: payload.userId,
+    ip,
+  });
   if (reason) return { error: 'Banned: ' + reason, status: 403 };
-  return { payload, name, hwidHash: hashBindingId(device.bindingId) };
+  return { payload, name, boundHwid, hwidHash: hashBindingId(expectedBindingId) };
 }
 
 async function handleStart(req, res, ip) {
   const body = req.body || {};
   const hwid = body.c ?? body.hwid;
+  const requestedScript = typeof body.scriptName === 'string' ? body.scriptName.trim() : '';
+  const targetScript = requestedScript && isValidScriptName(requestedScript) ? requestedScript : 'main';
   const device = hwidFromRequest(req, hwid);
   if (!device.ok) return res.status(403).json({ error: clientDeviceMessage(device.reason) });
 
-  const reason = checkRevoked({ hwid: device.hwid, ip });
+  const boundHwid = formatBoundHwid(device.hwid, targetScript);
+  const hwidHash = hashBindingId(deviceBindingId(device.hwid, targetScript));
+  const reason = checkRevoked({ hwid: device.hwid, boundHwid, hwidHash, ip });
   if (reason)
     return res.status(403).json({ error: 'Banned: ' + reason });
 
   try {
-    const result = await createLink(device.bindingId);
+    const result = await createLink(boundHwid);
     return res.status(result.rateLimited ? 429 : 200).json(result);
   } catch (err) {
     console.error('[start]', err.message);
@@ -7558,9 +7642,9 @@ factories["lib/platoboost.js"] = function(module, exports, require, __filename, 
 const crypto = require('node:crypto');
 
 const sha256 = (v) => crypto.createHash('sha256').update(String(v)).digest('hex');
-// bindingId is already canonical Base64 and is case-sensitive. Never lowercase
-// it: doing so would change the encoded HWID that Platoboost binds as its ID.
-const normalizeIdentifier = (bindingId) => String(bindingId).trim();
+// Bound identifier sent directly to Platoboost in "<hwid>_<scriptName>" form
+// so each key locks to both the device HWID and the target script name.
+const normalizeIdentifier = (boundHwid) => String(boundHwid).trim();
 
 const service = () => {
   const v = process.env.PLATO_SERVICE_ID;
@@ -7637,7 +7721,7 @@ async function verifyKey(key, hwid) {
   if (typeof hwid !== 'string' || !hwid.trim() || hwid.length > 512)
     return { valid: false, message: 'Invalid device' };
 
-  const identifier = sha256(normalizeIdentifier(hwid));
+  const identifier = normalizeIdentifier(hwid);
   const nonce = crypto.randomBytes(16).toString('hex');
   const url = new URL(`/public/whitelist/${encodeURIComponent(service())}`, await host());
   url.searchParams.set('identifier', identifier);
@@ -7682,10 +7766,12 @@ async function createLink(hwid) {
   if (typeof hwid !== 'string' || !hwid.trim() || hwid.length > 512)
     throw new Error('Invalid device');
 
+  const rawService = String(service()).trim();
+  const serviceId = /^\d+$/.test(rawService) ? Number(rawService) : rawService;
   const result = await platoFetch(`${await host()}/public/start`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ service: service(), identifier: sha256(normalizeIdentifier(hwid)) }),
+    body: JSON.stringify({ service: serviceId, identifier: normalizeIdentifier(hwid) }),
   });
   if (result.status === 429) return { rateLimited: true };
   if (result.status !== 200 || result.data?.success !== true ||
@@ -7694,13 +7780,35 @@ async function createLink(hwid) {
   return { url: result.data.data.url };
 }
 
-module.exports = { verifyKey, createLink };
+async function probeIdentifier(sampleId = 'probe1234-abcd_T') {
+  try {
+    const id = normalizeIdentifier(sampleId);
+    const nonce = crypto.randomBytes(16).toString('hex');
+    const url = new URL(`/public/whitelist/${encodeURIComponent(service())}`, await host());
+    url.searchParams.set('identifier', id);
+    url.searchParams.set('key', 'probe_invalid_key');
+    url.searchParams.set('nonce', nonce);
+    const result = await platoFetch(url.toString());
+    const startCheck = await createLink(id).catch((e) => ({ error: e.message }));
+    return {
+      configured: true,
+      status: result.status,
+      acceptsBoundHwid: result.status === 200 && result.data?.success === true,
+      startLinkOk: Boolean(startCheck && (startCheck.url || startCheck.rateLimited)),
+    };
+  } catch (err) {
+    return { configured: false, acceptsBoundHwid: false, error: err.message };
+  }
+}
+
+module.exports = { verifyKey, createLink, probeIdentifier };
 };
 
 // Bundled module: lib/hwid.js
 factories["lib/hwid.js"] = function(module, exports, require, __filename, __dirname) {
 'use strict';
 
+const crypto = require('node:crypto');
 const { Buffer } = require('node:buffer');
 const MAX_HWID_LENGTH = 512;
 const MIN_HWID_LENGTH = 4;
@@ -7709,10 +7817,28 @@ function canonical(value) {
   return typeof value === 'string' ? value.trim().toLowerCase() : '';
 }
 
-// The matching fingerprint value is authoritative. The encoded HWID parts are
-// an independent client-reported value that must agree before binding.
-function deviceBindingId(fingerprint) {
+function normalizeRawHwid(fingerprint) {
   const value = canonical(fingerprint);
+  if (!value) return '';
+  return /^[a-z0-9-]+$/.test(value)
+    ? value
+    : crypto.createHash('sha256').update(value).digest('hex');
+}
+
+// Formats the per-script bound HWID string: "<hwid>_<scriptName>"
+function formatBoundHwid(fingerprint, scriptName) {
+  const base = normalizeRawHwid(fingerprint);
+  if (!base) return '';
+  const script = typeof scriptName === 'string' ? scriptName.trim() : '';
+  return script ? `${base}_${script}` : base;
+}
+
+// The matching fingerprint value is authoritative. When scriptName is supplied,
+// the binding encodes "<hwid>_<scriptName>" so keys and tickets bind per script.
+function deviceBindingId(fingerprint, scriptName) {
+  const value = scriptName
+    ? formatBoundHwid(fingerprint, scriptName)
+    : canonical(fingerprint);
   return value ? Buffer.from(value, 'utf8').toString('base64') : '';
 }
 
@@ -7778,6 +7904,7 @@ function resolveHwid(headers = {}, bodyValue) {
 module.exports = {
   resolveHwid,
   deviceBindingId,
+  formatBoundHwid,
   canonical,
   fingerprintsFromHeaders,
   MAX_HWID_LENGTH,
@@ -8516,9 +8643,11 @@ function revokeHwidHash(hash) { revokedHwids.add(String(hash).trim().toLowerCase
 function revokeUser(userId) { revokedUsers.add(String(userId)); }
 function revokeIp(ip) { revokedIps.add(String(ip)); }
 
-function checkRevoked({ hwid, userId, ip } = {}) {
+function checkRevoked({ hwid, boundHwid, hwidHash, userId, ip } = {}) {
   loadFromEnv();
+  if (boundHwid && revokedHwids.has(hashHwid(boundHwid))) return 'hwid_banned';
   if (hwid && revokedHwids.has(hashHwid(hwid))) return 'hwid_banned';
+  if (hwidHash && revokedHwids.has(String(hwidHash).trim().toLowerCase())) return 'hwid_banned';
   if (userId && revokedUsers.has(String(userId))) return 'user_banned';
   if (ip && revokedIps.has(String(ip))) return 'ip_banned';
   return null;
