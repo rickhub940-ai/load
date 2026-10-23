@@ -3515,13 +3515,27 @@ module.exports = async function handler(req, res) {
     if (req.method !== 'GET') return res.status(405).json({ ok: false });
     res.setHeader('Cache-Control', 'no-store');
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    return res.status(200).json({
+    const out = {
       ok: true,
       service: '999MS',
       version: '3.0.0',
       chain: '999MS-chain-v1',
       ts: Date.now(),
-    });
+    };
+    if (req.query && req.query.gh === '1') {
+      const cfg = githubConfig();
+      if (!cfg) {
+        out.github = { configured: false, canPush: false };
+      } else {
+        const ghCheck = await githubRequest('/repos/' + cfg.repo, { method: 'GET' }, 10000);
+        out.github = {
+          configured: true,
+          status: ghCheck.status,
+          canPush: Boolean(ghCheck.ok && ghCheck.data && ghCheck.data.permissions && ghCheck.data.permissions.push),
+        };
+      }
+    }
+    return res.status(200).json(out);
   }
 
   // Public map metadata for /key: the page shows one card per supported map
