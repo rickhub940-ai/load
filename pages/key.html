@@ -581,7 +581,10 @@
           })
           .catch(function () { /* the placeholder names stay */ });
       })
-      .catch(function () { renderMaps({}); });
+      .catch(function (err) {
+        var host = document.getElementById('mapList');
+        if (host) host.innerHTML = '<div class="map-empty">โหลดรายการสคริปต์ไม่สำเร็จ — ลองรีเฟรชหน้า</div>';
+      });
   }
 
   loadMaps();
