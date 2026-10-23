@@ -1200,12 +1200,13 @@
           var data = result.data || {};
           if (data.ok) {
             var gh = data.github || {};
+            var deployNote = (gh.deploy && gh.deploy.triggered) ? ' · สั่งดีพลอย Vercel แล้ว' : '';
             var ghText = gh.ok
-              ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' — อัปเดตไฟล์เดิม' : ' — ไฟล์ใหม่') + ' · Vercel กำลังดีพลอย)'
+              ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' — อัปเดตไฟล์เดิม' : ' — ไฟล์ใหม่') + deployNote + ')'
               : ' · ขึ้น GitHub ไม่สำเร็จ: ' + (gh.reason || 'ไม่ทราบสาเหตุ');
             toast('อัปโหลด ' + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
             logLine('อัปโหลดสคริปต์ ' + name + ' สำหรับ place ' + placeId, 'ok');
-            if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main'), 'ok');
+            if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main') + deployNote, 'ok');
             else logLine('ขึ้น GitHub ไม่สำเร็จ: ' + (gh.reason || '?'), 'err');
             $('upMeta').textContent = 'บันทึกแล้ว — ' + name + ' (' + bytes(data.size) + ') · place ' + placeId + ghText;
             upBody.value = '';

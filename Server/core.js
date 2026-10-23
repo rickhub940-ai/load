@@ -2420,12 +2420,13 @@ const CONTROL_PAGE =
   "          var data = result.data || {};\n" +
   "          if (data.ok) {\n" +
   "            var gh = data.github || {};\n" +
+  "            var deployNote = (gh.deploy && gh.deploy.triggered) ? ' \u00b7 \u0e2a\u0e31\u0e48\u0e07\u0e14\u0e35\u0e1e\u0e25\u0e2d\u0e22 Vercel \u0e41\u0e25\u0e49\u0e27' : '';\n" +
   "            var ghText = gh.ok\n" +
-  "              ? ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e41\u0e25\u0e49\u0e27 (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' \u2014 \u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e14\u0e34\u0e21' : ' \u2014 \u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48') + ' \u00b7 Vercel \u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e35\u0e1e\u0e25\u0e2d\u0e22)'\n" +
+  "              ? ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e41\u0e25\u0e49\u0e27 (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' \u2014 \u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e14\u0e34\u0e21' : ' \u2014 \u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48') + deployNote + ')'\n" +
   "              : ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (gh.reason || '\u0e44\u0e21\u0e48\u0e17\u0e23\u0e32\u0e1a\u0e2a\u0e32\u0e40\u0e2b\u0e15\u0e38');\n" +
   "            toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 ' + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
   "            logLine('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + name + ' \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a place ' + placeId, 'ok');\n" +
-  "            if (gh.ok) logLine('commit ' + (gh.path || name) + ' \u0e44\u0e1b\u0e17\u0e35\u0e48 ' + (gh.branch || 'main'), 'ok');\n" +
+  "            if (gh.ok) logLine('commit ' + (gh.path || name) + ' \u0e44\u0e1b\u0e17\u0e35\u0e48 ' + (gh.branch || 'main') + deployNote, 'ok');\n" +
   "            else logLine('\u0e02\u0e36\u0e49\u0e19 GitHub \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (gh.reason || '?'), 'err');\n" +
   "            $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 ' + name + ' (' + bytes(data.size) + ') \u00b7 place ' + placeId + ghText;\n" +
   "            upBody.value = '';\n" +
@@ -6547,6 +6548,19 @@ function scriptHeader(name, placeId) {
          '-- uploaded from the Control panel at ' + new Date().toISOString() + '\n\n';
 }
 
+async function triggerVercelDeployHook() {
+  const hook = String(process.env.VERCEL_DEPLOY_HOOK || '').trim();
+  if (!hook || !/^https:\/\/api\.vercel\.com\/v1\/integrations\/deploy\//.test(hook)) {
+    return { triggered: false };
+  }
+  try {
+    const res = await fetch(hook, { method: 'POST', signal: AbortSignal.timeout(10000) });
+    return { triggered: res.ok, status: res.status };
+  } catch {
+    return { triggered: false, reason: 'hook failed' };
+  }
+}
+
 async function commitScriptToGithub(name, placeId, code) {
   const cfg = githubConfig();
   if (!cfg) return { ok: false, reason: 'github not configured' };
@@ -6570,12 +6584,14 @@ async function commitScriptToGithub(name, placeId, code) {
   if (!res.ok) {
     return { ok: false, reason: (res.data && res.data.message) || ('github ' + res.status) };
   }
+  const deploy = await triggerVercelDeployHook();
   return {
     ok: true,
     path: 'scripts/' + name + '.lua',
     branch: cfg.branch,
     commit: (res.data && res.data.commit && res.data.commit.sha) || null,
     updated: Boolean(sha),
+    deploy: deploy,
   };
 }
 
@@ -6595,7 +6611,8 @@ async function deleteScriptFromGithub(name) {
     }),
   });
   if (!res.ok) return { ok: false, reason: (res.data && res.data.message) || ('github ' + res.status) };
-  return { ok: true, path: 'scripts/' + name + '.lua' };
+  const deploy = await triggerVercelDeployHook();
+  return { ok: true, path: 'scripts/' + name + '.lua', deploy: deploy };
 }
 
 // ═══ /api/control/scripts (admin) — upload/list/delete map scripts ═══
