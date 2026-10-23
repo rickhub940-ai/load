@@ -734,14 +734,15 @@
           <div class="sess-list" id="sessList"><div class="empty">ยังไม่มีเครื่องที่เชื่อมต่อ</div></div>
           <div style="border-top:1px solid var(--line);padding-top:12px" class="stack">
             <div>
-              <label for="testHwid">HWID ของเครื่องทดสอบ</label>
-              <div style="display:flex;gap:8px">
-                <input id="testHwid" placeholder="วาง HWID ที่ได้จาก executor" spellcheck="false" />
+              <label for="testHwid">HWID ของเครื่องทดสอบ (ผูกแบบ <span class="mono">hwid_ชื่อสคริปต์</span>)</label>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input id="testHwid" style="flex:2;min-width:160px" placeholder="วาง HWID ที่ได้จาก executor" spellcheck="false" />
+                <input id="testScript" style="flex:1;min-width:110px" value="main" placeholder="ชื่อสคริปต์ เช่น T" spellcheck="false" />
                 <button class="btn btn-sm" type="button" data-copy="hwidSnippet">คัดลอกโค้ดดู HWID</button>
               </div>
               <input id="hwidSnippet" readonly class="mono" style="margin-top:8px;font-size:.74rem"
                 value='print(gethwid and gethwid() or (get_hwid and get_hwid()) or "no getter")' />
-              <p class="hint" style="margin:6px 0 0">executor แนบ fingerprint header ของตัวเองมาด้วย — ticket ต้องผูกกับ HWID จริง มิฉะนั้นเซิร์ฟเวอร์จะเตะ <span class="mono">BAD HWID : ]</span></p>
+              <p class="hint" id="testBoundPreview" style="margin:6px 0 0">ระบบจะผูกคีย์และ ticket เป็น <span class="mono">&lt;hwid&gt;_&lt;ชื่อสคริปต์&gt;</span> อัตโนมัติ (เช่น <span class="mono">abc12345_T</span>)</p>
             </div>
 
             <div>
@@ -891,11 +892,11 @@
       <section class="card">
         <div class="card-h"><h2>แบน / ตัดสิทธิ์</h2></div>
         <div class="card-b stack">
-          <p class="hint">แบนมีผลทันทีกับคำขอถัดไปของ HWID / user / IP นั้น (ตรวจทุกครั้งใน /api/verify และ /api/script)</p>
+          <p class="hint">แบนมีผลทันทีกับคำขอถัดไป — ใส่ <span class="mono">hwid_ชื่อสคริปต์</span> เพื่อแบนเฉพาะสคริปต์นั้น หรือใส่ <span class="mono">hwid</span> เปล่าๆ เพื่อแบนทุกสคริปต์</p>
           <div>
             <label for="banType">ประเภท</label>
             <select id="banType">
-              <option value="hwid">HWID (ค่าจาก executor)</option>
+              <option value="hwid">HWID / hwid_ชื่อสคริปต์</option>
               <option value="hwidHash">HWID hash (64 hex)</option>
               <option value="user">User ID</option>
               <option value="ip">IP address</option>
@@ -1661,8 +1662,9 @@
   var CLIENT_TEMPLATE = `local BASE   = "%BASE%"     -- e.g. https://loader999xx-one.vercel.app
 local TICKET = "%TICKET%"   -- short-lived test ticket (30 min)
 local XKEY   = "%XORKEY%"   -- payload XOR key
-local HWID   = "%HWID%"     -- test hardware id that the ticket is bound to
-local SCRIPT = "main"
+local HWID   = "%HWID%"     -- raw executor hardware id (server binds HWID_SCRIPT)
+local BOUND  = "%BOUND%"    -- bound identifier: hwid_scriptName
+local SCRIPT = "%SCRIPT%"
 local BEAT   = 10           -- seconds between heartbeats
 
 local HttpService = game:GetService("HttpService")
@@ -1796,7 +1798,7 @@ local function Kick(message)
 end
 
 print("[999MS] test client online - beat every " .. BEAT .. "s")
-print("[999MS] hwid " .. HWID .. " (ต้องตรงกับค่าที่ผูก ticket ไม่เช่นนั้นโดนเตะ BAD HWID)")
+print("[999MS] bound hwid: " .. BOUND .. " (ต้องตรงกับ HWID จริงของเครื่อง ไม่เช่นนั้นโดนเตะ BAD HWID)")
 
 task.spawn(function()
     local pending
@@ -1828,24 +1830,45 @@ task.spawn(function()
     end
 end)`;
 
+  function refreshTestBoundPreview() {
+    var preview = $('testBoundPreview');
+    if (!preview) return;
+    var h = ($('testHwid') && $('testHwid').value || '').trim().toLowerCase();
+    var s = ($('testScript') && $('testScript').value || '').trim() || 'main';
+    if (!h) {
+      preview.innerHTML = 'ระบบจะผูกคีย์และ ticket เป็น <span class="mono">&lt;hwid&gt;_&lt;ชื่อสคริปต์&gt;</span> อัตโนมัติ (เช่น <span class="mono">abc12345_' + esc(s) + '</span>)';
+    } else {
+      var cleanH = (h.slice(-(s.length + 1)) === '_' + s.toLowerCase() && h.length - s.length - 1 >= 4)
+        ? h.slice(0, -(s.length + 1))
+        : h;
+      preview.innerHTML = 'ค่าที่จะผูกจริง: <span class="mono" style="color:var(--mint)">' + esc(cleanH + '_' + s) + '</span>';
+    }
+  }
+  if ($('testHwid')) $('testHwid').addEventListener('input', refreshTestBoundPreview);
+  if ($('testScript')) $('testScript').addEventListener('input', refreshTestBoundPreview);
+
   $('testClientBtn').addEventListener('click', function () {
     var btn = $('testClientBtn');
     var hwid = ($('testHwid').value || '').trim();
+    var sname = ($('testScript') && $('testScript').value || '').trim() || 'main';
     if (!hwid) { toast('ใส่ HWID ของเครื่องทดสอบก่อน', 'err'); return; }
     btn.disabled = true;
-    api('/api/control/test-ticket', { scriptName: 'main', hwid: hwid }).then(function (result) {
+    api('/api/control/test-ticket', { scriptName: sname, hwid: hwid }).then(function (result) {
       btn.disabled = false;
       var data = result.data || {};
       if (result.status !== 200 || !data.ok) { toast(data.reason || 'สร้าง ticket ไม่ได้', 'err'); return; }
+      var bound = data.boundHwid || (data.hwid + '_' + (data.scriptName || sname));
       $('testClientOut').value = CLIENT_TEMPLATE
         .split('%BASE%').join(location.origin)
         .split('%TICKET%').join(data.ticket)
         .split('%XORKEY%').join(data.xorKey)
-        .split('%HWID%').join(data.hwid);
+        .split('%HWID%').join(data.hwid)
+        .split('%BOUND%').join(bound)
+        .split('%SCRIPT%').join(data.scriptName || sname);
       $('testClientMeta').textContent = 'ticket หมดอายุใน ' + Math.round((data.ttlSeconds || 1800) / 60)
-        + ' นาที · hwid ' + data.hwid;
-      toast('สร้างแล้ว — คัดลอกไปวางใน executor', 'ok');
-      logLine('ออก ticket ทดสอบ ' + (data.hwid || ''), 'ok');
+        + ' นาที · ผูกกับ ' + bound;
+      toast('สร้างแล้ว — ผูกกับ ' + bound, 'ok');
+      logLine('ออก ticket ทดสอบ ' + bound, 'ok');
     }).catch(function () {
       btn.disabled = false;
       toast('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้', 'err');
