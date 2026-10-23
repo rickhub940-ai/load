@@ -3949,10 +3949,10 @@ const KEY_PAGE =
   "    background: linear-gradient(140deg, rgba(34,197,94,.35), rgba(255,255,255,.05));\n" +
   "    border: 1px solid var(--line-2); text-transform: uppercase;\n" +
   "  }\n" +
-  "  .map-text { min-width: 0; flex: 1; }\n" +
+  "  .map-text { min-width: 0; flex: 0 1 auto; }\n" +
   "  .map-name { font-size: .96rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
   "  .map-sub { font-family: var(--font-mono); font-size: .71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
-  "  .map-row .btn { flex-shrink: 0; padding: 8px 14px; font-size: .84rem; }\n" +
+  "  .map-row .btn { flex-shrink: 0; padding: 7px 14px; font-size: .84rem; margin-left: 2px; }\n" +
   "  .map-empty { padding: 30px 16px; text-align: center; color: var(--muted); font-size: .9rem; }\n" +
   "  .pill {\n" +
   "    font-size: .72rem; color: var(--muted); padding: 2px 10px;\n" +
@@ -4219,21 +4219,24 @@ const KEY_PAGE =
   "    if (!host) return;\n" +
   "    if (count) count.textContent = String(MAPS.length) + ' \u0e41\u0e21\u0e1e';\n" +
   "    if (!MAPS.length) {\n" +
-  "      host.innerHTML = '<div class=\"map-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 place id + \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c + \u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Control \u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e02\u0e36\u0e49\u0e19\u0e15\u0e23\u0e07\u0e19\u0e35\u0e49</div>';\n" +
+  "      host.innerHTML = '<div class=\"map-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Control \u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e02\u0e36\u0e49\u0e19\u0e15\u0e23\u0e07\u0e19\u0e35\u0e49</div>';\n" +
   "      return;\n" +
   "    }\n" +
   "    host.innerHTML = MAPS.map(function (game, index) {\n" +
   "      var meta = info[game.placeId] || {};\n" +
-  "      var name = meta.name || ('Place ' + game.placeId);\n" +
+  "      var name = meta.name || game.name;\n" +
   "      var icon = meta.icon || '';\n" +
   "      var thumb = icon\n" +
   "        ? '<img class=\"map-thumb\" id=\"thumb' + index + '\" src=\"' + esc(icon) + '\" alt=\"' + esc(name) + '\" loading=\"lazy\" referrerpolicy=\"no-referrer\" />'\n" +
-  "        : '<span class=\"map-initial\">' + esc(initialOf(meta.name, game.placeId)) + '</span>';\n" +
+  "        : '<span class=\"map-initial\">' + esc(initialOf(name, game.name)) + '</span>';\n" +
+  "      var sub = (meta.name && meta.name !== game.name)\n" +
+  "        ? '<div class=\"map-sub\">script ' + esc(game.name) + '</div>'\n" +
+  "        : '';\n" +
   "      return '<div class=\"map-row\">' +\n" +
   "        thumb +\n" +
   "        '<div class=\"map-text\">' +\n" +
   "          '<div class=\"map-name\">' + esc(name) + '</div>' +\n" +
-  "          '<div class=\"map-sub\">script ' + esc(game.name) + ' \u00b7 place ' + esc(game.placeId) + '</div>' +\n" +
+  "          sub +\n" +
   "        '</div>' +\n" +
   "        '<button class=\"btn btn-ghost\" type=\"button\" data-map=\"' + index + '\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</button>' +\n" +
   "      '</div>';\n" +
@@ -4247,7 +4250,7 @@ const KEY_PAGE =
   "        var meta = info[game.placeId] || {};\n" +
   "        var fallback = document.createElement('span');\n" +
   "        fallback.className = 'map-initial';\n" +
-  "        fallback.textContent = initialOf(meta.name, game.placeId);\n" +
+  "        fallback.textContent = initialOf(meta.name || game.name, game.name);\n" +
   "        if (img.parentNode) img.parentNode.replaceChild(fallback, img);\n" +
   "      });\n" +
   "    });\n" +
