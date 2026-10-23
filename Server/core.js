@@ -2399,7 +2399,7 @@ const CONTROL_PAGE =
   "        var data = result.data || {};\n" +
   "        if (data.ok) {\n" +
   "          toast('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
-  "          logLine('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' (place ' + item.placeId + ')', 'ok');\n" +
+  "          logLine('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' (place ' + item.placeId + ')' + ((data.github && data.github.ok) ? ' \u00b7 \u0e25\u0e1a\u0e44\u0e1f\u0e25\u0e4c\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 GitHub \u0e14\u0e49\u0e27\u0e22' : ''), 'ok');\n" +
   "        } else {\n" +
   "          toast('\u0e25\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (data.reason || result.status), 'err');\n" +
   "        }\n" +
@@ -2419,9 +2419,15 @@ const CONTROL_PAGE =
   "        .then(function (result) {\n" +
   "          var data = result.data || {};\n" +
   "          if (data.ok) {\n" +
+  "            var gh = data.github || {};\n" +
+  "            var ghText = gh.ok\n" +
+  "              ? ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e41\u0e25\u0e49\u0e27 (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' \u2014 \u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e14\u0e34\u0e21' : ' \u2014 \u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48') + ' \u00b7 Vercel \u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e35\u0e1e\u0e25\u0e2d\u0e22)'\n" +
+  "              : ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (gh.reason || '\u0e44\u0e21\u0e48\u0e17\u0e23\u0e32\u0e1a\u0e2a\u0e32\u0e40\u0e2b\u0e15\u0e38');\n" +
   "            toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 ' + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
   "            logLine('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + name + ' \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a place ' + placeId, 'ok');\n" +
-  "            $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 ' + name + ' (' + bytes(data.size) + ') \u00b7 place ' + placeId;\n" +
+  "            if (gh.ok) logLine('commit ' + (gh.path || name) + ' \u0e44\u0e1b\u0e17\u0e35\u0e48 ' + (gh.branch || 'main'), 'ok');\n" +
+  "            else logLine('\u0e02\u0e36\u0e49\u0e19 GitHub \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (gh.reason || '?'), 'err');\n" +
+  "            $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 ' + name + ' (' + bytes(data.size) + ') \u00b7 place ' + placeId + ghText;\n" +
   "            upBody.value = '';\n" +
   "            if (upFile) upFile.value = '';\n" +
   "            return loadScripts();\n" +
@@ -6498,6 +6504,100 @@ async function handleGameInfo(req, res) {
   });
 }
 
+// ═══ GitHub mirror of uploaded scripts ═══
+// Uploads are also committed to scripts/<name>.lua so the repo stays the
+// history of everything that was ever served. Vercel watches the production
+// branch, so the commit also refreshes the deployed bundle.
+const GITHUB_API = 'https://api.github.com';
+
+function githubConfig() {
+  const token = String(process.env.GITHUB_TOKEN || '').trim();
+  const repo = String(process.env.GITHUB_REPO || 'rickhub940-ai/load').trim();
+  const branch = String(process.env.GITHUB_BRANCH || 'main').trim() || 'main';
+  if (!token || !/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) return null;
+  return { token: token, repo: repo, branch: branch };
+}
+
+async function githubRequest(pathname, init) {
+  const cfg = githubConfig();
+  if (!cfg) return { ok: false, status: 0, data: null, reason: 'github not configured' };
+  try {
+    const options = Object.assign({}, init || {});
+    const res = await fetch(GITHUB_API + pathname, Object.assign(options, {
+      signal: AbortSignal.timeout(15000),
+      headers: Object.assign({
+        authorization: 'Bearer ' + cfg.token,
+        accept: 'application/vnd.github+json',
+        'x-github-api-version': '2022-11-28',
+        'user-agent': '999ms-loader',
+      }, options.headers || {}),
+    }));
+    const text = await res.text();
+    let data = null;
+    if (text) { try { data = JSON.parse(text); } catch { data = null; } }
+    return { ok: res.ok, status: res.status, data: data };
+  } catch (err) {
+    return { ok: false, status: 0, data: null, reason: 'github request failed' };
+  }
+}
+
+function scriptHeader(name, placeId) {
+  return '-- 999MS script: ' + name + '\n' +
+         '-- place: ' + placeId + '\n' +
+         '-- uploaded from the Control panel at ' + new Date().toISOString() + '\n\n';
+}
+
+async function commitScriptToGithub(name, placeId, code) {
+  const cfg = githubConfig();
+  if (!cfg) return { ok: false, reason: 'github not configured' };
+  const url = '/repos/' + cfg.repo + '/contents/scripts/' + name + '.lua';
+
+  const existing = await githubRequest(url + '?ref=' + encodeURIComponent(cfg.branch), { method: 'GET' });
+  const sha = (existing.ok && existing.data && existing.data.sha) ? existing.data.sha : null;
+
+  const payload = {
+    message: 'script: ' + name + ' (place ' + placeId + ')',
+    content: Buffer.from(scriptHeader(name, placeId) + code, 'utf8').toString('base64'),
+    branch: cfg.branch,
+  };
+  if (sha) payload.sha = sha;
+
+  const res = await githubRequest(url, {
+    method: 'PUT',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) {
+    return { ok: false, reason: (res.data && res.data.message) || ('github ' + res.status) };
+  }
+  return {
+    ok: true,
+    path: 'scripts/' + name + '.lua',
+    branch: cfg.branch,
+    commit: (res.data && res.data.commit && res.data.commit.sha) || null,
+    updated: Boolean(sha),
+  };
+}
+
+async function deleteScriptFromGithub(name) {
+  const cfg = githubConfig();
+  if (!cfg) return { ok: false, reason: 'github not configured' };
+  const url = '/repos/' + cfg.repo + '/contents/scripts/' + name + '.lua';
+  const existing = await githubRequest(url + '?ref=' + encodeURIComponent(cfg.branch), { method: 'GET' });
+  if (!existing.ok || !existing.data || !existing.data.sha) return { ok: false, reason: 'not on github' };
+  const res = await githubRequest(url, {
+    method: 'DELETE',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({
+      message: 'script: remove ' + name,
+      sha: existing.data.sha,
+      branch: cfg.branch,
+    }),
+  });
+  if (!res.ok) return { ok: false, reason: (res.data && res.data.message) || ('github ' + res.status) };
+  return { ok: true, path: 'scripts/' + name + '.lua' };
+}
+
 // ═══ /api/control/scripts (admin) — upload/list/delete map scripts ═══
 // Scripts live in Supabase because the serverless filesystem is read-only.
 // /api/script serves an uploaded body before falling back to scripts/<name>.lua.
@@ -6601,7 +6701,14 @@ async function handleControlScripts(req, res) {
     if (saved === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'write failed' });
     scriptsListCache = { at: 0, items: [], scope: 'memory' };
     noteEvent('script_save', 'saved ' + name + ' for place ' + placeId);
-    return res.status(200).json({ ok: true, placeId: placeId, name: name, size: Buffer.byteLength(code, 'utf8') });
+    const github = await commitScriptToGithub(name, placeId, code);
+    return res.status(200).json({
+      ok: true,
+      placeId: placeId,
+      name: name,
+      size: Buffer.byteLength(code, 'utf8'),
+      github: github,
+    });
   }
 
   if (op === 'delete') {
@@ -6617,7 +6724,8 @@ async function handleControlScripts(req, res) {
     if (done === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'delete failed' });
     scriptsListCache = { at: 0, items: [], scope: 'memory' };
     noteEvent('script_delete', 'deleted ' + name + ' for place ' + placeId);
-    return res.status(200).json({ ok: true });
+    const githubDelete = await deleteScriptFromGithub(name);
+    return res.status(200).json({ ok: true, github: githubDelete });
   }
 
   return res.status(400).json({ ok: false, reason: 'unknown op' });
