@@ -823,7 +823,7 @@
           <span class="pill hide-sm">place id · ชื่อสคริปต์ · ไฟล์</span>
         </div>
         <div class="card-b stack">
-          <p class="hint">อัปโหลดสคริปต์แล้วจะไปโชว์เป็นการ์ดในหน้า <span class="mono">/key</span> อัตโนมัติ — รูปกับชื่อแมพดึงจาก Roblox ตาม place id ที่ใส่ไว้</p>
+          <p class="hint">อัปโหลดสคริปต์แล้วจะไปโชว์เป็นการ์ดในหน้า <span class="mono">/key</span> อัตโนมัติ — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> รองรับไฟล์ใหญ่สูงสุด 25 MB) ส่วน Supabase เก็บแค่ชื่อแมพ + Place ID ไม่กินโควตา</p>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
             <div style="flex:1;min-width:130px">
               <label for="upPlace">Place ID</label>
@@ -1113,6 +1113,15 @@
   /* ── uploaded map scripts ── */
   var upFile = $('upFile');
   var upBody = $('upBody');
+  var selectedFileCode = null;
+  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';
+
+  if (upBody) {
+    upBody.addEventListener('input', function () {
+      selectedFileCode = null;
+      upBody.placeholder = defaultBodyPlaceholder;
+    });
+  }
 
   if (upFile) {
     upFile.addEventListener('change', function () {
@@ -1120,11 +1129,46 @@
       if (!file) return;
       var reader = new FileReader();
       reader.onload = function () {
-        upBody.value = String(reader.result || '');
-        $('upMeta').textContent = 'โหลดไฟล์ ' + file.name + ' (' + file.size + ' ไบต์) แล้ว — กดอัปโหลดสคริปต์';
+        var content = String(reader.result || '');
+        selectedFileCode = content;
+        if (upBody) {
+          if (content.length <= 131072) {
+            upBody.value = content;
+            upBody.placeholder = defaultBodyPlaceholder;
+          } else {
+            upBody.value = '';
+            upBody.placeholder = 'เลือกไฟล์ขนาดใหญ่ ' + file.name + ' (' + bytes(file.size) + ') พร้อมอัปโหลดแล้ว — ซ่อนตัวอย่างเพื่อไม่ให้เบราว์เซอร์ค้าง';
+          }
+        }
+        var upNameInput = $('upName');
+        if (upNameInput && !upNameInput.value.trim()) {
+          var base = file.name.replace(/\.(lua|luau|txt)$/i, '').replace(/[^a-zA-Z0-9_-]/g, '');
+          if (base) upNameInput.value = base.slice(0, 64);
+        }
+        $('upMeta').textContent = 'โหลดไฟล์ ' + file.name + ' (' + bytes(file.size) + ') แล้ว — กดอัปโหลดสคริปต์เพื่อส่งขึ้น GitHub';
       };
       reader.readAsText(file);
     });
+  }
+
+  function compressGzipBase64(text) {
+    if (typeof CompressionStream === 'undefined' || text.length < 16384) {
+      return Promise.resolve(null);
+    }
+    try {
+      var stream = new Blob([text]).stream().pipeThrough(new CompressionStream('gzip'));
+      return new Response(stream).arrayBuffer().then(function (ab) {
+        var u8 = new Uint8Array(ab);
+        var chunks = [];
+        var step = 0x8000;
+        for (var i = 0; i < u8.length; i += step) {
+          chunks.push(String.fromCharCode.apply(null, u8.subarray(i, i + step)));
+        }
+        return btoa(chunks.join(''));
+      }).catch(function () { return null; });
+    } catch (e) {
+      return Promise.resolve(null);
+    }
   }
 
   function bytes(value) {
@@ -1189,32 +1233,51 @@
 
   if ($('upSave')) {
     $('upSave').addEventListener('click', function () {
+      var btn = $('upSave');
       var placeId = ($('upPlace').value || '').trim();
       var name = ($('upName').value || '').trim();
-      var code = upBody.value || '';
+      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');
       if (!placeId) { toast('ใส่ Place ID ก่อน', 'err'); return; }
       if (!name) { toast('ใส่ชื่อสคริปต์ก่อน', 'err'); return; }
       if (!code.trim()) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน', 'err'); return; }
-      api('/api/control/scripts', { op: 'save', placeId: placeId, name: name, body: code })
-        .then(function (result) {
-          var data = result.data || {};
-          if (data.ok) {
-            var gh = data.github || {};
-            var deployNote = (gh.deploy && gh.deploy.triggered) ? ' · สั่งดีพลอย Vercel แล้ว' : '';
-            var ghText = gh.ok
-              ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' — อัปเดตไฟล์เดิม' : ' — ไฟล์ใหม่') + deployNote + ')'
-              : ' · ขึ้น GitHub ไม่สำเร็จ: ' + (gh.reason || 'ไม่ทราบสาเหตุ');
-            toast('อัปโหลด ' + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
-            logLine('อัปโหลดสคริปต์ ' + name + ' สำหรับ place ' + placeId, 'ok');
-            if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main') + deployNote, 'ok');
-            else logLine('ขึ้น GitHub ไม่สำเร็จ: ' + (gh.reason || '?'), 'err');
-            $('upMeta').textContent = 'บันทึกแล้ว — ' + name + ' (' + bytes(data.size) + ') · place ' + placeId + ghText;
-            upBody.value = '';
-            if (upFile) upFile.value = '';
-            return loadScripts();
-          }
-          toast('อัปโหลดไม่สำเร็จ: ' + (data.reason || result.status), 'err');
-        });
+      btn.disabled = true;
+      var origLabel = btn.textContent;
+      btn.textContent = 'กำลังอัปโหลด…';
+      $('upMeta').textContent = 'กำลังบีบอัดและส่งไฟล์ขึ้น GitHub (' + bytes(code.length) + ')…';
+      compressGzipBase64(code).then(function (gzB64) {
+        var payload = { op: 'save', placeId: placeId, name: name };
+        if (gzB64) payload.bodyGzip = gzB64;
+        else payload.body = code;
+        return api('/api/control/scripts', payload);
+      }).then(function (result) {
+        btn.disabled = false;
+        btn.textContent = origLabel;
+        var data = result.data || {};
+        if (data.ok) {
+          var gh = data.github || {};
+          var deployNote = (gh.deploy && gh.deploy.triggered) ? ' · สั่งดีพลอย Vercel แล้ว' : '';
+          var ghText = gh.ok
+            ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' — อัปเดตไฟล์เดิม' : ' — ไฟล์ใหม่') + deployNote + ')'
+            : '';
+          toast('อัปโหลด ' + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
+          logLine('อัปโหลดสคริปต์ ' + name + ' (' + bytes(data.size) + ') สำหรับ place ' + placeId, 'ok');
+          if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main') + deployNote, 'ok');
+          $('upMeta').textContent = 'บันทึกแล้ว — ' + name + ' (' + bytes(data.size) + ') · place ' + placeId + ghText + ' · ไม่เปลือง Supabase';
+          selectedFileCode = null;
+          upBody.value = '';
+          upBody.placeholder = defaultBodyPlaceholder;
+          if (upFile) upFile.value = '';
+          return loadScripts();
+        }
+        var errMsg = data.reason || ('HTTP ' + result.status);
+        $('upMeta').textContent = 'อัปโหลดไม่สำเร็จ: ' + errMsg;
+        logLine('อัปโหลดไม่สำเร็จ: ' + errMsg, 'err');
+        toast('อัปโหลดไม่สำเร็จ: ' + errMsg, 'err');
+      }).catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = origLabel;
+        toast('อัปโหลดไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
+      });
     });
   }
 

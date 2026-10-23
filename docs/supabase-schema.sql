@@ -66,9 +66,22 @@ create table if not exists public.links (
   expires_at timestamptz
 );
 
+-- Metadata-only map directory (no script body column: .lua source lives in
+-- GitHub scripts/<script_name>.lua so Supabase storage & egress stay ~0).
+create table if not exists public.scripts (
+  id uuid primary key default gen_random_uuid(),
+  place_id text not null,
+  script_name text not null,
+  size integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (place_id, script_name)
+);
+
 alter table public.executions enable row level security;
 alter table public.exec_commands enable row level security;
 alter table public.links enable row level security;
+alter table public.scripts enable row level security;
 
 -- ──────────────────────────── functions ───────────────────────────
 -- All of them are SECURITY DEFINER so the service-role key can use them

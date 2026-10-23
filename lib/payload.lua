@@ -658,7 +658,7 @@ local function SendWire(packed, expectedBaseUrl)
     if type(status) ~= "number" or type(responseBody) ~= "string" then
         return nil, "Malformed response"
     end
-    if #responseBody > 2 * 1024 * 1024 then return nil, "Response too large" end
+    if #responseBody > 4 * 1024 * 1024 then return nil, "Response too large" end
     local decoded = JsonDecode(responseBody)
     if type(decoded) ~= "table" then return nil, "Invalid response" end
     if decoded.w == nil and status ~= 200 then
