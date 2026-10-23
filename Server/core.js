@@ -6306,8 +6306,36 @@ const secret = () => {
   if (!v) throw new Error('Missing PLATO_SECRET');
   return v;
 };
-const host = () =>
-  (process.env.PLATO_API_HOST || 'https://api.platoboost.net').replace(/\/$/, '');
+// Platoboost serves the same API from api.platoboost.com (primary, the host the
+// official drivers use) and api.platoboost.net (fallback when the primary is
+// unreachable). platoboost.app is only the website/key gateway, never the API.
+// Probe the primary and fall back; PLATO_API_HOST pins one host and skips it.
+const PLATO_HOSTS = ['https://api.platoboost.com', 'https://api.platoboost.net'];
+const PLATO_HOST_TTL = 10 * 60 * 1000;
+let platoHost = null;
+let platoHostAt = 0;
+
+const pinnedHost = () => String(process.env.PLATO_API_HOST || '').replace(/\/$/, '');
+
+async function host() {
+  const pinned = pinnedHost();
+  if (pinned) return pinned;
+  if (platoHost && Date.now() - platoHostAt < PLATO_HOST_TTL) return platoHost;
+  for (const candidate of PLATO_HOSTS) {
+    try {
+      const res = await fetch(candidate + '/public/connectivity', { signal: AbortSignal.timeout(4000) });
+      const body = await res.json().catch(function () { return null; });
+      if (res.ok && body && body.success === true) {
+        platoHost = candidate;
+        platoHostAt = Date.now();
+        return candidate;
+      }
+    } catch (err) { /* try the next host */ }
+  }
+  platoHost = PLATO_HOSTS[PLATO_HOSTS.length - 1];
+  platoHostAt = Date.now();
+  return platoHost;
+}
 
 async function platoFetch(url, options = {}) {
   const res = await fetch(url, {
@@ -6345,7 +6373,7 @@ async function verifyKey(key, hwid) {
 
   const identifier = sha256(normalizeIdentifier(hwid));
   const nonce = crypto.randomBytes(16).toString('hex');
-  const url = new URL(`/public/whitelist/${encodeURIComponent(service())}`, host());
+  const url = new URL(`/public/whitelist/${encodeURIComponent(service())}`, await host());
   url.searchParams.set('identifier', identifier);
   url.searchParams.set('key', key.trim());
   url.searchParams.set('nonce', nonce);
@@ -6361,7 +6389,7 @@ async function verifyKey(key, hwid) {
   if (result.data?.data?.valid !== true && key.trim().startsWith('KEY_')) {
     const redeemNonce = crypto.randomBytes(16).toString('hex');
     result = await platoFetch(
-      `${host()}/public/redeem/${encodeURIComponent(service())}`,
+      `${await host()}/public/redeem/${encodeURIComponent(service())}`,
       {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -6388,7 +6416,7 @@ async function createLink(hwid) {
   if (typeof hwid !== 'string' || !hwid.trim() || hwid.length > 512)
     throw new Error('Invalid device');
 
-  const result = await platoFetch(`${host()}/public/start`, {
+  const result = await platoFetch(`${await host()}/public/start`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ service: service(), identifier: sha256(normalizeIdentifier(hwid)) }),
