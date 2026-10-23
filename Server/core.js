@@ -4174,9 +4174,12 @@ const KEY_PAGE =
   "        }).map(function (item) {\n" +
   "          return { placeId: String(item.placeId), name: String(item.name) };\n" +
   "        });\n" +
+  "        // Render straight away (name falls back to \"Place <id>\"), then fill in\n" +
+  "        // the Roblox name and icon when that lookup comes back.\n" +
+  "        renderMaps({});\n" +
   "        var ids = [];\n" +
   "        MAPS.forEach(function (game) { if (ids.indexOf(game.placeId) === -1) ids.push(game.placeId); });\n" +
-  "        if (!ids.length) { renderMaps({}); return; }\n" +
+  "        if (!ids.length) return;\n" +
   "        return fetch('/api/games?ids=' + ids.join(','), { headers: { accept: 'application/json' } })\n" +
   "          .then(function (res) { return res.ok ? res.json() : null; })\n" +
   "          .then(function (meta) {\n" +
@@ -4187,7 +4190,8 @@ const KEY_PAGE =
   "              });\n" +
   "            }\n" +
   "            renderMaps(info);\n" +
-  "          });\n" +
+  "          })\n" +
+  "          .catch(function () { /* the placeholder names stay */ });\n" +
   "      })\n" +
   "      .catch(function () { renderMaps({}); });\n" +
   "  }\n" +

@@ -562,9 +562,12 @@
         }).map(function (item) {
           return { placeId: String(item.placeId), name: String(item.name) };
         });
+        // Render straight away (name falls back to "Place <id>"), then fill in
+        // the Roblox name and icon when that lookup comes back.
+        renderMaps({});
         var ids = [];
         MAPS.forEach(function (game) { if (ids.indexOf(game.placeId) === -1) ids.push(game.placeId); });
-        if (!ids.length) { renderMaps({}); return; }
+        if (!ids.length) return;
         return fetch('/api/games?ids=' + ids.join(','), { headers: { accept: 'application/json' } })
           .then(function (res) { return res.ok ? res.json() : null; })
           .then(function (meta) {
@@ -575,7 +578,8 @@
               });
             }
             renderMaps(info);
-          });
+          })
+          .catch(function () { /* the placeholder names stay */ });
       })
       .catch(function () { renderMaps({}); });
   }
