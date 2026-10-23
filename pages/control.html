@@ -816,6 +816,45 @@
       </section>
 
       <section class="card">
+        <div class="card-h">
+          <h2>สคริปต์ของแมพ</h2>
+          <span class="pill" id="scriptCount">0</span>
+          <span class="spacer"></span>
+          <span class="pill hide-sm">place id · ชื่อสคริปต์ · ไฟล์</span>
+        </div>
+        <div class="card-b stack">
+          <p class="hint">อัปโหลดสคริปต์แล้วจะไปโชว์เป็นการ์ดในหน้า <span class="mono">/key</span> อัตโนมัติ — รูปกับชื่อแมพดึงจาก Roblox ตาม place id ที่ใส่ไว้</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div style="flex:1;min-width:130px">
+              <label for="upPlace">Place ID</label>
+              <input id="upPlace" inputmode="numeric" spellcheck="false" placeholder="1234567890" />
+            </div>
+            <div style="flex:1;min-width:130px">
+              <label for="upName">ชื่อสคริปต์</label>
+              <input id="upName" spellcheck="false" placeholder="main" />
+            </div>
+          </div>
+          <div>
+            <label for="upFile">ไฟล์สคริปต์ (.lua / .txt)</label>
+            <input id="upFile" type="file" accept=".lua,.txt,text/plain,.luau" />
+          </div>
+          <div>
+            <label for="upBody">หรือวางโค้ดสคริปต์ตรงนี้</label>
+            <textarea id="upBody" rows="7" spellcheck="false" class="mono" style="font-size:.74rem" placeholder="print('hello from 999MS')"></textarea>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" id="upSave" type="button">อัปโหลดสคริปต์</button>
+            <button class="btn btn-sm btn-ghost" id="upRefresh" type="button">รีเฟรชรายการ</button>
+          </div>
+          <p class="hint" id="upMeta" style="margin:0"></p>
+          <div style="border-top:1px solid var(--line);padding-top:12px">
+            <div class="k" style="font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">สคริปต์ที่อัปโหลดแล้ว</div>
+            <div class="ban-list" id="scriptList"><div class="hint" style="margin:0">—</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
         <div class="card-h"><h2>บันทึกการทำงาน</h2><span class="spacer"></span>
           <button class="btn btn-sm btn-ghost" id="clearLog" type="button">ล้าง</button>
         </div>
@@ -1071,6 +1110,109 @@
     if (state.timer) clearInterval(state.timer);
   }
 
+  /* ── uploaded map scripts ── */
+  var upFile = $('upFile');
+  var upBody = $('upBody');
+
+  if (upFile) {
+    upFile.addEventListener('change', function () {
+      var file = upFile.files && upFile.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        upBody.value = String(reader.result || '');
+        $('upMeta').textContent = 'โหลดไฟล์ ' + file.name + ' (' + file.size + ' ไบต์) แล้ว — กดอัปโหลดสคริปต์';
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  function bytes(value) {
+    var n = Number(value) || 0;
+    if (n < 1024) return n + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    return (n / 1024 / 1024).toFixed(1) + ' MB';
+  }
+
+  function renderScripts(items) {
+    var host = $('scriptList');
+    $('scriptCount').textContent = String(items.length);
+    if (!items.length) {
+      host.innerHTML = '<div class="hint" style="margin:0">ยังไม่มีสคริปต์ — อัปโหลดแล้วจะไปโชว์ในหน้า /key</div>';
+      return;
+    }
+    host.innerHTML = items.map(function (item, index) {
+      var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '—';
+      return '<div class="ban-item">' +
+        '<div style="min-width:0">' +
+          '<b class="mono">' + esc(item.name) + '</b>' +
+          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
+        '</div>' +
+        '<span class="spacer"></span>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-del="' + index + '">ลบ</button>' +
+      '</div>';
+    }).join('');
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = items[Number(btn.getAttribute('data-del'))];
+        if (!item) return;
+        deleteScript(item);
+      });
+    });
+  }
+
+  function loadScripts() {
+    return api('/api/control/scripts', { op: 'list' }).then(function (result) {
+      var data = result.data || {};
+      if (!result.status || result.status >= 400 || !data.ok) {
+        renderScripts([]);
+        if (data && data.note) $('upMeta').textContent = data.note;
+        return;
+      }
+      renderScripts(data.items || []);
+    }).catch(function () { renderScripts([]); });
+  }
+
+  function deleteScript(item) {
+    api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })
+      .then(function (result) {
+        var data = result.data || {};
+        if (data.ok) {
+          toast('ลบสคริปต์ ' + item.name + ' แล้ว', 'ok');
+          logLine('ลบสคริปต์ ' + item.name + ' (place ' + item.placeId + ')', 'ok');
+        } else {
+          toast('ลบไม่สำเร็จ: ' + (data.reason || result.status), 'err');
+        }
+        return loadScripts();
+      });
+  }
+
+  if ($('upSave')) {
+    $('upSave').addEventListener('click', function () {
+      var placeId = ($('upPlace').value || '').trim();
+      var name = ($('upName').value || '').trim();
+      var code = upBody.value || '';
+      if (!placeId) { toast('ใส่ Place ID ก่อน', 'err'); return; }
+      if (!name) { toast('ใส่ชื่อสคริปต์ก่อน', 'err'); return; }
+      if (!code.trim()) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน', 'err'); return; }
+      api('/api/control/scripts', { op: 'save', placeId: placeId, name: name, body: code })
+        .then(function (result) {
+          var data = result.data || {};
+          if (data.ok) {
+            toast('อัปโหลด ' + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
+            logLine('อัปโหลดสคริปต์ ' + name + ' สำหรับ place ' + placeId, 'ok');
+            $('upMeta').textContent = 'บันทึกแล้ว — ' + name + ' (' + bytes(data.size) + ') · place ' + placeId;
+            upBody.value = '';
+            if (upFile) upFile.value = '';
+            return loadScripts();
+          }
+          toast('อัปโหลดไม่สำเร็จ: ' + (data.reason || result.status), 'err');
+        });
+    });
+  }
+
+  if ($('upRefresh')) $('upRefresh').addEventListener('click', function () { loadScripts(); });
+
   /* ── login ── */
   gateForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -1145,6 +1287,7 @@
     }).catch(function () {});
 
     loadSessions();
+    loadScripts();
 
     api('/api/control/bans').then(function (result) {
       if (result.status !== 200) return;

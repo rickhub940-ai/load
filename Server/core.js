@@ -2036,6 +2036,45 @@ const CONTROL_PAGE =
   "      </section>\n" +
   "\n" +
   "      <section class=\"card\">\n" +
+  "        <div class=\"card-h\">\n" +
+  "          <h2>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e</h2>\n" +
+  "          <span class=\"pill\" id=\"scriptCount\">0</span>\n" +
+  "          <span class=\"spacer\"></span>\n" +
+  "          <span class=\"pill hide-sm\">place id \u00b7 \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u00b7 \u0e44\u0e1f\u0e25\u0e4c</span>\n" +
+  "        </div>\n" +
+  "        <div class=\"card-b stack\">\n" +
+  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e1b\u0e42\u0e0a\u0e27\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 <span class=\"mono\">/key</span> \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u2014 \u0e23\u0e39\u0e1b\u0e01\u0e31\u0e1a\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01 Roblox \u0e15\u0e32\u0e21 place id \u0e17\u0e35\u0e48\u0e43\u0e2a\u0e48\u0e44\u0e27\u0e49</p>\n" +
+  "          <div style=\"display:flex;gap:10px;flex-wrap:wrap\">\n" +
+  "            <div style=\"flex:1;min-width:130px\">\n" +
+  "              <label for=\"upPlace\">Place ID</label>\n" +
+  "              <input id=\"upPlace\" inputmode=\"numeric\" spellcheck=\"false\" placeholder=\"1234567890\" />\n" +
+  "            </div>\n" +
+  "            <div style=\"flex:1;min-width:130px\">\n" +
+  "              <label for=\"upName\">\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</label>\n" +
+  "              <input id=\"upName\" spellcheck=\"false\" placeholder=\"main\" />\n" +
+  "            </div>\n" +
+  "          </div>\n" +
+  "          <div>\n" +
+  "            <label for=\"upFile\">\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c (.lua / .txt)</label>\n" +
+  "            <input id=\"upFile\" type=\"file\" accept=\".lua,.txt,text/plain,.luau\" />\n" +
+  "          </div>\n" +
+  "          <div>\n" +
+  "            <label for=\"upBody\">\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e32\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e15\u0e23\u0e07\u0e19\u0e35\u0e49</label>\n" +
+  "            <textarea id=\"upBody\" rows=\"7\" spellcheck=\"false\" class=\"mono\" style=\"font-size:.74rem\" placeholder=\"print('hello from 999MS')\"></textarea>\n" +
+  "          </div>\n" +
+  "          <div class=\"row\">\n" +
+  "            <button class=\"btn btn-primary\" id=\"upSave\" type=\"button\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
+  "            <button class=\"btn btn-sm btn-ghost\" id=\"upRefresh\" type=\"button\">\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23</button>\n" +
+  "          </div>\n" +
+  "          <p class=\"hint\" id=\"upMeta\" style=\"margin:0\"></p>\n" +
+  "          <div style=\"border-top:1px solid var(--line);padding-top:12px\">\n" +
+  "            <div class=\"k\" style=\"font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px\">\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e41\u0e25\u0e49\u0e27</div>\n" +
+  "            <div class=\"ban-list\" id=\"scriptList\"><div class=\"hint\" style=\"margin:0\">\u2014</div></div>\n" +
+  "          </div>\n" +
+  "        </div>\n" +
+  "      </section>\n" +
+  "\n" +
+  "      <section class=\"card\">\n" +
   "        <div class=\"card-h\"><h2>\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19</h2><span class=\"spacer\"></span>\n" +
   "          <button class=\"btn btn-sm btn-ghost\" id=\"clearLog\" type=\"button\">\u0e25\u0e49\u0e32\u0e07</button>\n" +
   "        </div>\n" +
@@ -2291,6 +2330,109 @@ const CONTROL_PAGE =
   "    if (state.timer) clearInterval(state.timer);\n" +
   "  }\n" +
   "\n" +
+  "  /* \u2500\u2500 uploaded map scripts \u2500\u2500 */\n" +
+  "  var upFile = $('upFile');\n" +
+  "  var upBody = $('upBody');\n" +
+  "\n" +
+  "  if (upFile) {\n" +
+  "    upFile.addEventListener('change', function () {\n" +
+  "      var file = upFile.files && upFile.files[0];\n" +
+  "      if (!file) return;\n" +
+  "      var reader = new FileReader();\n" +
+  "      reader.onload = function () {\n" +
+  "        upBody.value = String(reader.result || '');\n" +
+  "        $('upMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e1f\u0e25\u0e4c ' + file.name + ' (' + file.size + ' \u0e44\u0e1a\u0e15\u0e4c) \u0e41\u0e25\u0e49\u0e27 \u2014 \u0e01\u0e14\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
+  "      };\n" +
+  "      reader.readAsText(file);\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  function bytes(value) {\n" +
+  "    var n = Number(value) || 0;\n" +
+  "    if (n < 1024) return n + ' B';\n" +
+  "    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';\n" +
+  "    return (n / 1024 / 1024).toFixed(1) + ' MB';\n" +
+  "  }\n" +
+  "\n" +
+  "  function renderScripts(items) {\n" +
+  "    var host = $('scriptList');\n" +
+  "    $('scriptCount').textContent = String(items.length);\n" +
+  "    if (!items.length) {\n" +
+  "      host.innerHTML = '<div class=\"hint\" style=\"margin:0\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e1b\u0e42\u0e0a\u0e27\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 /key</div>';\n" +
+  "      return;\n" +
+  "    }\n" +
+  "    host.innerHTML = items.map(function (item, index) {\n" +
+  "      var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '\u2014';\n" +
+  "      return '<div class=\"ban-item\">' +\n" +
+  "        '<div style=\"min-width:0\">' +\n" +
+  "          '<b class=\"mono\">' + esc(item.name) + '</b>' +\n" +
+  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
+  "        '</div>' +\n" +
+  "        '<span class=\"spacer\"></span>' +\n" +
+  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-del=\"' + index + '\">\u0e25\u0e1a</button>' +\n" +
+  "      '</div>';\n" +
+  "    }).join('');\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {\n" +
+  "      btn.addEventListener('click', function () {\n" +
+  "        var item = items[Number(btn.getAttribute('data-del'))];\n" +
+  "        if (!item) return;\n" +
+  "        deleteScript(item);\n" +
+  "      });\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  function loadScripts() {\n" +
+  "    return api('/api/control/scripts', { op: 'list' }).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      if (!result.status || result.status >= 400 || !data.ok) {\n" +
+  "        renderScripts([]);\n" +
+  "        if (data && data.note) $('upMeta').textContent = data.note;\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      renderScripts(data.items || []);\n" +
+  "    }).catch(function () { renderScripts([]); });\n" +
+  "  }\n" +
+  "\n" +
+  "  function deleteScript(item) {\n" +
+  "    api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })\n" +
+  "      .then(function (result) {\n" +
+  "        var data = result.data || {};\n" +
+  "        if (data.ok) {\n" +
+  "          toast('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
+  "          logLine('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' (place ' + item.placeId + ')', 'ok');\n" +
+  "        } else {\n" +
+  "          toast('\u0e25\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (data.reason || result.status), 'err');\n" +
+  "        }\n" +
+  "        return loadScripts();\n" +
+  "      });\n" +
+  "  }\n" +
+  "\n" +
+  "  if ($('upSave')) {\n" +
+  "    $('upSave').addEventListener('click', function () {\n" +
+  "      var placeId = ($('upPlace').value || '').trim();\n" +
+  "      var name = ($('upName').value || '').trim();\n" +
+  "      var code = upBody.value || '';\n" +
+  "      if (!placeId) { toast('\u0e43\u0e2a\u0e48 Place ID \u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      if (!name) { toast('\u0e43\u0e2a\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      if (!code.trim()) { toast('\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e32\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      api('/api/control/scripts', { op: 'save', placeId: placeId, name: name, body: code })\n" +
+  "        .then(function (result) {\n" +
+  "          var data = result.data || {};\n" +
+  "          if (data.ok) {\n" +
+  "            toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 ' + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
+  "            logLine('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + name + ' \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a place ' + placeId, 'ok');\n" +
+  "            $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 ' + name + ' (' + bytes(data.size) + ') \u00b7 place ' + placeId;\n" +
+  "            upBody.value = '';\n" +
+  "            if (upFile) upFile.value = '';\n" +
+  "            return loadScripts();\n" +
+  "          }\n" +
+  "          toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (data.reason || result.status), 'err');\n" +
+  "        });\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  if ($('upRefresh')) $('upRefresh').addEventListener('click', function () { loadScripts(); });\n" +
+  "\n" +
   "  /* \u2500\u2500 login \u2500\u2500 */\n" +
   "  gateForm.addEventListener('submit', function (event) {\n" +
   "    event.preventDefault();\n" +
@@ -2365,6 +2507,7 @@ const CONTROL_PAGE =
   "    }).catch(function () {});\n" +
   "\n" +
   "    loadSessions();\n" +
+  "    loadScripts();\n" +
   "\n" +
   "    api('/api/control/bans').then(function (result) {\n" +
   "      if (result.status !== 200) return;\n" +
@@ -3017,7 +3160,7 @@ function isBrowserRequest(req) {
 // ═══ Main handler ═══
 const CONTROL_ACTIONS = new Set([
   'control-bans', 'control-traffic', 'control-events', 'control-sessions', 'control-command',
-  'control-test-ticket', 'control-stats',
+  'control-test-ticket', 'control-stats', 'control-scripts',
 ]);
 const OPAQUE_ACTIONS = Object.freeze({
   q7: 'verify',
@@ -3313,6 +3456,15 @@ module.exports = async function handler(req, res) {
   // Public map metadata for /key: the page shows one card per supported map
   // (icon + name), and a browser cannot call the Roblox endpoints itself
   // (no CORS headers), so the lookup is proxied — and cached — here.
+  // Public list of the scripts uploaded from the Control panel. Bodies are
+  // never exposed here: this only feeds the map cards on /key.
+  if (action === 'scripts-list') {
+    if (req.method !== 'GET') return res.status(405).json({ ok: false });
+    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=60');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    return await handleScriptsList(req, res);
+  }
+
   if (action === 'game-info') {
     if (req.method !== 'GET') return res.status(405).json({ ok: false });
     res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300');
@@ -3388,6 +3540,7 @@ module.exports = async function handler(req, res) {
 
     // Run statistics, read back from Supabase (see handleControlStats).
     if (action === 'control-stats') return await handleControlStats(req, res);
+    if (action === 'control-scripts') return await handleControlScripts(req, res);
 
     // control-bans
     return res.status(200).json({
@@ -3943,13 +4096,10 @@ const KEY_PAGE =
   "  });\n" +
   "\n" +
   "  /* \u2500\u2500\u2500 map cards: image + name + a copy button per map \u2500\u2500\u2500\n" +
-  "     \u0e40\u0e1e\u0e34\u0e48\u0e21\u0e41\u0e21\u0e1e\u0e42\u0e14\u0e22\u0e40\u0e1e\u0e34\u0e48\u0e21 { placeId, script } \u0e43\u0e19 GAMES \u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\n" +
-  "       placeId = \u0e40\u0e25\u0e02 Place ID \u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e (\u0e23\u0e39\u0e1b\u0e01\u0e31\u0e1a\u0e0a\u0e37\u0e48\u0e2d\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01 Roblox \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34)\n" +
-  "       script  = \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e08\u0e30\u0e43\u0e2a\u0e48\u0e43\u0e19 local Script = \"...\"\n" +
+  "     \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e41\u0e21\u0e1e\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e27\u0e49\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Control\n" +
+  "     (place id + \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c + \u0e44\u0e1f\u0e25\u0e4c) \u2014 \u0e23\u0e39\u0e1b\u0e01\u0e31\u0e1a\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01 Roblox \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\n" +
   "  */\n" +
-  "  var GAMES = [\n" +
-  "    { placeId: '123974602339071', script: 'main' }\n" +
-  "  ];\n" +
+  "  var MAPS = [];\n" +
   "\n" +
   "  function snippetFor(scriptName) {\n" +
   "    return 'local License = \"\"\\nlocal Script = \"' + scriptName + '\"\\nloadstring(game:HttpGet(\"' + url + '\"))(License, Script)';\n" +
@@ -3971,12 +4121,12 @@ const KEY_PAGE =
   "    var host = document.getElementById('mapList');\n" +
   "    var count = document.getElementById('mapsCount');\n" +
   "    if (!host) return;\n" +
-  "    if (count) count.textContent = String(GAMES.length) + ' \u0e41\u0e21\u0e1e';\n" +
-  "    if (!GAMES.length) {\n" +
-  "      host.innerHTML = '<div class=\"map-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e41\u0e21\u0e1e\u0e43\u0e19\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23</div>';\n" +
+  "    if (count) count.textContent = String(MAPS.length) + ' \u0e41\u0e21\u0e1e';\n" +
+  "    if (!MAPS.length) {\n" +
+  "      host.innerHTML = '<div class=\"map-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 place id + \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c + \u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Control \u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e02\u0e36\u0e49\u0e19\u0e15\u0e23\u0e07\u0e19\u0e35\u0e49</div>';\n" +
   "      return;\n" +
   "    }\n" +
-  "    host.innerHTML = GAMES.map(function (game, index) {\n" +
+  "    host.innerHTML = MAPS.map(function (game, index) {\n" +
   "      var meta = info[game.placeId] || {};\n" +
   "      var name = meta.name || ('Place ' + game.placeId);\n" +
   "      var icon = meta.icon || '';\n" +
@@ -3987,14 +4137,14 @@ const KEY_PAGE =
   "        thumb +\n" +
   "        '<div class=\"map-text\">' +\n" +
   "          '<div class=\"map-name\">' + esc(name) + '</div>' +\n" +
-  "          '<div class=\"map-sub\">place ' + esc(game.placeId) + ' \u00b7 script ' + esc(game.script) + '</div>' +\n" +
+  "          '<div class=\"map-sub\">script ' + esc(game.name) + ' \u00b7 place ' + esc(game.placeId) + '</div>' +\n" +
   "        '</div>' +\n" +
   "        '<button class=\"btn btn-ghost\" type=\"button\" data-map=\"' + index + '\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</button>' +\n" +
   "      '</div>';\n" +
   "    }).join('');\n" +
   "\n" +
   "    // \u0e16\u0e49\u0e32\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e43\u0e2b\u0e49\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e1b\u0e43\u0e0a\u0e49\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e41\u0e23\u0e01\u0e02\u0e2d\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e\n" +
-  "    GAMES.forEach(function (game, index) {\n" +
+  "    MAPS.forEach(function (game, index) {\n" +
   "      var img = document.getElementById('thumb' + index);\n" +
   "      if (!img) return;\n" +
   "      img.addEventListener('error', function () {\n" +
@@ -4008,25 +4158,36 @@ const KEY_PAGE =
   "\n" +
   "    Array.prototype.forEach.call(host.querySelectorAll('button[data-map]'), function (btn) {\n" +
   "      btn.addEventListener('click', function () {\n" +
-  "        var game = GAMES[Number(btn.getAttribute('data-map'))];\n" +
-  "        if (game) copy(snippetFor(game.script), btn);\n" +
+  "        var game = MAPS[Number(btn.getAttribute('data-map'))];\n" +
+  "        if (game) copy(snippetFor(game.name), btn);\n" +
   "      });\n" +
   "    });\n" +
   "  }\n" +
   "\n" +
   "  function loadMaps() {\n" +
-  "    var ids = GAMES.map(function (g) { return g.placeId; }).join(',');\n" +
-  "    if (!ids) { renderMaps({}); return; }\n" +
-  "    fetch('/api/games?ids=' + ids, { headers: { accept: 'application/json' } })\n" +
+  "    fetch('/api/scripts', { headers: { accept: 'application/json' } })\n" +
   "      .then(function (res) { return res.ok ? res.json() : null; })\n" +
   "      .then(function (data) {\n" +
-  "        var info = {};\n" +
-  "        if (data && Array.isArray(data.games)) {\n" +
-  "          data.games.forEach(function (row) {\n" +
-  "            if (row && row.placeId) info[String(row.placeId)] = row;\n" +
+  "        var items = (data && Array.isArray(data.items)) ? data.items : [];\n" +
+  "        MAPS = items.filter(function (item) {\n" +
+  "          return item && item.placeId && item.name;\n" +
+  "        }).map(function (item) {\n" +
+  "          return { placeId: String(item.placeId), name: String(item.name) };\n" +
+  "        });\n" +
+  "        var ids = [];\n" +
+  "        MAPS.forEach(function (game) { if (ids.indexOf(game.placeId) === -1) ids.push(game.placeId); });\n" +
+  "        if (!ids.length) { renderMaps({}); return; }\n" +
+  "        return fetch('/api/games?ids=' + ids.join(','), { headers: { accept: 'application/json' } })\n" +
+  "          .then(function (res) { return res.ok ? res.json() : null; })\n" +
+  "          .then(function (meta) {\n" +
+  "            var info = {};\n" +
+  "            if (meta && Array.isArray(meta.games)) {\n" +
+  "              meta.games.forEach(function (row) {\n" +
+  "                if (row && row.placeId) info[String(row.placeId)] = row;\n" +
+  "              });\n" +
+  "            }\n" +
+  "            renderMaps(info);\n" +
   "          });\n" +
-  "        }\n" +
-  "        renderMaps(info);\n" +
   "      })\n" +
   "      .catch(function () { renderMaps({}); });\n" +
   "  }\n" +
@@ -5806,13 +5967,17 @@ async function handleScript(req, res, ip) {
     kicked: false,
   });
 
-  let scriptBody;
-  const scriptCandidates = [path.join(APP_ROOT, 'scripts', name + '.lua')];
-  for (const candidate of scriptCandidates) {
-    try {
-      scriptBody = fs.readFileSync(candidate, 'utf8');
-      break;
-    } catch { /* try the next location */ }
+  // Scripts uploaded from the Control panel live in Supabase because the
+  // serverless filesystem is read-only; scripts/<name>.lua is the fallback.
+  let scriptBody = await loadStoredScript(name);
+  if (typeof scriptBody !== 'string') {
+    const scriptCandidates = [path.join(APP_ROOT, 'scripts', name + '.lua')];
+    for (const candidate of scriptCandidates) {
+      try {
+        scriptBody = fs.readFileSync(candidate, 'utf8');
+        break;
+      } catch { /* try the next location */ }
+    }
   }
   if (typeof scriptBody !== 'string') {
     return res.status(200).json(encodeProtectedPayload({ Valid: false, reason: 'Script not found: ' + name }, xorKey));
@@ -6324,6 +6489,125 @@ async function handleGameInfo(req, res) {
       return { placeId: g.placeId, name: g.name || '', icon: g.icon || '' };
     }),
   });
+}
+
+// ═══ /api/control/scripts (admin) — upload/list/delete map scripts ═══
+// Scripts live in Supabase because the serverless filesystem is read-only.
+// /api/script serves an uploaded body before falling back to scripts/<name>.lua.
+const SCRIPT_BODY_MAX = 512 * 1024;
+const SCRIPT_LIST_MAX = 200;
+
+function cleanPlaceId(value) {
+  const id = String(value == null ? '' : value).trim();
+  return /^\d{1,20}$/.test(id) ? id : '';
+}
+
+async function supabaseRows(pathname) {
+  if (!supabaseConfig()) return null;
+  const rows = await supabaseFetch(pathname, { method: 'GET' });
+  return Array.isArray(rows) ? rows : null;
+}
+
+async function handleScriptsList(req, res) {
+  const rows = await supabaseRows(
+    '/rest/v1/scripts?select=place_id,script_name,size,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
+  const items = (rows || []).map(function (row) {
+    return {
+      placeId: String(row.place_id || ''),
+      name: String(row.script_name || ''),
+      size: Number(row.size) || 0,
+      updatedAt: row.updated_at || null,
+    };
+  }).filter(function (item) { return item.placeId && item.name; });
+  return res.status(200).json({
+    ok: true,
+    items: items,
+    scope: rows ? 'supabase' : 'memory',
+  });
+}
+
+async function handleControlScripts(req, res) {
+  const body = req.body || {};
+  const op = String(body.op || 'list');
+
+  if (!supabaseConfig()) {
+    return res.status(503).json({
+      ok: false,
+      reason: 'supabase not configured',
+      note: 'ต้องตั้ง SUPABASE_URL และ SUPABASE_SERVICE_ROLE_KEY ก่อนจึงจะอัปโหลดสคริปต์ได้',
+    });
+  }
+
+  if (op === 'list') {
+    const rows = await supabaseRows(
+      '/rest/v1/scripts?select=place_id,script_name,size,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
+    if (!rows) return res.status(502).json({ ok: false, reason: 'read failed' });
+    return res.status(200).json({
+      ok: true,
+      items: rows.map(function (row) {
+        return {
+          placeId: String(row.place_id || ''),
+          name: String(row.script_name || ''),
+          size: Number(row.size) || 0,
+          createdAt: row.created_at || null,
+          updatedAt: row.updated_at || null,
+        };
+      }),
+    });
+  }
+
+  if (op === 'save') {
+    const placeId = cleanPlaceId(body.placeId);
+    const name = sbText(body.name, 64);
+    const code = typeof body.body === 'string' ? body.body : '';
+    if (!placeId) return res.status(400).json({ ok: false, reason: 'place id ไม่ถูกต้อง' });
+    if (!name || !isValidScriptName(name)) return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง (a-z 0-9 - _)' });
+    if (!code.trim()) return res.status(400).json({ ok: false, reason: 'ไม่มีโค้ดสคริปต์' });
+    if (code.length > SCRIPT_BODY_MAX) return res.status(413).json({ ok: false, reason: 'ไฟล์ใหญ่เกิน 512 KB' });
+
+    const saved = await supabaseFetch(
+      '/rest/v1/scripts?on_conflict=place_id,script_name', {
+        method: 'POST',
+        headers: { prefer: 'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify({
+          place_id: placeId,
+          script_name: name,
+          body: code,
+          size: Buffer.byteLength(code, 'utf8'),
+          updated_at: new Date().toISOString(),
+        }),
+      });
+    if (saved === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'write failed' });
+    noteEvent('script_save', 'saved ' + name + ' for place ' + placeId);
+    return res.status(200).json({ ok: true, placeId: placeId, name: name, size: Buffer.byteLength(code, 'utf8') });
+  }
+
+  if (op === 'delete') {
+    const placeId = cleanPlaceId(body.placeId);
+    const name = sbText(body.name, 64);
+    if (!placeId || !name) return res.status(400).json({ ok: false, reason: 'ระบุ place id และชื่อสคริปต์' });
+    const done = await supabaseFetch(
+      '/rest/v1/scripts?place_id=eq.' + encodeURIComponent(placeId) +
+      '&script_name=eq.' + encodeURIComponent(name), {
+        method: 'DELETE',
+        headers: { prefer: 'return=minimal' },
+      });
+    if (done === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'delete failed' });
+    noteEvent('script_delete', 'deleted ' + name + ' for place ' + placeId);
+    return res.status(200).json({ ok: true });
+  }
+
+  return res.status(400).json({ ok: false, reason: 'unknown op' });
+}
+
+// An uploaded script wins over the bundled scripts/<name>.lua file.
+async function loadStoredScript(name) {
+  if (!isValidScriptName(name)) return null;
+  const rows = await supabaseRows(
+    '/rest/v1/scripts?select=body&script_name=eq.' + encodeURIComponent(name) + '&limit=1');
+  const row = rows && rows[0];
+  if (!row || typeof row.body !== 'string' || !row.body) return null;
+  return row.body;
 }
 
 async function handleControlStats(req, res) {
@@ -7707,6 +7991,7 @@ const ROUTES = Object.freeze({
   '/loadc.lua': ['artifact', 'loadc'],
   '/999MS-sdk.lua': ['artifact', 'sdk'],
   '/api/health': ['health'],
+  '/api/scripts': ['scripts-list'],
   '/api/games': ['game-info'],
   '/api/q': ['opaque'],
   '/api/link': ['link-create'],
@@ -7717,6 +8002,7 @@ const ROUTES = Object.freeze({
   '/api/control/command': ['control-command'],
   '/api/control/test-ticket': ['control-test-ticket'],
   '/api/control/stats': ['control-stats'],
+  '/api/control/scripts': ['control-scripts'],
   '/api/verify': ['verify'],
   '/api/script': ['script'],
   '/api/script-verify': ['script-verify'],

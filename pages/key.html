@@ -484,13 +484,10 @@
   });
 
   /* ─── map cards: image + name + a copy button per map ───
-     เพิ่มแมพโดยเพิ่ม { placeId, script } ใน GAMES ด้านล่าง
-       placeId = เลข Place ID ของแมพ (รูปกับชื่อดึงจาก Roblox อัตโนมัติ)
-       script  = ชื่อสคริปต์ที่จะใส่ใน local Script = "..."
+     รายการแมพดึงจากสคริปต์ที่อัปโหลดไว้ในหน้า Control
+     (place id + ชื่อสคริปต์ + ไฟล์) — รูปกับชื่อแมพดึงจาก Roblox อัตโนมัติ
   */
-  var GAMES = [
-    { placeId: '123974602339071', script: 'main' }
-  ];
+  var MAPS = [];
 
   function snippetFor(scriptName) {
     return 'local License = ""\nlocal Script = "' + scriptName + '"\nloadstring(game:HttpGet("' + url + '"))(License, Script)';
@@ -512,12 +509,12 @@
     var host = document.getElementById('mapList');
     var count = document.getElementById('mapsCount');
     if (!host) return;
-    if (count) count.textContent = String(GAMES.length) + ' แมพ';
-    if (!GAMES.length) {
-      host.innerHTML = '<div class="map-empty">ยังไม่มีแมพในรายการ</div>';
+    if (count) count.textContent = String(MAPS.length) + ' แมพ';
+    if (!MAPS.length) {
+      host.innerHTML = '<div class="map-empty">ยังไม่มีสคริปต์ — อัปโหลด place id + ชื่อสคริปต์ + ไฟล์ในหน้า Control แล้วจะขึ้นตรงนี้</div>';
       return;
     }
-    host.innerHTML = GAMES.map(function (game, index) {
+    host.innerHTML = MAPS.map(function (game, index) {
       var meta = info[game.placeId] || {};
       var name = meta.name || ('Place ' + game.placeId);
       var icon = meta.icon || '';
@@ -528,14 +525,14 @@
         thumb +
         '<div class="map-text">' +
           '<div class="map-name">' + esc(name) + '</div>' +
-          '<div class="map-sub">place ' + esc(game.placeId) + ' · script ' + esc(game.script) + '</div>' +
+          '<div class="map-sub">script ' + esc(game.name) + ' · place ' + esc(game.placeId) + '</div>' +
         '</div>' +
         '<button class="btn btn-ghost" type="button" data-map="' + index + '">คัดลอก</button>' +
       '</div>';
     }).join('');
 
     // ถ้าโหลดรูปไม่ได้ ให้กลับไปใช้ตัวอักษรแรกของชื่อแมพ
-    GAMES.forEach(function (game, index) {
+    MAPS.forEach(function (game, index) {
       var img = document.getElementById('thumb' + index);
       if (!img) return;
       img.addEventListener('error', function () {
@@ -549,25 +546,36 @@
 
     Array.prototype.forEach.call(host.querySelectorAll('button[data-map]'), function (btn) {
       btn.addEventListener('click', function () {
-        var game = GAMES[Number(btn.getAttribute('data-map'))];
-        if (game) copy(snippetFor(game.script), btn);
+        var game = MAPS[Number(btn.getAttribute('data-map'))];
+        if (game) copy(snippetFor(game.name), btn);
       });
     });
   }
 
   function loadMaps() {
-    var ids = GAMES.map(function (g) { return g.placeId; }).join(',');
-    if (!ids) { renderMaps({}); return; }
-    fetch('/api/games?ids=' + ids, { headers: { accept: 'application/json' } })
+    fetch('/api/scripts', { headers: { accept: 'application/json' } })
       .then(function (res) { return res.ok ? res.json() : null; })
       .then(function (data) {
-        var info = {};
-        if (data && Array.isArray(data.games)) {
-          data.games.forEach(function (row) {
-            if (row && row.placeId) info[String(row.placeId)] = row;
+        var items = (data && Array.isArray(data.items)) ? data.items : [];
+        MAPS = items.filter(function (item) {
+          return item && item.placeId && item.name;
+        }).map(function (item) {
+          return { placeId: String(item.placeId), name: String(item.name) };
+        });
+        var ids = [];
+        MAPS.forEach(function (game) { if (ids.indexOf(game.placeId) === -1) ids.push(game.placeId); });
+        if (!ids.length) { renderMaps({}); return; }
+        return fetch('/api/games?ids=' + ids.join(','), { headers: { accept: 'application/json' } })
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (meta) {
+            var info = {};
+            if (meta && Array.isArray(meta.games)) {
+              meta.games.forEach(function (row) {
+                if (row && row.placeId) info[String(row.placeId)] = row;
+              });
+            }
+            renderMaps(info);
           });
-        }
-        renderMaps(info);
       })
       .catch(function () { renderMaps({}); });
   }

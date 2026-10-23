@@ -39,6 +39,10 @@
       "dest": "/api/auth?action=game-info"
     },
     {
+      "src": "/api/scripts",
+      "dest": "/api/auth?action=scripts-list"
+    },
+    {
       "src": "/api/health",
       "dest": "/api/auth?action=health"
     },
@@ -73,6 +77,10 @@
     {
       "src": "/api/control/stats",
       "dest": "/api/auth?action=control-stats"
+    },
+    {
+      "src": "/api/control/scripts",
+      "dest": "/api/auth?action=control-scripts"
     },
     {
       "src": "/loadc\\.lua",
