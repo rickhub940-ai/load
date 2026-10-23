@@ -6515,7 +6515,20 @@ async function supabaseRows(pathname) {
   return Array.isArray(rows) ? rows : null;
 }
 
+// The warm lambda keeps the list for a minute so the /key cards appear without
+// waiting for a cross-region round trip on every page load.
+let scriptsListCache = { at: 0, items: [], scope: 'memory' };
+
 async function handleScriptsList(req, res) {
+  const now = Date.now();
+  if (scriptsListCache.items && now - scriptsListCache.at < 60000) {
+    return res.status(200).json({
+      ok: true,
+      items: scriptsListCache.items,
+      scope: scriptsListCache.scope,
+      cached: true,
+    });
+  }
   const rows = await supabaseRows(
     '/rest/v1/scripts?select=place_id,script_name,size,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
   const items = (rows || []).map(function (row) {
@@ -6526,10 +6539,11 @@ async function handleScriptsList(req, res) {
       updatedAt: row.updated_at || null,
     };
   }).filter(function (item) { return item.placeId && item.name; });
+  scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory' };
   return res.status(200).json({
     ok: true,
     items: items,
-    scope: rows ? 'supabase' : 'memory',
+    scope: scriptsListCache.scope,
   });
 }
 
@@ -6585,6 +6599,7 @@ async function handleControlScripts(req, res) {
         }),
       });
     if (saved === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'write failed' });
+    scriptsListCache = { at: 0, items: [], scope: 'memory' };
     noteEvent('script_save', 'saved ' + name + ' for place ' + placeId);
     return res.status(200).json({ ok: true, placeId: placeId, name: name, size: Buffer.byteLength(code, 'utf8') });
   }
@@ -6600,6 +6615,7 @@ async function handleControlScripts(req, res) {
         headers: { prefer: 'return=minimal' },
       });
     if (done === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'delete failed' });
+    scriptsListCache = { at: 0, items: [], scope: 'memory' };
     noteEvent('script_delete', 'deleted ' + name + ' for place ' + placeId);
     return res.status(200).json({ ok: true });
   }
