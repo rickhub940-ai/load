@@ -7074,6 +7074,28 @@ async function handleControlScripts(req, res) {
   const body = req.body || {};
   const op = String(body.op || 'list');
 
+  if (op === 'get') {
+    const name = sbText(body.name, 64);
+    if (!name || !isValidScriptName(name)) {
+      return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง' });
+    }
+    const raw = await loadStoredScript(name);
+    if (typeof raw !== 'string') {
+      return res.status(404).json({ ok: false, reason: 'ไม่พบไฟล์สคริปต์ ' + name + ' บน GitHub' });
+    }
+    const clean = stripScriptHeader(raw);
+    const size = Buffer.byteLength(clean, 'utf8');
+    if (size > 512 * 1024) {
+      return res.status(200).json({
+        ok: true,
+        name: name,
+        size: size,
+        bodyGzip: zlib.gzipSync(Buffer.from(clean, 'utf8')).toString('base64'),
+      });
+    }
+    return res.status(200).json({ ok: true, name: name, size: size, body: clean });
+  }
+
   if (!supabaseConfig()) {
     return res.status(503).json({
       ok: false,
@@ -7098,28 +7120,6 @@ async function handleControlScripts(req, res) {
         };
       }),
     });
-  }
-
-  if (op === 'get') {
-    const name = sbText(body.name, 64);
-    if (!name || !isValidScriptName(name)) {
-      return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง' });
-    }
-    const raw = await loadStoredScript(name);
-    if (typeof raw !== 'string') {
-      return res.status(404).json({ ok: false, reason: 'ไม่พบไฟล์สคริปต์ ' + name + ' บน GitHub' });
-    }
-    const clean = stripScriptHeader(raw);
-    const size = Buffer.byteLength(clean, 'utf8');
-    if (size > 512 * 1024) {
-      return res.status(200).json({
-        ok: true,
-        name: name,
-        size: size,
-        bodyGzip: zlib.gzipSync(Buffer.from(clean, 'utf8')).toString('base64'),
-      });
-    }
-    return res.status(200).json({ ok: true, name: name, size: size, body: clean });
   }
 
   if (op === 'save') {
