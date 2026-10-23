@@ -815,7 +815,7 @@
         </div>
       </section>
 
-      <section class="card">
+      <section class="card" id="scriptCard">
         <div class="card-h">
           <h2>สคริปต์ของแมพ</h2>
           <span class="pill" id="scriptCount">0</span>
@@ -823,7 +823,12 @@
           <span class="pill hide-sm">place id · ชื่อสคริปต์ · ไฟล์</span>
         </div>
         <div class="card-b stack">
-          <p class="hint">อัปโหลดสคริปต์แล้วจะไปโชว์เป็นการ์ดในหน้า <span class="mono">/key</span> อัตโนมัติ — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> รองรับไฟล์ใหญ่สูงสุด 25 MB) ส่วน Supabase เก็บแค่ชื่อแมพ + Place ID ไม่กินโควตา</p>
+          <p class="hint">อัปโหลดหรือกด <b>แก้ไข</b> สคริปต์ที่มีอยู่ได้ตลอด — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> สูงสุด 25 MB) ส่วน Supabase เก็บแค่ชื่อแมพ + Place ID ไม่กินโควตา</p>
+          <div id="editBanner" style="display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);font-size:.82rem">
+            <span style="color:var(--green);font-weight:600" id="editBannerText">กำลังแก้ไข —</span>
+            <span class="spacer"></span>
+            <button class="btn btn-sm btn-ghost" id="upCancelEdit" type="button">ยกเลิกแก้ไข</button>
+          </div>
           <div style="display:flex;gap:10px;flex-wrap:wrap">
             <div style="flex:1;min-width:130px">
               <label for="upPlace">Place ID</label>
@@ -1114,7 +1119,36 @@
   var upFile = $('upFile');
   var upBody = $('upBody');
   var selectedFileCode = null;
+  var editingItem = null;
+  var currentScriptItems = [];
   var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';
+
+  function exitEditMode(clearFields) {
+    editingItem = null;
+    var banner = $('editBanner');
+    if (banner) banner.style.display = 'none';
+    if ($('upSave')) $('upSave').textContent = 'อัปโหลดสคริปต์';
+    if (upBody) upBody.rows = 7;
+    if (clearFields) {
+      selectedFileCode = null;
+      if ($('upPlace')) $('upPlace').value = '';
+      if ($('upName')) $('upName').value = '';
+      if (upBody) {
+        upBody.value = '';
+        upBody.placeholder = defaultBodyPlaceholder;
+      }
+      if (upFile) upFile.value = '';
+      $('upMeta').textContent = '';
+    }
+    renderScripts(currentScriptItems);
+  }
+
+  if ($('upCancelEdit')) {
+    $('upCancelEdit').addEventListener('click', function () {
+      exitEditMode(true);
+      toast('ยกเลิกโหมดแก้ไขแล้ว', 'ok');
+    });
+  }
 
   if (upBody) {
     upBody.addEventListener('input', function () {
@@ -1137,7 +1171,7 @@
             upBody.placeholder = defaultBodyPlaceholder;
           } else {
             upBody.value = '';
-            upBody.placeholder = 'เลือกไฟล์ขนาดใหญ่ ' + file.name + ' (' + bytes(file.size) + ') พร้อมอัปโหลดแล้ว — ซ่อนตัวอย่างเพื่อไม่ให้เบราว์เซอร์ค้าง';
+            upBody.placeholder = 'เลือกไฟล์ขนาดใหญ่ ' + file.name + ' (' + bytes(file.size) + ') พร้อมบันทึกแล้ว — ซ่อนตัวอย่างเพื่อไม่ให้เบราว์เซอร์ค้าง';
           }
         }
         var upNameInput = $('upName');
@@ -1145,7 +1179,7 @@
           var base = file.name.replace(/\.(lua|luau|txt)$/i, '').replace(/[^a-zA-Z0-9_-]/g, '');
           if (base) upNameInput.value = base.slice(0, 64);
         }
-        $('upMeta').textContent = 'โหลดไฟล์ ' + file.name + ' (' + bytes(file.size) + ') แล้ว — กดอัปโหลดสคริปต์เพื่อส่งขึ้น GitHub';
+        $('upMeta').textContent = 'โหลดไฟล์ ' + file.name + ' (' + bytes(file.size) + ') แล้ว — กด' + (editingItem ? 'บันทึกการแก้ไข' : 'อัปโหลดสคริปต์') + 'เพื่อส่งขึ้น GitHub';
       };
       reader.readAsText(file);
     });
@@ -1171,6 +1205,19 @@
     }
   }
 
+  function decompressGzipBase64(b64) {
+    if (!b64 || typeof DecompressionStream === 'undefined') return Promise.resolve('');
+    try {
+      var bin = atob(b64);
+      var u8 = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);
+      var stream = new Blob([u8]).stream().pipeThrough(new DecompressionStream('gzip'));
+      return new Response(stream).text();
+    } catch (e) {
+      return Promise.resolve('');
+    }
+  }
+
   function bytes(value) {
     var n = Number(value) || 0;
     if (n < 1024) return n + ' B';
@@ -1179,30 +1226,92 @@
   }
 
   function renderScripts(items) {
+    currentScriptItems = items || [];
     var host = $('scriptList');
-    $('scriptCount').textContent = String(items.length);
-    if (!items.length) {
+    $('scriptCount').textContent = String(currentScriptItems.length);
+    if (!currentScriptItems.length) {
       host.innerHTML = '<div class="hint" style="margin:0">ยังไม่มีสคริปต์ — อัปโหลดแล้วจะไปโชว์ในหน้า /key</div>';
       return;
     }
-    host.innerHTML = items.map(function (item, index) {
+    host.innerHTML = currentScriptItems.map(function (item, index) {
       var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '—';
-      return '<div class="ban-item">' +
+      var isEditing = editingItem && editingItem.placeId === item.placeId && editingItem.name === item.name;
+      var activeStyle = isEditing ? ' style="border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.06)"' : '';
+      return '<div class="ban-item"' + activeStyle + '>' +
         '<div style="min-width:0">' +
           '<b class="mono">' + esc(item.name) + '</b>' +
           '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
         '</div>' +
         '<span class="spacer"></span>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-edit="' + index + '">แก้ไข</button>' +
         '<button class="btn btn-sm btn-ghost" type="button" data-del="' + index + '">ลบ</button>' +
       '</div>';
     }).join('');
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-edit]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = currentScriptItems[Number(btn.getAttribute('data-edit'))];
+        if (!item) return;
+        startEditScript(item, btn);
+      });
+    });
     Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {
       btn.addEventListener('click', function () {
-        var item = items[Number(btn.getAttribute('data-del'))];
+        var item = currentScriptItems[Number(btn.getAttribute('data-del'))];
         if (!item) return;
         deleteScript(item);
       });
     });
+  }
+
+  function startEditScript(item, btn) {
+    if (btn) btn.disabled = true;
+    $('upMeta').textContent = 'กำลังดึงโค้ดสคริปต์ ' + item.name + ' จาก GitHub…';
+    api('/api/control/scripts', { op: 'get', name: item.name })
+      .then(function (result) {
+        if (btn) btn.disabled = false;
+        var data = result.data || {};
+        if (!data.ok) {
+          var reason = data.reason || ('HTTP ' + result.status);
+          $('upMeta').textContent = 'ดึงโค้ดไม่สำเร็จ: ' + reason;
+          toast('ดึงโค้ดไม่สำเร็จ: ' + reason, 'err');
+          return null;
+        }
+        if (data.bodyGzip) return decompressGzipBase64(data.bodyGzip);
+        return typeof data.body === 'string' ? data.body : '';
+      })
+      .then(function (code) {
+        if (code === null || code === undefined) return;
+        editingItem = { placeId: String(item.placeId), name: String(item.name) };
+        $('upPlace').value = editingItem.placeId;
+        $('upName').value = editingItem.name;
+        if (upFile) upFile.value = '';
+        if ($('editBannerText')) {
+          $('editBannerText').textContent = 'กำลังแก้ไข: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';
+        }
+        if ($('editBanner')) $('editBanner').style.display = 'flex';
+        if ($('upSave')) $('upSave').textContent = 'บันทึกการแก้ไข';
+        if (upBody) {
+          upBody.rows = 10;
+          if (code.length <= 131072) {
+            selectedFileCode = null;
+            upBody.value = code;
+            upBody.placeholder = defaultBodyPlaceholder;
+          } else {
+            selectedFileCode = code;
+            upBody.value = '';
+            upBody.placeholder = 'โหลดสคริปต์ขนาดใหญ่ ' + editingItem.name + ' (' + bytes(code.length) + ') ไว้แล้ว — เปลี่ยน Place ID / ชื่อสคริปต์ หรือเลือกไฟล์ใหม่ทับได้เลย';
+          }
+        }
+        $('upMeta').textContent = 'โหลดสคริปต์ ' + editingItem.name + ' (' + bytes(code.length) + ') พร้อมแก้ไขแล้ว';
+        renderScripts(currentScriptItems);
+        var card = $('scriptCard');
+        if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        if (upBody && code.length <= 131072) upBody.focus();
+      })
+      .catch(function (err) {
+        if (btn) btn.disabled = false;
+        toast('ดึงโค้ดไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
+      });
   }
 
   function loadScripts() {
@@ -1222,6 +1331,9 @@
       .then(function (result) {
         var data = result.data || {};
         if (data.ok) {
+          if (editingItem && editingItem.placeId === item.placeId && editingItem.name === item.name) {
+            exitEditMode(true);
+          }
           toast('ลบสคริปต์ ' + item.name + ' แล้ว', 'ok');
           logLine('ลบสคริปต์ ' + item.name + ' (place ' + item.placeId + ')' + ((data.github && data.github.ok) ? ' · ลบไฟล์ออกจาก GitHub ด้วย' : ''), 'ok');
         } else {
@@ -1240,43 +1352,45 @@
       if (!placeId) { toast('ใส่ Place ID ก่อน', 'err'); return; }
       if (!name) { toast('ใส่ชื่อสคริปต์ก่อน', 'err'); return; }
       if (!code.trim()) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน', 'err'); return; }
+      var wasEditing = editingItem ? { placeId: editingItem.placeId, name: editingItem.name } : null;
       btn.disabled = true;
-      var origLabel = btn.textContent;
-      btn.textContent = 'กำลังอัปโหลด…';
+      btn.textContent = 'กำลังบันทึก…';
       $('upMeta').textContent = 'กำลังบีบอัดและส่งไฟล์ขึ้น GitHub (' + bytes(code.length) + ')…';
       compressGzipBase64(code).then(function (gzB64) {
         var payload = { op: 'save', placeId: placeId, name: name };
+        if (wasEditing) {
+          payload.prevPlaceId = wasEditing.placeId;
+          payload.prevName = wasEditing.name;
+        }
         if (gzB64) payload.bodyGzip = gzB64;
         else payload.body = code;
         return api('/api/control/scripts', payload);
       }).then(function (result) {
         btn.disabled = false;
-        btn.textContent = origLabel;
+        btn.textContent = editingItem ? 'บันทึกการแก้ไข' : 'อัปโหลดสคริปต์';
         var data = result.data || {};
         if (data.ok) {
           var gh = data.github || {};
           var deployNote = (gh.deploy && gh.deploy.triggered) ? ' · สั่งดีพลอย Vercel แล้ว' : '';
+          var actionWord = wasEditing ? 'บันทึกการแก้ไข ' : 'อัปโหลด ';
           var ghText = gh.ok
-            ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' — อัปเดตไฟล์เดิม' : ' — ไฟล์ใหม่') + deployNote + ')'
+            ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + deployNote + ')'
             : '';
-          toast('อัปโหลด ' + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
-          logLine('อัปโหลดสคริปต์ ' + name + ' (' + bytes(data.size) + ') สำหรับ place ' + placeId, 'ok');
+          toast(actionWord + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
+          logLine(actionWord + 'สคริปต์ ' + name + ' (' + bytes(data.size) + ') สำหรับ place ' + placeId, 'ok');
           if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main') + deployNote, 'ok');
+          exitEditMode(true);
           $('upMeta').textContent = 'บันทึกแล้ว — ' + name + ' (' + bytes(data.size) + ') · place ' + placeId + ghText + ' · ไม่เปลือง Supabase';
-          selectedFileCode = null;
-          upBody.value = '';
-          upBody.placeholder = defaultBodyPlaceholder;
-          if (upFile) upFile.value = '';
           return loadScripts();
         }
         var errMsg = data.reason || ('HTTP ' + result.status);
-        $('upMeta').textContent = 'อัปโหลดไม่สำเร็จ: ' + errMsg;
-        logLine('อัปโหลดไม่สำเร็จ: ' + errMsg, 'err');
-        toast('อัปโหลดไม่สำเร็จ: ' + errMsg, 'err');
+        $('upMeta').textContent = 'บันทึกไม่สำเร็จ: ' + errMsg;
+        logLine('บันทึกไม่สำเร็จ: ' + errMsg, 'err');
+        toast('บันทึกไม่สำเร็จ: ' + errMsg, 'err');
       }).catch(function (err) {
         btn.disabled = false;
-        btn.textContent = origLabel;
-        toast('อัปโหลดไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
+        btn.textContent = editingItem ? 'บันทึกการแก้ไข' : 'อัปโหลดสคริปต์';
+        toast('บันทึกไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
       });
     });
   }

@@ -2036,7 +2036,7 @@ const CONTROL_PAGE =
   "        </div>\n" +
   "      </section>\n" +
   "\n" +
-  "      <section class=\"card\">\n" +
+  "      <section class=\"card\" id=\"scriptCard\">\n" +
   "        <div class=\"card-h\">\n" +
   "          <h2>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e</h2>\n" +
   "          <span class=\"pill\" id=\"scriptCount\">0</span>\n" +
@@ -2044,7 +2044,12 @@ const CONTROL_PAGE =
   "          <span class=\"pill hide-sm\">place id \u00b7 \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u00b7 \u0e44\u0e1f\u0e25\u0e4c</span>\n" +
   "        </div>\n" +
   "        <div class=\"card-b stack\">\n" +
-  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e1b\u0e42\u0e0a\u0e27\u0e4c\u0e40\u0e1b\u0e47\u0e19\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 <span class=\"mono\">/key</span> \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e0d\u0e48\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e41\u0e04\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e + Place ID \u0e44\u0e21\u0e48\u0e01\u0e34\u0e19\u0e42\u0e04\u0e27\u0e15\u0e32</p>\n" +
+  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 <b>\u0e41\u0e01\u0e49\u0e44\u0e02</b> \u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e15\u0e25\u0e2d\u0e14 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e41\u0e04\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e + Place ID \u0e44\u0e21\u0e48\u0e01\u0e34\u0e19\u0e42\u0e04\u0e27\u0e15\u0e32</p>\n" +
+  "          <div id=\"editBanner\" style=\"display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);font-size:.82rem\">\n" +
+  "            <span style=\"color:var(--green);font-weight:600\" id=\"editBannerText\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02 \u2014</span>\n" +
+  "            <span class=\"spacer\"></span>\n" +
+  "            <button class=\"btn btn-sm btn-ghost\" id=\"upCancelEdit\" type=\"button\">\u0e22\u0e01\u0e40\u0e25\u0e34\u0e01\u0e41\u0e01\u0e49\u0e44\u0e02</button>\n" +
+  "          </div>\n" +
   "          <div style=\"display:flex;gap:10px;flex-wrap:wrap\">\n" +
   "            <div style=\"flex:1;min-width:130px\">\n" +
   "              <label for=\"upPlace\">Place ID</label>\n" +
@@ -2335,7 +2340,36 @@ const CONTROL_PAGE =
   "  var upFile = $('upFile');\n" +
   "  var upBody = $('upBody');\n" +
   "  var selectedFileCode = null;\n" +
+  "  var editingItem = null;\n" +
+  "  var currentScriptItems = [];\n" +
   "  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';\n" +
+  "\n" +
+  "  function exitEditMode(clearFields) {\n" +
+  "    editingItem = null;\n" +
+  "    var banner = $('editBanner');\n" +
+  "    if (banner) banner.style.display = 'none';\n" +
+  "    if ($('upSave')) $('upSave').textContent = '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
+  "    if (upBody) upBody.rows = 7;\n" +
+  "    if (clearFields) {\n" +
+  "      selectedFileCode = null;\n" +
+  "      if ($('upPlace')) $('upPlace').value = '';\n" +
+  "      if ($('upName')) $('upName').value = '';\n" +
+  "      if (upBody) {\n" +
+  "        upBody.value = '';\n" +
+  "        upBody.placeholder = defaultBodyPlaceholder;\n" +
+  "      }\n" +
+  "      if (upFile) upFile.value = '';\n" +
+  "      $('upMeta').textContent = '';\n" +
+  "    }\n" +
+  "    renderScripts(currentScriptItems);\n" +
+  "  }\n" +
+  "\n" +
+  "  if ($('upCancelEdit')) {\n" +
+  "    $('upCancelEdit').addEventListener('click', function () {\n" +
+  "      exitEditMode(true);\n" +
+  "      toast('\u0e22\u0e01\u0e40\u0e25\u0e34\u0e01\u0e42\u0e2b\u0e21\u0e14\u0e41\u0e01\u0e49\u0e44\u0e02\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
+  "    });\n" +
+  "  }\n" +
   "\n" +
   "  if (upBody) {\n" +
   "    upBody.addEventListener('input', function () {\n" +
@@ -2358,7 +2392,7 @@ const CONTROL_PAGE =
   "            upBody.placeholder = defaultBodyPlaceholder;\n" +
   "          } else {\n" +
   "            upBody.value = '';\n" +
-  "            upBody.placeholder = '\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48 ' + file.name + ' (' + bytes(file.size) + ') \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e0b\u0e48\u0e2d\u0e19\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c\u0e04\u0e49\u0e32\u0e07';\n" +
+  "            upBody.placeholder = '\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48 ' + file.name + ' (' + bytes(file.size) + ') \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e0b\u0e48\u0e2d\u0e19\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c\u0e04\u0e49\u0e32\u0e07';\n" +
   "          }\n" +
   "        }\n" +
   "        var upNameInput = $('upName');\n" +
@@ -2366,7 +2400,7 @@ const CONTROL_PAGE =
   "          var base = file.name.replace(/\\.(lua|luau|txt)$/i, '').replace(/[^a-zA-Z0-9_-]/g, '');\n" +
   "          if (base) upNameInput.value = base.slice(0, 64);\n" +
   "        }\n" +
-  "        $('upMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e1f\u0e25\u0e4c ' + file.name + ' (' + bytes(file.size) + ') \u0e41\u0e25\u0e49\u0e27 \u2014 \u0e01\u0e14\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e48\u0e07\u0e02\u0e36\u0e49\u0e19 GitHub';\n" +
+  "        $('upMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e1f\u0e25\u0e4c ' + file.name + ' (' + bytes(file.size) + ') \u0e41\u0e25\u0e49\u0e27 \u2014 \u0e01\u0e14' + (editingItem ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c') + '\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e48\u0e07\u0e02\u0e36\u0e49\u0e19 GitHub';\n" +
   "      };\n" +
   "      reader.readAsText(file);\n" +
   "    });\n" +
@@ -2392,6 +2426,19 @@ const CONTROL_PAGE =
   "    }\n" +
   "  }\n" +
   "\n" +
+  "  function decompressGzipBase64(b64) {\n" +
+  "    if (!b64 || typeof DecompressionStream === 'undefined') return Promise.resolve('');\n" +
+  "    try {\n" +
+  "      var bin = atob(b64);\n" +
+  "      var u8 = new Uint8Array(bin.length);\n" +
+  "      for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);\n" +
+  "      var stream = new Blob([u8]).stream().pipeThrough(new DecompressionStream('gzip'));\n" +
+  "      return new Response(stream).text();\n" +
+  "    } catch (e) {\n" +
+  "      return Promise.resolve('');\n" +
+  "    }\n" +
+  "  }\n" +
+  "\n" +
   "  function bytes(value) {\n" +
   "    var n = Number(value) || 0;\n" +
   "    if (n < 1024) return n + ' B';\n" +
@@ -2400,30 +2447,92 @@ const CONTROL_PAGE =
   "  }\n" +
   "\n" +
   "  function renderScripts(items) {\n" +
+  "    currentScriptItems = items || [];\n" +
   "    var host = $('scriptList');\n" +
-  "    $('scriptCount').textContent = String(items.length);\n" +
-  "    if (!items.length) {\n" +
+  "    $('scriptCount').textContent = String(currentScriptItems.length);\n" +
+  "    if (!currentScriptItems.length) {\n" +
   "      host.innerHTML = '<div class=\"hint\" style=\"margin:0\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e1b\u0e42\u0e0a\u0e27\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 /key</div>';\n" +
   "      return;\n" +
   "    }\n" +
-  "    host.innerHTML = items.map(function (item, index) {\n" +
+  "    host.innerHTML = currentScriptItems.map(function (item, index) {\n" +
   "      var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '\u2014';\n" +
-  "      return '<div class=\"ban-item\">' +\n" +
+  "      var isEditing = editingItem && editingItem.placeId === item.placeId && editingItem.name === item.name;\n" +
+  "      var activeStyle = isEditing ? ' style=\"border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.06)\"' : '';\n" +
+  "      return '<div class=\"ban-item\"' + activeStyle + '>' +\n" +
   "        '<div style=\"min-width:0\">' +\n" +
   "          '<b class=\"mono\">' + esc(item.name) + '</b>' +\n" +
   "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
   "        '</div>' +\n" +
   "        '<span class=\"spacer\"></span>' +\n" +
+  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-edit=\"' + index + '\">\u0e41\u0e01\u0e49\u0e44\u0e02</button>' +\n" +
   "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-del=\"' + index + '\">\u0e25\u0e1a</button>' +\n" +
   "      '</div>';\n" +
   "    }).join('');\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-edit]'), function (btn) {\n" +
+  "      btn.addEventListener('click', function () {\n" +
+  "        var item = currentScriptItems[Number(btn.getAttribute('data-edit'))];\n" +
+  "        if (!item) return;\n" +
+  "        startEditScript(item, btn);\n" +
+  "      });\n" +
+  "    });\n" +
   "    Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {\n" +
   "      btn.addEventListener('click', function () {\n" +
-  "        var item = items[Number(btn.getAttribute('data-del'))];\n" +
+  "        var item = currentScriptItems[Number(btn.getAttribute('data-del'))];\n" +
   "        if (!item) return;\n" +
   "        deleteScript(item);\n" +
   "      });\n" +
   "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  function startEditScript(item, btn) {\n" +
+  "    if (btn) btn.disabled = true;\n" +
+  "    $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e08\u0e32\u0e01 GitHub\u2026';\n" +
+  "    api('/api/control/scripts', { op: 'get', name: item.name })\n" +
+  "      .then(function (result) {\n" +
+  "        if (btn) btn.disabled = false;\n" +
+  "        var data = result.data || {};\n" +
+  "        if (!data.ok) {\n" +
+  "          var reason = data.reason || ('HTTP ' + result.status);\n" +
+  "          $('upMeta').textContent = '\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason;\n" +
+  "          toast('\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason, 'err');\n" +
+  "          return null;\n" +
+  "        }\n" +
+  "        if (data.bodyGzip) return decompressGzipBase64(data.bodyGzip);\n" +
+  "        return typeof data.body === 'string' ? data.body : '';\n" +
+  "      })\n" +
+  "      .then(function (code) {\n" +
+  "        if (code === null || code === undefined) return;\n" +
+  "        editingItem = { placeId: String(item.placeId), name: String(item.name) };\n" +
+  "        $('upPlace').value = editingItem.placeId;\n" +
+  "        $('upName').value = editingItem.name;\n" +
+  "        if (upFile) upFile.value = '';\n" +
+  "        if ($('editBannerText')) {\n" +
+  "          $('editBannerText').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';\n" +
+  "        }\n" +
+  "        if ($('editBanner')) $('editBanner').style.display = 'flex';\n" +
+  "        if ($('upSave')) $('upSave').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02';\n" +
+  "        if (upBody) {\n" +
+  "          upBody.rows = 10;\n" +
+  "          if (code.length <= 131072) {\n" +
+  "            selectedFileCode = null;\n" +
+  "            upBody.value = code;\n" +
+  "            upBody.placeholder = defaultBodyPlaceholder;\n" +
+  "          } else {\n" +
+  "            selectedFileCode = code;\n" +
+  "            upBody.value = '';\n" +
+  "            upBody.placeholder = '\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48 ' + editingItem.name + ' (' + bytes(code.length) + ') \u0e44\u0e27\u0e49\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19 Place ID / \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e31\u0e1a\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22';\n" +
+  "          }\n" +
+  "        }\n" +
+  "        $('upMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + editingItem.name + ' (' + bytes(code.length) + ') \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e41\u0e01\u0e49\u0e44\u0e02\u0e41\u0e25\u0e49\u0e27';\n" +
+  "        renderScripts(currentScriptItems);\n" +
+  "        var card = $('scriptCard');\n" +
+  "        if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });\n" +
+  "        if (upBody && code.length <= 131072) upBody.focus();\n" +
+  "      })\n" +
+  "      .catch(function (err) {\n" +
+  "        if (btn) btn.disabled = false;\n" +
+  "        toast('\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err');\n" +
+  "      });\n" +
   "  }\n" +
   "\n" +
   "  function loadScripts() {\n" +
@@ -2443,6 +2552,9 @@ const CONTROL_PAGE =
   "      .then(function (result) {\n" +
   "        var data = result.data || {};\n" +
   "        if (data.ok) {\n" +
+  "          if (editingItem && editingItem.placeId === item.placeId && editingItem.name === item.name) {\n" +
+  "            exitEditMode(true);\n" +
+  "          }\n" +
   "          toast('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
   "          logLine('\u0e25\u0e1a\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' (place ' + item.placeId + ')' + ((data.github && data.github.ok) ? ' \u00b7 \u0e25\u0e1a\u0e44\u0e1f\u0e25\u0e4c\u0e2d\u0e2d\u0e01\u0e08\u0e32\u0e01 GitHub \u0e14\u0e49\u0e27\u0e22' : ''), 'ok');\n" +
   "        } else {\n" +
@@ -2461,43 +2573,45 @@ const CONTROL_PAGE =
   "      if (!placeId) { toast('\u0e43\u0e2a\u0e48 Place ID \u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
   "      if (!name) { toast('\u0e43\u0e2a\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
   "      if (!code.trim()) { toast('\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e32\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      var wasEditing = editingItem ? { placeId: editingItem.placeId, name: editingItem.name } : null;\n" +
   "      btn.disabled = true;\n" +
-  "      var origLabel = btn.textContent;\n" +
-  "      btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u2026';\n" +
+  "      btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u2026';\n" +
   "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u0e41\u0e25\u0e30\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e36\u0e49\u0e19 GitHub (' + bytes(code.length) + ')\u2026';\n" +
   "      compressGzipBase64(code).then(function (gzB64) {\n" +
   "        var payload = { op: 'save', placeId: placeId, name: name };\n" +
+  "        if (wasEditing) {\n" +
+  "          payload.prevPlaceId = wasEditing.placeId;\n" +
+  "          payload.prevName = wasEditing.name;\n" +
+  "        }\n" +
   "        if (gzB64) payload.bodyGzip = gzB64;\n" +
   "        else payload.body = code;\n" +
   "        return api('/api/control/scripts', payload);\n" +
   "      }).then(function (result) {\n" +
   "        btn.disabled = false;\n" +
-  "        btn.textContent = origLabel;\n" +
+  "        btn.textContent = editingItem ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
   "        var data = result.data || {};\n" +
   "        if (data.ok) {\n" +
   "          var gh = data.github || {};\n" +
   "          var deployNote = (gh.deploy && gh.deploy.triggered) ? ' \u00b7 \u0e2a\u0e31\u0e48\u0e07\u0e14\u0e35\u0e1e\u0e25\u0e2d\u0e22 Vercel \u0e41\u0e25\u0e49\u0e27' : '';\n" +
+  "          var actionWord = wasEditing ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02 ' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 ';\n" +
   "          var ghText = gh.ok\n" +
-  "            ? ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e41\u0e25\u0e49\u0e27 (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' \u2014 \u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e14\u0e34\u0e21' : ' \u2014 \u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48') + deployNote + ')'\n" +
+  "            ? ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e41\u0e25\u0e49\u0e27 (' + (gh.path || ('scripts/' + name + '.lua')) + deployNote + ')'\n" +
   "            : '';\n" +
-  "          toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 ' + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
-  "          logLine('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + name + ' (' + bytes(data.size) + ') \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a place ' + placeId, 'ok');\n" +
+  "          toast(actionWord + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
+  "          logLine(actionWord + '\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + name + ' (' + bytes(data.size) + ') \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a place ' + placeId, 'ok');\n" +
   "          if (gh.ok) logLine('commit ' + (gh.path || name) + ' \u0e44\u0e1b\u0e17\u0e35\u0e48 ' + (gh.branch || 'main') + deployNote, 'ok');\n" +
+  "          exitEditMode(true);\n" +
   "          $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 ' + name + ' (' + bytes(data.size) + ') \u00b7 place ' + placeId + ghText + ' \u00b7 \u0e44\u0e21\u0e48\u0e40\u0e1b\u0e25\u0e37\u0e2d\u0e07 Supabase';\n" +
-  "          selectedFileCode = null;\n" +
-  "          upBody.value = '';\n" +
-  "          upBody.placeholder = defaultBodyPlaceholder;\n" +
-  "          if (upFile) upFile.value = '';\n" +
   "          return loadScripts();\n" +
   "        }\n" +
   "        var errMsg = data.reason || ('HTTP ' + result.status);\n" +
-  "        $('upMeta').textContent = '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg;\n" +
-  "        logLine('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg, 'err');\n" +
-  "        toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg, 'err');\n" +
+  "        $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg;\n" +
+  "        logLine('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg, 'err');\n" +
+  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg, 'err');\n" +
   "      }).catch(function (err) {\n" +
   "        btn.disabled = false;\n" +
-  "        btn.textContent = origLabel;\n" +
-  "        toast('\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err');\n" +
+  "        btn.textContent = editingItem ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
+  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err');\n" +
   "      });\n" +
   "    });\n" +
   "  }\n" +
@@ -6705,9 +6819,14 @@ async function triggerVercelDeployHook() {
   }
 }
 
+function stripScriptHeader(code) {
+  if (typeof code !== 'string') return '';
+  return code.replace(/^(?:-- 999MS script: [^\r\n]*\r?\n-- place: [^\r\n]*\r?\n-- uploaded from the Control panel at [^\r\n]*\r?\n\r?\n)+/, '');
+}
+
 // Commits scripts/<name>.lua via Git Data API (blobs -> trees -> commits -> ref)
 // so large obfuscated scripts (>1 MB up to 25 MB) never hit the 1 MB Contents cap.
-async function commitScriptToGithub(name, placeId, code) {
+async function commitScriptToGithub(name, placeId, code, removeOldName) {
   const cfg = githubConfig();
   if (!cfg) {
     return {
@@ -6715,7 +6834,8 @@ async function commitScriptToGithub(name, placeId, code) {
       reason: 'ยังไม่ได้ตั้ง GITHUB_TOKEN ใน Vercel — ตั้งค่า GITHUB_TOKEN เพื่อเก็บไฟล์สคริปต์บน GitHub',
     };
   }
-  const fullContent = scriptHeader(name, placeId) + code;
+  const cleanCode = stripScriptHeader(code);
+  const fullContent = scriptHeader(name, placeId) + cleanCode;
   const repoPath = 'scripts/' + name + '.lua';
   const refPath = '/repos/' + cfg.repo + '/git/ref/heads/' + encodeURIComponent(cfg.branch);
 
@@ -6744,12 +6864,17 @@ async function commitScriptToGithub(name, placeId, code) {
     return { ok: false, reason: (blobRes.data && blobRes.data.message) || ('github blob ' + blobRes.status) };
   }
 
+  const treeEntries = [{ path: repoPath, mode: '100644', type: 'blob', sha: blobSha }];
+  if (removeOldName && isValidScriptName(removeOldName) && removeOldName !== name) {
+    treeEntries.push({ path: 'scripts/' + removeOldName + '.lua', mode: '100644', type: 'blob', sha: null });
+  }
+
   const treeRes = await githubRequest('/repos/' + cfg.repo + '/git/trees', {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({
       base_tree: baseTree,
-      tree: [{ path: repoPath, mode: '100644', type: 'blob', sha: blobSha }],
+      tree: treeEntries,
     }),
   });
   const newTreeSha = treeRes.ok && treeRes.data && treeRes.data.sha;
@@ -6760,11 +6885,14 @@ async function commitScriptToGithub(name, placeId, code) {
   // If the tree SHA is identical, the exact same file bytes are already on head.
   let commitSha = headSha;
   if (newTreeSha !== baseTree) {
+    const msg = (removeOldName && removeOldName !== name)
+      ? 'script: rename ' + removeOldName + ' -> ' + name + ' (place ' + placeId + ')'
+      : 'script: ' + name + ' (place ' + placeId + ')';
     const newCommit = await githubRequest('/repos/' + cfg.repo + '/git/commits', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        message: 'script: ' + name + ' (place ' + placeId + ')',
+        message: msg,
         tree: newTreeSha,
         parents: [headSha],
       }),
@@ -6783,6 +6911,7 @@ async function commitScriptToGithub(name, placeId, code) {
     }
   }
 
+  if (removeOldName && removeOldName !== name) dropCachedScriptBody(removeOldName);
   cacheScriptBody(name, fullContent);
   const deploy = await triggerVercelDeployHook();
   return {
@@ -6971,20 +7100,52 @@ async function handleControlScripts(req, res) {
     });
   }
 
+  if (op === 'get') {
+    const name = sbText(body.name, 64);
+    if (!name || !isValidScriptName(name)) {
+      return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง' });
+    }
+    const raw = await loadStoredScript(name);
+    if (typeof raw !== 'string') {
+      return res.status(404).json({ ok: false, reason: 'ไม่พบไฟล์สคริปต์ ' + name + ' บน GitHub' });
+    }
+    const clean = stripScriptHeader(raw);
+    const size = Buffer.byteLength(clean, 'utf8');
+    if (size > 512 * 1024) {
+      return res.status(200).json({
+        ok: true,
+        name: name,
+        size: size,
+        bodyGzip: zlib.gzipSync(Buffer.from(clean, 'utf8')).toString('base64'),
+      });
+    }
+    return res.status(200).json({ ok: true, name: name, size: size, body: clean });
+  }
+
   if (op === 'save') {
     const placeId = cleanPlaceId(body.placeId);
     const name = sbText(body.name, 64);
+    const prevPlaceId = cleanPlaceId(body.prevPlaceId);
+    const prevName = sbText(body.prevName, 64);
     if (!placeId) return res.status(400).json({ ok: false, reason: 'place id ไม่ถูกต้อง' });
     if (!name || !isValidScriptName(name)) return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง (a-z 0-9 - _)' });
 
     const decoded = decodeUploadedScriptBody(body);
     if (!decoded.ok) return res.status(decoded.status).json({ ok: false, reason: decoded.reason });
-    const code = decoded.code;
+    const code = stripScriptHeader(decoded.code);
     if (!code.trim()) return res.status(400).json({ ok: false, reason: 'ไม่มีโค้ดสคริปต์' });
+
+    let removeOldName = null;
+    if (prevName && isValidScriptName(prevName) && prevName !== name) {
+      const others = await supabaseRows(
+        '/rest/v1/scripts?select=place_id&script_name=eq.' + encodeURIComponent(prevName) +
+        (prevPlaceId ? '&place_id=neq.' + encodeURIComponent(prevPlaceId) : '') + '&limit=1');
+      if (!others || others.length === 0) removeOldName = prevName;
+    }
 
     const byteSize = Buffer.byteLength(code, 'utf8');
     // Commit full .lua file to GitHub FIRST; Supabase stores metadata ONLY (0 script bytes).
-    const github = await commitScriptToGithub(name, placeId, code);
+    const github = await commitScriptToGithub(name, placeId, code, removeOldName);
     if (!github.ok) {
       return res.status(502).json({
         ok: false,
@@ -7005,6 +7166,16 @@ async function handleControlScripts(req, res) {
         }),
       });
     if (saved === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'write failed' });
+
+    if (prevPlaceId && prevName && (prevPlaceId !== placeId || prevName !== name)) {
+      await supabaseFetch(
+        '/rest/v1/scripts?place_id=eq.' + encodeURIComponent(prevPlaceId) +
+        '&script_name=eq.' + encodeURIComponent(prevName), {
+          method: 'DELETE',
+          headers: { prefer: 'return=minimal' },
+        });
+    }
+
     scriptsListCache = { at: 0, items: [], scope: 'memory' };
     noteEvent('script_save', 'saved ' + name + ' (' + byteSize + 'B on GitHub) for place ' + placeId);
     return res.status(200).json({
