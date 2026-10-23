@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>999MS · Control</title>
+  <meta name="theme-color" content="#000000" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230a0c14'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2338d6ff'/%3E%3C/svg%3E" />
+
+  <!-- 1. Inter (UI) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- 2. BubbledotICG-FinePos (Display - Dot-matrix) -->
+  <link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+
+  <!-- 3. Font Awesome 6.5.2 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    /* ===== Variables ===== */
+    :root {
+      --bg: #000000;
+      --text: #ffffff;
+      --muted: #8e8e93;
+      --pill-dark: #1a1a1a;
+      --nav-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+      
+      /* ฟอนต์ Dot-matrix ทั้งหน้า */
+      --font-sans: "BubbledotICG-FinePos", "Geist Pixel Circle", monospace;
+      --font-display: "BubbledotICG-FinePos", "Geist Pixel Circle", monospace;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      letter-spacing: 0.02em;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; border: none; background: none; cursor: pointer; }
+    img { display: block; max-width: 100%; }
+
+    /* ===== Background ===== */
+    .bg-wave {
+      position: fixed; inset: 0; z-index: 0;
+      background-color: #000; overflow: hidden;
+    }
+
+    .bg-wave::before {
+      content: ""; position: absolute; top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),
+                  radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);
+      filter: blur(80px);
+      animation: waveMove1 20s ease-in-out infinite alternate;
+    }
+
+    .bg-wave::after {
+      content: ""; position: absolute; bottom: -50%; right: -50%;
+      width: 150%; height: 150%;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+      filter: blur(100px);
+      animation: waveMove2 25s ease-in-out infinite alternate;
+    }
+
+    .green-orb {
+      position: absolute; border-radius: 50%;
+      filter: blur(60px); z-index: 1; pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 45vw; height: 45vw;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, transparent 70%);
+      top: -15%; right: -10%;
+      animation: orbFloat1 15s ease-in-out infinite alternate;
+    }
+
+    .orb-2 {
+      width: 35vw; height: 35vw;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%);
+      bottom: 5%; left: -5%;
+      animation: orbFloat2 18s ease-in-out infinite alternate;
+    }
+
+    .orb-3 {
+      width: 25vw; height: 25vw;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+      top: 40%; left: 30%;
+      animation: orbFloat3 12s ease-in-out infinite alternate;
+    }
+
+    .bg-wave .noise {
+      position: absolute; inset: 0; opacity: 0.15;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay; pointer-events: none; z-index: 2;
+    }
+
+    @keyframes waveMove1 {
+      0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }
+      100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }
+    }
+
+    @keyframes waveMove2 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+      50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }
+      100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }
+    }
+
+    @keyframes orbFloat1 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+      100% { transform: translate(-15%, 20%) scale(1.3); opacity: 0.8; }
+    }
+
+    @keyframes orbFloat2 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      100% { transform: translate(20%, -15%) scale(1.4); opacity: 0.7; }
+    }
+
+    @keyframes orbFloat3 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+      100% { transform: translate(-10%, -20%) scale(1.5); opacity: 0.5; }
+    }
+
+    /* ===== Page Layout ===== */
+    .page {
+      position: relative; z-index: 3;
+      display: flex; flex-direction: column; align-items: center;
+      min-height: 100vh; padding: 0 clamp(14px, 3vw, 32px) 80px;
+    }
+
+    /* ===== Header ===== */
+    .site-header {
+      width: 100%; max-width: 900px;
+      display: flex; align-items: center; justify-content: center;
+      position: sticky; top: 20px; z-index: 50; margin-bottom: 80px;
+    }
+
+    .nav-pill {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; height: 64px; padding: 0 8px 0 16px;
+      border-radius: 999px; background: rgba(10, 10, 12, 0.4);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .brand {
+      flex-shrink: 0; display: grid; place-items: center;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: #fff; overflow: hidden;
+      transition: transform 0.25s ease;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+
+    .brand:hover { transform: scale(1.04); }
+    .brand img { width: 72%; height: 72%; object-fit: contain; }
+
+    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }
+    .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s ease; }
+    .nav-link:hover, .nav-link.is-active { color: #fff; }
+
+    .sign-in {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 48px; padding: 0 24px; border-radius: 999px;
+      background: #fff; color: #000; font-size: 14px; font-weight: 600;
+      transition: transform 0.2s ease, opacity 0.2s, box-shadow 0.2s;
+    }
+
+    .sign-in:hover { transform: scale(1.02); box-shadow: 0 0 20px rgba(255,255,255,0.4); }
+
+    .burger {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      gap: 5px; width: 48px; height: 48px; border-radius: 50%;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    }
+    .burger span {
+      display: block; width: 18px; height: 1.5px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    /* ===== Hero Section ===== */
+    .hero {
+      width: 100%; max-width: 900px;
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; padding: 40px 0 100px;
+    }
+
+    /* =========================================
+       HEADLINE: ตัวอักษรสุ่มทิศทาง ไกลๆ ช้าๆ
+       ========================================= */
+    .headline {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 0.05em;
+      font-weight: 400; font-size: clamp(48px, 9vw, 110px);
+      letter-spacing: -0.02em; line-height: 1.1;
+      margin-bottom: 24px; perspective: 1000px;
+      min-height: 1.2em;
+    }
+
+    .char {
+      display: inline-block;
+      background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));
+      opacity: 0; visibility: hidden; /* ซ่อนไว้รอคิว */
+    }
+
+    .char.pop-in {
+      visibility: visible;
+      animation: bouncyRandomPop 2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes bouncyRandomPop {
+      0% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--tr));
+        filter: blur(15px);
+      }
+      60% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1.1) rotate(0deg);
+        filter: blur(0);
+      }
+      80% {
+        transform: translate(0, 0) scale(0.95) rotate(0deg);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        filter: blur(0);
+      }
+    }
+
+    .char.shimmer-ready::after {
+      content: attr(data-char);
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.9) 50%, transparent 100%);
+      background-size: 200% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; animation: shimmer 3s infinite linear;
+      z-index: 1;
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* =========================================
+       Subhead & CTA (ลบ Discord ออกแล้ว)
+       ========================================= */
+    .subhead {
+      max-width: 650px; font-size: clamp(16px, 2vw, 18px);
+      line-height: 1.6; color: #ccc; margin-bottom: 40px;
+    }
+
+    .cta-group {
+      display: flex; justify-content: center;
+      width: 100%; max-width: 500px; margin-bottom: 32px;
+    }
+
+    .cta-primary {
+      display: flex; align-items: center; justify-content: center;
+      /* ปรับให้กว้างขึ้นเพื่อให้ดูสมดุลเมื่อไม่มีปุ่ม Discord */
+      width: 100%; max-width: 280px; padding: 16px 24px;
+      border-radius: 999px; background: #fff; color: #000;
+      font-size: 15px; font-weight: 600;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.2);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.5);
+    }
+
+    /* =========================================
+       Live Status
+       ========================================= */
+    .live-status {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: #22c55e;
+      text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+    }
+
+    .status-dot {
+      position: relative; width: 10px; height: 10px;
+      background: #22c55e; border-radius: 50%;
+      box-shadow: 0 0 10px #22c55e;
+    }
+
+    .status-dot::after {
+      content: ""; position: absolute; top: 50%; left: 50%;
+      width: 100%; height: 100%; background: #22c55e;
+      border-radius: 50%; transform: translate(-50%, -50%);
+      animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulseRing {
+      0% { width: 100%; height: 100%; opacity: 0.8; }
+      100% { width: 300%; height: 300%; opacity: 0; }
+    }
+
+    /* ===== Stats Section ===== */
+    .stats-section {
+      width: 100%; max-width: 1000px; padding: 60px 20px;
+      margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+    .stat {
+      display: flex; flex-direction: column; align-items: center;
+      text-align: center; gap: 6px;
+      background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1);
+      padding: 24px 16px; border-radius: 16px;
+      backdrop-filter: blur(10px); transition: background 0.3s, border-color 0.3s;
+    }
+
+    .stat:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); }
+
+    .stat-icon {
+      font-size: clamp(22px, 3vw, 33px); color: #fff; line-height: 1;
+      text-shadow: 0 0 10px rgba(255,255,255,0.5);
+    }
+
+    .stat-value {
+      font-size: clamp(18px, 2.2vw, 26px); font-weight: 500; color: #fff;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label { font-size: 12px; color: #aaa; }
+
+    /* =========================================
+       Elements ทั่วไป: สุ่มทิศทางเหมือนกันหมด!
+       ========================================= */
+    .pop-element {
+      opacity: 0;
+      visibility: hidden;
+      transform: translate(var(--tx), var(--ty)) scale(0.5) rotate(var(--tr));
+      filter: blur(10px);
+    }
+
+    .pop-element.pop-in {
+      visibility: visible;
+      animation: bouncyRandomPop 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      animation-delay: var(--delay);
+    }
+
+    /* ===== Mobile Responsive ===== */
+    @media (max-width: 900px) {
+      .nav-pill { display: none; }
+      .burger { display: flex; }
+      .site-header { justify-content: space-between; padding: 0 10px; }
+    }
+
+    @media (max-width: 720px) {
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  
+    /* =========================================
+       CONTROL — dashboard skin on the HUB theme
+       ========================================= */
+    :root {
+      --mint: #22c55e;
+      --danger: #ff6b81;
+      --amber: #ffc65c;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --line: rgba(255, 255, 255, 0.1);
+      --line-2: rgba(255, 255, 255, 0.18);
+      --panel: rgba(0, 0, 0, 0.4);
+      --shell: 1100px;
+    }
+
+    .mono { font-family: var(--mono); }
+    .hide { display: none; }
+
+    /* shell widths — same nav / hero / stats, wider for the dashboard */
+    .page { padding-bottom: 80px; }
+    .site-header { max-width: var(--shell); margin-bottom: 44px; }
+    .nav-pill { max-width: var(--shell); }
+    .hero { max-width: var(--shell); padding: 24px 0 44px; }
+    .stats-section { max-width: var(--shell); padding: 24px 20px 36px; }
+    .dash { width: 100%; max-width: var(--shell); position: relative; z-index: 3; }
+
+    /* nav right-hand side */
+    .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .nav-status {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.6px; color: var(--muted);
+      padding-right: 4px;
+    }
+    #gwDot { background: var(--muted); box-shadow: none; }
+    #gwDot::after { background: var(--muted); animation: none; }
+    #gwDot.ok { background: var(--mint); box-shadow: 0 0 10px var(--mint); }
+    #gwDot.ok::after { background: var(--mint); animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+    #gwDot.bad { background: var(--danger); box-shadow: 0 0 10px var(--danger); }
+    #gwDot.bad::after { background: var(--danger); animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+    #gwDot.wait { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
+    #gwDot.wait::after { background: var(--amber); animation: pulseRing 1.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; }
+
+    .nav-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      height: 40px; padding: 0 16px; border-radius: 999px;
+      border: 1px solid var(--line); background: rgba(255, 255, 255, 0.06); color: #fff;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .nav-btn:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.35); }
+    .nav-btn-ghost { background: transparent; }
+    .rotate { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* layout */
+    .grid { display: grid; grid-template-columns: 1.55fr 0.95fr; gap: 16px; align-items: start; }
+    .stack { display: flex; flex-direction: column; gap: 16px; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .row > * { flex: 1; }
+    .split { display: grid; grid-template-columns: 86px 1fr; gap: 8px; }
+
+    /* cards */
+    .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 16px; overflow: hidden;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      transition: border-color 0.3s ease, background 0.3s ease;
+    }
+    .card:hover { border-color: rgba(255, 255, 255, 0.2); }
+    .card-h { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+    .card-h h2 { font-size: 1rem; font-weight: 600; margin: 0; }
+    .card-h .spacer { margin-left: auto; }
+    .card-b { padding: 16px 18px; }
+    .card-b.stack { display: flex; flex-direction: column; gap: 14px; }
+
+    /* buttons */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 9px 16px; border-radius: 999px;
+      border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.06); color: #fff;
+      font-family: inherit; font-size: 0.82rem; font-weight: 600; cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+    .btn:hover { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.4); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-primary {
+      background: #fff; color: #000; border-color: #fff;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.18);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 32px rgba(255, 255, 255, 0.42); }
+    .btn-danger { border-color: rgba(255, 107, 129, 0.45); color: #ffb3bf; background: rgba(255, 107, 129, 0.1); }
+    .btn-danger:hover { background: rgba(255, 107, 129, 0.2); border-color: rgba(255, 107, 129, 0.7); }
+    .btn-sm { padding: 6px 12px; font-size: 0.76rem; }
+    .btn-ghost { background: transparent; }
+
+    /* form controls */
+    label { display: block; font-size: 0.74rem; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 6px; }
+    input, select, textarea {
+      width: 100%; font-family: inherit; font-size: 0.85rem; color: #fff;
+      background: rgba(0, 0, 0, 0.45); border: 1px solid var(--line-2); border-radius: 12px;
+      padding: 10px 13px; outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(255, 255, 255, 0.5); box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06);
+    }
+    input::placeholder, textarea::placeholder { color: #5d6580; }
+    textarea { font-family: var(--mono); font-size: 0.78rem; resize: vertical; line-height: 1.5; }
+    select {
+      appearance: none; -webkit-appearance: none;
+      background-image: linear-gradient(45deg, transparent 50%, #8e8e93 50%),
+                        linear-gradient(135deg, #8e8e93 50%, transparent 50%);
+      background-position: calc(100% - 18px) 20px, calc(100% - 13px) 20px;
+      background-size: 5px 5px, 5px 5px; background-repeat: no-repeat;
+    }
+    option { background: #0a0a0c; color: #fff; }
+
+    /* pills & tags */
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; color: var(--muted);
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 4px 10px; background: rgba(255, 255, 255, 0.04); white-space: nowrap;
+    }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.3); background: rgba(34, 197, 94, 0.1);
+      color: #86efac; white-space: nowrap;
+    }
+    .tag.warn { border-color: rgba(255, 198, 92, 0.35); background: rgba(255, 198, 92, 0.1); color: #ffd899; }
+    .tag.bad { border-color: rgba(255, 107, 129, 0.35); background: rgba(255, 107, 129, 0.12); color: #ffb3bf; }
+
+    /* tables */
+    table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+    th {
+      text-align: left; font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; padding: 10px 12px; border-bottom: 1px solid var(--line);
+    }
+    td { padding: 12px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); vertical-align: middle; color: #d7d7db; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:hover { background: rgba(255, 255, 255, 0.03); }
+    .ident { display: flex; flex-direction: column; gap: 2px; }
+    .ident b { font-family: var(--mono); font-size: 0.78rem; font-weight: 500; }
+    .ident span { font-size: 0.72rem; color: var(--muted); }
+    .empty { padding: 36px 18px; text-align: center; color: var(--muted); font-size: 0.86rem; }
+    .hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 12px; line-height: 1.6; }
+
+    /* sessions */
+    .sess-list { display: flex; flex-direction: column; gap: 10px; max-height: 430px; overflow: auto; }
+    .sess {
+      border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.02); cursor: pointer;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    .sess:hover { border-color: rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.04); }
+    .sess.sel { border-color: rgba(34, 197, 94, 0.55); background: rgba(34, 197, 94, 0.07); }
+    .who { display: flex; gap: 12px; align-items: center; }
+    .who .ava {
+      width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0;
+      border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.06);
+      display: grid; place-items: center; font-weight: 700; color: var(--muted); position: relative;
+    }
+    .who .ava img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .who .nm { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .who .nm b { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .who .nm span { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); }
+    .sess .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .sess .out {
+      margin-top: 8px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+      white-space: pre-wrap; word-break: break-word; max-height: 96px; overflow: auto;
+      border-top: 1px solid var(--line); padding-top: 8px;
+    }
+    .sess .out.ok { color: #86efac; }
+    .sess .out.bad { color: #ffb3bf; }
+    .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+
+    /* bans / log / toasts */
+    .ban-list { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow: auto; }
+    .ban-item {
+      display: flex; justify-content: space-between; gap: 10px;
+      font-family: var(--mono); font-size: 0.76rem;
+      padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px;
+      background: rgba(0, 0, 0, 0.3); color: #c2c9de;
+    }
+    .ban-item span { color: var(--muted); }
+    #log {
+      font-family: var(--mono); font-size: 0.76rem; color: var(--muted);
+      max-height: 170px; overflow: auto; display: flex; flex-direction: column; gap: 4px;
+    }
+    #log div { border-left: 2px solid var(--line-2); padding-left: 9px; }
+    #log .ok { border-color: var(--mint); color: #86efac; }
+    #log .err { border-color: var(--danger); color: #ffb3bf; }
+
+    .toasts { position: fixed; right: 18px; bottom: 18px; z-index: 60; display: flex; flex-direction: column; gap: 8px; max-width: min(360px, 90vw); }
+    .toast {
+      border: 1px solid var(--line-2); background: rgba(10, 10, 12, 0.92);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-radius: 14px; padding: 12px 14px; font-size: 0.82rem;
+      box-shadow: 0 20px 50px -20px #000; animation: in 0.25s ease;
+    }
+    .toast.ok { border-color: rgba(34, 197, 94, 0.45); }
+    .toast.err { border-color: rgba(255, 107, 129, 0.5); }
+    @keyframes in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* login gate */
+    #gate {
+      position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+      background: rgba(0, 0, 0, 0.86); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding: 20px;
+    }
+    #gate.hide { display: none; }
+    .gate-card {
+      width: min(420px, 100%); border: 1px solid var(--line-2); border-radius: 20px; padding: 30px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+      box-shadow: 0 40px 90px -40px #000; backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    }
+    .gate-card h1 { font-size: 1.4rem; font-weight: 600; margin: 0 0 8px; }
+    .gate-card p { color: var(--muted); font-size: 0.86rem; margin: 0 0 22px; line-height: 1.6; }
+    .gate-card .btn { width: 100%; margin-top: 14px; padding: 12px; }
+    .err { color: #ffb3bf; font-size: 0.82rem; min-height: 20px; margin-top: 10px; }
+    .brand-r { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; font-weight: 700; }
+    .mark {
+      width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center;
+      background: #fff; flex-shrink: 0; box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    }
+
+    /* responsive — keep the admin actions reachable on phones */
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .site-header { justify-content: center; gap: 10px; padding: 0; }
+      .nav-pill { display: flex; width: auto; flex: 1; padding: 0 8px; }
+      .nav-links { display: none; }
+      .burger { display: flex; flex-shrink: 0; }
+      .nav-actions .nav-status { display: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-btn { padding: 0 12px; }
+      .row { flex-direction: column; }
+      .card-h { flex-wrap: wrap; }
+      .card-b { padding: 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+  </style>
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg-wave">
+    <div class="green-orb orb-1"></div>
+    <div class="green-orb orb-2"></div>
+    <div class="green-orb orb-3"></div>
+    <div class="noise"></div>
+  </div>
+
+  <!-- ── login gate ── -->
+  <div id="gate">
+    <form class="gate-card" id="gateForm" autocomplete="off">
+      <div class="brand-r">
+        <span class="mark"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M5 19c3.6-6.2 6.2-9.6 9-14M8 5h9v3.4h-4.2L18 19h-3.6l-2.2-4.6L8.6 19H5l4.6-7.2H6.4z" fill="#000"/></svg></span>
+        <span>999MS · Control</span>
+      </div>
+      <h1>เข้าสู่ระบบควบคุม</h1>
+      <p>ใส่ <span class="mono">ADMIN_TOKEN</span> ของโปรเจกต์ ระบบจะเก็บไว้ในแท็บนี้เท่านั้น (ไม่บันทึกลงเครื่อง)</p>
+      <label for="token">Admin token</label>
+      <input id="token" type="password" placeholder="วาง token ที่นี่" spellcheck="false" />
+      <button class="btn btn-primary" id="loginBtn" type="submit">เข้าสู่ระบบ</button>
+      <div class="err" id="gateErr"></div>
+    </form>
+  </div>
+
+  <div class="page">
+    <!-- Header -->
+    <header class="site-header pop-element">
+      <div class="nav-pill">
+        <a class="brand" href="/" aria-label="Home">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 60%; height: 60%;">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#000"/>
+            <path d="M2 17L12 22L22 17" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+        <nav class="nav-links">
+          <a href="/" class="nav-link">Home</a>
+          <a href="/hub" class="nav-link">Scripts</a>
+          <a href="/key" class="nav-link">Key</a>
+          <a href="/control" class="nav-link is-active">Control</a>
+          <a href="/stats" class="nav-link">Stats</a>
+        </nav>
+        <div class="nav-actions">
+          <span class="nav-status"><span class="status-dot" id="gwDot"></span><span id="gwLabel">API —</span></span>
+          <button class="nav-btn" id="refreshBtn" type="button">
+            <svg id="refreshIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-2.6-6.4"/><path d="M21 3v6h-6"/></svg>
+            รีเฟรช
+          </button>
+          <button class="nav-btn nav-btn-ghost" id="logoutBtn" type="button">ออก</button>
+        </div>
+      </div>
+
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <!-- Hero -->
+    <main class="hero">
+      <h1 class="headline" id="dynamicHeadline" aria-label="999MS CONTROL"></h1>
+
+      <p class="subhead pop-element">
+        หน้าควบคุมสำหรับแอดมิน — ดูเครื่องที่กำลังรัน, สั่งรันโค้ด, เตะ, แบน และติดตามทราฟฟิกแบบเรียลไทม์
+      </p>
+
+      <div class="live-status pop-element">
+        <span class="status-dot" id="liveDot"></span> <span id="liveText">LIVE — กำลังตรวจสอบ API</span>
+      </div>
+    </main>
+
+    <!-- Stats -->
+    <section class="stats-section pop-element">
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-icon">~</span>
+          <span class="stat-value" id="statClients">—</span>
+          <span class="stat-label" id="statClientsSub">health check</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">#</span>
+          <span class="stat-value" id="statGateway">—</span>
+          <span class="stat-label" id="statGatewaySub">traffic buffer</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">!</span>
+          <span class="stat-value" id="statBans">—</span>
+          <span class="stat-label" id="statBansSub">hwid / user / ip</span>
+        </div>
+        <div class="stat">
+          <span class="stat-icon">*</span>
+          <span class="stat-value" id="statUpdated">—</span>
+          <span class="stat-label">รีเฟรชอัตโนมัติทุก 15 วิ</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section class="dash">
+  <div class="grid">
+    <div class="stack">
+      <section class="card">
+        <div class="card-h">
+          <h2>เครื่องที่กำลังรัน</h2>
+          <span class="pill" id="sessCount">0</span>
+          <span class="spacer"></span>
+          <span class="pill hide-sm">heartbeat ทุก 12 วิ</span>
+        </div>
+        <div class="card-b stack">
+          <p class="hint">สคริปต์ที่กำลังรันจะส่งโปรไฟล์ Roblox มาทาง heartbeat — เลือกเครื่องแล้วสั่ง <span class="mono">รันโค้ด</span> หรือ <span class="mono">เตะ</span> ได้ทันที</p>
+          <div class="sess-list" id="sessList"><div class="empty">ยังไม่มีเครื่องที่เชื่อมต่อ</div></div>
+          <div style="border-top:1px solid var(--line);padding-top:12px" class="stack">
+            <div>
+              <label for="testHwid">HWID ของเครื่องทดสอบ</label>
+              <div style="display:flex;gap:8px">
+                <input id="testHwid" placeholder="วาง HWID ที่ได้จาก executor" spellcheck="false" />
+                <button class="btn btn-sm" type="button" data-copy="hwidSnippet">คัดลอกโค้ดดู HWID</button>
+              </div>
+              <input id="hwidSnippet" readonly class="mono" style="margin-top:8px;font-size:.74rem"
+                value='print(gethwid and gethwid() or (get_hwid and get_hwid()) or "no getter")' />
+              <p class="hint" style="margin:6px 0 0">executor แนบ fingerprint header ของตัวเองมาด้วย — ticket ต้องผูกกับ HWID จริง มิฉะนั้นเซิร์ฟเวอร์จะเตะ <span class="mono">BAD HWID : ]</span></p>
+            </div>
+
+            <div>
+              <label for="testClientOut">client ทดสอบ (ไม่ผ่านตัวโหลดเดอร์)</label>
+              <div class="row">
+                <button class="btn btn-sm" id="testClientBtn" type="button">สร้างสคริปต์ทดสอบ</button>
+                <button class="btn btn-sm" type="button" data-copy="testClientOut">คัดลอก</button>
+              </div>
+              <textarea id="testClientOut" rows="7" readonly class="mono" style="margin-top:10px;font-size:.72rem" placeholder="กด สร้างสคริปต์ทดสอบ แล้วคัดลอกไปวางใน executor"></textarea>
+              <p class="hint" id="testClientMeta" style="margin:0"></p>
+            </div>
+          </div>
+
+          <div style="border-top:1px solid var(--line);padding-top:12px" class="stack">
+            <div>
+              <label for="cmdCode">โค้ด Lua ที่จะรันบนเครื่องนั้น</label>
+              <textarea id="cmdCode" rows="5" spellcheck="false" placeholder='print("hello from control")'></textarea>
+            </div>
+            <div class="row">
+              <button class="btn" id="cmdSend" type="button">รันบนเครื่องที่เลือก</button>
+              <button class="btn btn-primary" id="cmdSendAll" type="button">รันทุกเครื่อง</button>
+            </div>
+            <p class="hint" id="cmdTarget" style="margin:0">ยังไม่ได้เลือกเครื่อง</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>สร้างลิงก์โหลด</h2>
+          <span class="spacer"></span>
+          <span class="pill hide-sm">พาธสุ่ม 40 hex · token หมดอายุ</span>
+        </div>
+        <div class="card-b stack">
+          <p class="hint">ลิงก์แบบsomtank: <span class="mono">/x/&lt;40 hex สุ่ม&gt;?at=&lt;token&gt;</span> — แต่ละลิงก์มี namespace ของตัวเอง ไม่ซ้ำกัน และหมดอายุได้</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div style="flex:1;min-width:140px">
+              <label for="linkScript">ชื่อสคริปต์</label>
+              <input id="linkScript" value="main" spellcheck="false" />
+            </div>
+            <div style="flex:1;min-width:120px">
+              <label for="linkHours">อายุ (ชั่วโมง)</label>
+              <input id="linkHours" type="number" min="1" max="8760" value="168" />
+            </div>
+          </div>
+          <button class="btn" id="linkBtn" type="button">สร้างลิงก์</button>
+          <div id="linkOut" class="hide">
+            <div style="border-top:1px solid var(--line);padding-top:12px" class="stack">
+              <div>
+                <label>ลิงก์</label>
+                <div style="display:flex;gap:8px">
+                  <input id="linkUrl" readonly class="mono" style="flex:1" />
+                  <button class="btn btn-sm" type="button" data-copy="linkUrl">คัดลอก</button>
+                </div>
+              </div>
+              <div>
+                <label>บรรทัดสำหรับ executor</label>
+                <div style="display:flex;gap:8px">
+                  <input id="linkLine" readonly class="mono" style="flex:1" />
+                  <button class="btn btn-sm" type="button" data-copy="linkLine">คัดลอก</button>
+                </div>
+              </div>
+              <div>
+                <label>สคริปต์เต็ม (มี hash ตรวจสอบ)</label>
+                <textarea id="linkStub" readonly rows="8" class="mono" style="width:100%;font-size:.76rem"></textarea>
+                <button class="btn btn-sm" type="button" data-copy="linkStub">คัดลอกสคริปต์เต็ม</button>
+              </div>
+              <p class="hint" id="linkMeta" style="margin:0"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>สคริปต์ของแมพ</h2>
+          <span class="pill" id="scriptCount">0</span>
+          <span class="spacer"></span>
+          <span class="pill hide-sm">place id · ชื่อสคริปต์ · ไฟล์</span>
+        </div>
+        <div class="card-b stack">
+          <p class="hint">อัปโหลดสคริปต์แล้วจะไปโชว์เป็นการ์ดในหน้า <span class="mono">/key</span> อัตโนมัติ — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> รองรับไฟล์ใหญ่สูงสุด 25 MB) ส่วน Supabase เก็บแค่ชื่อแมพ + Place ID ไม่กินโควตา</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <div style="flex:1;min-width:130px">
+              <label for="upPlace">Place ID</label>
+              <input id="upPlace" inputmode="numeric" spellcheck="false" placeholder="1234567890" />
+            </div>
+            <div style="flex:1;min-width:130px">
+              <label for="upName">ชื่อสคริปต์</label>
+              <input id="upName" spellcheck="false" placeholder="main" />
+            </div>
+          </div>
+          <div>
+            <label for="upFile">ไฟล์สคริปต์ (.lua / .txt)</label>
+            <input id="upFile" type="file" accept=".lua,.txt,text/plain,.luau" />
+          </div>
+          <div>
+            <label for="upBody">หรือวางโค้ดสคริปต์ตรงนี้</label>
+            <textarea id="upBody" rows="7" spellcheck="false" class="mono" style="font-size:.74rem" placeholder="print('hello from 999MS')"></textarea>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary" id="upSave" type="button">อัปโหลดสคริปต์</button>
+            <button class="btn btn-sm btn-ghost" id="upRefresh" type="button">รีเฟรชรายการ</button>
+          </div>
+          <p class="hint" id="upMeta" style="margin:0"></p>
+          <div style="border-top:1px solid var(--line);padding-top:12px">
+            <div class="k" style="font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">สคริปต์ที่อัปโหลดแล้ว</div>
+            <div class="ban-list" id="scriptList"><div class="hint" style="margin:0">—</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-h"><h2>บันทึกการทำงาน</h2><span class="spacer"></span>
+          <button class="btn btn-sm btn-ghost" id="clearLog" type="button">ล้าง</button>
+        </div>
+        <div class="card-b"><div id="log"></div></div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>คำขอที่เข้ามาล่าสุด</h2>
+          <span class="pill" id="traceCount">0</span>
+          <span class="spacer"></span>
+          <span class="pill hide-sm">จาก executor / เบราว์เซอร์</span>
+        </div>
+        <div id="traceHost"><div class="empty">ยังไม่มีข้อมูล</div></div>
+      </section>
+
+      <section class="card">
+        <div class="card-h">
+          <h2>เหตุการณ์ความปลอดภัย</h2>
+          <span class="pill" id="eventCount">0</span>
+          <span class="spacer"></span>
+          <span class="pill hide-sm">hop / hwid / ban</span>
+        </div>
+        <div id="eventHost"><div class="empty">ยังไม่มีเหตุการณ์</div></div>
+      </section>
+    </div>
+
+    <div class="stack">
+      <section class="card">
+        <div class="card-h"><h2>แบน / ตัดสิทธิ์</h2></div>
+        <div class="card-b stack">
+          <p class="hint">แบนมีผลทันทีกับคำขอถัดไปของ HWID / user / IP นั้น (ตรวจทุกครั้งใน /api/verify และ /api/script)</p>
+          <div>
+            <label for="banType">ประเภท</label>
+            <select id="banType">
+              <option value="hwid">HWID (ค่าจาก executor)</option>
+              <option value="hwidHash">HWID hash (64 hex)</option>
+              <option value="user">User ID</option>
+              <option value="ip">IP address</option>
+            </select>
+          </div>
+          <div>
+            <label for="banValue">ค่า</label>
+            <input id="banValue" placeholder="วางค่าแล้วกดแบน" spellcheck="false" />
+          </div>
+          <button class="btn btn-danger" id="banBtn" type="button">แบน</button>
+          <div style="border-top:1px solid var(--line);padding-top:12px">
+            <div class="k" style="font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">รายการที่แบนอยู่</div>
+            <div class="ban-list" id="banList"><div class="hint" style="margin:0">—</div></div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+    </section>
+  </div>
+
+  <div class="toasts" id="toasts"></div>
+
+  <script>
+    /* HUB theme motion + live probe (identical behaviour to the HUB page) */
+    (function () {
+      "use strict";
+
+      function far() {
+        return {
+          tx: ((Math.random() - 0.5) * 420) + "px",
+          ty: ((Math.random() - 0.5) * 420) + "px",
+          tr: ((Math.random() - 0.5) * 140) + "deg"
+        };
+      }
+
+      function reveal(elements) {
+        elements.forEach(function (el) {
+          el.classList.remove("pop-element");
+          el.style.opacity = "1";
+          el.style.visibility = "visible";
+          el.style.transform = "none";
+          el.style.filter = "none";
+        });
+      }
+
+      try {
+        var headline = document.getElementById("dynamicHeadline");
+        var text = "CONTROL";
+
+        text.split("").forEach(function (ch) {
+          var span = document.createElement("span");
+          span.className = "char";
+          span.textContent = ch;
+          span.setAttribute("data-char", ch);
+          headline.appendChild(span);
+        });
+
+        setTimeout(function () {
+          var chars = headline.querySelectorAll(".char");
+          chars.forEach(function (span, index) {
+            var d = far();
+            span.style.setProperty("--tx", d.tx);
+            span.style.setProperty("--ty", d.ty);
+            span.style.setProperty("--tr", d.tr);
+            var delay = 0.2 + (index * 0.12);
+            span.style.setProperty("--delay", delay + "s");
+            span.classList.add("pop-in");
+
+            if (index === chars.length - 1) {
+              setTimeout(function () {
+                chars.forEach(function (c) { c.classList.add("shimmer-ready"); });
+              }, (delay + 2) * 1000);
+            }
+          });
+        }, 50);
+
+        var pops = Array.prototype.slice.call(document.querySelectorAll(".pop-element"));
+        pops.forEach(function (el, index) {
+          var d = far();
+          el.style.setProperty("--tx", d.tx);
+          el.style.setProperty("--ty", d.ty);
+          el.style.setProperty("--tr", d.tr);
+          el.style.setProperty("--delay", (1.0 + index * 0.15) + "s");
+        });
+        setTimeout(function () {
+          pops.forEach(function (el) { el.classList.add("pop-in"); });
+        }, 60);
+      } catch (err) {
+        reveal(Array.prototype.slice.call(document.querySelectorAll(".pop-element")));
+      }
+
+      /* mobile menu */
+      var burger = document.getElementById("burger");
+      var navLinks = document.querySelector(".nav-links");
+      var navActions = document.querySelector(".nav-actions");
+
+      if (burger && navLinks) {
+        burger.addEventListener("click", function () {
+          var open = burger.getAttribute("aria-expanded") === "true";
+          burger.setAttribute("aria-expanded", String(!open));
+          if (!open) {
+            navLinks.style.display = "flex";
+            navLinks.style.flexDirection = "column";
+            navLinks.style.position = "absolute";
+            navLinks.style.top = "70px";
+            navLinks.style.left = "0";
+            navLinks.style.width = "100%";
+            navLinks.style.background = "rgba(10,10,12,0.95)";
+            navLinks.style.padding = "20px";
+            navLinks.style.borderRadius = "16px";
+            navLinks.style.border = "1px solid rgba(255,255,255,0.1)";
+            if (navActions) navActions.style.display = "none";
+          } else {
+            navLinks.style.display = "";
+            if (navActions) navActions.style.display = "";
+          }
+        });
+      }
+
+      /* live status */
+      var liveText = document.getElementById("liveText");
+      var liveDot = document.getElementById("liveDot");
+      var started = Date.now();
+
+      fetch("/api/health", { cache: "no-store" })
+        .then(function (res) {
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          var ms = Date.now() - started;
+          if (liveText) liveText.textContent = "LIVE · " + ms + " MS · v" + (data.version || "");
+        })
+        .catch(function () {
+          if (liveText) {
+            liveText.textContent = "OFFLINE — API NOT REACHABLE";
+            liveText.style.color = "#ff6b81";
+            liveText.style.textShadow = "0 0 10px rgba(255, 107, 129, 0.5)";
+          }
+          if (liveDot) {
+            liveDot.style.background = "#ff6b81";
+            liveDot.style.boxShadow = "0 0 10px #ff6b81";
+          }
+        });
+    })();
+  </script>
+<script>
+(function () {
+  'use strict';
+  var KEY = 'ms999_admin_token';
+  var state = { token: sessionStorage.getItem(KEY) || '', timer: null, busy: false, selected: '', sessions: [] };
+
+  var $ = function (id) { return document.getElementById(id); };
+  var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');
+
+  function toast(message, kind) {
+    var el = document.createElement('div');
+    el.className = 'toast ' + (kind || '');
+    el.textContent = message;
+    $('toasts').appendChild(el);
+    setTimeout(function () { el.remove(); }, 4200);
+  }
+
+  function logLine(message, kind) {
+    var line = document.createElement('div');
+    if (kind) line.className = kind;
+    var t = new Date().toLocaleTimeString('th-TH');
+    line.textContent = t + '  ' + message;
+    var host = $('log');
+    host.insertBefore(line, host.firstChild);
+    while (host.children.length > 60) host.removeChild(host.lastChild);
+  }
+
+  function ago(ms) {
+    if (!ms) return '—';
+    var s = Math.max(0, Math.floor((Date.now() - ms) / 1000));
+    if (s < 5) return 'เมื่อสักครู่';
+    if (s < 60) return s + ' วิที่แล้ว';
+    var m = Math.floor(s / 60);
+    if (m < 60) return m + ' นาทีที่แล้ว';
+    var h = Math.floor(m / 60);
+    if (h < 24) return h + ' ชั่วโมงที่แล้ว';
+    return Math.floor(h / 24) + ' วันที่แล้ว';
+  }
+
+  function dur(ms) {
+    if (!ms) return '—';
+    var s = Math.floor(ms / 1000);
+    if (s < 60) return s + ' วิ';
+    var m = Math.floor(s / 60);
+    if (m < 60) return m + ' นาที';
+    var h = Math.floor(m / 60);
+    if (h < 24) return h + ' ชม. ' + (m % 60) + ' น.';
+    return Math.floor(h / 24) + ' วัน';
+  }
+
+  function api(path, body) {
+    return fetch(path, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-admin-token': state.token },
+      body: JSON.stringify(body || {}),
+      cache: 'no-store',
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        return { status: res.status, data: data };
+      });
+    });
+  }
+
+  function setDot(el, cls) { el.classList.remove('ok', 'bad', 'wait'); if (cls) el.classList.add(cls); }
+
+  function showGate(message) {
+    gate.classList.remove('hide');
+    gateErr.textContent = message || '';
+    if (state.timer) clearInterval(state.timer);
+  }
+
+  /* ── uploaded map scripts ── */
+  var upFile = $('upFile');
+  var upBody = $('upBody');
+  var selectedFileCode = null;
+  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';
+
+  if (upBody) {
+    upBody.addEventListener('input', function () {
+      selectedFileCode = null;
+      upBody.placeholder = defaultBodyPlaceholder;
+    });
+  }
+
+  if (upFile) {
+    upFile.addEventListener('change', function () {
+      var file = upFile.files && upFile.files[0];
+      if (!file) return;
+      var reader = new FileReader();
+      reader.onload = function () {
+        var content = String(reader.result || '');
+        selectedFileCode = content;
+        if (upBody) {
+          if (content.length <= 131072) {
+            upBody.value = content;
+            upBody.placeholder = defaultBodyPlaceholder;
+          } else {
+            upBody.value = '';
+            upBody.placeholder = 'เลือกไฟล์ขนาดใหญ่ ' + file.name + ' (' + bytes(file.size) + ') พร้อมอัปโหลดแล้ว — ซ่อนตัวอย่างเพื่อไม่ให้เบราว์เซอร์ค้าง';
+          }
+        }
+        var upNameInput = $('upName');
+        if (upNameInput && !upNameInput.value.trim()) {
+          var base = file.name.replace(/\.(lua|luau|txt)$/i, '').replace(/[^a-zA-Z0-9_-]/g, '');
+          if (base) upNameInput.value = base.slice(0, 64);
+        }
+        $('upMeta').textContent = 'โหลดไฟล์ ' + file.name + ' (' + bytes(file.size) + ') แล้ว — กดอัปโหลดสคริปต์เพื่อส่งขึ้น GitHub';
+      };
+      reader.readAsText(file);
+    });
+  }
+
+  function compressGzipBase64(text) {
+    if (typeof CompressionStream === 'undefined' || text.length < 16384) {
+      return Promise.resolve(null);
+    }
+    try {
+      var stream = new Blob([text]).stream().pipeThrough(new CompressionStream('gzip'));
+      return new Response(stream).arrayBuffer().then(function (ab) {
+        var u8 = new Uint8Array(ab);
+        var chunks = [];
+        var step = 0x8000;
+        for (var i = 0; i < u8.length; i += step) {
+          chunks.push(String.fromCharCode.apply(null, u8.subarray(i, i + step)));
+        }
+        return btoa(chunks.join(''));
+      }).catch(function () { return null; });
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  }
+
+  function bytes(value) {
+    var n = Number(value) || 0;
+    if (n < 1024) return n + ' B';
+    if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+    return (n / 1024 / 1024).toFixed(1) + ' MB';
+  }
+
+  function renderScripts(items) {
+    var host = $('scriptList');
+    $('scriptCount').textContent = String(items.length);
+    if (!items.length) {
+      host.innerHTML = '<div class="hint" style="margin:0">ยังไม่มีสคริปต์ — อัปโหลดแล้วจะไปโชว์ในหน้า /key</div>';
+      return;
+    }
+    host.innerHTML = items.map(function (item, index) {
+      var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '—';
+      return '<div class="ban-item">' +
+        '<div style="min-width:0">' +
+          '<b class="mono">' + esc(item.name) + '</b>' +
+          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
+        '</div>' +
+        '<span class="spacer"></span>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-del="' + index + '">ลบ</button>' +
+      '</div>';
+    }).join('');
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = items[Number(btn.getAttribute('data-del'))];
+        if (!item) return;
+        deleteScript(item);
+      });
+    });
+  }
+
+  function loadScripts() {
+    return api('/api/control/scripts', { op: 'list' }).then(function (result) {
+      var data = result.data || {};
+      if (!result.status || result.status >= 400 || !data.ok) {
+        renderScripts([]);
+        if (data && data.note) $('upMeta').textContent = data.note;
+        return;
+      }
+      renderScripts(data.items || []);
+    }).catch(function () { renderScripts([]); });
+  }
+
+  function deleteScript(item) {
+    api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })
+      .then(function (result) {
+        var data = result.data || {};
+        if (data.ok) {
+          toast('ลบสคริปต์ ' + item.name + ' แล้ว', 'ok');
+          logLine('ลบสคริปต์ ' + item.name + ' (place ' + item.placeId + ')' + ((data.github && data.github.ok) ? ' · ลบไฟล์ออกจาก GitHub ด้วย' : ''), 'ok');
+        } else {
+          toast('ลบไม่สำเร็จ: ' + (data.reason || result.status), 'err');
+        }
+        return loadScripts();
+      });
+  }
+
+  if ($('upSave')) {
+    $('upSave').addEventListener('click', function () {
+      var btn = $('upSave');
+      var placeId = ($('upPlace').value || '').trim();
+      var name = ($('upName').value || '').trim();
+      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');
+      if (!placeId) { toast('ใส่ Place ID ก่อน', 'err'); return; }
+      if (!name) { toast('ใส่ชื่อสคริปต์ก่อน', 'err'); return; }
+      if (!code.trim()) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน', 'err'); return; }
+      btn.disabled = true;
+      var origLabel = btn.textContent;
+      btn.textContent = 'กำลังอัปโหลด…';
+      $('upMeta').textContent = 'กำลังบีบอัดและส่งไฟล์ขึ้น GitHub (' + bytes(code.length) + ')…';
+      compressGzipBase64(code).then(function (gzB64) {
+        var payload = { op: 'save', placeId: placeId, name: name };
+        if (gzB64) payload.bodyGzip = gzB64;
+        else payload.body = code;
+        return api('/api/control/scripts', payload);
+      }).then(function (result) {
+        btn.disabled = false;
+        btn.textContent = origLabel;
+        var data = result.data || {};
+        if (data.ok) {
+          var gh = data.github || {};
+          var deployNote = (gh.deploy && gh.deploy.triggered) ? ' · สั่งดีพลอย Vercel แล้ว' : '';
+          var ghText = gh.ok
+            ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + (gh.updated ? ' — อัปเดตไฟล์เดิม' : ' — ไฟล์ใหม่') + deployNote + ')'
+            : '';
+          toast('อัปโหลด ' + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
+          logLine('อัปโหลดสคริปต์ ' + name + ' (' + bytes(data.size) + ') สำหรับ place ' + placeId, 'ok');
+          if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main') + deployNote, 'ok');
+          $('upMeta').textContent = 'บันทึกแล้ว — ' + name + ' (' + bytes(data.size) + ') · place ' + placeId + ghText + ' · ไม่เปลือง Supabase';
+          selectedFileCode = null;
+          upBody.value = '';
+          upBody.placeholder = defaultBodyPlaceholder;
+          if (upFile) upFile.value = '';
+          return loadScripts();
+        }
+        var errMsg = data.reason || ('HTTP ' + result.status);
+        $('upMeta').textContent = 'อัปโหลดไม่สำเร็จ: ' + errMsg;
+        logLine('อัปโหลดไม่สำเร็จ: ' + errMsg, 'err');
+        toast('อัปโหลดไม่สำเร็จ: ' + errMsg, 'err');
+      }).catch(function (err) {
+        btn.disabled = false;
+        btn.textContent = origLabel;
+        toast('อัปโหลดไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
+      });
+    });
+  }
+
+  if ($('upRefresh')) $('upRefresh').addEventListener('click', function () { loadScripts(); });
+
+  /* ── login ── */
+  gateForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    var token = tokenInput.value.trim();
+    if (!token) { gateErr.textContent = 'กรุณาใส่ token'; return; }
+    $('loginBtn').disabled = true;
+    state.token = token;
+    api('/api/control/events', { limit: 40 }).then(function (result) {
+      if (result.status !== 200 || !result.data) return;
+      $('eventCount').textContent = String(result.data.count || 0);
+      renderEvents(result.data.events || []);
+    }).catch(function () {});
+
+    api('/api/control/bans').then(function (result) {
+      $('loginBtn').disabled = false;
+      if (result.status === 401) {
+        state.token = '';
+        gateErr.textContent = 'token ไม่ถูกต้อง';
+        return;
+      }
+      sessionStorage.setItem(KEY, token);
+      gate.classList.add('hide');
+      logLine('เข้าสู่ระบบแล้ว', 'ok');
+      loadAll();
+      state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);
+    }).catch(function () {
+      $('loginBtn').disabled = false;
+      gateErr.textContent = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
+    });
+  });
+
+  $('logoutBtn').addEventListener('click', function () {
+    sessionStorage.removeItem(KEY);
+    state.token = '';
+    showGate('');
+    gateErr.textContent = '';
+  });
+
+  /* ── data ── */
+  function loadAll(quiet) {
+    if (state.busy || !state.token) return;
+    state.busy = true;
+    var icon = $('refreshIcon');
+    icon.classList.add('rotate');
+
+    fetch('/api/health', { cache: 'no-store' }).then(function (res) {
+      return res.json().then(function (data) { return { status: res.status, data: data }; });
+    }).then(function (result) {
+      var data = result.data || {};
+      var ok = result.status === 200 && data.ok === true;
+      setDot($('gwDot'), ok ? 'ok' : 'bad');
+      $('gwLabel').textContent = ok ? 'API v' + (data.version || '?') : 'API ออฟไลน์';
+      $('statClients').textContent = ok ? 'ออนไลน์' : 'ออฟไลน์';
+      $('statClientsSub').textContent = ok ? ('service ' + (data.service || '') + ' · chain ' + (data.chain || '')) : 'health check ล้มเหลว';
+      $('statUpdated').textContent = new Date().toLocaleTimeString('th-TH').slice(0, 8);
+      if (!quiet) logLine(ok ? 'API ออนไลน์' : 'API ออฟไลน์', ok ? 'ok' : 'err');
+    }).catch(function () {
+      setDot($('gwDot'), 'bad');
+      $('gwLabel').textContent = 'API ออฟไลน์';
+      $('statClients').textContent = 'ออฟไลน์';
+      if (!quiet) logLine('เรียก API ไม่สำเร็จ', 'err');
+    }).then(function () {
+      state.busy = false;
+      icon.classList.remove('rotate');
+    });
+
+    api('/api/control/traffic', { limit: 40 }).then(function (result) {
+      if (result.status !== 200 || !result.data) return;
+      $('statGateway').textContent = String(result.data.count || 0);
+      $('statGatewaySub').textContent = 'traffic buffer (สูงสุด 200)';
+      renderTraffic(result.data.traffic || []);
+    }).catch(function () {});
+
+    loadSessions();
+    loadScripts();
+
+    api('/api/control/bans').then(function (result) {
+      if (result.status !== 200) return;
+      var data = result.data || {};
+      var st = data.stats || { hwids: 0, users: 0, ips: 0 };
+      $('statBans').textContent = (st.hwids + st.users + st.ips);
+      $('statBansSub').textContent = 'hwid ' + st.hwids + ' · user ' + st.users + ' · ip ' + st.ips;
+      renderBans(data.lists || {});
+    }).catch(function () {});
+  }
+
+  function esc(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, function (ch) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch];
+    });
+  }
+
+  function statusClass(code) {
+    if (code >= 200 && code < 300) return 'tag';
+    if (code >= 300 && code < 400) return 'tag warn';
+    return 'tag bad';
+  }
+
+  function renderEvents(list) {
+    var host = $('eventHost');
+    if (!list.length) {
+      host.innerHTML = '<div class="empty">ยังไม่มีเหตุการณ์</div>';
+      return;
+    }
+    var tone = { verify_reject: 'bad', script_reject: 'bad', runtime_reject: 'bad', hwid_spoof: 'bad', ban_hit: 'warn' };
+    var rows = list.map(function (row) {
+      var time = new Date(row.ts).toLocaleTimeString('th-TH');
+      return '<tr>' +
+        '<td class="mono" style="font-size:.76rem;white-space:nowrap">' + esc(time) + '</td>' +
+        '<td><span class="' + (tone[row.kind] || 'tag') + '">' + esc(row.kind || '') + '</span></td>' +
+        '<td class="mono" style="font-size:.78rem">' + esc(row.detail || '') + '</td>' +
+      '</tr>';
+    }).join('');
+    host.innerHTML = '<div style="overflow:auto;max-height:240px"><table><thead><tr>' +
+      '<th>เวลา</th><th>ประเภท</th><th>รายละเอียด</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  function renderTraffic(list) {
+    $('traceCount').textContent = list.length + ' รายการ';
+    var host = $('traceHost');
+    if (!list.length) {
+      host.innerHTML = '<div class="empty">ยังไม่มีคำขอ — ให้คนรัน loadc.lua แล้วกดรีเฟรช</div>';
+      return;
+    }
+    var rows = list.map(function (row) {
+      var time = new Date(row.ts).toLocaleTimeString('th-TH');
+      var label = (row.method || 'GET') + ' ' + (row.path || '');
+      if (row.name) label += '  (' + row.name + ')';
+      return '<tr>' +
+        '<td class="mono" style="font-size:.76rem;white-space:nowrap">' + esc(time) + '</td>' +
+        '<td><div class="ident"><b>' + esc(label) + '</b><span>' + esc(row.host || '') + ' · ' + esc((row.ua || '').slice(0, 34)) + '</span></div></td>' +
+        '<td><span class="' + statusClass(row.status) + '">' + esc(String(row.status)) + '</span></td>' +
+      '</tr>';
+    }).join('');
+    host.innerHTML = '<div style="overflow:auto;max-height:260px"><table><thead><tr>' +
+      '<th>เวลา</th><th>คำขอ</th><th>สถานะ</th></tr></thead><tbody>' + rows + '</tbody></table></div>';
+  }
+
+  function renderBans(lists) {
+    var host = $('banList');
+    var items = [];
+    (lists.hwids || []).forEach(function (v) { items.push(['HWID', v]); });
+    (lists.users || []).forEach(function (v) { items.push(['USER', v]); });
+    (lists.ips || []).forEach(function (v) { items.push(['IP', v]); });
+    if (!items.length) {
+      host.innerHTML = '<div class="hint" style="margin:0">ยังไม่มีรายการที่แบนใน instance นี้</div>';
+      return;
+    }
+    host.innerHTML = items.map(function (pair) {
+      return '<div class="ban-item"><span>' + esc(pair[0]) + '</span><b style="font-weight:500">' + esc(pair[1]) + '</b></div>';
+    }).join('');
+  }
+
+  /* ── sessions ── */
+  function avatar(id, label) {
+    if (!id) return '';
+    return '<img src="https://www.roblox.com/headshot-thumbnail/image?userId=' + encodeURIComponent(id) +
+      '&width=48&height=48&format=png" alt="" loading="lazy" onerror="this.style.display=\'none\'" />';
+  }
+
+  function updateTargetLabel() {
+    var label = $('cmdTarget');
+    if (!state.selected) { label.textContent = 'ยังไม่ได้เลือกเครื่อง'; return; }
+    var picked = null;
+    (state.sessions || []).forEach(function (s) { if (s.id === state.selected) picked = s; });
+    label.textContent = 'เป้าหมาย: ' + (picked
+      ? (picked.label + ' · ' + (picked.scriptName || '-'))
+      : state.selected.slice(0, 8) + '…');
+  }
+
+  function renderSessions(list) {
+    var host = $('sessList');
+    $('sessCount').textContent = String(list.length);
+    if (!list.length) {
+      host.innerHTML = '<div class="empty">ยังไม่มีเครื่องที่เชื่อมต่อ — ให้สคริปต์รันค้างไว้แล้วรอสักครู่</div>';
+      return;
+    }
+    host.innerHTML = list.map(function (s) {
+      var meta = [];
+      if (s.scriptName) meta.push('สคริปต์ ' + esc(s.scriptName));
+      if (s.executor) meta.push(esc(s.executor));
+      if (s.placeId) meta.push('place ' + esc(s.placeId));
+      if (s.ip) meta.push(esc(s.ip));
+      meta.push('heartbeat ' + ago(s.lastBeat));
+      meta.push('รันมา ' + dur(Date.now() - s.startedAt));
+      if (s.pending) meta.push('รอส่ง ' + s.pending);
+
+      var out = '';
+      if (s.lastResult) {
+        out = '<div class="out ' + (s.lastResult.ok ? 'ok' : 'bad') + '">คำสั่ง ' + esc(s.lastResult.id || '') +
+          ' → ' + esc(s.lastResult.output || '(ไม่มีผลลัพธ์)') + '</div>';
+      } else if (s.lastCommand) {
+        out = '<div class="out">ส่งคำสั่ง ' + esc(s.lastCommand.kind || '') + ' ' + esc(s.lastCommand.id || '') +
+          (s.lastCommand.delivered ? ' แล้ว · รอผล' : ' · รอ client มารับ') + '</div>';
+      }
+
+      return '<div class="sess' + (state.selected === s.id ? ' sel' : '') + '" data-id="' + esc(s.id) + '">' +
+        '<div class="who">' +
+          '<span class="ava">' + esc((s.label || '?').slice(0, 1).toUpperCase()) + avatar(s.userId) + '</span>' +
+          '<span class="nm"><b>' + esc(s.label) + (s.name && s.name !== s.label
+            ? ' <span style="color:var(--muted);font-weight:400">@' + esc(s.name) + '</span>' : '') + '</b>' +
+            '<span>' + (s.userId ? 'id ' + esc(s.userId) : 'ไม่ระบุชื่อ') + ' · hwid ' + esc(s.hwid || '-') + '</span></span>' +
+          '<span style="margin-left:auto"></span>' +
+          '<span class="tag ' + (s.online ? '' : 'warn') + '">' + (s.online ? 'ออนไลน์' : 'ไม่ตอบสนอง') + '</span>' +
+        '</div>' +
+        '<div class="meta">' + meta.map(function (m) { return '<span class="pill">' + m + '</span>'; }).join('') + '</div>' +
+        out +
+        '<div class="acts" style="margin-top:8px">' +
+          '<button class="btn btn-sm" type="button" data-exec="' + esc(s.id) + '">รันโค้ด</button>' +
+          '<button class="btn btn-sm btn-danger" type="button" data-kick="' + esc(s.id) + '">เตะ + แบน</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function loadSessions() {
+    return api('/api/control/sessions', {}).then(function (result) {
+      if (result.status !== 200) return;
+      var data = result.data || {};
+      state.sessions = data.sessions || [];
+      renderSessions(state.sessions);
+      updateTargetLabel();
+    }).catch(function () {});
+  }
+
+  function sendCommand(id, kind) {
+    if (kind === 'kick' && !window.confirm('เตะเครื่องนี้และเพิ่มเข้าแบน? (ผู้ใช้จะกลับเข้ามาไม่ได้จนกว่าจะปลดแบน)')) return;
+    var code = kind === 'exec' ? ($('cmdCode').value || '') : '';
+    if (kind === 'exec' && !code.trim()) { toast('กรุณาใส่โค้ดก่อน', 'err'); return; }
+
+    api('/api/control/command', { id: id, kind: kind, code: code }).then(function (result) {
+      var data = result.data || {};
+      if (result.status !== 200 || !data.ok) { toast(data.reason || 'ส่งคำสั่งไม่สำเร็จ', 'err'); return; }
+      toast((kind === 'kick' ? 'เตะแล้ว ' : 'ส่งคำสั่งแล้ว ') + data.targets + ' เครื่อง', 'ok');
+      logLine((kind === 'kick' ? 'เตะ ' : 'รันโค้ด ') + (id === '*' ? 'ทุกเครื่อง' : String(id).slice(0, 8))
+        + ' · ' + (data.id || ''), 'ok');
+      loadSessions();
+    }).catch(function () { toast('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้', 'err'); });
+  }
+
+  $('sessList').addEventListener('click', function (event) {
+    var row = event.target.closest('.sess');
+    if (!row) return;
+    var id = row.getAttribute('data-id') || '';
+    var execBtn = event.target.closest('button[data-exec]');
+    var kickBtn = event.target.closest('button[data-kick]');
+    if (execBtn) { state.selected = id; updateTargetLabel(); sendCommand(id, 'exec'); return; }
+    if (kickBtn) { sendCommand(id, 'kick'); return; }
+    state.selected = (state.selected === id) ? '' : id;
+    updateTargetLabel();
+    renderSessions(state.sessions || []);
+  });
+
+  $('cmdSend').addEventListener('click', function () {
+    if (!state.selected) { toast('เลือกเครื่องก่อน หรือกด รันทุกเครื่อง', 'err'); return; }
+    sendCommand(state.selected, 'exec');
+  });
+  $('cmdSendAll').addEventListener('click', function () { sendCommand('*', 'exec'); });
+
+
+  /* ── test client ── */
+  var CLIENT_TEMPLATE = `local BASE   = "%BASE%"     -- e.g. https://loader999xx-one.vercel.app
+local TICKET = "%TICKET%"   -- short-lived test ticket (30 min)
+local XKEY   = "%XORKEY%"   -- payload XOR key
+local HWID   = "%HWID%"     -- test hardware id that the ticket is bound to
+local SCRIPT = "main"
+local BEAT   = 10           -- seconds between heartbeats
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local Http = (type(syn) == "table" and syn.request)
+    or (type(http) == "table" and http.request)
+    or request or http_request
+local bit = bit32 or bit
+
+if type(Http) ~= "function" then error("[999MS] executor has no HTTP support") end
+if type(bit) ~= "table" then error("[999MS] executor has no bit32") end
+
+local Charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+local Char, Byte = string.char, string.byte
+
+local function Xor(data, key)
+    local out = {}
+    for index = 1, #data do
+        out[index] = Char(bit.bxor(Byte(data, index), Byte(key, (index - 1) % #key + 1)))
+    end
+    return table.concat(out)
+end
+
+local function B64(data)
+    local out = {}
+    for index = 1, #data, 3 do
+        local a, b, c = Byte(data, index, index + 2)
+        a, b, c = a or 0, b or 0, c or 0
+        local n = bit.lshift(a, 16) + bit.lshift(b, 8) + c
+        out[#out + 1] = Charset:sub(bit.rshift(n, 18) % 64 + 1, bit.rshift(n, 18) % 64 + 1)
+        out[#out + 1] = Charset:sub(bit.rshift(n, 12) % 64 + 1, bit.rshift(n, 12) % 64 + 1)
+        if index + 1 > #data then
+            out[#out + 1] = "=="
+        elseif index + 2 > #data then
+            out[#out + 1] = Charset:sub(bit.rshift(n, 6) % 64 + 1, bit.rshift(n, 6) % 64 + 1) .. "="
+        else
+            out[#out + 1] = Charset:sub(bit.rshift(n, 6) % 64 + 1, bit.rshift(n, 6) % 64 + 1)
+                .. Charset:sub(n % 64 + 1, n % 64 + 1)
+        end
+    end
+    return table.concat(out)
+end
+
+local function B64Dec(text)
+    local out, buffer, bits = {}, 0, 0
+    for index = 1, #text do
+        local value = Charset:find(text:sub(index, index), 1, true)
+        if value then
+            buffer = bit.lshift(buffer, 6) + (value - 1)
+            bits = bits + 6
+            if bits >= 8 then
+                bits = bits - 8
+                out[#out + 1] = Char(bit.rshift(buffer, bits) % 256)
+            end
+        end
+    end
+    return table.concat(out)
+end
+
+-- The heartbeat payload is XOR+Base64 and travels as a byte array.
+local function Protect(tbl)
+    local raw = XKEY .. B64(Xor(HttpService:JSONEncode(tbl), XKEY))
+    local bytes = {}
+    for index = 1, #raw do bytes[index] = Byte(raw, index) end
+    return bytes
+end
+
+local function Unprotect(bytes)
+    local raw = {}
+    for index = 1, #bytes do raw[index] = Char(bytes[index]) end
+    raw = table.concat(raw)
+    if raw:sub(1, #XKEY) ~= XKEY then return nil end
+    local ok, data = pcall(function()
+        return HttpService:JSONDecode(Xor(B64Dec(raw:sub(#XKEY + 1)), XKEY))
+    end)
+    return ok and data or nil
+end
+
+local function Profile()
+    local profile = { executor = "unknown" }
+    if type(identifyexecutor) == "function" then
+        local ok, name = pcall(identifyexecutor)
+        if ok and type(name) == "string" then profile.executor = name end
+    end
+    pcall(function()
+        local player = Players.LocalPlayer
+        if player then
+            profile.name = player.Name
+            profile.displayName = player.DisplayName or player.Name
+            profile.userId = tostring(player.UserId)
+        end
+    end)
+    pcall(function() profile.placeId = tostring(game.PlaceId) end)
+    pcall(function() profile.jobId = tostring(game.JobId) end)
+    return profile
+end
+
+local function Beat(result)
+    local body = {
+        ticket = TICKET,
+        c = HWID,
+        Data = Protect({ scriptName = SCRIPT, profile = Profile(), result = result }),
+    }
+    local ok, res = pcall(Http, {
+        Url = BASE .. "/api/heartbeat",
+        Method = "POST",
+        Headers = { ["Content-Type"] = "application/json", ["X-Fingerprint"] = HWID },
+        Body = HttpService:JSONEncode(body),
+    })
+    if not ok or type(res) ~= "table" or type(res.Body) ~= "string" then return nil end
+    local parsed = HttpService:JSONDecode(res.Body)
+    if type(parsed) ~= "table" then return nil end
+    if type(parsed.kick) == "string" then return { kick = parsed.kick } end
+    return Unprotect(parsed.Data or {})
+end
+
+local function Run(code)
+    local compiler = loadstring or load
+    local ok, chunk = pcall(compiler, code)
+    if not ok or type(chunk) ~= "function" then return false, "compile: " .. tostring(chunk) end
+    local packed = { pcall(chunk) }
+    if not packed[1] then return false, tostring(packed[2]) end
+    local out = {}
+    for index = 2, #packed do out[#out + 1] = tostring(packed[index]) end
+    return true, #out > 0 and table.concat(out, ", ") or "ok"
+end
+
+local function Kick(message)
+    local player = Players.LocalPlayer
+    if player then pcall(function() player:Kick("[999MS] " .. tostring(message)) end) end
+end
+
+print("[999MS] test client online - beat every " .. BEAT .. "s")
+print("[999MS] hwid " .. HWID .. " (ต้องตรงกับค่าที่ผูก ticket ไม่เช่นนั้นโดนเตะ BAD HWID)")
+
+task.spawn(function()
+    local pending
+    while true do
+        local response = Beat(pending)
+        pending = nil
+
+        if type(response) == "table" then
+            if type(response.kick) == "string" then
+                warn("[999MS] " .. response.kick)
+                Kick(response.kick)
+                return
+            end
+            if type(response.commands) == "table" then
+                for _, command in ipairs(response.commands) do
+                    if command.kind == "kick" then
+                        Kick(command.code or "Kicked by admin")
+                        return
+                    elseif command.kind == "exec" and type(command.code) == "string" then
+                        local ok, output = Run(command.code)
+                        pending = { id = tostring(command.id or ""), ok = ok, output = tostring(output or "") }
+                        print("[999MS] remote " .. tostring(command.id) .. (ok and " ok: " or " error: ") .. tostring(output))
+                    end
+                end
+            end
+        end
+
+        task.wait(BEAT)
+    end
+end)`;
+
+  $('testClientBtn').addEventListener('click', function () {
+    var btn = $('testClientBtn');
+    var hwid = ($('testHwid').value || '').trim();
+    if (!hwid) { toast('ใส่ HWID ของเครื่องทดสอบก่อน', 'err'); return; }
+    btn.disabled = true;
+    api('/api/control/test-ticket', { scriptName: 'main', hwid: hwid }).then(function (result) {
+      btn.disabled = false;
+      var data = result.data || {};
+      if (result.status !== 200 || !data.ok) { toast(data.reason || 'สร้าง ticket ไม่ได้', 'err'); return; }
+      $('testClientOut').value = CLIENT_TEMPLATE
+        .split('%BASE%').join(location.origin)
+        .split('%TICKET%').join(data.ticket)
+        .split('%XORKEY%').join(data.xorKey)
+        .split('%HWID%').join(data.hwid);
+      $('testClientMeta').textContent = 'ticket หมดอายุใน ' + Math.round((data.ttlSeconds || 1800) / 60)
+        + ' นาที · hwid ' + data.hwid;
+      toast('สร้างแล้ว — คัดลอกไปวางใน executor', 'ok');
+      logLine('ออก ticket ทดสอบ ' + (data.hwid || ''), 'ok');
+    }).catch(function () {
+      btn.disabled = false;
+      toast('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้', 'err');
+    });
+  });
+
+  /* ── link generator ── */
+  $('linkBtn').addEventListener('click', function () {
+    var scriptName = ($('linkScript').value || 'main').trim();
+    var hours = Number($('linkHours').value) || 168;
+    var btn = $('linkBtn');
+    btn.disabled = true;
+    api('/api/link', { scriptName: scriptName, hours: hours }).then(function (result) {
+      btn.disabled = false;
+      var data = result.data || {};
+      if (result.status !== 200 || !data.ok) {
+        toast(data.reason || 'สร้างลิงก์ไม่สำเร็จ', 'err');
+        return;
+      }
+      $('linkOut').classList.remove('hide');
+      $('linkUrl').value = data.url || '';
+      $('linkLine').value = data.line || '';
+      $('linkStub').value = data.stub || '';
+      $('linkMeta').textContent = 'id ' + (data.id || '') + ' · sha256 ' + String(data.sha256 || '').slice(0, 16) +
+        '… · หมดอายุ ' + new Date(data.expiresAt).toLocaleString('th-TH');
+      logLine('สร้างลิงก์ ' + (data.id || ''), 'ok');
+      toast('สร้างลิงก์แล้ว', 'ok');
+    }).catch(function () {
+      btn.disabled = false;
+      toast('เรียกเซิร์ฟเวอร์ไม่ได้', 'err');
+    });
+  });
+
+  document.addEventListener('click', function (event) {
+    var btn = event.target.closest('button[data-copy]');
+    if (!btn) return;
+    var field = $(btn.getAttribute('data-copy'));
+    if (!field) return;
+    field.select();
+    field.setSelectionRange(0, 99999);
+    var done = function () { toast('คัดลอกแล้ว', 'ok'); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(field.value).then(done).catch(done);
+    } else {
+      try { document.execCommand('copy'); done(); } catch (e) { toast('คัดลอกไม่ได้', 'err'); }
+    }
+  });
+
+  /* ── manual ban form ── */
+  $('banBtn').addEventListener('click', function () {
+    var type = $('banType').value;
+    var value = $('banValue').value.trim();
+    if (!value) { toast('ใส่ค่าที่จะแบน', 'err'); return; }
+    api('/api/admin/ban', { type: type, value: value }).then(function (result) {
+      if (result.status === 200) {
+        toast('แบนแล้ว', 'ok');
+        logLine('แบน ' + type + ' ' + value.slice(0, 14) + '…', 'ok');
+        $('banValue').value = '';
+        loadAll(true);
+      } else {
+        toast(result.data && result.data.error ? result.data.error : 'แบนไม่สำเร็จ', 'err');
+      }
+    }).catch(function () { toast('เรียกเซิร์ฟเวอร์ไม่ได้', 'err'); });
+  });
+
+  $('refreshBtn').addEventListener('click', function () { loadAll(false); });
+  $('clearLog').addEventListener('click', function () { $('log').innerHTML = ''; });
+  $('clock').textContent = new Date().toLocaleDateString('th-TH');
+  setInterval(function () {
+    $('clock').textContent = new Date().toLocaleTimeString('th-TH');
+  }, 1000);
+
+  /* ── boot ── */
+  if (state.token) {
+    api('/api/control/bans').then(function (result) {
+      if (result.status === 200) {
+        gate.classList.add('hide');
+        loadAll(true);
+        state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);
+      } else {
+        showGate('token ที่บันทึกไว้ใช้ไม่ได้แล้ว');
+      }
+    }).catch(function () { showGate('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้'); });
+  } else {
+    showGate('');
+  }
+})();
+</script>
+</body>
+</html>

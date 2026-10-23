@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/auth.js": {
-      "maxDuration": 10,
+      "maxDuration": 60,
       "includeFiles": "{lib,scripts}/**/*.lua"
     }
   },
@@ -15,12 +15,32 @@
       "dest": "/api/auth?page=/control"
     },
     {
+      "src": "/hub",
+      "dest": "/api/auth?page=/hub"
+    },
+    {
+      "src": "/key",
+      "dest": "/api/auth?page=/key"
+    },
+    {
+      "src": "/stats",
+      "dest": "/api/auth?page=/stats"
+    },
+    {
       "src": "/api/link",
       "dest": "/api/auth?action=link-create"
     },
     {
       "src": "/x/([a-f0-9]{40})",
       "dest": "/api/auth?action=link-serve&p=$1"
+    },
+    {
+      "src": "/api/games",
+      "dest": "/api/auth?action=game-info"
+    },
+    {
+      "src": "/api/scripts",
+      "dest": "/api/auth?action=scripts-list"
     },
     {
       "src": "/api/health",
@@ -43,6 +63,26 @@
       "dest": "/api/auth?action=control-events"
     },
     {
+      "src": "/api/control/sessions",
+      "dest": "/api/auth?action=control-sessions"
+    },
+    {
+      "src": "/api/control/command",
+      "dest": "/api/auth?action=control-command"
+    },
+    {
+      "src": "/api/control/test-ticket",
+      "dest": "/api/auth?action=control-test-ticket"
+    },
+    {
+      "src": "/api/control/stats",
+      "dest": "/api/auth?action=control-stats"
+    },
+    {
+      "src": "/api/control/scripts",
+      "dest": "/api/auth?action=control-scripts"
+    },
+    {
       "src": "/loadc\\.lua",
       "dest": "/api/auth?action=artifact&name=loadc"
     },
@@ -57,6 +97,10 @@
     {
       "src": "/api/script",
       "dest": "/api/auth?action=script"
+    },
+    {
+      "src": "/api/script-raw",
+      "dest": "/api/auth?action=script-raw"
     },
     {
       "src": "/api/script-verify",

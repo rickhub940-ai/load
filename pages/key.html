@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>999MS — Key System &amp; Loader</title>
+<meta name="description" content="999MS — ระบบคีย์และตัวโหลดสำหรับ Roblox: ผูก HWID, ออก ticket อายุสั้น, โหลดสคริปต์แบบหลายชั้นพร้อมตรวจ SHA-256 ทุกครั้ง" />
+<meta name="theme-color" content="#000000" />
+<meta property="og:title" content="999MS — Key System &amp; Loader" />
+<meta property="og:description" content="โหลดสคริปต์แบบ stage chain ตรวจ SHA-256 ทุกทอด — คัดลอก loadstring แล้วรันใน executor ได้เลย" />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2322c55e'/%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://db.onlinewebfonts.com" crossorigin />
+<link href="https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos" rel="stylesheet" />
+
+<script>
+  // Animation is progressive enhancement: if JS or motion is unavailable the
+  // page still renders fully, it simply appears without the fly-in.
+  try {
+    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('js-anim');
+    }
+  } catch (e) {}
+</script>
+
+<style>
+  :root {
+    --bg: #000000;
+    --text: #ffffff;
+    --muted: #9a9aa2;
+    --line: rgba(255, 255, 255, 0.1);
+    --line-2: rgba(255, 255, 255, 0.2);
+    --green: #22c55e;
+    --glass: rgba(255, 255, 255, 0.035);
+    --glass-2: rgba(255, 255, 255, 0.06);
+    --radius: 18px;
+    /* Dot-matrix for Latin/digits, Thai falls through to the system Thai font. */
+    --font-sans: "BubbledotICG-FinePos", "Geist Pixel Circle", "Leelawadee UI", "Thonburi",
+                 "Noto Sans Thai", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.65;
+    overflow-x: hidden;
+    letter-spacing: 0.02em;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; }
+  .wrap { width: min(1120px, 92vw); margin-inline: auto; }
+  .mono { font-family: var(--font-mono); }
+
+  /* ═══════ background ═══════ */
+  .bg-wave { position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden; }
+  .bg-wave::before {
+    content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.07) 0%, transparent 40%);
+    filter: blur(80px);
+    animation: waveMove1 20s ease-in-out infinite alternate;
+  }
+  .bg-wave::after {
+    content: ""; position: absolute; bottom: -50%; right: -50%; width: 150%; height: 150%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);
+    filter: blur(100px);
+    animation: waveMove2 25s ease-in-out infinite alternate;
+  }
+  .green-orb { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; }
+  .orb-1 {
+    width: 45vw; height: 45vw; top: -15%; right: -10%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.32) 0%, transparent 70%);
+    animation: orbFloat1 15s ease-in-out infinite alternate;
+  }
+  .orb-2 {
+    width: 35vw; height: 35vw; bottom: 5%; left: -5%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);
+    animation: orbFloat2 18s ease-in-out infinite alternate;
+  }
+  .orb-3 {
+    width: 25vw; height: 25vw; top: 40%; left: 30%;
+    background: radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, transparent 70%);
+    animation: orbFloat3 12s ease-in-out infinite alternate;
+  }
+  .bg-wave .noise {
+    position: absolute; inset: 0; opacity: 0.12; z-index: 2; pointer-events: none;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @keyframes waveMove1 {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }
+    100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }
+  }
+  @keyframes waveMove2 {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+    50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }
+    100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }
+  }
+  @keyframes orbFloat1 { 0% { transform: translate(0,0) scale(1); opacity:.35 } 100% { transform: translate(-15%,20%) scale(1.3); opacity:.7 } }
+  @keyframes orbFloat2 { 0% { transform: translate(0,0) scale(1); opacity:.25 } 100% { transform: translate(20%,-15%) scale(1.4); opacity:.6 } }
+  @keyframes orbFloat3 { 0% { transform: translate(0,0) scale(1); opacity:.18 } 100% { transform: translate(-10%,-20%) scale(1.5); opacity:.45 } }
+
+  .page { position: relative; z-index: 3; }
+
+  /* ═══════ nav ═══════ */
+  .site-header {
+    position: sticky; top: 20px; z-index: 50;
+    display: flex; justify-content: center;
+    padding: 0 clamp(10px, 2vw, 20px);
+  }
+  .nav-pill {
+    width: 100%; max-width: 1120px;
+    display: flex; align-items: center; gap: 18px;
+    height: 64px; padding: 0 8px 0 14px;
+    border-radius: 999px;
+    background: rgba(10, 10, 12, 0.4);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; flex-shrink: 0; }
+  .mark {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: #fff; overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);
+    transition: transform .25s ease;
+  }
+  .brand:hover .mark { transform: scale(1.05); }
+  .mark svg { width: 60%; height: 60%; }
+  .brand-name { font-size: 1.02rem; letter-spacing: .04em; }
+  .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); margin-left: auto; }
+  .nav-link { font-size: 14px; color: var(--muted); transition: color .2s ease; }
+  .nav-link:hover { color: #fff; }
+  .burger {
+    display: none; width: 44px; height: 44px; border-radius: 50%;
+    flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    background: rgba(255,255,255,.06); border: 1px solid var(--line); cursor: pointer;
+  }
+  .burger span { display: block; width: 18px; height: 1.5px; background: #fff; border-radius: 2px; }
+
+  /* ═══════ buttons ═══════ */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 12px 22px; border-radius: 999px;
+    border: 1px solid var(--line-2);
+    background: var(--glass); color: var(--text);
+    font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: var(--glass-2); }
+  .btn-primary {
+    border: 0; background: #fff; color: #000;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 0 22px rgba(255,255,255,.22);
+  }
+  .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 38px rgba(255,255,255,.45); }
+  .btn-primary.copied {
+    background: var(--green); color: #04160a;
+    box-shadow: 0 0 0 1px rgba(34,197,94,.5), 0 0 32px rgba(34,197,94,.6);
+  }
+  .btn-ghost { background: transparent; }
+  .btn svg { flex-shrink: 0; }
+
+  /* ═══════ hero ═══════ */
+  .hero {
+    display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center;
+    padding: 64px 0 72px;
+  }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .status-line { display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: .92rem; color: var(--muted); }
+  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5c6478; flex-shrink: 0; }
+  .dot.ok {
+    background: var(--green); box-shadow: 0 0 10px var(--green);
+    animation: dotPulse 1.8s cubic-bezier(.215,.61,.355,1) infinite;
+  }
+  .dot.bad { background: #ff6b81; box-shadow: 0 0 10px rgba(255,107,129,.6); }
+  @keyframes dotPulse {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }
+    100% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }
+  }
+
+  /* ═══════ code card ═══════ */
+  .code-card {
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+    transition: transform .2s ease;
+  }
+  .code-top {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; border-bottom: 1px solid var(--line);
+    background: rgba(0,0,0,.35);
+  }
+  .tl { width: 10px; height: 10px; border-radius: 50%; }
+  .tl:nth-child(1) { background: #ff5f57; }
+  .tl:nth-child(2) { background: #febc2e; }
+  .tl:nth-child(3) { background: #28c840; }
+  .code-name { margin-left: 8px; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }
+  .code-body {
+    padding: 22px 18px; font-family: var(--font-mono);
+    font-size: .86rem; line-height: 1.8; overflow-x: auto;
+  }
+  .code-body .c { color: #6b7280; }
+  .code-body .f { color: var(--green); }
+  .code-body .s { color: #a3e635; }
+  .code-body .p { color: #e7e9f0; }
+  .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }
+  .copy-row .btn { flex: 1; justify-content: center; }
+
+  /* ═══════ map cards (image + name + per-map copy) ═══════ */
+  .maps-card {
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+  }
+  .map-list { padding: 10px; display: grid; gap: 10px; max-height: 470px; overflow-y: auto; }
+  .map-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px;
+    border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.03);
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .map-row:hover { border-color: var(--line-2); background: rgba(255,255,255,.06); }
+  .map-thumb {
+    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0; object-fit: cover;
+    background: var(--glass-2); border: 1px solid var(--line);
+  }
+  .map-initial {
+    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+    display: grid; place-items: center; font-weight: 700; font-size: 1.2rem;
+    background: linear-gradient(140deg, rgba(34,197,94,.35), rgba(255,255,255,.05));
+    border: 1px solid var(--line-2); text-transform: uppercase;
+  }
+  .map-text { min-width: 0; flex: 1; }
+  .map-name { font-size: .96rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .map-sub { font-family: var(--font-mono); font-size: .71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .map-row .btn { flex-shrink: 0; padding: 8px 14px; font-size: .84rem; }
+  .map-empty { padding: 30px 16px; text-align: center; color: var(--muted); font-size: .9rem; }
+  .pill {
+    font-size: .72rem; color: var(--muted); padding: 2px 10px;
+    border: 1px solid var(--line); border-radius: 999px;
+  }
+
+  /* ═══════ sections ═══════ */
+  section { padding: 68px 0; }
+  .sec-head { max-width: 62ch; margin-bottom: 34px; }
+  .kicker {
+    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--green); margin: 0 0 10px;
+  }
+  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }
+  .sec-head p { color: var(--muted); margin: 0; }
+
+  /* faq */
+  .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq details:last-child { border-bottom: 0; }
+  .faq summary {
+    cursor: pointer; padding: 18px 22px; font-weight: 600; list-style: none;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; color: var(--green); font-size: 1.2rem; line-height: 1; }
+  .faq details[open] summary::after { content: "–"; }
+  .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }
+
+  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }
+  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }
+  .foot a:hover { color: #fff; }
+  .disclaimer { color: #6b6b74; font-size: .8rem; margin: 18px 0 0; max-width: 90ch; }
+
+  /* ═══════ fly-in animation ═══════ */
+  .js-anim .char,
+  .js-anim .pop-element {
+    opacity: 0; visibility: hidden;
+    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.6) rotate(var(--tr, 0deg));
+    filter: blur(10px);
+  }
+  .js-anim .pop-in {
+    visibility: visible;
+    animation: bouncyRandomPop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes bouncyRandomPop {
+    0% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.25) rotate(var(--tr, 0deg)); filter: blur(14px); }
+    60% { opacity: 1; transform: translate(0, 0) scale(1.06) rotate(0deg); filter: blur(0); }
+    80% { transform: translate(0, 0) scale(.97) rotate(0deg); }
+    100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js-anim .char,
+    .js-anim .pop-element {
+      opacity: 1 !important; visibility: visible !important;
+      transform: none !important; filter: none !important; animation: none !important;
+    }
+  }
+
+  /* ═══════ responsive ═══════ */
+  @media (max-width: 960px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }
+    .code-card { transform: none; }
+    .maps-card { transform: none; }
+  }
+  @media (max-width: 900px) {
+    .nav-links, .nav-pill .btn { display: none; }
+    .burger { display: flex; margin-left: auto; }
+    .nav-pill.is-open {
+      flex-wrap: wrap; height: auto; padding-bottom: 14px; border-radius: 26px;
+    }
+    .nav-pill.is-open .nav-links {
+      display: flex; flex-direction: column; align-items: stretch;
+      gap: 4px; order: 3; width: 100%; margin: 12px 0 0;
+      padding: 12px; border-radius: 18px;
+      background: rgba(10,10,12,.9); border: 1px solid var(--line);
+    }
+    .nav-pill.is-open .nav-link { padding: 10px 12px; border-radius: 12px; }
+    .nav-pill.is-open .nav-link:hover { background: rgba(255,255,255,.06); }
+    .nav-pill.is-open .btn { display: inline-flex; order: 4; width: 100%; margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="bg-wave">
+  <div class="green-orb orb-1"></div>
+  <div class="green-orb orb-2"></div>
+  <div class="green-orb orb-3"></div>
+  <div class="noise"></div>
+</div>
+
+<div class="page">
+  <header class="site-header">
+    <div class="wrap nav-pill" id="navPill">
+      <a class="brand" href="#top" aria-label="999MS home">
+        <span class="mark">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#000"/>
+            <path d="M2 17L12 22L22 17" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="brand-name">999MS</span>
+      </a>
+      <nav class="nav-links" aria-label="หลัก">
+        <a class="nav-link" href="#faq">คำถามบ่อย</a>
+      </nav>
+      <button class="btn btn-primary" id="copyNav" type="button">คัดลอกสคริปต์</button>
+      <button class="burger" id="burger" type="button" aria-label="เปิดเมนู" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap hero">
+      <div>
+        <div class="hero-actions pop-element">
+          <button class="btn btn-primary" id="copyHero" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+          คัดลอก loadstring
+        </button>
+      </div>
+        <div class="status-line pop-element">
+          <span class="dot" id="heroDot"></span>
+          <span id="heroStatus">กำลังตรวจสอบสถานะระบบ…</span>
+        </div>
+      </div>
+
+      <div class="maps-card pop-element">
+        <div class="code-top">
+          <span class="tl"></span><span class="tl"></span><span class="tl"></span>
+          <span class="code-name">maps.lua</span>
+          <span style="margin-left:auto" class="pill mono" id="mapsCount">—</span>
+        </div>
+        <div class="map-list" id="mapList">
+          <div class="map-empty">กำลังโหลดรายการแมพ…</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="faq">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="kicker">FAQ</p>
+          <h2 class="pop-element">คำถามที่พบบ่อย</h2>
+        </div>
+        <div class="faq pop-element">
+          <details>
+            <summary>คีย์ใช้กับเครื่องอื่นได้ไหม</summary>
+            <p>ไม่ได้ คีย์ถูกผูกกับ HWID ตั้งแต่ตอนยืนยัน ถ้าเปลี่ยนเครื่องหรือเปลี่ยนอุปกรณ์ ให้ติดต่อทีมซัพพอร์ตเพื่อรีเซ็ตการผูก</p>
+          </details>
+          <details>
+            <summary>ขึ้นว่า HWID mismatch ต้องทำอย่างไร</summary>
+            <p>แปลว่าระบบตรวจพบว่าคีย์นี้ผูกกับเครื่องอื่น หรือตัว executor รายงานค่า HWID ไม่คงที่ ลองรีสตาร์ท executor แล้วรันใหม่ หากยังขึ้นอยู่ให้ติดต่อซัพพอร์ตพร้อมรหัส diagnostic</p>
+          </details>
+          <details>
+            <summary>ไม่รองรับ executor ตัวไหนบ้าง</summary>
+            <p>Xeno/Sola</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <span>© 2026 999MS · Key system &amp; loader</span>
+        <span style="display:flex;gap:18px">
+          <a href="#faq">คำถามบ่อย</a>
+          <a href="/control">Control</a>
+          <a href="https://yura.lol/09ms" rel="noopener">Discord</a>
+        </span>
+      </div>
+      <p class="disclaimer">
+        999MS ไม่ได้มีความเกี่ยวข้องกับ Roblox Corporation หรือผู้พัฒนาเกมใด ๆ การใช้สคริปต์อัตโนมัติอาจผิดข้อกำหนดการใช้งานของเกม
+        ผู้ใช้รับผิดชอบความเสี่ยงด้วยตนเอง
+      </p>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ─── loader line + clipboard ─── */
+  var FALLBACK_HOST = 'loader999mss.vercel.app';
+  var host = location.host && location.host.indexOf('localhost') !== 0 && location.host !== ''
+    ? location.host
+    : FALLBACK_HOST;
+  var url = 'https://' + host + '/loadc.lua';
+  var command = 'local License = ""\nlocal Script = ""\nloadstring(game:HttpGet("' + url + '"))(License, Script)';
+
+  var scriptUrlEl = document.getElementById('scriptUrl');
+  if (scriptUrlEl) scriptUrlEl.textContent = '"' + url + '"';
+
+  function flash(btn) {
+    if (!btn) return;
+    var original = btn.getAttribute('data-label') || btn.textContent;
+    btn.setAttribute('data-label', original);
+    btn.classList.add('copied');
+    btn.textContent = 'คัดลอกแล้ว ✓';
+    clearTimeout(btn._t);
+    btn._t = setTimeout(function () {
+      btn.classList.remove('copied');
+      btn.textContent = original;
+    }, 1600);
+  }
+
+  function legacy(text, btn) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); flash(btn); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  function copy(text, btn) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });
+      return;
+    }
+    legacy(text, btn);
+  }
+
+  ['copyNav', 'copyHero'].forEach(function (id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', function () { copy(command, btn); });
+  });
+
+  /* ─── map cards: image + name + a copy button per map ───
+     รายการแมพดึงจากสคริปต์ที่อัปโหลดไว้ในหน้า Control
+     (place id + ชื่อสคริปต์ + ไฟล์) — รูปกับชื่อแมพดึงจาก Roblox อัตโนมัติ
+  */
+  var MAPS = [];
+
+  function snippetFor(scriptName) {
+    return 'local License = ""\nlocal Script = "' + scriptName + '"\nloadstring(game:HttpGet("' + url + '"))(License, Script)';
+  }
+
+  function esc(value) {
+    return String(value === null || value === undefined ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function initialOf(name, placeId) {
+    var source = (name || '').replace(/^[^A-Za-z0-9\u0e00-\u0e7f]+/, '');
+    var letter = source.charAt(0) || (placeId || '?').charAt(0);
+    return letter.toUpperCase();
+  }
+
+  function renderMaps(info) {
+    var host = document.getElementById('mapList');
+    var count = document.getElementById('mapsCount');
+    if (!host) return;
+    if (count) count.textContent = String(MAPS.length) + ' แมพ';
+    if (!MAPS.length) {
+      host.innerHTML = '<div class="map-empty">ยังไม่มีสคริปต์ — อัปโหลด place id + ชื่อสคริปต์ + ไฟล์ในหน้า Control แล้วจะขึ้นตรงนี้</div>';
+      return;
+    }
+    host.innerHTML = MAPS.map(function (game, index) {
+      var meta = info[game.placeId] || {};
+      var name = meta.name || ('Place ' + game.placeId);
+      var icon = meta.icon || '';
+      var thumb = icon
+        ? '<img class="map-thumb" id="thumb' + index + '" src="' + esc(icon) + '" alt="' + esc(name) + '" loading="lazy" referrerpolicy="no-referrer" />'
+        : '<span class="map-initial">' + esc(initialOf(meta.name, game.placeId)) + '</span>';
+      return '<div class="map-row">' +
+        thumb +
+        '<div class="map-text">' +
+          '<div class="map-name">' + esc(name) + '</div>' +
+          '<div class="map-sub">script ' + esc(game.name) + ' · place ' + esc(game.placeId) + '</div>' +
+        '</div>' +
+        '<button class="btn btn-ghost" type="button" data-map="' + index + '">คัดลอก</button>' +
+      '</div>';
+    }).join('');
+
+    // ถ้าโหลดรูปไม่ได้ ให้กลับไปใช้ตัวอักษรแรกของชื่อแมพ
+    MAPS.forEach(function (game, index) {
+      var img = document.getElementById('thumb' + index);
+      if (!img) return;
+      img.addEventListener('error', function () {
+        var meta = info[game.placeId] || {};
+        var fallback = document.createElement('span');
+        fallback.className = 'map-initial';
+        fallback.textContent = initialOf(meta.name, game.placeId);
+        if (img.parentNode) img.parentNode.replaceChild(fallback, img);
+      });
+    });
+
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-map]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var game = MAPS[Number(btn.getAttribute('data-map'))];
+        if (game) copy(snippetFor(game.name), btn);
+      });
+    });
+  }
+
+  function loadMaps() {
+    fetch('/api/scripts', { headers: { accept: 'application/json' } })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        var items = (data && Array.isArray(data.items)) ? data.items : [];
+        MAPS = items.filter(function (item) {
+          return item && item.placeId && item.name;
+        }).map(function (item) {
+          return { placeId: String(item.placeId), name: String(item.name) };
+        });
+        // Render straight away (name falls back to "Place <id>"), then fill in
+        // the Roblox name and icon when that lookup comes back.
+        renderMaps({});
+        var ids = [];
+        MAPS.forEach(function (game) { if (ids.indexOf(game.placeId) === -1) ids.push(game.placeId); });
+        if (!ids.length) return;
+        return fetch('/api/games?ids=' + ids.join(','), { headers: { accept: 'application/json' } })
+          .then(function (res) { return res.ok ? res.json() : null; })
+          .then(function (meta) {
+            var info = {};
+            if (meta && Array.isArray(meta.games)) {
+              meta.games.forEach(function (row) {
+                if (row && row.placeId) info[String(row.placeId)] = row;
+              });
+            }
+            renderMaps(info);
+          })
+          .catch(function () { /* the placeholder names stay */ });
+      })
+      .catch(function (err) {
+        var host = document.getElementById('mapList');
+        if (host) host.innerHTML = '<div class="map-empty">โหลดรายการสคริปต์ไม่สำเร็จ — ลองรีเฟรชหน้า</div>';
+      });
+  }
+
+  loadMaps();
+
+  /* ─── live API status ─── */
+  var heroDot = document.getElementById('heroDot');
+  var heroStatus = document.getElementById('heroStatus');
+
+  function setDot(el, cls) {
+    if (!el) return;
+    el.classList.remove('ok', 'bad');
+    if (cls) el.classList.add(cls);
+  }
+
+  function check() {
+    var started = Date.now();
+    setDot(heroDot, '');
+
+    var controller = window.AbortController ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;
+
+    fetch('/api/health', { cache: 'no-store', signal: controller ? controller.signal : undefined })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var ms = Date.now() - started;
+        if (heroStatus) heroStatus.textContent = 'ระบบออนไลน์ · ' + ms + ' ms';
+        setDot(heroDot, 'ok');
+      })
+      .catch(function () {
+        var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;
+        if (heroStatus) {
+          heroStatus.textContent = offlinePreview
+            ? 'พรีวิวแบบไม่ต่อเน็ต — เปิดบนเว็บจริงเพื่อดูสถานะ'
+            : 'ตรวจสถานะไม่ได้ (อาจถูกบล็อกหรือออฟไลน์)';
+        }
+        setDot(heroDot, offlinePreview ? '' : 'bad');
+      })
+      .then(function () { if (timer) clearTimeout(timer); });
+  }
+
+  check();
+
+  /* ─── mobile menu ─── */
+  var burger = document.getElementById('burger');
+  var navPill = document.getElementById('navPill');
+  if (burger && navPill) {
+    burger.addEventListener('click', function () {
+      var open = navPill.classList.toggle('is-open');
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'ปิดเมนู' : 'เปิดเมนู');
+    });
+    navPill.addEventListener('click', function (event) {
+      if (event.target.closest('.nav-link')) {
+        navPill.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  /* ─── fly-in: random direction per element ─── */
+  var animated = document.documentElement.classList.contains('js-anim');
+
+  function randomDir() {
+    return {
+      tx: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',
+      ty: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',
+      tr: ((Math.random() - 0.5) * 120).toFixed(1) + 'deg'
+    };
+  }
+
+  function arm(el, delay) {
+    var d = randomDir();
+    el.style.setProperty('--tx', d.tx);
+    el.style.setProperty('--ty', d.ty);
+    el.style.setProperty('--tr', d.tr);
+    el.style.setProperty('--delay', delay + 's');
+    el.classList.add('pop-in');
+  }
+
+  /* everything else: fly in when it scrolls into view */
+  var pops = [].slice.call(document.querySelectorAll('.pop-element'));
+  if (!animated) {
+    pops.forEach(function (el) { el.classList.add('pop-in'); });
+  } else if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      var shown = 0;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        arm(entry.target, shown * 0.09);
+        shown += 1;
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.06 });
+    pops.forEach(function (el) { io.observe(el); });
+  } else {
+    pops.forEach(function (el, index) { arm(el, index * 0.08); });
+  }
+
+  /* pointer tilt on the code card */
+  var card = document.querySelector('.code-card');
+  if (card && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    card.addEventListener('pointermove', function (event) {
+      if (window.innerWidth < 960) return;
+      var r = card.getBoundingClientRect();
+      var x = (event.clientX - r.left) / r.width - 0.5;
+      var y = (event.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(1200px) rotateY(' + (-4 + x * 5).toFixed(2) + 'deg) rotateX(' + (2 - y * 5).toFixed(2) + 'deg)';
+    });
+    card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+  }
+})();
+</script>
+</body>
+</html>
+
+<!-- deploy trigger: 2026-10-22T00:00:00Z -->
