@@ -3310,6 +3310,16 @@ module.exports = async function handler(req, res) {
     });
   }
 
+  // Public map metadata for /key: the page shows one card per supported map
+  // (icon + name), and a browser cannot call the Roblox endpoints itself
+  // (no CORS headers), so the lookup is proxied — and cached — here.
+  if (action === 'game-info') {
+    if (req.method !== 'GET') return res.status(405).json({ ok: false });
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300');
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    return await handleGameInfo(req, res);
+  }
+
   // ═══ Control panel (browser-facing, ADMIN_TOKEN gated) ═══
   if (CONTROL_ACTIONS.has(action)) {
     res.setHeader('Cache-Control', 'no-store');
@@ -3666,6 +3676,40 @@ const KEY_PAGE =
   "  .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }\n" +
   "  .copy-row .btn { flex: 1; justify-content: center; }\n" +
   "\n" +
+  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 map cards (image + name + per-map copy) \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
+  "  .maps-card {\n" +
+  "    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));\n" +
+  "    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;\n" +
+  "    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);\n" +
+  "    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
+  "  }\n" +
+  "  .map-list { padding: 10px; display: grid; gap: 10px; max-height: 470px; overflow-y: auto; }\n" +
+  "  .map-row {\n" +
+  "    display: flex; align-items: center; gap: 12px; padding: 10px;\n" +
+  "    border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.03);\n" +
+  "    transition: border-color .18s ease, background .18s ease;\n" +
+  "  }\n" +
+  "  .map-row:hover { border-color: var(--line-2); background: rgba(255,255,255,.06); }\n" +
+  "  .map-thumb {\n" +
+  "    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0; object-fit: cover;\n" +
+  "    background: var(--glass-2); border: 1px solid var(--line);\n" +
+  "  }\n" +
+  "  .map-initial {\n" +
+  "    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;\n" +
+  "    display: grid; place-items: center; font-weight: 700; font-size: 1.2rem;\n" +
+  "    background: linear-gradient(140deg, rgba(34,197,94,.35), rgba(255,255,255,.05));\n" +
+  "    border: 1px solid var(--line-2); text-transform: uppercase;\n" +
+  "  }\n" +
+  "  .map-text { min-width: 0; flex: 1; }\n" +
+  "  .map-name { font-size: .96rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
+  "  .map-sub { font-family: var(--font-mono); font-size: .71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
+  "  .map-row .btn { flex-shrink: 0; padding: 8px 14px; font-size: .84rem; }\n" +
+  "  .map-empty { padding: 30px 16px; text-align: center; color: var(--muted); font-size: .9rem; }\n" +
+  "  .pill {\n" +
+  "    font-size: .72rem; color: var(--muted); padding: 2px 10px;\n" +
+  "    border: 1px solid var(--line); border-radius: 999px;\n" +
+  "  }\n" +
+  "\n" +
   "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 sections \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
   "  section { padding: 68px 0; }\n" +
   "  .sec-head { max-width: 62ch; margin-bottom: 34px; }\n" +
@@ -3724,6 +3768,7 @@ const KEY_PAGE =
   "  @media (max-width: 960px) {\n" +
   "    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }\n" +
   "    .code-card { transform: none; }\n" +
+  "    .maps-card { transform: none; }\n" +
   "  }\n" +
   "  @media (max-width: 900px) {\n" +
   "    .nav-links, .nav-pill .btn { display: none; }\n" +
@@ -3789,19 +3834,14 @@ const KEY_PAGE =
   "        </div>\n" +
   "      </div>\n" +
   "\n" +
-  "      <div class=\"code-card pop-element\">\n" +
+  "      <div class=\"maps-card pop-element\">\n" +
   "        <div class=\"code-top\">\n" +
   "          <span class=\"tl\"></span><span class=\"tl\"></span><span class=\"tl\"></span>\n" +
-  "          <span class=\"code-name\">loadstring.lua</span>\n" +
+  "          <span class=\"code-name\">maps.lua</span>\n" +
+  "          <span style=\"margin-left:auto\" class=\"pill mono\" id=\"mapsCount\">\u2014</span>\n" +
   "        </div>\n" +
-  "        <div class=\"code-body\">\n" +
-  "<span class=\"c\">-- \u0e27\u0e32\u0e07\u0e43\u0e19 executor \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14 Execute</span><br />\n" +
-  "<span class=\"p\">local License = \"\"</span><br />\n" +
-  "<span class=\"p\">local Script = \"\"</span><br />\n" +
-  "<span class=\"p\">loadstring(</span><span class=\"f\">game:HttpGet</span>(<span class=\"s\" id=\"scriptUrl\">\"https://loader999mss.vercel.app/loadc.lua\"</span><span class=\"p\">))(License, Script)</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"copy-row\">\n" +
-  "          <button class=\"btn\" id=\"copyCard\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14</button>\n" +
+  "        <div class=\"map-list\" id=\"mapList\">\n" +
+  "          <div class=\"map-empty\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e41\u0e21\u0e1e\u2026</div>\n" +
   "        </div>\n" +
   "      </div>\n" +
   "    </div>\n" +
@@ -3897,10 +3937,101 @@ const KEY_PAGE =
   "    legacy(text, btn);\n" +
   "  }\n" +
   "\n" +
-  "  ['copyNav', 'copyHero', 'copyCard'].forEach(function (id) {\n" +
+  "  ['copyNav', 'copyHero'].forEach(function (id) {\n" +
   "    var btn = document.getElementById(id);\n" +
   "    if (btn) btn.addEventListener('click', function () { copy(command, btn); });\n" +
   "  });\n" +
+  "\n" +
+  "  /* \u2500\u2500\u2500 map cards: image + name + a copy button per map \u2500\u2500\u2500\n" +
+  "     \u0e40\u0e1e\u0e34\u0e48\u0e21\u0e41\u0e21\u0e1e\u0e42\u0e14\u0e22\u0e40\u0e1e\u0e34\u0e48\u0e21 { placeId, script } \u0e43\u0e19 GAMES \u0e14\u0e49\u0e32\u0e19\u0e25\u0e48\u0e32\u0e07\n" +
+  "       placeId = \u0e40\u0e25\u0e02 Place ID \u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e (\u0e23\u0e39\u0e1b\u0e01\u0e31\u0e1a\u0e0a\u0e37\u0e48\u0e2d\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01 Roblox \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34)\n" +
+  "       script  = \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e08\u0e30\u0e43\u0e2a\u0e48\u0e43\u0e19 local Script = \"...\"\n" +
+  "  */\n" +
+  "  var GAMES = [\n" +
+  "    { placeId: '123974602339071', script: 'main' }\n" +
+  "  ];\n" +
+  "\n" +
+  "  function snippetFor(scriptName) {\n" +
+  "    return 'local License = \"\"\\nlocal Script = \"' + scriptName + '\"\\nloadstring(game:HttpGet(\"' + url + '\"))(License, Script)';\n" +
+  "  }\n" +
+  "\n" +
+  "  function esc(value) {\n" +
+  "    return String(value === null || value === undefined ? '' : value)\n" +
+  "      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')\n" +
+  "      .replace(/\"/g, '&quot;').replace(/'/g, '&#39;');\n" +
+  "  }\n" +
+  "\n" +
+  "  function initialOf(name, placeId) {\n" +
+  "    var source = (name || '').replace(/^[^A-Za-z0-9\\u0e00-\\u0e7f]+/, '');\n" +
+  "    var letter = source.charAt(0) || (placeId || '?').charAt(0);\n" +
+  "    return letter.toUpperCase();\n" +
+  "  }\n" +
+  "\n" +
+  "  function renderMaps(info) {\n" +
+  "    var host = document.getElementById('mapList');\n" +
+  "    var count = document.getElementById('mapsCount');\n" +
+  "    if (!host) return;\n" +
+  "    if (count) count.textContent = String(GAMES.length) + ' \u0e41\u0e21\u0e1e';\n" +
+  "    if (!GAMES.length) {\n" +
+  "      host.innerHTML = '<div class=\"map-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e41\u0e21\u0e1e\u0e43\u0e19\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23</div>';\n" +
+  "      return;\n" +
+  "    }\n" +
+  "    host.innerHTML = GAMES.map(function (game, index) {\n" +
+  "      var meta = info[game.placeId] || {};\n" +
+  "      var name = meta.name || ('Place ' + game.placeId);\n" +
+  "      var icon = meta.icon || '';\n" +
+  "      var thumb = icon\n" +
+  "        ? '<img class=\"map-thumb\" id=\"thumb' + index + '\" src=\"' + esc(icon) + '\" alt=\"' + esc(name) + '\" loading=\"lazy\" referrerpolicy=\"no-referrer\" />'\n" +
+  "        : '<span class=\"map-initial\">' + esc(initialOf(meta.name, game.placeId)) + '</span>';\n" +
+  "      return '<div class=\"map-row\">' +\n" +
+  "        thumb +\n" +
+  "        '<div class=\"map-text\">' +\n" +
+  "          '<div class=\"map-name\">' + esc(name) + '</div>' +\n" +
+  "          '<div class=\"map-sub\">place ' + esc(game.placeId) + ' \u00b7 script ' + esc(game.script) + '</div>' +\n" +
+  "        '</div>' +\n" +
+  "        '<button class=\"btn btn-ghost\" type=\"button\" data-map=\"' + index + '\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</button>' +\n" +
+  "      '</div>';\n" +
+  "    }).join('');\n" +
+  "\n" +
+  "    // \u0e16\u0e49\u0e32\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e43\u0e2b\u0e49\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e1b\u0e43\u0e0a\u0e49\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e41\u0e23\u0e01\u0e02\u0e2d\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e\n" +
+  "    GAMES.forEach(function (game, index) {\n" +
+  "      var img = document.getElementById('thumb' + index);\n" +
+  "      if (!img) return;\n" +
+  "      img.addEventListener('error', function () {\n" +
+  "        var meta = info[game.placeId] || {};\n" +
+  "        var fallback = document.createElement('span');\n" +
+  "        fallback.className = 'map-initial';\n" +
+  "        fallback.textContent = initialOf(meta.name, game.placeId);\n" +
+  "        if (img.parentNode) img.parentNode.replaceChild(fallback, img);\n" +
+  "      });\n" +
+  "    });\n" +
+  "\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-map]'), function (btn) {\n" +
+  "      btn.addEventListener('click', function () {\n" +
+  "        var game = GAMES[Number(btn.getAttribute('data-map'))];\n" +
+  "        if (game) copy(snippetFor(game.script), btn);\n" +
+  "      });\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  function loadMaps() {\n" +
+  "    var ids = GAMES.map(function (g) { return g.placeId; }).join(',');\n" +
+  "    if (!ids) { renderMaps({}); return; }\n" +
+  "    fetch('/api/games?ids=' + ids, { headers: { accept: 'application/json' } })\n" +
+  "      .then(function (res) { return res.ok ? res.json() : null; })\n" +
+  "      .then(function (data) {\n" +
+  "        var info = {};\n" +
+  "        if (data && Array.isArray(data.games)) {\n" +
+  "          data.games.forEach(function (row) {\n" +
+  "            if (row && row.placeId) info[String(row.placeId)] = row;\n" +
+  "          });\n" +
+  "        }\n" +
+  "        renderMaps(info);\n" +
+  "      })\n" +
+  "      .catch(function () { renderMaps({}); });\n" +
+  "  }\n" +
+  "\n" +
+  "  loadMaps();\n" +
   "\n" +
   "  /* \u2500\u2500\u2500 live API status \u2500\u2500\u2500 */\n" +
   "  var heroDot = document.getElementById('heroDot');\n" +
@@ -6104,6 +6235,97 @@ function trackLink(path, scriptName, hours) {
   });
 }
 
+// ═══ /api/games?ids=<placeId>[,<placeId>] — public Roblox metadata proxy ═══
+const GAME_INFO_MAX_IDS = 20;
+const GAME_INFO_TTL = 30 * 60 * 1000;
+const gameInfoCache = new Map(); // placeId -> { placeId, name, icon, at }
+
+async function robloxJson(target) {
+  try {
+    const res = await fetch(target, {
+      signal: AbortSignal.timeout(6000),
+      headers: { accept: 'application/json' },
+    });
+    if (!res.ok) return null;
+    return await res.json();
+  } catch (err) {
+    return null;
+  }
+}
+
+async function handleGameInfo(req, res) {
+  const raw = String((req.query && req.query.ids) || '');
+  const ids = [];
+  raw.split(',').forEach(function (value) {
+    const id = String(value || '').trim();
+    if (/^\d{1,20}$/.test(id) && ids.indexOf(id) === -1) ids.push(id);
+  });
+  if (!ids.length) return res.status(200).json({ ok: true, games: [] });
+
+  const now = Date.now();
+  const games = ids.map(function (id) {
+    const cached = gameInfoCache.get(id);
+    if (cached && now - cached.at < GAME_INFO_TTL) return cached;
+    return { placeId: id, name: '', icon: '', at: 0 };
+  });
+  const pending = games.filter(function (g) { return !g.at; });
+  const byPlace = new Map(games.map(function (g) { return [g.placeId, g]; }));
+
+  if (pending.length) {
+    // place id -> universe id
+    const universes = await Promise.all(pending.map(function (g) {
+      return robloxJson('https://apis.roblox.com/universes/v1/places/' + g.placeId + '/universe');
+    }));
+    const universeIds = [];
+    pending.forEach(function (g, i) {
+      const universeId = universes[i] && Number(universes[i].universeId);
+      if (Number.isSafeInteger(universeId) && universeId > 0) {
+        g.universeId = universeId;
+        if (universeIds.indexOf(universeId) === -1) universeIds.push(universeId);
+      }
+    });
+
+    // universe ids -> game names
+    if (universeIds.length) {
+      const detail = await robloxJson(
+        'https://games.roblox.com/v1/games?universeIds=' + universeIds.join(','));
+      const byUniverse = new Map();
+      (detail && Array.isArray(detail.data) ? detail.data : []).forEach(function (row) {
+        if (row && typeof row.name === 'string') byUniverse.set(Number(row.id), row.name);
+      });
+      pending.forEach(function (g) {
+        if (g.universeId) g.name = byUniverse.get(g.universeId) || '';
+      });
+    }
+
+    // place ids -> game icons
+    const icons = await robloxJson(
+      'https://thumbnails.roblox.com/v1/places/gameicons?placeIds=' +
+      pending.map(function (g) { return g.placeId; }).join(',') +
+      '&size=512x512&format=Png&isCircular=false');
+    const byIcon = new Map();
+    (icons && Array.isArray(icons.data) ? icons.data : []).forEach(function (row) {
+      if (row && row.state === 'Completed' && typeof row.imageUrl === 'string') {
+        byIcon.set(String(row.targetId), row.imageUrl);
+      }
+    });
+    pending.forEach(function (g) { g.icon = byIcon.get(g.placeId) || ''; });
+
+    pending.forEach(function (g) {
+      g.at = Date.now();
+      delete g.universeId;
+      if (g.name || g.icon) gameInfoCache.set(g.placeId, g);
+    });
+  }
+
+  return res.status(200).json({
+    ok: true,
+    games: games.map(function (g) {
+      return { placeId: g.placeId, name: g.name || '', icon: g.icon || '' };
+    }),
+  });
+}
+
 async function handleControlStats(req, res) {
   if (!supabaseConfig()) {
     return res.status(503).json({
@@ -7485,6 +7707,7 @@ const ROUTES = Object.freeze({
   '/loadc.lua': ['artifact', 'loadc'],
   '/999MS-sdk.lua': ['artifact', 'sdk'],
   '/api/health': ['health'],
+  '/api/games': ['game-info'],
   '/api/q': ['opaque'],
   '/api/link': ['link-create'],
   '/api/control/bans': ['control-bans'],

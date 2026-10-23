@@ -217,6 +217,40 @@
   .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }
   .copy-row .btn { flex: 1; justify-content: center; }
 
+  /* ═══════ map cards (image + name + per-map copy) ═══════ */
+  .maps-card {
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;
+    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);
+    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);
+  }
+  .map-list { padding: 10px; display: grid; gap: 10px; max-height: 470px; overflow-y: auto; }
+  .map-row {
+    display: flex; align-items: center; gap: 12px; padding: 10px;
+    border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.03);
+    transition: border-color .18s ease, background .18s ease;
+  }
+  .map-row:hover { border-color: var(--line-2); background: rgba(255,255,255,.06); }
+  .map-thumb {
+    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0; object-fit: cover;
+    background: var(--glass-2); border: 1px solid var(--line);
+  }
+  .map-initial {
+    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;
+    display: grid; place-items: center; font-weight: 700; font-size: 1.2rem;
+    background: linear-gradient(140deg, rgba(34,197,94,.35), rgba(255,255,255,.05));
+    border: 1px solid var(--line-2); text-transform: uppercase;
+  }
+  .map-text { min-width: 0; flex: 1; }
+  .map-name { font-size: .96rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .map-sub { font-family: var(--font-mono); font-size: .71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .map-row .btn { flex-shrink: 0; padding: 8px 14px; font-size: .84rem; }
+  .map-empty { padding: 30px 16px; text-align: center; color: var(--muted); font-size: .9rem; }
+  .pill {
+    font-size: .72rem; color: var(--muted); padding: 2px 10px;
+    border: 1px solid var(--line); border-radius: 999px;
+  }
+
   /* ═══════ sections ═══════ */
   section { padding: 68px 0; }
   .sec-head { max-width: 62ch; margin-bottom: 34px; }
@@ -275,6 +309,7 @@
   @media (max-width: 960px) {
     .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }
     .code-card { transform: none; }
+    .maps-card { transform: none; }
   }
   @media (max-width: 900px) {
     .nav-links, .nav-pill .btn { display: none; }
@@ -340,19 +375,14 @@
         </div>
       </div>
 
-      <div class="code-card pop-element">
+      <div class="maps-card pop-element">
         <div class="code-top">
           <span class="tl"></span><span class="tl"></span><span class="tl"></span>
-          <span class="code-name">loadstring.lua</span>
+          <span class="code-name">maps.lua</span>
+          <span style="margin-left:auto" class="pill mono" id="mapsCount">—</span>
         </div>
-        <div class="code-body">
-<span class="c">-- วางใน executor แล้วกด Execute</span><br />
-<span class="p">local License = ""</span><br />
-<span class="p">local Script = ""</span><br />
-<span class="p">loadstring(</span><span class="f">game:HttpGet</span>(<span class="s" id="scriptUrl">"https://loader999mss.vercel.app/loadc.lua"</span><span class="p">))(License, Script)</span>
-        </div>
-        <div class="copy-row">
-          <button class="btn" id="copyCard" type="button">คัดลอกโค้ด</button>
+        <div class="map-list" id="mapList">
+          <div class="map-empty">กำลังโหลดรายการแมพ…</div>
         </div>
       </div>
     </div>
@@ -448,10 +478,101 @@
     legacy(text, btn);
   }
 
-  ['copyNav', 'copyHero', 'copyCard'].forEach(function (id) {
+  ['copyNav', 'copyHero'].forEach(function (id) {
     var btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', function () { copy(command, btn); });
   });
+
+  /* ─── map cards: image + name + a copy button per map ───
+     เพิ่มแมพโดยเพิ่ม { placeId, script } ใน GAMES ด้านล่าง
+       placeId = เลข Place ID ของแมพ (รูปกับชื่อดึงจาก Roblox อัตโนมัติ)
+       script  = ชื่อสคริปต์ที่จะใส่ใน local Script = "..."
+  */
+  var GAMES = [
+    { placeId: '123974602339071', script: 'main' }
+  ];
+
+  function snippetFor(scriptName) {
+    return 'local License = ""\nlocal Script = "' + scriptName + '"\nloadstring(game:HttpGet("' + url + '"))(License, Script)';
+  }
+
+  function esc(value) {
+    return String(value === null || value === undefined ? '' : value)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function initialOf(name, placeId) {
+    var source = (name || '').replace(/^[^A-Za-z0-9\u0e00-\u0e7f]+/, '');
+    var letter = source.charAt(0) || (placeId || '?').charAt(0);
+    return letter.toUpperCase();
+  }
+
+  function renderMaps(info) {
+    var host = document.getElementById('mapList');
+    var count = document.getElementById('mapsCount');
+    if (!host) return;
+    if (count) count.textContent = String(GAMES.length) + ' แมพ';
+    if (!GAMES.length) {
+      host.innerHTML = '<div class="map-empty">ยังไม่มีแมพในรายการ</div>';
+      return;
+    }
+    host.innerHTML = GAMES.map(function (game, index) {
+      var meta = info[game.placeId] || {};
+      var name = meta.name || ('Place ' + game.placeId);
+      var icon = meta.icon || '';
+      var thumb = icon
+        ? '<img class="map-thumb" id="thumb' + index + '" src="' + esc(icon) + '" alt="' + esc(name) + '" loading="lazy" referrerpolicy="no-referrer" />'
+        : '<span class="map-initial">' + esc(initialOf(meta.name, game.placeId)) + '</span>';
+      return '<div class="map-row">' +
+        thumb +
+        '<div class="map-text">' +
+          '<div class="map-name">' + esc(name) + '</div>' +
+          '<div class="map-sub">place ' + esc(game.placeId) + ' · script ' + esc(game.script) + '</div>' +
+        '</div>' +
+        '<button class="btn btn-ghost" type="button" data-map="' + index + '">คัดลอก</button>' +
+      '</div>';
+    }).join('');
+
+    // ถ้าโหลดรูปไม่ได้ ให้กลับไปใช้ตัวอักษรแรกของชื่อแมพ
+    GAMES.forEach(function (game, index) {
+      var img = document.getElementById('thumb' + index);
+      if (!img) return;
+      img.addEventListener('error', function () {
+        var meta = info[game.placeId] || {};
+        var fallback = document.createElement('span');
+        fallback.className = 'map-initial';
+        fallback.textContent = initialOf(meta.name, game.placeId);
+        if (img.parentNode) img.parentNode.replaceChild(fallback, img);
+      });
+    });
+
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-map]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var game = GAMES[Number(btn.getAttribute('data-map'))];
+        if (game) copy(snippetFor(game.script), btn);
+      });
+    });
+  }
+
+  function loadMaps() {
+    var ids = GAMES.map(function (g) { return g.placeId; }).join(',');
+    if (!ids) { renderMaps({}); return; }
+    fetch('/api/games?ids=' + ids, { headers: { accept: 'application/json' } })
+      .then(function (res) { return res.ok ? res.json() : null; })
+      .then(function (data) {
+        var info = {};
+        if (data && Array.isArray(data.games)) {
+          data.games.forEach(function (row) {
+            if (row && row.placeId) info[String(row.placeId)] = row;
+          });
+        }
+        renderMaps(info);
+      })
+      .catch(function () { renderMaps({}); });
+  }
+
+  loadMaps();
 
   /* ─── live API status ─── */
   var heroDot = document.getElementById('heroDot');
