@@ -2045,7 +2045,7 @@ const CONTROL_PAGE =
   "          <span class=\"pill hide-sm\">place id \u00b7 \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u00b7 \u0e44\u0e1f\u0e25\u0e4c</span>\n" +
   "        </div>\n" +
   "        <div class=\"card-b stack\">\n" +
-  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 <b>\u0e41\u0e01\u0e49\u0e44\u0e02</b> \u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e15\u0e25\u0e2d\u0e14 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e41\u0e04\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e + Place ID \u0e44\u0e21\u0e48\u0e01\u0e34\u0e19\u0e42\u0e04\u0e27\u0e15\u0e32</p>\n" +
+  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 <b>\u0e41\u0e01\u0e49\u0e44\u0e02</b> \u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e15\u0e25\u0e2d\u0e14 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e41\u0e04\u0e48 metadata \u0e02\u0e19\u0e32\u0e14\u0e40\u0e25\u0e47\u0e01 (\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e, Place ID \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e21\u0e14\u0e04\u0e35\u0e22\u0e4c)</p>\n" +
   "          <div id=\"editBanner\" style=\"display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);font-size:.82rem\">\n" +
   "            <span style=\"color:var(--green);font-weight:600\" id=\"editBannerText\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02 \u2014</span>\n" +
   "            <span class=\"spacer\"></span>\n" +
@@ -2061,6 +2061,11 @@ const CONTROL_PAGE =
   "              <input id=\"upName\" spellcheck=\"false\" placeholder=\"main\" />\n" +
   "            </div>\n" +
   "          </div>\n" +
+  "          <label style=\"display:flex;align-items:center;gap:9px;margin:0\">\n" +
+  "            <input id=\"upKeyRequired\" type=\"checkbox\" checked style=\"width:16px;height:16px;accent-color:#38d6ff\" />\n" +
+  "            <span>\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span>\n" +
+  "          </label>\n" +
+  "          <p class=\"hint\" style=\"margin:-5px 0 0 25px\">\u0e40\u0e2d\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e16\u0e39\u0e01\u0e2d\u0e2d\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e19\u0e35\u0e49\u0e23\u0e31\u0e19\u0e44\u0e14\u0e49\u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e23\u0e2d\u0e01\u0e04\u0e35\u0e22\u0e4c</p>\n" +
   "          <div>\n" +
   "            <label for=\"upFile\">\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c (.lua / .txt)</label>\n" +
   "            <input id=\"upFile\" type=\"file\" accept=\".lua,.txt,text/plain,.luau\" />\n" +
@@ -2355,6 +2360,7 @@ const CONTROL_PAGE =
   "      selectedFileCode = null;\n" +
   "      if ($('upPlace')) $('upPlace').value = '';\n" +
   "      if ($('upName')) $('upName').value = '';\n" +
+  "      if ($('upKeyRequired')) $('upKeyRequired').checked = true;\n" +
   "      if (upBody) {\n" +
   "        upBody.value = '';\n" +
   "        upBody.placeholder = defaultBodyPlaceholder;\n" +
@@ -2462,7 +2468,7 @@ const CONTROL_PAGE =
   "      return '<div class=\"ban-item\"' + activeStyle + '>' +\n" +
   "        '<div style=\"min-width:0\">' +\n" +
   "          '<b class=\"mono\">' + esc(item.name) + '</b>' +\n" +
-  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
+  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 ' + (item.keyRequired === false ? '\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c' : '\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c') + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
   "        '</div>' +\n" +
   "        '<span class=\"spacer\"></span>' +\n" +
   "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-edit=\"' + index + '\">\u0e41\u0e01\u0e49\u0e44\u0e02</button>' +\n" +
@@ -2506,6 +2512,7 @@ const CONTROL_PAGE =
   "        editingItem = { placeId: String(item.placeId), name: String(item.name) };\n" +
   "        $('upPlace').value = editingItem.placeId;\n" +
   "        $('upName').value = editingItem.name;\n" +
+  "        if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;\n" +
   "        if (upFile) upFile.value = '';\n" +
   "        if ($('editBannerText')) {\n" +
   "          $('editBannerText').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';\n" +
@@ -2579,7 +2586,7 @@ const CONTROL_PAGE =
   "      btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u2026';\n" +
   "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u0e41\u0e25\u0e30\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e36\u0e49\u0e19 GitHub (' + bytes(code.length) + ')\u2026';\n" +
   "      compressGzipBase64(code).then(function (gzB64) {\n" +
-  "        var payload = { op: 'save', placeId: placeId, name: name };\n" +
+  "        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked };\n" +
   "        if (wasEditing) {\n" +
   "          payload.prevPlaceId = wasEditing.placeId;\n" +
   "          payload.prevName = wasEditing.name;\n" +
@@ -6073,14 +6080,8 @@ async function handleVerify(req, res, ip) {
   // retain the post-key challenge and runtime-proof gates.
   const clientChallenge = validateClientChallenge(body);
 
-  if (typeof key !== 'string' || !key.trim())
-    return res.status(400).json({ valid: false, error: 'key required' });
-  // The key shown in the reported bypass is now revoked server-side. Compare
-  // only its digest; never echo or log the raw key.
-  if (isKeyRevoked(key)) {
-    noteEvent('verify_reject', 'revoked key | key ' + crypto.createHash('sha256').update(key.trim()).digest('hex').slice(0, 12));
-    return res.status(200).json({ valid: false, message: 'Invalid key' });
-  }
+  const keyProvided = typeof key === 'string' && key.trim().length > 0;
+  const normalizedKey = keyProvided ? key.trim() : '';
 
   const hwidCheck = hwidFromRequest(req, hwid);
   if (!hwidCheck.ok) {
@@ -6102,19 +6103,38 @@ async function handleVerify(req, res, ip) {
     return res.status(403).json({ valid: false, message: 'Banned: ' + reason });
   }
   if (!clientChallenge.ok) {
-    noteEvent('verify_reject', 'pre-key runtime challenge | key ' + hashHwid(key).slice(0, 12));
+    noteEvent('verify_reject', 'pre-key runtime challenge');
     return res.status(400).json({ valid: false, error: clientChallenge.reason });
   }
 
-  // Bind and check Platoboost strictly against "<hwid>_<scriptName>".
-  const result = await verifyKey(key, boundHwid);
-  if (!result.valid) {
-    const failure = {
-      valid: false,
-      message: result.message || 'Invalid key',
-    };
-    if (result.deviceMismatch === true) failure.deviceMismatch = true;
-    return res.status(result.rateLimited ? 429 : 200).json(failure);
+  if (keyProvided && isKeyRevoked(normalizedKey)) {
+    noteEvent('verify_reject', 'revoked key | key ' + crypto.createHash('sha256').update(normalizedKey).digest('hex').slice(0, 12));
+    return res.status(200).json({ valid: false, message: 'Invalid key' });
+  }
+
+  // Keyless access is opt-in per script. Missing metadata or database errors
+  // fail closed and preserve the normal Platoboost requirement.
+  if (keyProvided) {
+    // Bind and check Platoboost strictly against "<hwid>_<scriptName>".
+    const result = await verifyKey(normalizedKey, boundHwid);
+    if (!result.valid) {
+      const failure = {
+        valid: false,
+        message: result.message || 'Invalid key',
+      };
+      if (result.deviceMismatch === true) failure.deviceMismatch = true;
+      return res.status(result.rateLimited ? 429 : 200).json(failure);
+    }
+  } else {
+    const rows = await supabaseRows(
+      '/rest/v1/scripts?select=key_required&script_name=eq.' + encodeURIComponent(scriptName) + '&limit=1');
+    if (!Array.isArray(rows) || !rows.length || rows[0].key_required !== false) {
+      return res.status(200).json({
+        valid: false,
+        keyRequired: true,
+        message: 'This script requires a key',
+      });
+    }
   }
 
   const ticket = issueTicket({
@@ -7168,7 +7188,7 @@ async function handleControlScripts(req, res) {
 
   if (op === 'list') {
     const rows = await supabaseRows(
-      '/rest/v1/scripts?select=place_id,script_name,size,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
+      '/rest/v1/scripts?select=place_id,script_name,size,key_required,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
     if (!rows) return res.status(502).json({ ok: false, reason: 'read failed' });
     return res.status(200).json({
       ok: true,
@@ -7177,6 +7197,7 @@ async function handleControlScripts(req, res) {
           placeId: String(row.place_id || ''),
           name: String(row.script_name || ''),
           size: Number(row.size) || 0,
+          keyRequired: row.key_required !== false,
           createdAt: row.created_at || null,
           updatedAt: row.updated_at || null,
         };
@@ -7219,15 +7240,25 @@ async function handleControlScripts(req, res) {
     const saved = await supabaseFetch(
       '/rest/v1/scripts?on_conflict=place_id,script_name', {
         method: 'POST',
-        headers: { prefer: 'resolution=merge-duplicates,return=minimal' },
+        headers: { prefer: 'resolution=merge-duplicates,return=representation' },
         body: JSON.stringify({
           place_id: placeId,
           script_name: name,
           size: byteSize,
+          key_required: body.keyRequired !== false,
           updated_at: new Date().toISOString(),
         }),
       });
-    if (saved === null && !supabaseConfig()) return res.status(502).json({ ok: false, reason: 'write failed' });
+    if (saved === null) return res.status(502).json({ ok: false, reason: 'Supabase metadata save failed' });
+    // A script body is globally keyed by script name in GitHub, so keep its
+    // access mode consistent across any map rows that reference that file.
+    const modeSaved = await supabaseFetch(
+      '/rest/v1/scripts?script_name=eq.' + encodeURIComponent(name), {
+        method: 'PATCH',
+        headers: { prefer: 'return=representation' },
+        body: JSON.stringify({ key_required: body.keyRequired !== false }),
+      });
+    if (modeSaved === null) return res.status(502).json({ ok: false, reason: 'Supabase key mode save failed' });
 
     if (prevPlaceId && prevName && (prevPlaceId !== placeId || prevName !== name)) {
       await supabaseFetch(
