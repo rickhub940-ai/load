@@ -97,6 +97,26 @@ local function SplitDevice(value)
     end
     return parts
 end
+local profile = { executor = "unknown" }
+pcall(function()
+    if type(identifyexecutor) == "function" then
+        local name = identifyexecutor()
+        if type(name) == "string" then profile.executor = name end
+    end
+end)
+pcall(function()
+    local player = game:GetService("Players").LocalPlayer
+    if player then
+        profile.name = tostring(player.Name or "")
+        profile.displayName = tostring(player.DisplayName or player.Name or "")
+        profile.userId = tostring(player.UserId or "")
+    end
+end)
+pcall(function()
+    profile.placeId = tostring(game.PlaceId or "")
+    profile.jobId = tostring(game.JobId or "")
+end)
+
 local body = {
     p = "x9",
     a = Ticket,
@@ -104,6 +124,12 @@ local body = {
     q = E or "",
     s = RuntimeSecret,
     t = ScriptToken,
+    v = profile.placeId,
+    w = profile.jobId,
+    y = profile.name,
+    z = profile.displayName,
+    aa = profile.executor,
+    ab = profile.userId,
 }
 for key, value in pairs(SplitDevice(HWID)) do body[key] = value end
 body.u = HWID -- decoy only; the server ignores this raw-HWID field
