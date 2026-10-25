@@ -73,6 +73,7 @@ create table if not exists public.scripts (
   place_id text not null,
   script_name text not null,
   size integer not null default 0,
+  key_required boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (place_id, script_name)

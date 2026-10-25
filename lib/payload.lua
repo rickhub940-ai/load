@@ -1063,6 +1063,7 @@ local function FetchAndLoad(key, sname)
     end
     if r1.status ~= 200 or r1.data.valid ~= true then
         local message = r1.data.message or r1.data.error or "Invalid key"
+        if r1.data.keyRequired == true then message = "This script requires a key" end
         KickBadHwid(message, r1.data.deviceMismatch == true)
         return nil, message
     end
@@ -1387,17 +1388,17 @@ end
 -- ===========================================================
 -- MAIN
 -- ===========================================================
-if USER_KEY == "" then
-    print("[999MS] No key, opening UI")
-    MakeUI()
-    return
-end
-
 task.spawn(function()
+    -- An empty key first asks the server whether this script is explicitly
+    -- configured as keyless. Key-required scripts return to the normal UI.
     local decrypted, result = FetchAndLoad(USER_KEY, SCRIPT_NAME_LOCKED)
     if not decrypted then
         StartupError = result or "Invalid key"
-        print("[999MS] Auto-load failed:", StartupError)
+        if USER_KEY == "" then
+            print("[999MS] Key required or access check failed; opening UI")
+        else
+            print("[999MS] Auto-load failed:", StartupError)
+        end
         MakeUI()
         return
     end

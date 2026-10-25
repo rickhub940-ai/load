@@ -824,7 +824,7 @@
           <span class="pill hide-sm">place id · ชื่อสคริปต์ · ไฟล์</span>
         </div>
         <div class="card-b stack">
-          <p class="hint">อัปโหลดหรือกด <b>แก้ไข</b> สคริปต์ที่มีอยู่ได้ตลอด — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> สูงสุด 25 MB) ส่วน Supabase เก็บแค่ชื่อแมพ + Place ID ไม่กินโควตา</p>
+          <p class="hint">อัปโหลดหรือกด <b>แก้ไข</b> สคริปต์ที่มีอยู่ได้ตลอด — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> สูงสุด 25 MB) ส่วน Supabase เก็บแค่ metadata ขนาดเล็ก (ชื่อแมพ, Place ID และโหมดคีย์)</p>
           <div id="editBanner" style="display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);font-size:.82rem">
             <span style="color:var(--green);font-weight:600" id="editBannerText">กำลังแก้ไข —</span>
             <span class="spacer"></span>
@@ -840,6 +840,11 @@
               <input id="upName" spellcheck="false" placeholder="main" />
             </div>
           </div>
+          <label style="display:flex;align-items:center;gap:9px;margin:0">
+            <input id="upKeyRequired" type="checkbox" checked style="width:16px;height:16px;accent-color:#38d6ff" />
+            <span>ต้องใช้คีย์ก่อนรันสคริปต์</span>
+          </label>
+          <p class="hint" style="margin:-5px 0 0 25px">เอาเครื่องหมายถูกออกเพื่อให้สคริปต์นี้รันได้โดยไม่ต้องกรอกคีย์</p>
           <div>
             <label for="upFile">ไฟล์สคริปต์ (.lua / .txt)</label>
             <input id="upFile" type="file" accept=".lua,.txt,text/plain,.luau" />
@@ -1134,6 +1139,7 @@
       selectedFileCode = null;
       if ($('upPlace')) $('upPlace').value = '';
       if ($('upName')) $('upName').value = '';
+      if ($('upKeyRequired')) $('upKeyRequired').checked = true;
       if (upBody) {
         upBody.value = '';
         upBody.placeholder = defaultBodyPlaceholder;
@@ -1241,7 +1247,7 @@
       return '<div class="ban-item"' + activeStyle + '>' +
         '<div style="min-width:0">' +
           '<b class="mono">' + esc(item.name) + '</b>' +
-          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
+          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · ' + (item.keyRequired === false ? 'ไม่ต้องใช้คีย์' : 'ต้องใช้คีย์') + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
         '</div>' +
         '<span class="spacer"></span>' +
         '<button class="btn btn-sm btn-ghost" type="button" data-edit="' + index + '">แก้ไข</button>' +
@@ -1285,6 +1291,7 @@
         editingItem = { placeId: String(item.placeId), name: String(item.name) };
         $('upPlace').value = editingItem.placeId;
         $('upName').value = editingItem.name;
+        if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;
         if (upFile) upFile.value = '';
         if ($('editBannerText')) {
           $('editBannerText').textContent = 'กำลังแก้ไข: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';
@@ -1358,7 +1365,7 @@
       btn.textContent = 'กำลังบันทึก…';
       $('upMeta').textContent = 'กำลังบีบอัดและส่งไฟล์ขึ้น GitHub (' + bytes(code.length) + ')…';
       compressGzipBase64(code).then(function (gzB64) {
-        var payload = { op: 'save', placeId: placeId, name: name };
+        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked };
         if (wasEditing) {
           payload.prevPlaceId = wasEditing.placeId;
           payload.prevName = wasEditing.name;
