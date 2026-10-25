@@ -959,7 +959,7 @@ const STATS_PAGE =
   "    }\n" +
   "\n" +
   "    if (!points.length) {\n" +
-  "      host.innerHTML = '<div class=\"chart-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19 \u2014 \u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2a\u0e48\u0e07 heartbeat \u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a</div>';\n" +
+  "      host.innerHTML = '<div class=\"chart-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19 \u2014 \u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e1c\u0e48\u0e32\u0e19\u0e01\u0e32\u0e23\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a</div>';\n" +
   "      $('chartFoot').innerHTML = '';\n" +
   "      chartGeom = null;\n" +
   "      return;\n" +
@@ -1746,35 +1746,6 @@ const CONTROL_PAGE =
   "    .empty { padding: 36px 18px; text-align: center; color: var(--muted); font-size: 0.86rem; }\n" +
   "    .hint { font-size: 0.78rem; color: var(--muted); margin: 0 0 12px; line-height: 1.6; }\n" +
   "\n" +
-  "    /* sessions */\n" +
-  "    .sess-list { display: flex; flex-direction: column; gap: 10px; max-height: 430px; overflow: auto; }\n" +
-  "    .sess {\n" +
-  "      border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;\n" +
-  "      background: rgba(255, 255, 255, 0.02); cursor: pointer;\n" +
-  "      transition: border-color 0.2s ease, background 0.2s ease;\n" +
-  "    }\n" +
-  "    .sess:hover { border-color: rgba(255, 255, 255, 0.25); background: rgba(255, 255, 255, 0.04); }\n" +
-  "    .sess.sel { border-color: rgba(34, 197, 94, 0.55); background: rgba(34, 197, 94, 0.07); }\n" +
-  "    .who { display: flex; gap: 12px; align-items: center; }\n" +
-  "    .who .ava {\n" +
-  "      width: 40px; height: 40px; border-radius: 50%; overflow: hidden; flex-shrink: 0;\n" +
-  "      border: 1px solid var(--line-2); background: rgba(255, 255, 255, 0.06);\n" +
-  "      display: grid; place-items: center; font-weight: 700; color: var(--muted); position: relative;\n" +
-  "    }\n" +
-  "    .who .ava img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }\n" +
-  "    .who .nm { display: flex; flex-direction: column; gap: 2px; min-width: 0; }\n" +
-  "    .who .nm b { font-size: 0.9rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
-  "    .who .nm span { font-size: 0.72rem; color: var(--muted); font-family: var(--mono); }\n" +
-  "    .sess .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }\n" +
-  "    .sess .out {\n" +
-  "      margin-top: 8px; font-family: var(--mono); font-size: 0.72rem; color: var(--muted);\n" +
-  "      white-space: pre-wrap; word-break: break-word; max-height: 96px; overflow: auto;\n" +
-  "      border-top: 1px solid var(--line); padding-top: 8px;\n" +
-  "    }\n" +
-  "    .sess .out.ok { color: #86efac; }\n" +
-  "    .sess .out.bad { color: #ffb3bf; }\n" +
-  "    .acts { display: flex; gap: 6px; flex-wrap: wrap; }\n" +
-  "\n" +
   "    /* bans / log / toasts */\n" +
   "    .ban-list { display: flex; flex-direction: column; gap: 8px; max-height: 220px; overflow: auto; }\n" +
   "    .ban-item {\n" +
@@ -1905,7 +1876,7 @@ const CONTROL_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS CONTROL\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        \u0e2b\u0e19\u0e49\u0e32\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19 \u2014 \u0e14\u0e39\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e01\u0e33\u0e25\u0e31\u0e07\u0e23\u0e31\u0e19, \u0e2a\u0e31\u0e48\u0e07\u0e23\u0e31\u0e19\u0e42\u0e04\u0e49\u0e14, \u0e40\u0e15\u0e30, \u0e41\u0e1a\u0e19 \u0e41\u0e25\u0e30\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e17\u0e23\u0e32\u0e1f\u0e1f\u0e34\u0e01\u0e41\u0e1a\u0e1a\u0e40\u0e23\u0e35\u0e22\u0e25\u0e44\u0e17\u0e21\u0e4c\n" +
+  "        \u0e2b\u0e19\u0e49\u0e32\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e41\u0e2d\u0e14\u0e21\u0e34\u0e19 \u2014 \u0e08\u0e31\u0e14\u0e01\u0e32\u0e23\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c, \u0e04\u0e35\u0e22\u0e4c, \u0e41\u0e1a\u0e19 \u0e41\u0e25\u0e30\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e17\u0e23\u0e32\u0e1f\u0e1f\u0e34\u0e01\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
@@ -1943,54 +1914,6 @@ const CONTROL_PAGE =
   "    <section class=\"dash\">\n" +
   "  <div class=\"grid\">\n" +
   "    <div class=\"stack\">\n" +
-  "      <section class=\"card\">\n" +
-  "        <div class=\"card-h\">\n" +
-  "          <h2>\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e01\u0e33\u0e25\u0e31\u0e07\u0e23\u0e31\u0e19</h2>\n" +
-  "          <span class=\"pill\" id=\"sessCount\">0</span>\n" +
-  "          <span class=\"spacer\"></span>\n" +
-  "          <span class=\"pill hide-sm\">heartbeat \u0e17\u0e38\u0e01 12 \u0e27\u0e34</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"card-b stack\">\n" +
-  "          <p class=\"hint\">\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e01\u0e33\u0e25\u0e31\u0e07\u0e23\u0e31\u0e19\u0e08\u0e30\u0e2a\u0e48\u0e07\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c Roblox \u0e21\u0e32\u0e17\u0e32\u0e07 heartbeat \u2014 \u0e40\u0e25\u0e37\u0e2d\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e41\u0e25\u0e49\u0e27\u0e2a\u0e31\u0e48\u0e07 <span class=\"mono\">\u0e23\u0e31\u0e19\u0e42\u0e04\u0e49\u0e14</span> \u0e2b\u0e23\u0e37\u0e2d <span class=\"mono\">\u0e40\u0e15\u0e30</span> \u0e44\u0e14\u0e49\u0e17\u0e31\u0e19\u0e17\u0e35</p>\n" +
-  "          <div class=\"sess-list\" id=\"sessList\"><div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d</div></div>\n" +
-  "          <div style=\"border-top:1px solid var(--line);padding-top:12px\" class=\"stack\">\n" +
-  "            <div>\n" +
-  "              <label for=\"testHwid\">HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a (\u0e1c\u0e39\u0e01\u0e41\u0e1a\u0e1a <span class=\"mono\">hwid_\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span>)</label>\n" +
-  "              <div style=\"display:flex;gap:8px;flex-wrap:wrap\">\n" +
-  "                <input id=\"testHwid\" style=\"flex:2;min-width:160px\" placeholder=\"\u0e27\u0e32\u0e07 HWID \u0e17\u0e35\u0e48\u0e44\u0e14\u0e49\u0e08\u0e32\u0e01 executor\" spellcheck=\"false\" />\n" +
-  "                <input id=\"testScript\" style=\"flex:1;min-width:110px\" value=\"main\" placeholder=\"\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u0e40\u0e0a\u0e48\u0e19 T\" spellcheck=\"false\" />\n" +
-  "                <button class=\"btn btn-sm\" type=\"button\" data-copy=\"hwidSnippet\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e42\u0e04\u0e49\u0e14\u0e14\u0e39 HWID</button>\n" +
-  "              </div>\n" +
-  "              <input id=\"hwidSnippet\" readonly class=\"mono\" style=\"margin-top:8px;font-size:.74rem\"\n" +
-  "                value='print(gethwid and gethwid() or (get_hwid and get_hwid()) or \"no getter\")' />\n" +
-  "              <p class=\"hint\" id=\"testBoundPreview\" style=\"margin:6px 0 0\">\u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30 ticket \u0e40\u0e1b\u0e47\u0e19 <span class=\"mono\">&lt;hwid&gt;_&lt;\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c&gt;</span> \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 (\u0e40\u0e0a\u0e48\u0e19 <span class=\"mono\">abc12345_T</span>)</p>\n" +
-  "            </div>\n" +
-  "\n" +
-  "            <div>\n" +
-  "              <label for=\"testClientOut\">client \u0e17\u0e14\u0e2a\u0e2d\u0e1a (\u0e44\u0e21\u0e48\u0e1c\u0e48\u0e32\u0e19\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e40\u0e14\u0e2d\u0e23\u0e4c)</label>\n" +
-  "              <div class=\"row\">\n" +
-  "                <button class=\"btn btn-sm\" id=\"testClientBtn\" type=\"button\">\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e14\u0e2a\u0e2d\u0e1a</button>\n" +
-  "                <button class=\"btn btn-sm\" type=\"button\" data-copy=\"testClientOut\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</button>\n" +
-  "              </div>\n" +
-  "              <textarea id=\"testClientOut\" rows=\"7\" readonly class=\"mono\" style=\"margin-top:10px;font-size:.72rem\" placeholder=\"\u0e01\u0e14 \u0e2a\u0e23\u0e49\u0e32\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e14\u0e2a\u0e2d\u0e1a \u0e41\u0e25\u0e49\u0e27\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e44\u0e1b\u0e27\u0e32\u0e07\u0e43\u0e19 executor\"></textarea>\n" +
-  "              <p class=\"hint\" id=\"testClientMeta\" style=\"margin:0\"></p>\n" +
-  "            </div>\n" +
-  "          </div>\n" +
-  "\n" +
-  "          <div style=\"border-top:1px solid var(--line);padding-top:12px\" class=\"stack\">\n" +
-  "            <div>\n" +
-  "              <label for=\"cmdCode\">\u0e42\u0e04\u0e49\u0e14 Lua \u0e17\u0e35\u0e48\u0e08\u0e30\u0e23\u0e31\u0e19\u0e1a\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e31\u0e49\u0e19</label>\n" +
-  "              <textarea id=\"cmdCode\" rows=\"5\" spellcheck=\"false\" placeholder='print(\"hello from control\")'></textarea>\n" +
-  "            </div>\n" +
-  "            <div class=\"row\">\n" +
-  "              <button class=\"btn\" id=\"cmdSend\" type=\"button\">\u0e23\u0e31\u0e19\u0e1a\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e40\u0e25\u0e37\u0e2d\u0e01</button>\n" +
-  "              <button class=\"btn btn-primary\" id=\"cmdSendAll\" type=\"button\">\u0e23\u0e31\u0e19\u0e17\u0e38\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07</button>\n" +
-  "            </div>\n" +
-  "            <p class=\"hint\" id=\"cmdTarget\" style=\"margin:0\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07</p>\n" +
-  "          </div>\n" +
-  "        </div>\n" +
-  "      </section>\n" +
-  "\n" +
   "      <section class=\"card\">\n" +
   "        <div class=\"card-h\">\n" +
   "          <h2>\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e25\u0e34\u0e07\u0e01\u0e4c\u0e42\u0e2b\u0e25\u0e14</h2>\n" +
@@ -2275,7 +2198,7 @@ const CONTROL_PAGE =
   "(function () {\n" +
   "  'use strict';\n" +
   "  var KEY = 'ms999_admin_token';\n" +
-  "  var state = { token: sessionStorage.getItem(KEY) || '', timer: null, busy: false, selected: '', sessions: [] };\n" +
+  "  var state = { token: sessionStorage.getItem(KEY) || '', timer: null, busy: false };\n" +
   "\n" +
   "  var $ = function (id) { return document.getElementById(id); };\n" +
   "  var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');\n" +
@@ -2296,154 +2219,6 @@ const CONTROL_PAGE =
   "    var host = $('log');\n" +
   "    host.insertBefore(line, host.firstChild);\n" +
   "    while (host.children.length > 60) host.removeChild(host.lastChild);\n" +
-  "  }\n" +
-  "\n" +
-  "  function ago(ms) {\n" +
-  "    if (!ms) return '\u2014';\n" +
-  "    var s = Math.max(0, Math.floor((Date.now() - ms) / 1000));\n" +
-  "    if (s < 5) return '\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e2a\u0e31\u0e01\u0e04\u0e23\u0e39\u0e48';\n" +
-  "    if (s < 60) return s + ' \u0e27\u0e34\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
-  "    var m = Math.floor(s / 60);\n" +
-  "    if (m < 60) return m + ' \u0e19\u0e32\u0e17\u0e35\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
-  "    var h = Math.floor(m / 60);\n" +
-  "    if (h < 24) return h + ' \u0e0a\u0e31\u0e48\u0e27\u0e42\u0e21\u0e07\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
-  "    return Math.floor(h / 24) + ' \u0e27\u0e31\u0e19\u0e17\u0e35\u0e48\u0e41\u0e25\u0e49\u0e27';\n" +
-  "  }\n" +
-  "\n" +
-  "  function dur(ms) {\n" +
-  "    if (!ms) return '\u2014';\n" +
-  "    var s = Math.floor(ms / 1000);\n" +
-  "    if (s < 60) return s + ' \u0e27\u0e34';\n" +
-  "    var m = Math.floor(s / 60);\n" +
-  "    if (m < 60) return m + ' \u0e19\u0e32\u0e17\u0e35';\n" +
-  "    var h = Math.floor(m / 60);\n" +
-  "    if (h < 24) return h + ' \u0e0a\u0e21. ' + (m % 60) + ' \u0e19.';\n" +
-  "    return Math.floor(h / 24) + ' \u0e27\u0e31\u0e19';\n" +
-  "  }\n" +
-  "\n" +
-  "  function api(path, body) {\n" +
-  "    return fetch(path, {\n" +
-  "      method: 'POST',\n" +
-  "      headers: { 'content-type': 'application/json', 'x-admin-token': state.token },\n" +
-  "      body: JSON.stringify(body || {}),\n" +
-  "      cache: 'no-store',\n" +
-  "    }).then(function (res) {\n" +
-  "      return res.json().catch(function () { return {}; }).then(function (data) {\n" +
-  "        return { status: res.status, data: data };\n" +
-  "      });\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  function setDot(el, cls) { el.classList.remove('ok', 'bad', 'wait'); if (cls) el.classList.add(cls); }\n" +
-  "\n" +
-  "  function showGate(message) {\n" +
-  "    gate.classList.remove('hide');\n" +
-  "    gateErr.textContent = message || '';\n" +
-  "    if (state.timer) clearInterval(state.timer);\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2500\u2500 uploaded map scripts \u2500\u2500 */\n" +
-  "  var upFile = $('upFile');\n" +
-  "  var upBody = $('upBody');\n" +
-  "  var selectedFileCode = null;\n" +
-  "  var editingItem = null;\n" +
-  "  var currentScriptItems = [];\n" +
-  "  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';\n" +
-  "\n" +
-  "  function exitEditMode(clearFields) {\n" +
-  "    editingItem = null;\n" +
-  "    var banner = $('editBanner');\n" +
-  "    if (banner) banner.style.display = 'none';\n" +
-  "    if ($('upSave')) $('upSave').textContent = '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
-  "    if (upBody) upBody.rows = 7;\n" +
-  "    if (clearFields) {\n" +
-  "      selectedFileCode = null;\n" +
-  "      if ($('upPlace')) $('upPlace').value = '';\n" +
-  "      if ($('upName')) $('upName').value = '';\n" +
-  "      if ($('upKeyRequired')) $('upKeyRequired').checked = true;\n" +
-  "      if (upBody) {\n" +
-  "        upBody.value = '';\n" +
-  "        upBody.placeholder = defaultBodyPlaceholder;\n" +
-  "      }\n" +
-  "      if (upFile) upFile.value = '';\n" +
-  "      $('upMeta').textContent = '';\n" +
-  "    }\n" +
-  "    renderScripts(currentScriptItems);\n" +
-  "  }\n" +
-  "\n" +
-  "  if ($('upCancelEdit')) {\n" +
-  "    $('upCancelEdit').addEventListener('click', function () {\n" +
-  "      exitEditMode(true);\n" +
-  "      toast('\u0e22\u0e01\u0e40\u0e25\u0e34\u0e01\u0e42\u0e2b\u0e21\u0e14\u0e41\u0e01\u0e49\u0e44\u0e02\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  if (upBody) {\n" +
-  "    upBody.addEventListener('input', function () {\n" +
-  "      selectedFileCode = null;\n" +
-  "      upBody.placeholder = defaultBodyPlaceholder;\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  if (upFile) {\n" +
-  "    upFile.addEventListener('change', function () {\n" +
-  "      var file = upFile.files && upFile.files[0];\n" +
-  "      if (!file) return;\n" +
-  "      var reader = new FileReader();\n" +
-  "      reader.onload = function () {\n" +
-  "        var content = String(reader.result || '');\n" +
-  "        selectedFileCode = content;\n" +
-  "        if (upBody) {\n" +
-  "          if (content.length <= 131072) {\n" +
-  "            upBody.value = content;\n" +
-  "            upBody.placeholder = defaultBodyPlaceholder;\n" +
-  "          } else {\n" +
-  "            upBody.value = '';\n" +
-  "            upBody.placeholder = '\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48 ' + file.name + ' (' + bytes(file.size) + ') \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e0b\u0e48\u0e2d\u0e19\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c\u0e04\u0e49\u0e32\u0e07';\n" +
-  "          }\n" +
-  "        }\n" +
-  "        var upNameInput = $('upName');\n" +
-  "        if (upNameInput && !upNameInput.value.trim()) {\n" +
-  "          var base = file.name.replace(/\\.(lua|luau|txt)$/i, '').replace(/[^a-zA-Z0-9_-]/g, '');\n" +
-  "          if (base) upNameInput.value = base.slice(0, 64);\n" +
-  "        }\n" +
-  "        $('upMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e1f\u0e25\u0e4c ' + file.name + ' (' + bytes(file.size) + ') \u0e41\u0e25\u0e49\u0e27 \u2014 \u0e01\u0e14' + (editingItem ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c') + '\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2a\u0e48\u0e07\u0e02\u0e36\u0e49\u0e19 GitHub';\n" +
-  "      };\n" +
-  "      reader.readAsText(file);\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  function compressGzipBase64(text) {\n" +
-  "    if (typeof CompressionStream === 'undefined' || text.length < 16384) {\n" +
-  "      return Promise.resolve(null);\n" +
-  "    }\n" +
-  "    try {\n" +
-  "      var stream = new Blob([text]).stream().pipeThrough(new CompressionStream('gzip'));\n" +
-  "      return new Response(stream).arrayBuffer().then(function (ab) {\n" +
-  "        var u8 = new Uint8Array(ab);\n" +
-  "        var chunks = [];\n" +
-  "        var step = 0x8000;\n" +
-  "        for (var i = 0; i < u8.length; i += step) {\n" +
-  "          chunks.push(String.fromCharCode.apply(null, u8.subarray(i, i + step)));\n" +
-  "        }\n" +
-  "        return btoa(chunks.join(''));\n" +
-  "      }).catch(function () { return null; });\n" +
-  "    } catch (e) {\n" +
-  "      return Promise.resolve(null);\n" +
-  "    }\n" +
-  "  }\n" +
-  "\n" +
-  "  function decompressGzipBase64(b64) {\n" +
-  "    if (!b64 || typeof DecompressionStream === 'undefined') return Promise.resolve('');\n" +
-  "    try {\n" +
-  "      var bin = atob(b64);\n" +
-  "      var u8 = new Uint8Array(bin.length);\n" +
-  "      for (var i = 0; i < bin.length; i++) u8[i] = bin.charCodeAt(i);\n" +
-  "      var stream = new Blob([u8]).stream().pipeThrough(new DecompressionStream('gzip'));\n" +
-  "      return new Response(stream).text();\n" +
-  "    } catch (e) {\n" +
-  "      return Promise.resolve('');\n" +
-  "    }\n" +
   "  }\n" +
   "\n" +
   "  function bytes(value) {\n" +
@@ -2699,7 +2474,6 @@ const CONTROL_PAGE =
   "      renderTraffic(result.data.traffic || []);\n" +
   "    }).catch(function () {});\n" +
   "\n" +
-  "    loadSessions();\n" +
   "    loadScripts();\n" +
   "\n" +
   "    api('/api/control/bans').then(function (result) {\n" +
@@ -2778,330 +2552,6 @@ const CONTROL_PAGE =
   "      return '<div class=\"ban-item\"><span>' + esc(pair[0]) + '</span><b style=\"font-weight:500\">' + esc(pair[1]) + '</b></div>';\n" +
   "    }).join('');\n" +
   "  }\n" +
-  "\n" +
-  "  /* \u2500\u2500 sessions \u2500\u2500 */\n" +
-  "  function avatar(id, label) {\n" +
-  "    if (!id) return '';\n" +
-  "    return '<img src=\"https://www.roblox.com/headshot-thumbnail/image?userId=' + encodeURIComponent(id) +\n" +
-  "      '&width=48&height=48&format=png\" alt=\"\" loading=\"lazy\" onerror=\"this.style.display=\\'none\\'\" />';\n" +
-  "  }\n" +
-  "\n" +
-  "  function updateTargetLabel() {\n" +
-  "    var label = $('cmdTarget');\n" +
-  "    if (!state.selected) { label.textContent = '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07'; return; }\n" +
-  "    var picked = null;\n" +
-  "    (state.sessions || []).forEach(function (s) { if (s.id === state.selected) picked = s; });\n" +
-  "    label.textContent = '\u0e40\u0e1b\u0e49\u0e32\u0e2b\u0e21\u0e32\u0e22: ' + (picked\n" +
-  "      ? (picked.label + ' \u00b7 ' + (picked.scriptName || '-'))\n" +
-  "      : state.selected.slice(0, 8) + '\u2026');\n" +
-  "  }\n" +
-  "\n" +
-  "  function renderSessions(list) {\n" +
-  "    var host = $('sessList');\n" +
-  "    $('sessCount').textContent = String(list.length);\n" +
-  "    if (!list.length) {\n" +
-  "      host.innerHTML = '<div class=\"empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d \u2014 \u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e23\u0e31\u0e19\u0e04\u0e49\u0e32\u0e07\u0e44\u0e27\u0e49\u0e41\u0e25\u0e49\u0e27\u0e23\u0e2d\u0e2a\u0e31\u0e01\u0e04\u0e23\u0e39\u0e48</div>';\n" +
-  "      return;\n" +
-  "    }\n" +
-  "    host.innerHTML = list.map(function (s) {\n" +
-  "      var meta = [];\n" +
-  "      if (s.scriptName) meta.push('\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + esc(s.scriptName));\n" +
-  "      if (s.executor) meta.push(esc(s.executor));\n" +
-  "      if (s.placeId) meta.push('place ' + esc(s.placeId));\n" +
-  "      if (s.ip) meta.push(esc(s.ip));\n" +
-  "      meta.push('heartbeat ' + ago(s.lastBeat));\n" +
-  "      meta.push('\u0e23\u0e31\u0e19\u0e21\u0e32 ' + dur(Date.now() - s.startedAt));\n" +
-  "      if (s.pending) meta.push('\u0e23\u0e2d\u0e2a\u0e48\u0e07 ' + s.pending);\n" +
-  "\n" +
-  "      var out = '';\n" +
-  "      if (s.lastResult) {\n" +
-  "        out = '<div class=\"out ' + (s.lastResult.ok ? 'ok' : 'bad') + '\">\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07 ' + esc(s.lastResult.id || '') +\n" +
-  "          ' \u2192 ' + esc(s.lastResult.output || '(\u0e44\u0e21\u0e48\u0e21\u0e35\u0e1c\u0e25\u0e25\u0e31\u0e1e\u0e18\u0e4c)') + '</div>';\n" +
-  "      } else if (s.lastCommand) {\n" +
-  "        out = '<div class=\"out\">\u0e2a\u0e48\u0e07\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07 ' + esc(s.lastCommand.kind || '') + ' ' + esc(s.lastCommand.id || '') +\n" +
-  "          (s.lastCommand.delivered ? ' \u0e41\u0e25\u0e49\u0e27 \u00b7 \u0e23\u0e2d\u0e1c\u0e25' : ' \u00b7 \u0e23\u0e2d client \u0e21\u0e32\u0e23\u0e31\u0e1a') + '</div>';\n" +
-  "      }\n" +
-  "\n" +
-  "      return '<div class=\"sess' + (state.selected === s.id ? ' sel' : '') + '\" data-id=\"' + esc(s.id) + '\">' +\n" +
-  "        '<div class=\"who\">' +\n" +
-  "          '<span class=\"ava\">' + esc((s.label || '?').slice(0, 1).toUpperCase()) + avatar(s.userId) + '</span>' +\n" +
-  "          '<span class=\"nm\"><b>' + esc(s.label) + (s.name && s.name !== s.label\n" +
-  "            ? ' <span style=\"color:var(--muted);font-weight:400\">@' + esc(s.name) + '</span>' : '') + '</b>' +\n" +
-  "            '<span>' + (s.userId ? 'id ' + esc(s.userId) : '\u0e44\u0e21\u0e48\u0e23\u0e30\u0e1a\u0e38\u0e0a\u0e37\u0e48\u0e2d') + ' \u00b7 hwid ' + esc(s.hwid || '-') + '</span></span>' +\n" +
-  "          '<span style=\"margin-left:auto\"></span>' +\n" +
-  "          '<span class=\"tag ' + (s.online ? '' : 'warn') + '\">' + (s.online ? '\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c' : '\u0e44\u0e21\u0e48\u0e15\u0e2d\u0e1a\u0e2a\u0e19\u0e2d\u0e07') + '</span>' +\n" +
-  "        '</div>' +\n" +
-  "        '<div class=\"meta\">' + meta.map(function (m) { return '<span class=\"pill\">' + m + '</span>'; }).join('') + '</div>' +\n" +
-  "        out +\n" +
-  "        '<div class=\"acts\" style=\"margin-top:8px\">' +\n" +
-  "          '<button class=\"btn btn-sm\" type=\"button\" data-exec=\"' + esc(s.id) + '\">\u0e23\u0e31\u0e19\u0e42\u0e04\u0e49\u0e14</button>' +\n" +
-  "          '<button class=\"btn btn-sm btn-danger\" type=\"button\" data-kick=\"' + esc(s.id) + '\">\u0e40\u0e15\u0e30 + \u0e41\u0e1a\u0e19</button>' +\n" +
-  "        '</div>' +\n" +
-  "      '</div>';\n" +
-  "    }).join('');\n" +
-  "  }\n" +
-  "\n" +
-  "  function loadSessions() {\n" +
-  "    return api('/api/control/sessions', {}).then(function (result) {\n" +
-  "      if (result.status !== 200) return;\n" +
-  "      var data = result.data || {};\n" +
-  "      state.sessions = data.sessions || [];\n" +
-  "      renderSessions(state.sessions);\n" +
-  "      updateTargetLabel();\n" +
-  "    }).catch(function () {});\n" +
-  "  }\n" +
-  "\n" +
-  "  function sendCommand(id, kind) {\n" +
-  "    if (kind === 'kick' && !window.confirm('\u0e40\u0e15\u0e30\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e19\u0e35\u0e49\u0e41\u0e25\u0e30\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e02\u0e49\u0e32\u0e41\u0e1a\u0e19? (\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e08\u0e30\u0e01\u0e25\u0e31\u0e1a\u0e40\u0e02\u0e49\u0e32\u0e21\u0e32\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e08\u0e19\u0e01\u0e27\u0e48\u0e32\u0e08\u0e30\u0e1b\u0e25\u0e14\u0e41\u0e1a\u0e19)')) return;\n" +
-  "    var code = kind === 'exec' ? ($('cmdCode').value || '') : '';\n" +
-  "    if (kind === 'exec' && !code.trim()) { toast('\u0e01\u0e23\u0e38\u0e13\u0e32\u0e43\u0e2a\u0e48\u0e42\u0e04\u0e49\u0e14\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
-  "\n" +
-  "    api('/api/control/command', { id: id, kind: kind, code: code }).then(function (result) {\n" +
-  "      var data = result.data || {};\n" +
-  "      if (result.status !== 200 || !data.ok) { toast(data.reason || '\u0e2a\u0e48\u0e07\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08', 'err'); return; }\n" +
-  "      toast((kind === 'kick' ? '\u0e40\u0e15\u0e30\u0e41\u0e25\u0e49\u0e27 ' : '\u0e2a\u0e48\u0e07\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e41\u0e25\u0e49\u0e27 ') + data.targets + ' \u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07', 'ok');\n" +
-  "      logLine((kind === 'kick' ? '\u0e40\u0e15\u0e30 ' : '\u0e23\u0e31\u0e19\u0e42\u0e04\u0e49\u0e14 ') + (id === '*' ? '\u0e17\u0e38\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07' : String(id).slice(0, 8))\n" +
-  "        + ' \u00b7 ' + (data.id || ''), 'ok');\n" +
-  "      loadSessions();\n" +
-  "    }).catch(function () { toast('\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err'); });\n" +
-  "  }\n" +
-  "\n" +
-  "  $('sessList').addEventListener('click', function (event) {\n" +
-  "    var row = event.target.closest('.sess');\n" +
-  "    if (!row) return;\n" +
-  "    var id = row.getAttribute('data-id') || '';\n" +
-  "    var execBtn = event.target.closest('button[data-exec]');\n" +
-  "    var kickBtn = event.target.closest('button[data-kick]');\n" +
-  "    if (execBtn) { state.selected = id; updateTargetLabel(); sendCommand(id, 'exec'); return; }\n" +
-  "    if (kickBtn) { sendCommand(id, 'kick'); return; }\n" +
-  "    state.selected = (state.selected === id) ? '' : id;\n" +
-  "    updateTargetLabel();\n" +
-  "    renderSessions(state.sessions || []);\n" +
-  "  });\n" +
-  "\n" +
-  "  $('cmdSend').addEventListener('click', function () {\n" +
-  "    if (!state.selected) { toast('\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e01\u0e48\u0e2d\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 \u0e23\u0e31\u0e19\u0e17\u0e38\u0e01\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07', 'err'); return; }\n" +
-  "    sendCommand(state.selected, 'exec');\n" +
-  "  });\n" +
-  "  $('cmdSendAll').addEventListener('click', function () { sendCommand('*', 'exec'); });\n" +
-  "\n" +
-  "\n" +
-  "  /* \u2500\u2500 test client \u2500\u2500 */\n" +
-  "  var CLIENT_TEMPLATE = `local BASE   = \"%BASE%\"     -- e.g. https://loader999xx-one.vercel.app\n" +
-  "local TICKET = \"%TICKET%\"   -- short-lived test ticket (30 min)\n" +
-  "local XKEY   = \"%XORKEY%\"   -- payload XOR key\n" +
-  "local HWID   = \"%HWID%\"     -- raw executor hardware id (server binds HWID_SCRIPT)\n" +
-  "local BOUND  = \"%BOUND%\"    -- bound identifier: hwid_scriptName\n" +
-  "local SCRIPT = \"%SCRIPT%\"\n" +
-  "local BEAT   = 10           -- seconds between heartbeats\n" +
-  "\n" +
-  "local HttpService = game:GetService(\"HttpService\")\n" +
-  "local Players = game:GetService(\"Players\")\n" +
-  "local Http = (type(syn) == \"table\" and syn.request)\n" +
-  "    or (type(http) == \"table\" and http.request)\n" +
-  "    or request or http_request\n" +
-  "local bit = bit32 or bit\n" +
-  "\n" +
-  "if type(Http) ~= \"function\" then error(\"[999MS] executor has no HTTP support\") end\n" +
-  "if type(bit) ~= \"table\" then error(\"[999MS] executor has no bit32\") end\n" +
-  "\n" +
-  "local Charset = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/\"\n" +
-  "local Char, Byte = string.char, string.byte\n" +
-  "\n" +
-  "local function Xor(data, key)\n" +
-  "    local out = {}\n" +
-  "    for index = 1, #data do\n" +
-  "        out[index] = Char(bit.bxor(Byte(data, index), Byte(key, (index - 1) % #key + 1)))\n" +
-  "    end\n" +
-  "    return table.concat(out)\n" +
-  "end\n" +
-  "\n" +
-  "local function B64(data)\n" +
-  "    local out = {}\n" +
-  "    for index = 1, #data, 3 do\n" +
-  "        local a, b, c = Byte(data, index, index + 2)\n" +
-  "        a, b, c = a or 0, b or 0, c or 0\n" +
-  "        local n = bit.lshift(a, 16) + bit.lshift(b, 8) + c\n" +
-  "        out[#out + 1] = Charset:sub(bit.rshift(n, 18) % 64 + 1, bit.rshift(n, 18) % 64 + 1)\n" +
-  "        out[#out + 1] = Charset:sub(bit.rshift(n, 12) % 64 + 1, bit.rshift(n, 12) % 64 + 1)\n" +
-  "        if index + 1 > #data then\n" +
-  "            out[#out + 1] = \"==\"\n" +
-  "        elseif index + 2 > #data then\n" +
-  "            out[#out + 1] = Charset:sub(bit.rshift(n, 6) % 64 + 1, bit.rshift(n, 6) % 64 + 1) .. \"=\"\n" +
-  "        else\n" +
-  "            out[#out + 1] = Charset:sub(bit.rshift(n, 6) % 64 + 1, bit.rshift(n, 6) % 64 + 1)\n" +
-  "                .. Charset:sub(n % 64 + 1, n % 64 + 1)\n" +
-  "        end\n" +
-  "    end\n" +
-  "    return table.concat(out)\n" +
-  "end\n" +
-  "\n" +
-  "local function B64Dec(text)\n" +
-  "    local out, buffer, bits = {}, 0, 0\n" +
-  "    for index = 1, #text do\n" +
-  "        local value = Charset:find(text:sub(index, index), 1, true)\n" +
-  "        if value then\n" +
-  "            buffer = bit.lshift(buffer, 6) + (value - 1)\n" +
-  "            bits = bits + 6\n" +
-  "            if bits >= 8 then\n" +
-  "                bits = bits - 8\n" +
-  "                out[#out + 1] = Char(bit.rshift(buffer, bits) % 256)\n" +
-  "            end\n" +
-  "        end\n" +
-  "    end\n" +
-  "    return table.concat(out)\n" +
-  "end\n" +
-  "\n" +
-  "-- The heartbeat payload is XOR+Base64 and travels as a byte array.\n" +
-  "local function Protect(tbl)\n" +
-  "    local raw = XKEY .. B64(Xor(HttpService:JSONEncode(tbl), XKEY))\n" +
-  "    local bytes = {}\n" +
-  "    for index = 1, #raw do bytes[index] = Byte(raw, index) end\n" +
-  "    return bytes\n" +
-  "end\n" +
-  "\n" +
-  "local function Unprotect(bytes)\n" +
-  "    local raw = {}\n" +
-  "    for index = 1, #bytes do raw[index] = Char(bytes[index]) end\n" +
-  "    raw = table.concat(raw)\n" +
-  "    if raw:sub(1, #XKEY) ~= XKEY then return nil end\n" +
-  "    local ok, data = pcall(function()\n" +
-  "        return HttpService:JSONDecode(Xor(B64Dec(raw:sub(#XKEY + 1)), XKEY))\n" +
-  "    end)\n" +
-  "    return ok and data or nil\n" +
-  "end\n" +
-  "\n" +
-  "local function Profile()\n" +
-  "    local profile = { executor = \"unknown\" }\n" +
-  "    if type(identifyexecutor) == \"function\" then\n" +
-  "        local ok, name = pcall(identifyexecutor)\n" +
-  "        if ok and type(name) == \"string\" then profile.executor = name end\n" +
-  "    end\n" +
-  "    pcall(function()\n" +
-  "        local player = Players.LocalPlayer\n" +
-  "        if player then\n" +
-  "            profile.name = player.Name\n" +
-  "            profile.displayName = player.DisplayName or player.Name\n" +
-  "            profile.userId = tostring(player.UserId)\n" +
-  "        end\n" +
-  "    end)\n" +
-  "    pcall(function() profile.placeId = tostring(game.PlaceId) end)\n" +
-  "    pcall(function() profile.jobId = tostring(game.JobId) end)\n" +
-  "    return profile\n" +
-  "end\n" +
-  "\n" +
-  "local function Beat(result)\n" +
-  "    local body = {\n" +
-  "        ticket = TICKET,\n" +
-  "        c = HWID,\n" +
-  "        Data = Protect({ scriptName = SCRIPT, profile = Profile(), result = result }),\n" +
-  "    }\n" +
-  "    local ok, res = pcall(Http, {\n" +
-  "        Url = BASE .. \"/api/heartbeat\",\n" +
-  "        Method = \"POST\",\n" +
-  "        Headers = { [\"Content-Type\"] = \"application/json\", [\"X-Fingerprint\"] = HWID },\n" +
-  "        Body = HttpService:JSONEncode(body),\n" +
-  "    })\n" +
-  "    if not ok or type(res) ~= \"table\" or type(res.Body) ~= \"string\" then return nil end\n" +
-  "    local parsed = HttpService:JSONDecode(res.Body)\n" +
-  "    if type(parsed) ~= \"table\" then return nil end\n" +
-  "    if type(parsed.kick) == \"string\" then return { kick = parsed.kick } end\n" +
-  "    return Unprotect(parsed.Data or {})\n" +
-  "end\n" +
-  "\n" +
-  "local function Run(code)\n" +
-  "    local compiler = loadstring or load\n" +
-  "    local ok, chunk = pcall(compiler, code)\n" +
-  "    if not ok or type(chunk) ~= \"function\" then return false, \"compile: \" .. tostring(chunk) end\n" +
-  "    local packed = { pcall(chunk) }\n" +
-  "    if not packed[1] then return false, tostring(packed[2]) end\n" +
-  "    local out = {}\n" +
-  "    for index = 2, #packed do out[#out + 1] = tostring(packed[index]) end\n" +
-  "    return true, #out > 0 and table.concat(out, \", \") or \"ok\"\n" +
-  "end\n" +
-  "\n" +
-  "local function Kick(message)\n" +
-  "    local player = Players.LocalPlayer\n" +
-  "    if player then pcall(function() player:Kick(\"[999MS] \" .. tostring(message)) end) end\n" +
-  "end\n" +
-  "\n" +
-  "print(\"[999MS] test client online - beat every \" .. BEAT .. \"s\")\n" +
-  "print(\"[999MS] bound hwid: \" .. BOUND .. \" (\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e23\u0e07\u0e01\u0e31\u0e1a HWID \u0e08\u0e23\u0e34\u0e07\u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07 \u0e44\u0e21\u0e48\u0e40\u0e0a\u0e48\u0e19\u0e19\u0e31\u0e49\u0e19\u0e42\u0e14\u0e19\u0e40\u0e15\u0e30 BAD HWID)\")\n" +
-  "\n" +
-  "task.spawn(function()\n" +
-  "    local pending\n" +
-  "    while true do\n" +
-  "        local response = Beat(pending)\n" +
-  "        pending = nil\n" +
-  "\n" +
-  "        if type(response) == \"table\" then\n" +
-  "            if type(response.kick) == \"string\" then\n" +
-  "                warn(\"[999MS] \" .. response.kick)\n" +
-  "                Kick(response.kick)\n" +
-  "                return\n" +
-  "            end\n" +
-  "            if type(response.commands) == \"table\" then\n" +
-  "                for _, command in ipairs(response.commands) do\n" +
-  "                    if command.kind == \"kick\" then\n" +
-  "                        Kick(command.code or \"Kicked by admin\")\n" +
-  "                        return\n" +
-  "                    elseif command.kind == \"exec\" and type(command.code) == \"string\" then\n" +
-  "                        local ok, output = Run(command.code)\n" +
-  "                        pending = { id = tostring(command.id or \"\"), ok = ok, output = tostring(output or \"\") }\n" +
-  "                        print(\"[999MS] remote \" .. tostring(command.id) .. (ok and \" ok: \" or \" error: \") .. tostring(output))\n" +
-  "                    end\n" +
-  "                end\n" +
-  "            end\n" +
-  "        end\n" +
-  "\n" +
-  "        task.wait(BEAT)\n" +
-  "    end\n" +
-  "end)`;\n" +
-  "\n" +
-  "  function refreshTestBoundPreview() {\n" +
-  "    var preview = $('testBoundPreview');\n" +
-  "    if (!preview) return;\n" +
-  "    var h = ($('testHwid') && $('testHwid').value || '').trim().toLowerCase();\n" +
-  "    var s = ($('testScript') && $('testScript').value || '').trim() || 'main';\n" +
-  "    if (!h) {\n" +
-  "      preview.innerHTML = '\u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30 ticket \u0e40\u0e1b\u0e47\u0e19 <span class=\"mono\">&lt;hwid&gt;_&lt;\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c&gt;</span> \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 (\u0e40\u0e0a\u0e48\u0e19 <span class=\"mono\">abc12345_' + esc(s) + '</span>)';\n" +
-  "    } else {\n" +
-  "      var cleanH = (h.slice(-(s.length + 1)) === '_' + s.toLowerCase() && h.length - s.length - 1 >= 4)\n" +
-  "        ? h.slice(0, -(s.length + 1))\n" +
-  "        : h;\n" +
-  "      preview.innerHTML = '\u0e04\u0e48\u0e32\u0e17\u0e35\u0e48\u0e08\u0e30\u0e1c\u0e39\u0e01\u0e08\u0e23\u0e34\u0e07: <span class=\"mono\" style=\"color:var(--mint)\">' + esc(cleanH + '_' + s) + '</span>';\n" +
-  "    }\n" +
-  "  }\n" +
-  "  if ($('testHwid')) $('testHwid').addEventListener('input', refreshTestBoundPreview);\n" +
-  "  if ($('testScript')) $('testScript').addEventListener('input', refreshTestBoundPreview);\n" +
-  "\n" +
-  "  $('testClientBtn').addEventListener('click', function () {\n" +
-  "    var btn = $('testClientBtn');\n" +
-  "    var hwid = ($('testHwid').value || '').trim();\n" +
-  "    var sname = ($('testScript') && $('testScript').value || '').trim() || 'main';\n" +
-  "    if (!hwid) { toast('\u0e43\u0e2a\u0e48 HWID \u0e02\u0e2d\u0e07\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e17\u0e14\u0e2a\u0e2d\u0e1a\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
-  "    btn.disabled = true;\n" +
-  "    api('/api/control/test-ticket', { scriptName: sname, hwid: hwid }).then(function (result) {\n" +
-  "      btn.disabled = false;\n" +
-  "      var data = result.data || {};\n" +
-  "      if (result.status !== 200 || !data.ok) { toast(data.reason || '\u0e2a\u0e23\u0e49\u0e32\u0e07 ticket \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err'); return; }\n" +
-  "      var bound = data.boundHwid || (data.hwid + '_' + (data.scriptName || sname));\n" +
-  "      $('testClientOut').value = CLIENT_TEMPLATE\n" +
-  "        .split('%BASE%').join(location.origin)\n" +
-  "        .split('%TICKET%').join(data.ticket)\n" +
-  "        .split('%XORKEY%').join(data.xorKey)\n" +
-  "        .split('%HWID%').join(data.hwid)\n" +
-  "        .split('%BOUND%').join(bound)\n" +
-  "        .split('%SCRIPT%').join(data.scriptName || sname);\n" +
-  "      $('testClientMeta').textContent = 'ticket \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38\u0e43\u0e19 ' + Math.round((data.ttlSeconds || 1800) / 60)\n" +
-  "        + ' \u0e19\u0e32\u0e17\u0e35 \u00b7 \u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a ' + bound;\n" +
-  "      toast('\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a ' + bound, 'ok');\n" +
-  "      logLine('\u0e2d\u0e2d\u0e01 ticket \u0e17\u0e14\u0e2a\u0e2d\u0e1a ' + bound, 'ok');\n" +
-  "    }).catch(function () {\n" +
-  "      btn.disabled = false;\n" +
-  "      toast('\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49', 'err');\n" +
-  "    });\n" +
-  "  });\n" +
   "\n" +
   "  /* \u2500\u2500 link generator \u2500\u2500 */\n" +
   "  $('linkBtn').addEventListener('click', function () {\n" +
@@ -3222,7 +2672,6 @@ const {
   isKeyRevoked, checkRevoked, stats, listRevocations,
 } = require('../lib/revoke');
 
-const sessions = new Map();
 const SESSION_TTL = 30 * 60 * 1000;
 const RUNTIME_TTL = 60 * 1000;
 const ARTIFACT_FILES = Object.freeze({
@@ -3374,14 +2823,13 @@ function isBrowserRequest(req) {
 
 // ═══ Main handler ═══
 const CONTROL_ACTIONS = new Set([
-  'control-bans', 'control-traffic', 'control-events', 'control-sessions', 'control-command',
-  'control-test-ticket', 'control-stats', 'control-scripts',
+  'control-bans', 'control-traffic', 'control-events',
+  'control-stats', 'control-scripts',
 ]);
 const OPAQUE_ACTIONS = Object.freeze({
   q7: 'verify',
   m2: 'script',
   x9: 'script-verify',
-  v4: 'heartbeat',
   k8: 'start',
 });
 const BAD_HWID_CODE = 'BAD HWID : ]';
@@ -3428,9 +2876,9 @@ function decodeOpaqueRequest(action, body = {}) {
       return {
         ticket: body.a, c: hwid, scriptName: body.g,
         hop: body.q, runtimeSecret: body.s, scriptToken: body.t,
+        placeId: body.v, jobId: body.w, username: body.y,
+        displayName: body.z, executor: body.aa, userId: body.ab,
       };
-    case 'heartbeat':
-      return { ticket: body.a, c: hwid, scriptName: body.g, Data: body.o };
     case 'start':
       return { c: hwid, scriptName: body.g };
     default:
@@ -3729,66 +3177,6 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ ok: true, count: securityEvents.length, events: securityEvents.slice(-limit).reverse() });
     }
 
-    if (action === 'control-sessions') {
-      return res.status(200).json({
-        ok: true,
-        count: sessions.size,
-        sessions: listSessions(),
-        scope: 'instance',
-        note: 'Sessions live in the memory of the instance that served the last heartbeat.',
-      });
-    }
-
-    if (action === 'control-command') {
-      const result = queueControlCommand(req.body || {});
-      return res.status(result.status).json(result.body);
-    }
-
-    // Test-ticket issuer. Gated by the same ADMIN_TOKEN as the rest of the
-    // panel: it exists so the session channel can be exercised without a
-    // Platoboost key. It is only an authorization bypass for whoever already
-    // holds the admin token, and every issue is recorded as a security event.
-    if (action === 'control-test-ticket') {
-      const requested = String((req.body && req.body.scriptName) || 'main').trim();
-      const scriptName = isValidScriptName(requested) ? requested : 'main';
-      // Executors attach their own fingerprint header, and the server requires
-      // every fingerprint header to agree, so the ticket binds "<hwid>_<scriptName>"
-      // while returning the raw physical hwid for X-Fingerprint matching.
-      const suppliedRaw = typeof (req.body && req.body.hwid) === 'string' ? req.body.hwid.trim() : '';
-      const suffix = '_' + scriptName;
-      const stripped = (suppliedRaw.endsWith(suffix) && suppliedRaw.length - suffix.length >= 4)
-        ? suppliedRaw.slice(0, -suffix.length)
-        : suppliedRaw;
-      const hwid = (stripped.length >= 4 && stripped.length <= 512 && /^[\x20-\x7e]+$/.test(stripped))
-        ? stripped
-        : 'test-' + crypto.randomBytes(12).toString('hex');
-      const boundHwid = formatBoundHwid(hwid, scriptName);
-      const hwidHash = hashBindingId(deviceBindingId(hwid, scriptName));
-      const ticket = issueTicket({
-        hwidHash,
-        boundHwid,
-        userId: null,
-        scope: 'script',
-        scriptName,
-        test: true,
-      });
-      const jti = JSON.parse(Buffer.from(String(ticket).split('.')[1], 'base64url').toString('utf8')).jti;
-      const equation = createEquationChallenge();
-      const hop = issueHop(jti, { answer: equation.answer, hwidHash });
-      noteEvent('test_ticket', 'issued ' + jti.slice(0, 8) + ' for ' + boundHwid);
-      return res.status(200).json({
-        ok: true,
-        ticket,
-        hop,
-        eq: equation.answer,
-        xorKey: process.env.PAYLOAD_XOR_KEY || '',
-        hwid,
-        boundHwid,
-        scriptName,
-        ttlSeconds: 30 * 60,
-      });
-    }
-
     // Run statistics, read back from Supabase (see handleControlStats).
     if (action === 'control-stats') return await handleControlStats(req, res);
     if (action === 'control-scripts') return await handleControlScripts(req, res);
@@ -3835,7 +3223,7 @@ module.exports = async function handler(req, res) {
   const ct = req.headers['content-type'] || '';
   if (!ct.includes('application/json')) return rejectOrTrap(req, res, 415);
 
-  const validActions = ['verify', 'script', 'script-verify', 'heartbeat', 'start', 'admin-ban'];
+  const validActions = ['verify', 'script', 'script-verify', 'start', 'admin-ban'];
   if (!action || !validActions.includes(action)) return rejectOrTrap(req, res);
 
   res.setHeader('Cache-Control', 'no-store');
@@ -3852,8 +3240,7 @@ module.exports = async function handler(req, res) {
     switch (action) {
       case 'verify':         return await handleVerify(req, res, ip);
       case 'script':         return await handleScript(req, res, ip);
-      case 'script-verify':  return await handleScriptVerify(req, res);
-      case 'heartbeat':      return await handleHeartbeat(req, res, ip);
+      case 'script-verify':  return await handleScriptVerify(req, res, ip);
       case 'start':          return await handleStart(req, res, ip);
       case 'admin-ban':      return await handleAdminBan(req, res);
       default:
@@ -6238,26 +5625,6 @@ async function handleScript(req, res, ip) {
     scriptName: name,
   });
 
-  sessions.set(payload.jti, {
-    createdAt: Date.now(),
-    scriptIssuedAt: Date.now(),
-    lastBeat: Date.now(),
-    failCount: 0,
-    hwidHash: payload.hwidHash,
-    boundHwid: device.boundHwid,
-    userId: payload.userId || null,
-    scriptToken,
-    runtimeSecret,
-    scriptName: name,
-    verified: false,
-    commands: [],
-    lastCommand: null,
-    lastResult: null,
-    profile: null,
-    ip,
-    kicked: false,
-  });
-
   // Script bodies live in GitHub (scripts/<name>.lua), never in Supabase, so
   // large obfuscated scripts consume 0 Supabase storage and 0 Supabase egress.
   const rawScript = await loadStoredScript(name);
@@ -6324,9 +5691,9 @@ function rejectRuntimeVerification(res, status, category) {
   return res.status(status).json({ valid: false, diagnostic: category });
 }
 
-async function handleScriptVerify(req, res) {
+async function handleScriptVerify(req, res, ip) {
   const body = req.body || {};
-  const { ticket, scriptToken, runtimeSecret, scriptName, hop } = body;
+  const { ticket, scriptToken, runtimeSecret, scriptName, hop, placeId, jobId, username, displayName, executor, userId } = body;
   const hwid = body.c ?? body.hwid;
 
   if (typeof ticket !== 'string' || ticket.length > 4096) {
@@ -6388,186 +5755,18 @@ async function handleScriptVerify(req, res) {
     return rejectRuntimeVerification(res, 403, categories[proofFailure] || 'D2_PROOF_REJECTED');
   }
 
-  // This in-memory entry is only used by the optional heartbeat UX. It is no
-  // longer an authorization dependency, so a new Vercel instance cannot turn
-  // a valid proof into a false "session not found" failure.
-  const session = sessions.get(payload.jti);
-  if (session) {
-    session.verified = true;
-    session.verifiedAt = Date.now();
-  }
-
-  return res.status(200).json({ valid: true, serverId: payload.jti, diagnostic: 'D2_OK' });
-}
-
-// ═══ /api/heartbeat ═══
-// ═══ Control channel: session registry + admin commands ═══
-// Every field that reaches the Control panel is sanitised here: the client
-// supplies its own Roblox identity, so it is display data only and never
-// authorises anything. Authorization stays with the signed ticket.
-const COMMAND_CODE_MAX = 32 * 1024;
-const COMMAND_QUEUE_MAX = 20;
-const BEAT_GRACE = 90 * 1000;
-
-function cleanText(value, max) {
-  if (typeof value !== 'string') return '';
-  // eslint-disable-next-line no-control-regex
-  const flat = value.replace(/[\u0000-\u001f\u007f]/g, ' ').replace(/\s+/g, ' ').trim();
-  return flat.length > max ? flat.slice(0, max) : flat;
-}
-
-function cleanId(value) {
-  const text = typeof value === 'number' ? String(value) : String(value ?? '');
-  return /^\d{1,20}$/.test(text) ? text : '';
-}
-
-function readSessionProfile(raw) {
-  const src = raw && typeof raw === 'object' ? raw : {};
-  return {
-    name: cleanText(src.name, 64),
-    displayName: cleanText(src.displayName, 64),
-    userId: cleanId(src.userId),
-    executor: cleanText(src.executor, 40),
-    placeId: cleanId(src.placeId),
-    jobId: cleanText(src.jobId, 100),
-    updatedAt: Date.now(),
-  };
-}
-
-function readCommandResult(raw) {
-  if (!raw || typeof raw !== 'object') return null;
-  const id = cleanText(raw.id, 64);
-  if (!id) return null;
-  return { id, ok: raw.ok === true, output: cleanText(raw.output, 2000), at: Date.now() };
-}
-
-function newSessionState(payload, ip, boundHwid) {
-  return {
-    createdAt: Date.now(),
-    scriptIssuedAt: Date.now(),
-    lastBeat: Date.now(),
-    failCount: 0,
+  // Count a single verified script launch without polling or keeping a
+  // live client session. Identity fields are display-only; ticket + HWID proof
+  // above remains the authorization boundary.
+  trackRun(payload.jti, {
     hwidHash: payload.hwidHash,
-    boundHwid: boundHwid || payload.boundHwid || '',
-    userId: payload.userId || null,
-    scriptToken: '',
-    runtimeSecret: '',
-    scriptName: payload.scriptName || '',
-    verified: false,
-    commands: [],
-    lastCommand: null,
-    lastResult: null,
-    profile: null,
-    ip: ip || '',
-    kicked: false,
-  };
-}
-
-function sessionView(jti, session) {
-  const profile = session.profile || {};
-  const label = profile.displayName || profile.name || (session.userId ? 'user ' + session.userId : 'ไม่ระบุชื่อ');
-  const scriptSuffix = session.scriptName ? '_' + session.scriptName : '';
-  return {
-    id: jti,
-    label,
-    name: profile.name || '',
-    displayName: profile.displayName || '',
-    userId: profile.userId || session.userId || '',
-    executor: profile.executor || '',
-    placeId: profile.placeId || '',
-    jobId: profile.jobId || '',
-    scriptName: session.scriptName || '',
-    hwid: session.boundHwid || (session.hwidHash ? session.hwidHash.slice(0, 12) + scriptSuffix : ''),
-    ip: session.ip || '',
-    startedAt: session.createdAt,
-    lastBeat: session.lastBeat,
-    online: Date.now() - session.lastBeat < BEAT_GRACE,
-    verified: session.verified === true,
-    pending: session.commands ? session.commands.length : 0,
-    lastCommand: session.lastCommand || null,
-    lastResult: session.lastResult || null,
-  };
-}
-
-function listSessions() {
-  const cutoff = Date.now() - SESSION_TTL;
-  for (const [jti, session] of sessions) {
-    if (session.lastBeat && session.lastBeat < cutoff) sessions.delete(jti);
-  }
-  return Array.from(sessions.entries())
-    .map(([jti, session]) => sessionView(jti, session))
-    .sort((a, b) => b.lastBeat - a.lastBeat);
-}
-
-function queueControlCommand(body) {
-  const kind = body.kind === 'exec' || body.kind === 'kick' ? body.kind : null;
-  if (!kind) return { status: 400, body: { ok: false, reason: 'invalid kind' } };
-
-  let code = '';
-  if (kind === 'exec') {
-    if (typeof body.code !== 'string' || body.code.length === 0)
-      return { status: 400, body: { ok: false, reason: 'กรุณาใส่โค้ด' } };
-    if (body.code.length > COMMAND_CODE_MAX)
-      return { status: 413, body: { ok: false, reason: 'โค้ดยาวเกิน ' + COMMAND_CODE_MAX + ' ตัวอักษร' } };
-    code = body.code;
-  }
-
-  const target = typeof body.id === 'string' ? body.id : '';
-  if (!target) return { status: 400, body: { ok: false, reason: 'invalid id' } };
-
-  listSessions();
-  const all = target === '*';
-  const entries = all
-    ? Array.from(sessions.entries())
-    : (sessions.has(target) ? [[target, sessions.get(target)]] : []);
-
-  if (!entries.length)
-    return { status: 404, body: { ok: false, reason: 'ไม่พบ session ที่ออนไลน์' } };
-
-  const commandId = crypto.randomBytes(8).toString('hex');
-  let queued = 0;
-  let banned = 0;
-
-  for (const [jti, session] of entries) {
-    if (kind === 'kick') {
-      session.kicked = true;
-      if (session.boundHwid) revokeHwid(session.boundHwid);
-      if (session.hwidHash) { revokeHwidHash(session.hwidHash); banned += 1; }
-      if (session.userId) { revokeUser(String(session.userId)); }
-    }
-    if (!Array.isArray(session.commands)) session.commands = [];
-    if (session.commands.length >= COMMAND_QUEUE_MAX) session.commands.splice(0, session.commands.length - COMMAND_QUEUE_MAX + 1);
-    session.commands.push({ id: commandId, kind, code: kind === 'exec' ? code : '', queuedAt: Date.now() });
-    session.lastCommand = { id: commandId, kind, queuedAt: Date.now(), delivered: false };
-    queued += 1;
-    if (kind === 'kick') {
-      forgetRun(jti);
-      noteEvent('control_kick', 'command ' + commandId + ' -> ' + jti.slice(0, 8));
-    }
-  }
-
-  trackCommand({
-    commandId: commandId,
-    sessionId: all ? '*' : target,
-    kind: kind,
-    code: kind === 'exec' ? code : '',
-    targets: queued,
-    actor: null,
+    scriptName: targetScript,
+    userId: payload.userId || userId || null,
+    profile: { placeId, jobId, userId, name: username, displayName, executor },
+    ip,
   });
 
-  return {
-    status: 200,
-    body: {
-      ok: true,
-      id: commandId,
-      kind,
-      targets: queued,
-      banned,
-      note: kind === 'kick'
-        ? 'เตะแล้ว · เพิ่ม HWID/user เข้าบัญชีแบนของ instance นี้'
-        : 'ส่งคำสั่งแล้ว · รอ client ดึงไปรันใน heartbeat รอบถัดไป',
-    },
-  };
+  return res.status(200).json({ valid: true, serverId: payload.jti, diagnostic: 'D2_OK' });
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -6575,7 +5774,7 @@ function queueControlCommand(body) {
 //
 // Run statistics are persisted to a Supabase project so they survive a restart
 // and are shared by every instance. Every write is fire-and-forget: analytics
-// can never fail a heartbeat, a command or a link, and with no SUPABASE_URL /
+// can never fail runtime verification or a link, and with no SUPABASE_URL /
 // SUPABASE_SERVICE_ROLE_KEY configured the whole module is a no-op.
 // ═══════════════════════════════════════════════════════════════════════════
 const SUPABASE_TIMEOUT_MS = 3500;
@@ -6623,15 +5822,14 @@ function supabaseWrite(pathname, init) {
 // database with the same jobId is the same run (not counted again), while the
 // same machine with a different jobId is a new run. The row is never updated
 // afterwards: one INSERT per counted run, nothing else. The same guard exists in
-// SQL (executions_run_key) so a second instance that never saw this session
-// cannot double-count either.
+// SQL (executions_run_key) so concurrent instances cannot double-count either.
 const statsRecorded = new Map(); // jti -> "hwid|job" already written
 
 function pruneStatsState() {
   if (statsRecorded.size < 4000) return;
-  const keep = Array.from(statsRecorded.keys()).slice(-2000);
+  const keep = Array.from(statsRecorded.entries()).slice(-2000);
   statsRecorded.clear();
-  keep.forEach(function (jti) { statsRecorded.set(jti, true); });
+  keep.forEach(function (entry) { statsRecorded.set(entry[0], entry[1]); });
 }
 
 function sbText(value, max) {
@@ -6642,8 +5840,7 @@ function sbText(value, max) {
   return trimmed.slice(0, max || 255);
 }
 
-// Called from the heartbeat path. Inserts at most one row per session per game
-// instance; every later heartbeat is a no-op.
+// Called once after a successful runtime proof. Records one launch per HWID + jobId.
 function trackRun(jti, session) {
   if (!jti || !session) return;
   const profile = (session.profile && typeof session.profile === 'object') ? session.profile : {};
@@ -6654,7 +5851,7 @@ function trackRun(jti, session) {
   if (!hwidHash) return; // the HWID is half of the counting key
 
   const placeId = sbText(profile.placeId, 64);
-  const userId = sbText(profile.userId, 64);
+  const userId = sbText(session.userId, 64) || sbText(profile.userId, 64);
   const key = hwidHash + '|' + jobId;
   if (statsRecorded.get(jti) === key) return;
   statsRecorded.set(jti, key);
@@ -6674,25 +5871,6 @@ function trackRun(jti, session) {
       p_place_id: placeId,
       p_job_id: jobId,
       p_ip: sbText(session.ip, 64),
-    }),
-  });
-}
-
-function forgetRun(jti) {
-  if (jti) statsRecorded.delete(jti);
-}
-
-function trackCommand(row) {
-  supabaseWrite('/rest/v1/exec_commands', {
-    method: 'POST',
-    headers: { prefer: 'return=minimal' },
-    body: JSON.stringify({
-      command_id: sbText(row.commandId, 64),
-      session_id: sbText(row.sessionId, 64),
-      kind: sbText(row.kind, 16),
-      code: typeof row.code === 'string' ? row.code.slice(0, 8000) : null,
-      targets: Number.isFinite(row.targets) ? row.targets : null,
-      actor: sbText(row.actor, 64),
     }),
   });
 }
@@ -7491,100 +6669,6 @@ async function handleControlStats(req, res) {
     scope: 'supabase',
     note: 'นับการรัน 1 ครั้งต่อ HWID + job ลง Supabase — ข้อมูลอยู่ข้าม instance และไม่หายเมื่อรีสตาร์ท',
   });
-}
-
-async function handleHeartbeat(req, res, ip) {
-  const xorKey = process.env.PAYLOAD_XOR_KEY || '';
-  const { ticket, Data, c, hwid } = req.body || {};
-
-  if (typeof ticket !== 'string' || ticket.length > 4096)
-    return res.status(400).json({ kick: null });
-
-  const payload = verifyTicket(ticket);
-  if (!payload) return res.status(401).json({ kick: 'Session expired' });
-
-  const device = deviceMatches(req, payload.hwidHash, c ?? hwid, payload.scriptName);
-  if (!device.ok) {
-    forgetRun(payload.jti);
-    sessions.delete(payload.jti);
-    return res.status(200).json({ kick: clientDeviceMessage(device.reason) });
-  }
-
-  const reason = checkRevoked({
-    hwid: device.hwid,
-    boundHwid: device.boundHwid,
-    hwidHash: payload.hwidHash,
-    userId: payload.userId,
-    ip,
-  });
-  if (reason) {
-    forgetRun(payload.jti);
-    sessions.delete(payload.jti);
-    return res.status(200).json({ kick: 'Banned: ' + reason });
-  }
-
-  // A heartbeat is enough to register the session: /api/script may have been
-  // served by a different instance, and the Control panel only needs a live
-  // client to talk to.
-  let session = sessions.get(payload.jti);
-  if (!session) {
-    session = newSessionState(payload, ip, device.boundHwid);
-    sessions.set(payload.jti, session);
-  } else if (device.boundHwid) {
-    session.boundHwid = device.boundHwid;
-  }
-
-  session.lastBeat = Date.now();
-  if (ip) session.ip = ip;
-
-  if (Data) {
-    const decoded = decodeProtectedPayload({ Data }, xorKey);
-    if (!decoded.ok) {
-      session.failCount += 1;
-    } else {
-      session.failCount = 0;
-      const sentName = decoded.data?.scriptName;
-      if (typeof sentName !== 'string' || sentName !== session.scriptName) {
-        forgetRun(payload.jti);
-        sessions.delete(payload.jti);
-        return res.status(200).json({ kick: 'Script name changed' });
-      }
-      // Display-only identity reported by the client (see readSessionProfile).
-      if (decoded.data && typeof decoded.data.profile === 'object') {
-        session.profile = readSessionProfile(decoded.data.profile);
-      }
-      const result = readCommandResult(decoded.data && decoded.data.result);
-      if (result && session.lastCommand && session.lastCommand.id === result.id) {
-        session.lastResult = result;
-        session.lastCommand.delivered = true;
-      }
-    }
-  }
-
-  if (session.failCount > 12) {
-    forgetRun(payload.jti);
-    sessions.delete(payload.jti);
-    return res.status(200).json({ kick: 'Tamper detected' });
-  }
-
-  if (Date.now() - session.createdAt > SESSION_TTL) {
-    forgetRun(payload.jti);
-    sessions.delete(payload.jti);
-    return res.status(200).json({ kick: 'Session expired' });
-  }
-
-  trackRun(payload.jti, session);
-
-  const commands = Array.isArray(session.commands) ? session.commands.splice(0, COMMAND_QUEUE_MAX) : [];
-  for (const command of commands) {
-    if (session.lastCommand && session.lastCommand.id === command.id) {
-      session.lastCommand.delivered = true;
-    }
-  }
-
-  return res.status(200).json(encodeProtectedPayload({
-    Valid: true, commands, t: Date.now(),
-  }, xorKey));
 }
 
 function verifiedScriptContext(ticket, req, hwid, scriptName, ip) {
@@ -8918,16 +8002,12 @@ const ROUTES = Object.freeze({
   '/api/control/bans': ['control-bans'],
   '/api/control/traffic': ['control-traffic'],
   '/api/control/events': ['control-events'],
-  '/api/control/sessions': ['control-sessions'],
-  '/api/control/command': ['control-command'],
-  '/api/control/test-ticket': ['control-test-ticket'],
   '/api/control/stats': ['control-stats'],
   '/api/control/scripts': ['control-scripts'],
   '/api/verify': ['verify'],
   '/api/script': ['script'],
   '/api/script-raw': ['script-raw'],
   '/api/script-verify': ['script-verify'],
-  '/api/heartbeat': ['heartbeat'],
   '/api/start': ['start'],
   '/api/admin/ban': ['admin-ban'],
 });

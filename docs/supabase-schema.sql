@@ -10,7 +10,7 @@
 --       - same HWID + a different jobId             -> a new run, one INSERT
 --   * user_id / place_id are stored for display only and are not part of the key
 --   * rows are never updated — one INSERT per counted run, nothing else
---   * heartbeats that arrive after the first one are a no-op
+--   * one successful runtime proof records each launched script; no periodic heartbeat
 
 -- ───────────────────────────── tables ─────────────────────────────
 
@@ -26,12 +26,12 @@ create table if not exists public.executions (
   place_id text,
   job_id text,
   ip text,
-  source text default 'heartbeat',
+  source text default 'runtime',
   started_at timestamptz not null default now(),
-  last_beat_at timestamptz not null default now(),
+  last_beat_at timestamptz not null default now(), -- legacy compatibility; no longer updated
   ended_at timestamptz,
-  beats integer not null default 1,
-  status text not null default 'running',
+  beats integer not null default 1,              -- legacy compatibility; stays at 1
+  status text not null default 'verified',       -- a verified launch, not live presence
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -42,20 +42,6 @@ create index if not exists executions_started_at_idx on public.executions(starte
 -- The counting rule: one row per (machine, game instance).
 create unique index if not exists executions_run_key
   on public.executions (coalesce(hwid_hash, ''), coalesce(job_id, ''));
-
-create table if not exists public.exec_commands (
-  id uuid primary key default gen_random_uuid(),
-  command_id text,
-  session_id text,
-  kind text not null,                -- exec | kick
-  code text,
-  ok boolean,
-  output text,
-  targets integer,
-  actor text,
-  created_at timestamptz not null default now()
-);
-create index if not exists exec_commands_created_at_idx on public.exec_commands(created_at desc);
 
 create table if not exists public.links (
   id uuid primary key default gen_random_uuid(),
@@ -80,7 +66,6 @@ create table if not exists public.scripts (
 );
 
 alter table public.executions enable row level security;
-alter table public.exec_commands enable row level security;
 alter table public.links enable row level security;
 alter table public.scripts enable row level security;
 
@@ -98,11 +83,9 @@ begin
   if p_job_id is null or length(p_job_id) = 0 then return false; end if;
 
   insert into public.executions(session_id, script_name, hwid_hash, user_id, username, display_name,
-                                executor, place_id, job_id, ip, source,
-                                started_at, last_beat_at, beats, status)
+                                executor, place_id, job_id, ip, source, started_at, status)
   values (p_session_id, p_script_name, p_hwid_hash, nullif(p_user_id, ''), p_username, p_display_name,
-          p_executor, p_place_id, p_job_id, p_ip, 'heartbeat',
-          now(), now(), 1, 'running');
+          p_executor, p_place_id, p_job_id, p_ip, 'runtime', now(), 'verified');
   return true;
 exception when unique_violation then
   return false; -- this HWID already has a row for this jobId
@@ -175,4 +158,3 @@ limit 100;
 -- ─────────────────────── optional maintenance ─────────────────────
 -- Keep only the last 90 days of runs (run by hand or from a cron job).
 -- delete from public.executions where started_at < now() - interval '90 days';
--- delete from public.exec_commands where created_at < now() - interval '90 days';

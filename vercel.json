@@ -63,18 +63,6 @@
       "dest": "/api/auth?action=control-events"
     },
     {
-      "src": "/api/control/sessions",
-      "dest": "/api/auth?action=control-sessions"
-    },
-    {
-      "src": "/api/control/command",
-      "dest": "/api/auth?action=control-command"
-    },
-    {
-      "src": "/api/control/test-ticket",
-      "dest": "/api/auth?action=control-test-ticket"
-    },
-    {
       "src": "/api/control/stats",
       "dest": "/api/auth?action=control-stats"
     },
@@ -105,10 +93,6 @@
     {
       "src": "/api/script-verify",
       "dest": "/api/auth?action=script-verify"
-    },
-    {
-      "src": "/api/heartbeat",
-      "dest": "/api/auth?action=heartbeat"
     },
     {
       "src": "/api/start",
