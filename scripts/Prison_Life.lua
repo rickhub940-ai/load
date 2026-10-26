@@ -1,13 +1,6 @@
--- 999MS script: Prison_Life
--- place: 155615604
--- uploaded from the Control panel at 2026-10-26T09:19:47.054Z
 
---// =========================
---// LOADER CHECK (Anticheat / Signature)
---// =========================
-local EXPECTED_SCRIPT = "Prison Life"
+local EXPECTED_SCRIPT = "Prison_Life"
 local args = { n = select("#", ...), ... }
-
 local function reject(reason)
     local message = "[999MS] " .. tostring(reason or "Loader check failed")
     local player, coreGui
