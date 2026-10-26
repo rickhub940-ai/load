@@ -765,6 +765,14 @@ local function LoadScript(d, h)
         if diagnostic == "BAD HWID : ]" then KickBadHwid(diagnostic) end
         return Abort("Script verification failed: " .. tostring(diagnostic or proof.status))
     end
+    if not chainIs("script", CHAIN_SESSION_TTL) then
+        return Abort("[999MS] Chain expired while compiling/verifying script")
+    end
+    -- Obfuscated sources can take significantly longer to compile than plain
+    -- Lua. Refresh the script-stage timestamp only after the server proof and
+    -- immediately before execution so a valid runtime guard does not reject a
+    -- good script solely because obfuscation made compilation slower.
+    Chain.UpdatedAt = tick()
     ctx.runtimeVerified = true
 
     local ok, result = pcall(chunk, true, q, s, r, p, SCRIPT_NAME_LOCKED, tick(), h, HttpRequest, Chain, ctx, BASE_URL)
