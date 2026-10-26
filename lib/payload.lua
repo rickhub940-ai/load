@@ -775,7 +775,46 @@ local function LoadScript(d, h)
     Chain.UpdatedAt = tick()
     ctx.runtimeVerified = true
 
+    -- Publish a one-shot runtime attestation for map scripts. Unlike checking
+    -- chunk varargs, this survives obfuscators that wrap the chunk and alter
+    -- top-level ... forwarding. The closure is active only during this call.
+    local RUNTIME_GUARD_KEY = "__999MS_RUNTIME_GUARD_V1"
+    local guardEnv
+    pcall(function()
+        if type(getgenv) == "function" then
+            guardEnv = getgenv()
+        elseif type(_G) == "table" then
+            guardEnv = _G
+        end
+    end)
+    if type(guardEnv) ~= "table" then return Abort("[999MS] Runtime guard environment unavailable") end
+
+    local previousGuard = rawget(guardEnv, RUNTIME_GUARD_KEY)
+    local guardActive = true
+    local guardChainId = Chain.Id
+    local runtimeGuard = {
+        verify = function(expectedName)
+            local age = type(Chain.UpdatedAt) == "number" and (tick() - Chain.UpdatedAt) or -1
+            return guardActive
+                and expectedName == SCRIPT_NAME_LOCKED
+                and ctx.runtimeVerified == true
+                and ctx.chain == Chain
+                and Chain.Id == guardChainId
+                and Chain.Version == CHAIN_VERSION
+                and Chain.Stage == "script"
+                and Chain.Script == SCRIPT_NAME_LOCKED
+                and age >= 0 and age <= 20
+                and type(ctx.requestWire) == "function"
+        end,
+    }
+    local markerSet = pcall(rawset, guardEnv, RUNTIME_GUARD_KEY, runtimeGuard)
+    if not markerSet then return Abort("[999MS] Runtime guard could not be published") end
+
     local ok, result = pcall(chunk, true, q, s, r, p, SCRIPT_NAME_LOCKED, tick(), h, HttpRequest, Chain, ctx, BASE_URL)
+    guardActive = false
+    if rawget(guardEnv, RUNTIME_GUARD_KEY) == runtimeGuard then
+        pcall(rawset, guardEnv, RUNTIME_GUARD_KEY, previousGuard)
+    end
     if not ok or result == false then return Abort("Run failed") end
 
     print("[999MS] Main script loaded")
