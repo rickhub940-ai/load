@@ -1,15 +1,9 @@
--- HEADER: substituted per request and never obfuscated.
-local MS999_SCRIPT_ID = "${SCRIPTID}"
-local MS999_BASE_URL = "@BASE_URL@"
+-- All values that vary per launch arrive as positional runtime arguments.
+-- Script ID is argument 6; the service base URL is appended as argument 12.
 local __ms999_unpack = table.unpack or unpack
 local __ms999_args = { n = select("#", ...), ... }
-local __ms999_base = __ms999_args.n
-local __ms999_extra = { MS999_SCRIPT_ID, MS999_BASE_URL }
-for __ms999_i = 1, #__ms999_extra do __ms999_args[__ms999_base + __ms999_i] = __ms999_extra[__ms999_i] end
-__ms999_args.n = __ms999_base + #__ms999_extra
 local __ms999_stage = function(...)
--- BODY BEGIN: obfuscate only the content below this line.
-local msScriptId, msBaseUrl = select(12, ...)
+local msBaseUrl = select(12, ...)
 
 local function Abort(reason)
     local message = "[999MS] " .. tostring(reason or "verification aborted")
@@ -17,9 +11,9 @@ local function Abort(reason)
     return false
 end
 
-local ExpectedScript = msScriptId
 local CHAIN_VERSION = "999MS-chain-v1"
 local A, B, C, D, E, F, G, H, I, J, K = ...
+local ExpectedScript = F
 
 if A ~= true then return Abort("[999MS] Must run via loader") end
 local Context = K
@@ -213,7 +207,5 @@ end
 if Context.chain == Chain then
     Context.chain = nil
 end
--- BODY END
-
 end
 return __ms999_stage(__ms999_unpack(__ms999_args, 1, __ms999_args.n))
