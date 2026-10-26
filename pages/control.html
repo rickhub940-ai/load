@@ -985,6 +985,87 @@
   var currentScriptItems = [], selectedFileCode = null, editingItem = null;
   var upFile = $('upFile'), upBody = $('upBody');
   var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';
+  var fileReadBusy = false, fileReadToken = 0, selectedFileName = '';
+  var MAX_SCRIPT_FILE_BYTES = 25 * 1024 * 1024;
+  var MAX_UPLOAD_JSON_BYTES = 4.1 * 1024 * 1024;
+
+  function exitEditMode(clearInputs) {
+    editingItem = null;
+    selectedFileCode = null;
+    selectedFileName = '';
+    fileReadBusy = false;
+    fileReadToken++;
+    if (upFile) upFile.value = '';
+    if ($('editBanner')) $('editBanner').style.display = 'none';
+    if ($('upSave')) $('upSave').textContent = 'อัปโหลดสคริปต์';
+    if (upBody) {
+      upBody.rows = 7;
+      upBody.placeholder = defaultBodyPlaceholder;
+      upBody.value = '';
+    }
+    if (clearInputs) {
+      if ($('upPlace')) $('upPlace').value = '';
+      if ($('upName')) $('upName').value = '';
+      if ($('upKeyRequired')) $('upKeyRequired').checked = true;
+    }
+    renderScripts(currentScriptItems);
+  }
+
+  if (upFile) {
+    upFile.addEventListener('change', function () {
+      var file = upFile.files && upFile.files[0];
+      var token = ++fileReadToken;
+      selectedFileCode = null;
+      selectedFileName = '';
+      fileReadBusy = false;
+      if (!file) return;
+      if (file.size > MAX_SCRIPT_FILE_BYTES) {
+        upFile.value = '';
+        $('upMeta').textContent = 'ไฟล์ใหญ่เกินขนาดสูงสุด 25 MB';
+        toast('ไฟล์ใหญ่เกินขนาดสูงสุด 25 MB', 'err');
+        return;
+      }
+      selectedFileName = file.name;
+      fileReadBusy = true;
+      if (upBody) {
+        upBody.value = '';
+        upBody.placeholder = 'กำลังอ่านไฟล์ ' + file.name + ' (' + bytes(file.size) + ')…';
+      }
+      $('upMeta').textContent = 'กำลังอ่านไฟล์ ' + file.name + ' (' + bytes(file.size) + ')…';
+      readFileText(file).then(function (code) {
+        if (token !== fileReadToken) return;
+        selectedFileCode = code;
+        fileReadBusy = false;
+        if (upBody) upBody.placeholder = 'เลือกไฟล์แล้ว: ' + file.name + ' (' + bytes(file.size) + ')';
+        $('upMeta').textContent = 'เลือกไฟล์แล้ว: ' + file.name + ' (' + bytes(file.size) + ') — กดอัปโหลดสคริปต์เพื่อดำเนินการต่อ';
+      }).catch(function (error) {
+        if (token !== fileReadToken) return;
+        fileReadBusy = false;
+        selectedFileCode = null;
+        selectedFileName = '';
+        $('upMeta').textContent = 'อ่านไฟล์ไม่สำเร็จ: ' + (error && error.message ? error.message : 'อ่านไฟล์ไม่ได้');
+        toast('อ่านไฟล์ไม่สำเร็จ', 'err');
+      });
+    });
+  }
+
+  if (upBody) {
+    upBody.addEventListener('input', function () {
+      if (fileReadBusy || selectedFileCode !== null) {
+        fileReadToken++;
+        fileReadBusy = false;
+        selectedFileCode = null;
+        selectedFileName = '';
+        if (upFile) upFile.value = '';
+        upBody.placeholder = defaultBodyPlaceholder;
+        $('upMeta').textContent = 'ใช้โค้ดจากช่องข้อความ';
+      }
+    });
+  }
+
+  if ($('upCancelEdit')) {
+    $('upCancelEdit').addEventListener('click', function () { exitEditMode(true); });
+  }
 
   function api(path, body, timeoutMs) {
     var controller = timeoutMs && typeof AbortController !== 'undefined' ? new AbortController() : null;
@@ -1030,6 +1111,59 @@
     return (n / 1024 / 1024).toFixed(1) + ' MB';
   }
 
+  function uint8ToBase64(data) {
+    var parts = [];
+    for (var i = 0; i < data.length; i += 0x8000) {
+      parts.push(String.fromCharCode.apply(null, data.subarray(i, Math.min(i + 0x8000, data.length))));
+    }
+    return btoa(parts.join(''));
+  }
+
+  function base64ToUint8(value) {
+    var binary = atob(value);
+    var data = new Uint8Array(binary.length);
+    for (var i = 0; i < binary.length; i++) data[i] = binary.charCodeAt(i);
+    return data;
+  }
+
+  function compressGzipBase64(text) {
+    if (typeof CompressionStream === 'undefined' || typeof TextEncoder === 'undefined' || typeof Response === 'undefined') {
+      return Promise.resolve(null);
+    }
+    try {
+      var stream = new Blob([new TextEncoder().encode(text)]).stream()
+        .pipeThrough(new CompressionStream('gzip'));
+      return new Response(stream).arrayBuffer().then(function (buffer) {
+        return uint8ToBase64(new Uint8Array(buffer));
+      });
+    } catch (error) {
+      return Promise.resolve(null);
+    }
+  }
+
+  function decompressGzipBase64(value) {
+    if (typeof DecompressionStream === 'undefined' || typeof Response === 'undefined') {
+      return Promise.reject(new Error('เบราว์เซอร์นี้ไม่รองรับการคลายไฟล์ gzip'));
+    }
+    try {
+      var stream = new Blob([base64ToUint8(value)]).stream()
+        .pipeThrough(new DecompressionStream('gzip'));
+      return new Response(stream).text();
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  function readFileText(file) {
+    if (file && typeof file.text === 'function') return file.text();
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () { resolve(String(reader.result || '')); };
+      reader.onerror = function () { reject(reader.error || new Error('อ่านไฟล์ไม่สำเร็จ')); };
+      reader.readAsText(file, 'UTF-8');
+    });
+  }
+
   function renderScripts(items) {
     currentScriptItems = items || [];
     var host = $('scriptList');
@@ -1070,6 +1204,11 @@
 
   function startEditScript(item, btn) {
     if (btn) btn.disabled = true;
+    fileReadToken++;
+    fileReadBusy = false;
+    selectedFileCode = null;
+    selectedFileName = '';
+    if (upFile) upFile.value = '';
     $('upMeta').textContent = 'กำลังดึงโค้ดสคริปต์ ' + item.name + ' จาก GitHub…';
     api('/api/control/scripts', { op: 'get', name: item.name })
       .then(function (result) {
@@ -1154,14 +1293,23 @@
       var btn = $('upSave');
       var placeId = ($('upPlace').value || '').trim();
       var name = ($('upName').value || '').trim();
-      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');
       if (!placeId) { toast('ใส่ Place ID ก่อน', 'err'); return; }
       if (!name) { toast('ใส่ชื่อสคริปต์ก่อน', 'err'); return; }
+      if (fileReadBusy) { toast('กำลังอ่านไฟล์อยู่ รอสักครู่แล้วกดอัปโหลดอีกครั้ง', 'err'); return; }
+      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');
       if (!code.trim()) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน', 'err'); return; }
+      var sourceBytes = new Blob([code]).size;
+      if (sourceBytes > MAX_SCRIPT_FILE_BYTES) {
+        toast('ไฟล์ใหญ่เกินขนาดสูงสุด 25 MB', 'err');
+        return;
+      }
+
       var wasEditing = editingItem ? { placeId: editingItem.placeId, name: editingItem.name } : null;
+      var buttonLabel = wasEditing ? 'บันทึกการแก้ไข' : 'อัปโหลดสคริปต์';
       btn.disabled = true;
-      btn.textContent = 'กำลังบันทึก…';
-      $('upMeta').textContent = 'กำลังบีบอัดและส่งไฟล์ขึ้น GitHub (' + bytes(code.length) + ')…';
+      btn.textContent = 'กำลังบีบอัด…';
+      $('upMeta').textContent = 'กำลังเตรียม ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ')…';
+
       compressGzipBase64(code).then(function (gzB64) {
         var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked };
         if (wasEditing) {
@@ -1170,10 +1318,18 @@
         }
         if (gzB64) payload.bodyGzip = gzB64;
         else payload.body = code;
-        return api('/api/control/scripts', payload);
+
+        var requestBytes = new Blob([JSON.stringify(payload)]).size;
+        if (requestBytes > MAX_UPLOAD_JSON_BYTES) {
+          throw new Error('หลังบีบอัดแล้วยังใหญ่เกินขีดจำกัดการส่งไฟล์ (' + bytes(requestBytes) + '). ลดขนาดไฟล์หรือบีบอัดสคริปต์ก่อนอัปโหลด');
+        }
+
+        btn.textContent = 'กำลังอัปโหลด…';
+        $('upMeta').textContent = 'กำลังส่งไฟล์ ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ') ขึ้น GitHub…';
+        return api('/api/control/scripts', payload, 120000);
       }).then(function (result) {
         btn.disabled = false;
-        btn.textContent = editingItem ? 'บันทึกการแก้ไข' : 'อัปโหลดสคริปต์';
+        btn.textContent = buttonLabel;
         var data = result.data || {};
         if (data.ok) {
           var gh = data.github || {};
@@ -1195,8 +1351,10 @@
         toast('บันทึกไม่สำเร็จ: ' + errMsg, 'err');
       }).catch(function (err) {
         btn.disabled = false;
-        btn.textContent = editingItem ? 'บันทึกการแก้ไข' : 'อัปโหลดสคริปต์';
-        toast('บันทึกไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
+        btn.textContent = buttonLabel;
+        var message = err && err.message ? err.message : 'network error';
+        $('upMeta').textContent = 'บันทึกไม่สำเร็จ: ' + message;
+        toast('บันทึกไม่สำเร็จ: ' + message, 'err');
       });
     });
   }
