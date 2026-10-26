@@ -2202,6 +2202,28 @@ const CONTROL_PAGE =
   "\n" +
   "  var $ = function (id) { return document.getElementById(id); };\n" +
   "  var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');\n" +
+  "  var currentScriptItems = [], selectedFileCode = null, editingItem = null;\n" +
+  "  var upFile = $('upFile'), upBody = $('upBody');\n" +
+  "  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';\n" +
+  "\n" +
+  "  function api(path, body, timeoutMs) {\n" +
+  "    var controller = timeoutMs && typeof AbortController !== 'undefined' ? new AbortController() : null;\n" +
+  "    var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;\n" +
+  "    var options = {\n" +
+  "      method: 'POST',\n" +
+  "      headers: { 'content-type': 'application/json', 'x-admin-token': state.token },\n" +
+  "      body: JSON.stringify(body || {}),\n" +
+  "      cache: 'no-store'\n" +
+  "    };\n" +
+  "    if (controller) options.signal = controller.signal;\n" +
+  "    return fetch(path, options).then(function (res) {\n" +
+  "      return res.json().catch(function () { return {}; }).then(function (data) {\n" +
+  "        return { status: res.status, data: data };\n" +
+  "      });\n" +
+  "    }).finally(function () {\n" +
+  "      if (timer) clearTimeout(timer);\n" +
+  "    });\n" +
+  "  }\n" +
   "\n" +
   "  function toast(message, kind) {\n" +
   "    var el = document.createElement('div');\n" +
@@ -2406,29 +2428,42 @@ const CONTROL_PAGE =
   "    event.preventDefault();\n" +
   "    var token = tokenInput.value.trim();\n" +
   "    if (!token) { gateErr.textContent = '\u0e01\u0e23\u0e38\u0e13\u0e32\u0e43\u0e2a\u0e48 token'; return; }\n" +
-  "    $('loginBtn').disabled = true;\n" +
+  "    var loginBtn = $('loginBtn');\n" +
+  "    loginBtn.disabled = true;\n" +
+  "    loginBtn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u2026';\n" +
+  "    gateErr.textContent = '';\n" +
   "    state.token = token;\n" +
-  "    api('/api/control/events', { limit: 40 }).then(function (result) {\n" +
-  "      if (result.status !== 200 || !result.data) return;\n" +
-  "      $('eventCount').textContent = String(result.data.count || 0);\n" +
-  "      renderEvents(result.data.events || []);\n" +
-  "    }).catch(function () {});\n" +
-  "\n" +
-  "    api('/api/control/bans').then(function (result) {\n" +
-  "      $('loginBtn').disabled = false;\n" +
+  "    api('/api/control/bans', {}, 10000).then(function (result) {\n" +
+  "      loginBtn.disabled = false;\n" +
+  "      loginBtn.textContent = '\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a';\n" +
   "      if (result.status === 401) {\n" +
   "        state.token = '';\n" +
-  "        gateErr.textContent = 'token \u0e44\u0e21\u0e48\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07';\n" +
+  "        gateErr.textContent = 'token \u0e44\u0e21\u0e48\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07 \u2014 \u0e43\u0e0a\u0e49 ADMIN_TOKEN \u0e02\u0e2d\u0e07 Vercel \u0e42\u0e1b\u0e23\u0e40\u0e08\u0e01\u0e15\u0e4c\u0e19\u0e35\u0e49';\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      if (result.status !== 200 || !result.data || result.data.ok !== true) {\n" +
+  "        state.token = '';\n" +
+  "        gateErr.textContent = (result.data && result.data.reason) || ('\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 (HTTP ' + result.status + ')');\n" +
   "        return;\n" +
   "      }\n" +
   "      sessionStorage.setItem(KEY, token);\n" +
   "      gate.classList.add('hide');\n" +
   "      logLine('\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
+  "      api('/api/control/events', { limit: 40 }).then(function (events) {\n" +
+  "        if (events.status === 200 && events.data) {\n" +
+  "          $('eventCount').textContent = String(events.data.count || 0);\n" +
+  "          renderEvents(events.data.events || []);\n" +
+  "        }\n" +
+  "      }).catch(function () {});\n" +
   "      loadAll();\n" +
   "      state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);\n" +
-  "    }).catch(function () {\n" +
-  "      $('loginBtn').disabled = false;\n" +
-  "      gateErr.textContent = '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
+  "    }).catch(function (error) {\n" +
+  "      loginBtn.disabled = false;\n" +
+  "      loginBtn.textContent = '\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a';\n" +
+  "      state.token = '';\n" +
+  "      gateErr.textContent = error && error.name === 'AbortError'\n" +
+  "        ? '\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e2d\u0e1a\u0e0a\u0e49\u0e32\u0e40\u0e01\u0e34\u0e19 10 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e49\u0e27\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07'\n" +
+  "        : '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
   "    });\n" +
   "  });\n" +
   "\n" +
@@ -2621,15 +2656,21 @@ const CONTROL_PAGE =
   "\n" +
   "  /* \u2500\u2500 boot \u2500\u2500 */\n" +
   "  if (state.token) {\n" +
-  "    api('/api/control/bans').then(function (result) {\n" +
-  "      if (result.status === 200) {\n" +
+  "    api('/api/control/bans', {}, 10000).then(function (result) {\n" +
+  "      if (result.status === 200 && result.data && result.data.ok === true) {\n" +
   "        gate.classList.add('hide');\n" +
   "        loadAll(true);\n" +
   "        state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);\n" +
   "      } else {\n" +
-  "        showGate('token \u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49\u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e41\u0e25\u0e49\u0e27');\n" +
+  "        sessionStorage.removeItem(KEY);\n" +
+  "        state.token = '';\n" +
+  "        showGate(result.status === 401 ? 'token \u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49\u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e41\u0e25\u0e49\u0e27' : '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a token \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u2014 \u0e01\u0e23\u0e38\u0e13\u0e32\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07');\n" +
   "      }\n" +
-  "    }).catch(function () { showGate('\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49'); });\n" +
+  "    }).catch(function (error) {\n" +
+  "      showGate(error && error.name === 'AbortError'\n" +
+  "        ? '\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e15\u0e2d\u0e1a\u0e0a\u0e49\u0e32\u0e40\u0e01\u0e34\u0e19 10 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e19\u0e49\u0e32\u0e41\u0e25\u0e49\u0e27\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07'\n" +
+  "        : '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49');\n" +
+  "    });\n" +
   "  } else {\n" +
   "    showGate('');\n" +
   "  }\n" +

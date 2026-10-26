@@ -981,6 +981,28 @@
 
   var $ = function (id) { return document.getElementById(id); };
   var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');
+  var currentScriptItems = [], selectedFileCode = null, editingItem = null;
+  var upFile = $('upFile'), upBody = $('upBody');
+  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';
+
+  function api(path, body, timeoutMs) {
+    var controller = timeoutMs && typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var timer = controller ? setTimeout(function () { controller.abort(); }, timeoutMs) : null;
+    var options = {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-admin-token': state.token },
+      body: JSON.stringify(body || {}),
+      cache: 'no-store'
+    };
+    if (controller) options.signal = controller.signal;
+    return fetch(path, options).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (data) {
+        return { status: res.status, data: data };
+      });
+    }).finally(function () {
+      if (timer) clearTimeout(timer);
+    });
+  }
 
   function toast(message, kind) {
     var el = document.createElement('div');
@@ -1185,29 +1207,42 @@
     event.preventDefault();
     var token = tokenInput.value.trim();
     if (!token) { gateErr.textContent = 'กรุณาใส่ token'; return; }
-    $('loginBtn').disabled = true;
+    var loginBtn = $('loginBtn');
+    loginBtn.disabled = true;
+    loginBtn.textContent = 'กำลังตรวจสอบ…';
+    gateErr.textContent = '';
     state.token = token;
-    api('/api/control/events', { limit: 40 }).then(function (result) {
-      if (result.status !== 200 || !result.data) return;
-      $('eventCount').textContent = String(result.data.count || 0);
-      renderEvents(result.data.events || []);
-    }).catch(function () {});
-
-    api('/api/control/bans').then(function (result) {
-      $('loginBtn').disabled = false;
+    api('/api/control/bans', {}, 10000).then(function (result) {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'เข้าสู่ระบบ';
       if (result.status === 401) {
         state.token = '';
-        gateErr.textContent = 'token ไม่ถูกต้อง';
+        gateErr.textContent = 'token ไม่ถูกต้อง — ใช้ ADMIN_TOKEN ของ Vercel โปรเจกต์นี้';
+        return;
+      }
+      if (result.status !== 200 || !result.data || result.data.ok !== true) {
+        state.token = '';
+        gateErr.textContent = (result.data && result.data.reason) || ('เข้าสู่ระบบไม่สำเร็จ (HTTP ' + result.status + ')');
         return;
       }
       sessionStorage.setItem(KEY, token);
       gate.classList.add('hide');
       logLine('เข้าสู่ระบบแล้ว', 'ok');
+      api('/api/control/events', { limit: 40 }).then(function (events) {
+        if (events.status === 200 && events.data) {
+          $('eventCount').textContent = String(events.data.count || 0);
+          renderEvents(events.data.events || []);
+        }
+      }).catch(function () {});
       loadAll();
       state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);
-    }).catch(function () {
-      $('loginBtn').disabled = false;
-      gateErr.textContent = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
+    }).catch(function (error) {
+      loginBtn.disabled = false;
+      loginBtn.textContent = 'เข้าสู่ระบบ';
+      state.token = '';
+      gateErr.textContent = error && error.name === 'AbortError'
+        ? 'เซิร์ฟเวอร์ตอบช้าเกิน 10 วินาที ลองรีเฟรชหน้าแล้วเข้าสู่ระบบอีกครั้ง'
+        : 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
     });
   });
 
@@ -1400,15 +1435,21 @@
 
   /* ── boot ── */
   if (state.token) {
-    api('/api/control/bans').then(function (result) {
-      if (result.status === 200) {
+    api('/api/control/bans', {}, 10000).then(function (result) {
+      if (result.status === 200 && result.data && result.data.ok === true) {
         gate.classList.add('hide');
         loadAll(true);
         state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);
       } else {
-        showGate('token ที่บันทึกไว้ใช้ไม่ได้แล้ว');
+        sessionStorage.removeItem(KEY);
+        state.token = '';
+        showGate(result.status === 401 ? 'token ที่บันทึกไว้ใช้ไม่ได้แล้ว' : 'ตรวจสอบ token ไม่สำเร็จ — กรุณาเข้าสู่ระบบอีกครั้ง');
       }
-    }).catch(function () { showGate('เชื่อมต่อเซิร์ฟเวอร์ไม่ได้'); });
+    }).catch(function (error) {
+      showGate(error && error.name === 'AbortError'
+        ? 'เซิร์ฟเวอร์ตอบช้าเกิน 10 วินาที ลองรีเฟรชหน้าแล้วเข้าสู่ระบบอีกครั้ง'
+        : 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้');
+    });
   } else {
     showGate('');
   }
