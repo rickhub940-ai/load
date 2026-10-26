@@ -720,7 +720,7 @@ local function LoadScript(d, h)
 
     local compileOk, chunk = pcall(SafeLoadstring, d.Body)
     if not compileOk or type(chunk) ~= "function" then return Abort("Load failed") end
-    local ok, result = pcall(chunk, true, q, s, r, p, SCRIPT_NAME_LOCKED, tick(), h, HttpRequest, Chain, ctx)
+    local ok, result = pcall(chunk, true, q, s, r, p, SCRIPT_NAME_LOCKED, tick(), h, HttpRequest, Chain, ctx, BASE_URL)
     if not ok or result == false then return Abort("Run failed") end
 
     print("[999MS] Main script loaded")
