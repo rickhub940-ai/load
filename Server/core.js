@@ -2206,6 +2206,87 @@ const CONTROL_PAGE =
   "  var currentScriptItems = [], selectedFileCode = null, editingItem = null;\n" +
   "  var upFile = $('upFile'), upBody = $('upBody');\n" +
   "  var defaultBodyPlaceholder = upBody ? upBody.placeholder : '';\n" +
+  "  var fileReadBusy = false, fileReadToken = 0, selectedFileName = '';\n" +
+  "  var MAX_SCRIPT_FILE_BYTES = 25 * 1024 * 1024;\n" +
+  "  var MAX_UPLOAD_JSON_BYTES = 4.1 * 1024 * 1024;\n" +
+  "\n" +
+  "  function exitEditMode(clearInputs) {\n" +
+  "    editingItem = null;\n" +
+  "    selectedFileCode = null;\n" +
+  "    selectedFileName = '';\n" +
+  "    fileReadBusy = false;\n" +
+  "    fileReadToken++;\n" +
+  "    if (upFile) upFile.value = '';\n" +
+  "    if ($('editBanner')) $('editBanner').style.display = 'none';\n" +
+  "    if ($('upSave')) $('upSave').textContent = '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
+  "    if (upBody) {\n" +
+  "      upBody.rows = 7;\n" +
+  "      upBody.placeholder = defaultBodyPlaceholder;\n" +
+  "      upBody.value = '';\n" +
+  "    }\n" +
+  "    if (clearInputs) {\n" +
+  "      if ($('upPlace')) $('upPlace').value = '';\n" +
+  "      if ($('upName')) $('upName').value = '';\n" +
+  "      if ($('upKeyRequired')) $('upKeyRequired').checked = true;\n" +
+  "    }\n" +
+  "    renderScripts(currentScriptItems);\n" +
+  "  }\n" +
+  "\n" +
+  "  if (upFile) {\n" +
+  "    upFile.addEventListener('change', function () {\n" +
+  "      var file = upFile.files && upFile.files[0];\n" +
+  "      var token = ++fileReadToken;\n" +
+  "      selectedFileCode = null;\n" +
+  "      selectedFileName = '';\n" +
+  "      fileReadBusy = false;\n" +
+  "      if (!file) return;\n" +
+  "      if (file.size > MAX_SCRIPT_FILE_BYTES) {\n" +
+  "        upFile.value = '';\n" +
+  "        $('upMeta').textContent = '\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e0d\u0e48\u0e40\u0e01\u0e34\u0e19\u0e02\u0e19\u0e32\u0e14\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB';\n" +
+  "        toast('\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e0d\u0e48\u0e40\u0e01\u0e34\u0e19\u0e02\u0e19\u0e32\u0e14\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB', 'err');\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      selectedFileName = file.name;\n" +
+  "      fileReadBusy = true;\n" +
+  "      if (upBody) {\n" +
+  "        upBody.value = '';\n" +
+  "        upBody.placeholder = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c ' + file.name + ' (' + bytes(file.size) + ')\u2026';\n" +
+  "      }\n" +
+  "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c ' + file.name + ' (' + bytes(file.size) + ')\u2026';\n" +
+  "      readFileText(file).then(function (code) {\n" +
+  "        if (token !== fileReadToken) return;\n" +
+  "        selectedFileCode = code;\n" +
+  "        fileReadBusy = false;\n" +
+  "        if (upBody) upBody.placeholder = '\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e41\u0e25\u0e49\u0e27: ' + file.name + ' (' + bytes(file.size) + ')';\n" +
+  "        $('upMeta').textContent = '\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e41\u0e25\u0e49\u0e27: ' + file.name + ' (' + bytes(file.size) + ') \u2014 \u0e01\u0e14\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e33\u0e40\u0e19\u0e34\u0e19\u0e01\u0e32\u0e23\u0e15\u0e48\u0e2d';\n" +
+  "      }).catch(function (error) {\n" +
+  "        if (token !== fileReadToken) return;\n" +
+  "        fileReadBusy = false;\n" +
+  "        selectedFileCode = null;\n" +
+  "        selectedFileName = '';\n" +
+  "        $('upMeta').textContent = '\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (error && error.message ? error.message : '\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49');\n" +
+  "        toast('\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08', 'err');\n" +
+  "      });\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  if (upBody) {\n" +
+  "    upBody.addEventListener('input', function () {\n" +
+  "      if (fileReadBusy || selectedFileCode !== null) {\n" +
+  "        fileReadToken++;\n" +
+  "        fileReadBusy = false;\n" +
+  "        selectedFileCode = null;\n" +
+  "        selectedFileName = '';\n" +
+  "        if (upFile) upFile.value = '';\n" +
+  "        upBody.placeholder = defaultBodyPlaceholder;\n" +
+  "        $('upMeta').textContent = '\u0e43\u0e0a\u0e49\u0e42\u0e04\u0e49\u0e14\u0e08\u0e32\u0e01\u0e0a\u0e48\u0e2d\u0e07\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21';\n" +
+  "      }\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  if ($('upCancelEdit')) {\n" +
+  "    $('upCancelEdit').addEventListener('click', function () { exitEditMode(true); });\n" +
+  "  }\n" +
   "\n" +
   "  function api(path, body, timeoutMs) {\n" +
   "    var controller = timeoutMs && typeof AbortController !== 'undefined' ? new AbortController() : null;\n" +
@@ -2251,6 +2332,59 @@ const CONTROL_PAGE =
   "    return (n / 1024 / 1024).toFixed(1) + ' MB';\n" +
   "  }\n" +
   "\n" +
+  "  function uint8ToBase64(data) {\n" +
+  "    var parts = [];\n" +
+  "    for (var i = 0; i < data.length; i += 0x8000) {\n" +
+  "      parts.push(String.fromCharCode.apply(null, data.subarray(i, Math.min(i + 0x8000, data.length))));\n" +
+  "    }\n" +
+  "    return btoa(parts.join(''));\n" +
+  "  }\n" +
+  "\n" +
+  "  function base64ToUint8(value) {\n" +
+  "    var binary = atob(value);\n" +
+  "    var data = new Uint8Array(binary.length);\n" +
+  "    for (var i = 0; i < binary.length; i++) data[i] = binary.charCodeAt(i);\n" +
+  "    return data;\n" +
+  "  }\n" +
+  "\n" +
+  "  function compressGzipBase64(text) {\n" +
+  "    if (typeof CompressionStream === 'undefined' || typeof TextEncoder === 'undefined' || typeof Response === 'undefined') {\n" +
+  "      return Promise.resolve(null);\n" +
+  "    }\n" +
+  "    try {\n" +
+  "      var stream = new Blob([new TextEncoder().encode(text)]).stream()\n" +
+  "        .pipeThrough(new CompressionStream('gzip'));\n" +
+  "      return new Response(stream).arrayBuffer().then(function (buffer) {\n" +
+  "        return uint8ToBase64(new Uint8Array(buffer));\n" +
+  "      });\n" +
+  "    } catch (error) {\n" +
+  "      return Promise.resolve(null);\n" +
+  "    }\n" +
+  "  }\n" +
+  "\n" +
+  "  function decompressGzipBase64(value) {\n" +
+  "    if (typeof DecompressionStream === 'undefined' || typeof Response === 'undefined') {\n" +
+  "      return Promise.reject(new Error('\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c\u0e19\u0e35\u0e49\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e04\u0e25\u0e32\u0e22\u0e44\u0e1f\u0e25\u0e4c gzip'));\n" +
+  "    }\n" +
+  "    try {\n" +
+  "      var stream = new Blob([base64ToUint8(value)]).stream()\n" +
+  "        .pipeThrough(new DecompressionStream('gzip'));\n" +
+  "      return new Response(stream).text();\n" +
+  "    } catch (error) {\n" +
+  "      return Promise.reject(error);\n" +
+  "    }\n" +
+  "  }\n" +
+  "\n" +
+  "  function readFileText(file) {\n" +
+  "    if (file && typeof file.text === 'function') return file.text();\n" +
+  "    return new Promise(function (resolve, reject) {\n" +
+  "      var reader = new FileReader();\n" +
+  "      reader.onload = function () { resolve(String(reader.result || '')); };\n" +
+  "      reader.onerror = function () { reject(reader.error || new Error('\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08')); };\n" +
+  "      reader.readAsText(file, 'UTF-8');\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
   "  function renderScripts(items) {\n" +
   "    currentScriptItems = items || [];\n" +
   "    var host = $('scriptList');\n" +
@@ -2291,6 +2425,11 @@ const CONTROL_PAGE =
   "\n" +
   "  function startEditScript(item, btn) {\n" +
   "    if (btn) btn.disabled = true;\n" +
+  "    fileReadToken++;\n" +
+  "    fileReadBusy = false;\n" +
+  "    selectedFileCode = null;\n" +
+  "    selectedFileName = '';\n" +
+  "    if (upFile) upFile.value = '';\n" +
   "    $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e08\u0e32\u0e01 GitHub\u2026';\n" +
   "    api('/api/control/scripts', { op: 'get', name: item.name })\n" +
   "      .then(function (result) {\n" +
@@ -2375,14 +2514,23 @@ const CONTROL_PAGE =
   "      var btn = $('upSave');\n" +
   "      var placeId = ($('upPlace').value || '').trim();\n" +
   "      var name = ($('upName').value || '').trim();\n" +
-  "      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');\n" +
   "      if (!placeId) { toast('\u0e43\u0e2a\u0e48 Place ID \u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
   "      if (!name) { toast('\u0e43\u0e2a\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      if (fileReadBusy) { toast('\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c\u0e2d\u0e22\u0e39\u0e48 \u0e23\u0e2d\u0e2a\u0e31\u0e01\u0e04\u0e23\u0e39\u0e48\u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07', 'err'); return; }\n" +
+  "      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');\n" +
   "      if (!code.trim()) { toast('\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e32\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      var sourceBytes = new Blob([code]).size;\n" +
+  "      if (sourceBytes > MAX_SCRIPT_FILE_BYTES) {\n" +
+  "        toast('\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e0d\u0e48\u0e40\u0e01\u0e34\u0e19\u0e02\u0e19\u0e32\u0e14\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB', 'err');\n" +
+  "        return;\n" +
+  "      }\n" +
+  "\n" +
   "      var wasEditing = editingItem ? { placeId: editingItem.placeId, name: editingItem.name } : null;\n" +
+  "      var buttonLabel = wasEditing ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
   "      btn.disabled = true;\n" +
-  "      btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u2026';\n" +
-  "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u0e41\u0e25\u0e30\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c\u0e02\u0e36\u0e49\u0e19 GitHub (' + bytes(code.length) + ')\u2026';\n" +
+  "      btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u2026';\n" +
+  "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21 ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ')\u2026';\n" +
+  "\n" +
   "      compressGzipBase64(code).then(function (gzB64) {\n" +
   "        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked };\n" +
   "        if (wasEditing) {\n" +
@@ -2391,10 +2539,18 @@ const CONTROL_PAGE =
   "        }\n" +
   "        if (gzB64) payload.bodyGzip = gzB64;\n" +
   "        else payload.body = code;\n" +
-  "        return api('/api/control/scripts', payload);\n" +
+  "\n" +
+  "        var requestBytes = new Blob([JSON.stringify(payload)]).size;\n" +
+  "        if (requestBytes > MAX_UPLOAD_JSON_BYTES) {\n" +
+  "          throw new Error('\u0e2b\u0e25\u0e31\u0e07\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u0e41\u0e25\u0e49\u0e27\u0e22\u0e31\u0e07\u0e43\u0e2b\u0e0d\u0e48\u0e40\u0e01\u0e34\u0e19\u0e02\u0e35\u0e14\u0e08\u0e33\u0e01\u0e31\u0e14\u0e01\u0e32\u0e23\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c (' + bytes(requestBytes) + '). \u0e25\u0e14\u0e02\u0e19\u0e32\u0e14\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14');\n" +
+  "        }\n" +
+  "\n" +
+  "        btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u2026';\n" +
+  "        $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ') \u0e02\u0e36\u0e49\u0e19 GitHub\u2026';\n" +
+  "        return api('/api/control/scripts', payload, 120000);\n" +
   "      }).then(function (result) {\n" +
   "        btn.disabled = false;\n" +
-  "        btn.textContent = editingItem ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
+  "        btn.textContent = buttonLabel;\n" +
   "        var data = result.data || {};\n" +
   "        if (data.ok) {\n" +
   "          var gh = data.github || {};\n" +
@@ -2416,8 +2572,10 @@ const CONTROL_PAGE =
   "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + errMsg, 'err');\n" +
   "      }).catch(function (err) {\n" +
   "        btn.disabled = false;\n" +
-  "        btn.textContent = editingItem ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c';\n" +
-  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err');\n" +
+  "        btn.textContent = buttonLabel;\n" +
+  "        var message = err && err.message ? err.message : 'network error';\n" +
+  "        $('upMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + message;\n" +
+  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + message, 'err');\n" +
   "      });\n" +
   "    });\n" +
   "  }\n" +
