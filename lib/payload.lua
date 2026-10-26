@@ -615,6 +615,9 @@ local function PackRequest(path, payload, hwid)
         AddDeviceParts(out, hwid)
         out.g, out.q = payload.scriptName, payload.hop
         out.s, out.t = payload.runtimeSecret, payload.scriptToken
+        out.v, out.w = payload.placeId, payload.jobId
+        out.y, out.z = payload.username, payload.displayName
+        out.aa, out.ab = payload.executor, payload.userId
     elseif path == "/api/start" then
         out.p = "k8"
         AddDeviceParts(out, hwid)
@@ -627,7 +630,7 @@ local function PackRequest(path, payload, hwid)
     return out
 end
 
--- One versioned transport shared with main.lua through the run-local ctx.
+-- One versioned transport shared by the common runtime and loaded map scripts.
 -- The caller cannot select a different endpoint or silently downgrade to JSON.
 local function SendWire(packed, expectedBaseUrl)
     if not ChecksActive then return nil, "Cancelled" end
@@ -720,6 +723,50 @@ local function LoadScript(d, h)
 
     local compileOk, chunk = pcall(SafeLoadstring, d.Body)
     if not compileOk or type(chunk) ~= "function" then return Abort("Load failed") end
+
+    -- Verify the loaded map script once here, before running its code. Keeping
+    -- this in the shared runtime means every scripts/<name>.lua file can stay
+    -- map-specific instead of carrying a copy of main.lua's auth handshake.
+    local profile = { executor = "unknown" }
+    pcall(function()
+        if type(identifyexecutor) == "function" then
+            local name = identifyexecutor()
+            if type(name) == "string" then profile.executor = name end
+        end
+    end)
+    pcall(function()
+        local player = Players.LocalPlayer
+        if player then
+            profile.name = tostring(player.Name or "")
+            profile.displayName = tostring(player.DisplayName or player.Name or "")
+            profile.userId = tostring(player.UserId or "")
+        end
+    end)
+    pcall(function()
+        profile.placeId = tostring(game.PlaceId or "")
+        profile.jobId = tostring(game.JobId or "")
+    end)
+    local proof, proofError = postJSON("/api/script-verify", {
+        ticket = q,
+        scriptName = SCRIPT_NAME_LOCKED,
+        hop = p,
+        runtimeSecret = r,
+        scriptToken = s,
+        placeId = profile.placeId,
+        jobId = profile.jobId,
+        username = profile.name,
+        displayName = profile.displayName,
+        executor = profile.executor,
+        userId = profile.userId,
+    }, h)
+    if not proof then return Abort("Script verification failed: " .. tostring(proofError or "request failed")) end
+    if proof.status ~= 200 or type(proof.data) ~= "table" or proof.data.valid ~= true then
+        local diagnostic = type(proof.data) == "table" and proof.data.diagnostic or nil
+        if diagnostic == "BAD HWID : ]" then KickBadHwid(diagnostic) end
+        return Abort("Script verification failed: " .. tostring(diagnostic or proof.status))
+    end
+    ctx.runtimeVerified = true
+
     local ok, result = pcall(chunk, true, q, s, r, p, SCRIPT_NAME_LOCKED, tick(), h, HttpRequest, Chain, ctx, BASE_URL)
     if not ok or result == false then return Abort("Run failed") end
 

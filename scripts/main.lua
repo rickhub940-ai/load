@@ -31,6 +31,7 @@ if type(Context) ~= "table"
     return Abort("[999MS] Chain rejected: run loadc.lua")
 end
 
+if Context.runtimeVerified ~= true then
 local RuntimeSecret = D
 local Ticket = B
 local ScriptToken = C
@@ -204,6 +205,8 @@ if res.status ~= 200 or decoded.valid ~= true then
     end
     return Abort("[999MS] " .. diagnostic)
 end
+end
+-- Main-specific code, if any, runs here after the shared runtime proof.
 if Context.chain == Chain then
     Context.chain = nil
 end
