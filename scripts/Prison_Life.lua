@@ -1,8 +1,15 @@
+-- 999MS script: Prison_Life
+-- place: 155615604
+-- uploaded from the Control panel at 2026-10-26T09:52:09.126Z
 
+--// =========================
+--// LOADER CHECK (Anticheat / Signature)
+--// =========================
 local EXPECTED_SCRIPT = "Prison_Life"
 local args = { n = select("#", ...), ... }
+
 local function reject(reason)
-    local message = "[999MS] " .. tostring(reason or "Loader check failed")
+    local message = "[999MS] INVALID"
     local player, coreGui
 
     pcall(function()
@@ -63,64 +70,22 @@ local function reject(reason)
 end
 
 local function validateLoader()
-    if args.n ~= 12 or args[1] ~= true then
-        return false, "LOADER_ARGUMENTS_INVALID"
-    end
-    if type(args[2]) ~= "string" or args[2] == "" then
-        return false, "TICKET_INVALID"
-    end
-    if type(args[3]) ~= "string" or args[3] == "" then
-        return false, "SCRIPT_TOKEN_INVALID"
-    end
-    if type(args[4]) ~= "string" or #args[4] ~= 64 then
-        return false, "RUNTIME_SECRET_INVALID"
-    end
-    if type(args[5]) ~= "string" or args[5] == "" then
-        return false, "HOP_INVALID"
-    end
-    if args[6] ~= EXPECTED_SCRIPT then
-        return false, "SCRIPT_NAME_MISMATCH"
-    end
-    if type(args[7]) ~= "number" then
-        return false, "LOAD_TIME_INVALID"
-    end
-
-    local loadAge = tick() - args[7]
-    if loadAge < 0 or loadAge > 60 then
-        return false, "SESSION_EXPIRED"
-    end
-
-    if type(args[8]) ~= "string" or #args[8] < 4 or #args[8] > 512 then
-        return false, "HWID_INVALID"
-    end
-    if type(args[9]) ~= "function" then
-        return false, "HTTP_UNAVAILABLE"
-    end
-    if type(args[12]) ~= "string" or not args[12]:match("^https://") then
-        return false, "BASE_URL_INVALID"
-    end
-
+    if args.n ~= 12 or args[1] ~= true then return false, "INVALID" end
+    if type(args[2]) ~= "string" or args[2] == "" then return false, "INVALID" end
+    if type(args[3]) ~= "string" or args[3] == "" then return false, "INVALID" end
+    if type(args[4]) ~= "string" or #args[4] ~= 64 then return false, "INVALID" end
+    if type(args[5]) ~= "string" or args[5] == "" then return false, "INVALID" end
+    if args[6] ~= EXPECTED_SCRIPT then return false, "INVALID" end
+    if type(args[7]) ~= "number" then return false, "INVALID" end
+    if tick() - args[7] < 0 or tick() - args[7] > 60 then return false, "INVALID" end
+    if type(args[8]) ~= "string" or #args[8] < 4 or #args[8] > 512 then return false, "INVALID" end
+    if type(args[9]) ~= "function" then return false, "INVALID" end
+    if type(args[12]) ~= "string" or not args[12]:match("^https://") then return false, "INVALID" end
     local chain, ctx = args[10], args[11]
-    if type(chain) ~= "table" or type(ctx) ~= "table" then
-        return false, "CHAIN_CONTEXT_MISSING"
-    end
-    if ctx.runtimeVerified ~= true or type(ctx.requestWire) ~= "function"
-        or ctx.chain ~= chain then
-        return false, "RUNTIME_PROOF_MISSING"
-    end
-    if chain.Version ~= "999MS-chain-v1"
-        or type(chain.Id) ~= "string" or chain.Id == ""
-        or chain.Stage ~= "script"
-        or chain.Script ~= EXPECTED_SCRIPT
-        or type(chain.UpdatedAt) ~= "number" then
-        return false, "CHAIN_INVALID"
-    end
-
-    local chainAge = tick() - chain.UpdatedAt
-    if chainAge < 0 or chainAge > 20 then
-        return false, "CHAIN_EXPIRED"
-    end
-
+    if type(chain) ~= "table" or type(ctx) ~= "table" then return false, "INVALID" end
+    if ctx.runtimeVerified ~= true or type(ctx.requestWire) ~= "function" or ctx.chain ~= chain then return false, "INVALID" end
+    if chain.Version ~= "999MS-chain-v1" or type(chain.Id) ~= "string" or chain.Id == "" or chain.Stage ~= "script" or chain.Script ~= EXPECTED_SCRIPT or type(chain.UpdatedAt) ~= "number" then return false, "INVALID" end
+    if tick() - chain.UpdatedAt < 0 or tick() - chain.UpdatedAt > 20 then return false, "INVALID" end
     return true
 end
 
@@ -132,16 +97,9 @@ end
 --// =========================
 --// PRISON LIFE SCRIPT START
 --// =========================
-if game.PlaceId ~= 155615604 then
-    return
-end
+if game.PlaceId ~= 155615604 then return end
 
---// =========================
---// LOAD WINDUI
---// =========================
-local WindUI = loadstring(game:HttpGet(
-"https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"
-))()
+local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 
 local player = game.Players.LocalPlayer
 local CoreGui = game:GetService("CoreGui")
@@ -155,12 +113,9 @@ local UIS = game:GetService("UserInputService")
 local LP = player
 local Cam = workspace.CurrentCamera
 
-if CoreGui:FindFirstChild("WindUI_Toggle") then
-    CoreGui.WindUI_Toggle:Destroy()
-end
+if CoreGui:FindFirstChild("WindUI_Toggle") then CoreGui.WindUI_Toggle:Destroy() end
 
-local avatar = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="
-..player.UserId.."&size=420x420&format=Png"
+local avatar = "https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=" .. player.UserId .. "&size=420x420&format=Png"
 
 --// =========================
 --// LANGUAGE SYSTEM
@@ -175,6 +130,7 @@ local Lang = {
         HitboxSize = "Hitbox Size", HitboxSizeDesc = "Adjust the size of the hitbox.",
         AutoArrest = "Auto Arrest", AutoArrestDesc = "Automatically arrests nearby criminals.",
         AntiTase = "Anti-Taser", AntiTaseDesc = "Prevents you from being tased.",
+        AntiAim = "Anti Aim", AntiAimDesc = "Disrupts enemy aim by 70%.",
         
         SilentAim = "Silent Aim", SilentAimDesc = "Redirects your bullets to hit the closest target.",
         AutoShoot = "Auto Shoot", AutoShootDesc = "Automatically fires when a target is in your FOV.",
@@ -199,10 +155,6 @@ local Lang = {
         FlyBypass = "Fly Bypass", FlyBypassDesc = "Allows you to fly around the map.",
         FlySpeed = "Fly Speed", FlySpeedDesc = "Adjust the speed of flying.",
         
-        MeleeAura = "Melee Aura", MeleeAuraDesc = "Automatically attacks nearby players.",
-        MeleeRange = "Melee Range", MeleeRangeDesc = "Adjust the range of melee attacks.",
-        MeleeDelay = "Melee Delay", MeleeDelayDesc = "Adjust the delay between attacks.",
-        
         SettingsTheme = "UI Theme", SettingsThemeDesc = "Change the color theme of the UI.",
         SettingsLang = "Language", SettingsLangDesc = "Change the language of the UI."
     },
@@ -213,6 +165,7 @@ local Lang = {
         HitboxSize = "ขนาดฮิตบล็อก", HitboxSizeDesc = "ปรับขนาดความใหญ่ของพื้นที่ปะทะ",
         AutoArrest = "จับอัตโนมัติ", AutoArrestDesc = "จับอาชญากรที่อยู่ใกล้ๆ อัตโนมัติ",
         AntiTase = "กันทาซเซอร์", AntiTaseDesc = "ป้องกันไม่ให้คุณโดนทาซเซอร์",
+        AntiAim = "Anti Aim", AntiAimDesc = "รบกวนการเล็งของศัตรู 70%",
         
         SilentAim = "Silent Aim", SilentAimDesc = "บังคับกระสุนให้พุ่งเข้าหาเป้าหมายที่ใกล้ที่สุด",
         AutoShoot = "ยิงอัตโนมัติ", AutoShootDesc = "ยิงอัตโนมัติเมื่อมีศัตรูอยู่ในระยะ FOV",
@@ -237,10 +190,6 @@ local Lang = {
         FlyBypass = "บิน", FlyBypassDesc = "บินได้ทั่วแมพ",
         FlySpeed = "ความเร็วบิน", FlySpeedDesc = "ปรับความเร็วในการบิน",
         
-        MeleeAura = "ตบออร่า", MeleeAuraDesc = "ตบ/ฟันศัตรูที่อยู่ใกล้ๆ อัตโนมัติ",
-        MeleeRange = "ระยะตบ", MeleeRangeDesc = "ปรับระยะการตบ",
-        MeleeDelay = "ความเร็วในการตบ", MeleeDelayDesc = "ปรับความถี่ในการตบ",
-        
         SettingsTheme = "ธีม UI", SettingsThemeDesc = "เปลี่ยนสีธีมของเมนู",
         SettingsLang = "ภาษา", SettingsLangDesc = "เปลี่ยนภาษาของเมนู"
     }
@@ -249,7 +198,7 @@ local Lang = {
 local function L(key) return Lang[getgenv().CurrentLang][key] or key end
 
 --// =========================
---// THEME SYSTEM (Dark Purple)
+--// THEME SYSTEM (Dark Purple Default)
 --// =========================
 local Themes = {
     ["Default"] = { Accent = Color3.fromRGB(0, 170, 255), Background = Color3.fromRGB(20, 20, 20), Text = Color3.fromRGB(255, 255, 255) },
@@ -289,9 +238,6 @@ getgenv().BodyWalkSpeedValue = 16
 getgenv().jumpPowerValue = 50
 getgenv().frontNoclip = false
 getgenv().trackedParts = {}
-getgenv().MeleeAuraEnabled = false
-getgenv().MeleeAuraRange = 4
-getgenv().MeleeAuraDelay = 0.8
 getgenv().AutoArrestEnabled = false
 getgenv().AntiTaseEnabled = false
 
@@ -341,7 +287,177 @@ LP.CharacterAdded:Connect(function()
 end)
 
 --// =========================
---// สร้าง Visual ของ Silent Aim
+--// ANTI AIM (70% EFFECTIVENESS)
+--// =========================
+local Config = {
+    Enabled = false, Depth = 5, SafeMargin = 30, MaxSinkSpeed = 0, FollowHorizontal = true, SinkDepth = 0,
+    ServerPose = "stand", FlipUpsideDown = true, SwayEnabled = true, SwayRadius = 20, SwaySpeed = 115.5,
+    SwayTriangle3D = true, SwayTriangleTilt = 38, NoiseEnabled = true, NoiseAmplitude = 4, NoiseOctaves = 4,
+    NoiseLacunarity = 2.0, NoiseGain = 0.55, NoiseSpeed = 6.0, ShowFakeDot = true, FakeDotSize = 1.5,
+    FakeDotColor = Color3.fromRGB(255, 50, 50),
+}
+
+local state = { real = nil, vel = nil, ang = nil, fakePos = nil, spoofed = false, lockXZ = nil, swayClock = 0 }
+local reportedY = nil
+local SQRT3 = math.sqrt(3)
+local fakeDot = nil
+
+local function findRoot()
+    local char = LP.Character
+    if not char then return nil, nil end
+    local hum = char:FindFirstChildOfClass("Humanoid")
+    local root = (hum and hum.RootPart) or char:FindFirstChild("HumanoidRootPart")
+    if root and root:IsA("BasePart") then return root, hum end
+    return nil, hum
+end
+
+local function ensureFakeDot()
+    if fakeDot and fakeDot.Parent then return fakeDot end
+    fakeDot = Instance.new("Part")
+    fakeDot.Name = "AntiAimFakeDot"
+    fakeDot.Shape = Enum.PartType.Ball
+    fakeDot.Size = Vector3.new(Config.FakeDotSize, Config.FakeDotSize, Config.FakeDotSize)
+    fakeDot.Anchored, fakeDot.CanCollide, fakeDot.CanQuery, fakeDot.CanTouch = true, false, false, false
+    fakeDot.Material = Enum.Material.Neon
+    fakeDot.Color = Config.FakeDotColor
+    fakeDot.Transparency = 0.1
+    fakeDot.Parent = workspace.CurrentCamera
+    return fakeDot
+end
+
+local function updateFakeDot()
+    if not Config.ShowFakeDot or not Config.Enabled or not state.fakePos then
+        if fakeDot then fakeDot.Parent = nil end
+        return
+    end
+    local dot = ensureFakeDot()
+    dot.Size = Vector3.new(Config.FakeDotSize, Config.FakeDotSize, Config.FakeDotSize)
+    dot.Color = Config.FakeDotColor
+    dot.CFrame = CFrame.new(state.fakePos)
+    dot.Parent = workspace.CurrentCamera
+end
+
+local function restore()
+    if not state.spoofed or not state.real then state.spoofed = false; updateFakeDot(); return end
+    local root = findRoot()
+    state.spoofed = false
+    updateFakeDot()
+    if not root then return end
+    root.CFrame = state.real
+    root.AssemblyLinearVelocity = state.vel or Vector3.zero
+    root.AssemblyAngularVelocity = state.ang or Vector3.zero
+end
+
+local function trianglePath(t, R, v)
+    local p0x, p0z = R, 0
+    local p1x, p1z = -R * 0.5, R * SQRT3 * 0.5
+    local p2x, p2z = -R * 0.5, -R * SQRT3 * 0.5
+    local side = R * SQRT3
+    local perimeter = 3 * side
+    if v <= 0 then return p0x, p0z end
+    local period = perimeter / v
+    local dist = (t % period) * v
+    local seg = math.floor(dist / side) % 3
+    local u = (dist - seg * side) / side
+    local ax, az, bx, bz
+    if seg == 0 then ax, az, bx, bz = p0x, p0z, p1x, p1z
+    elseif seg == 1 then ax, az, bx, bz = p1x, p1z, p2x, p2z
+    else ax, az, bx, bz = p2x, p2z, p0x, p0z end
+    return ax + (bx - ax) * u, az + (bz - az) * u
+end
+
+local function fbm1D(t, seed, octaves, lacunarity, gain)
+    local sum, amp, freq, norm = 0, 1, 1, 0
+    for k = 0, octaves - 1 do
+        sum = sum + amp * math.sin(freq * t + seed * (k + 1) * 1.37)
+        norm = norm + amp
+        amp = amp * gain
+        freq = freq * lacunarity
+    end
+    if norm > 0 then return sum / norm end
+    return 0
+end
+
+local function noise3D(t, amp, octaves, lacunarity, gain)
+    local nx = fbm1D(t, 1.0, octaves, lacunarity, gain) * amp
+    local ny = fbm1D(t, 2.0, octaves, lacunarity, gain) * amp
+    local nz = fbm1D(t, 3.0, octaves, lacunarity, gain) * amp
+    return nx, ny, nz
+end
+
+local function punch()
+    local root = findRoot()
+    if not root or not state.real or reportedY == nil then return end
+    local realCF = state.real
+    local x, z = realCF.X, realCF.Z
+    if not Config.FollowHorizontal then
+        if not state.lockXZ then state.lockXZ = Vector3.new(realCF.X, 0, realCF.Z) end
+        x, z = state.lockXZ.X, state.lockXZ.Z
+    end
+    local forward, right = realCF.LookVector, realCF.RightVector
+    local yOffset = 0
+    if Config.SwayEnabled and Config.SwayRadius > 0 then
+        local lx, lz = trianglePath(state.swayClock, Config.SwayRadius, Config.SwaySpeed)
+        x = x + right.X * lx + forward.X * lz
+        z = z + right.Z * lx + forward.Z * lz
+        if Config.SwayTriangle3D then yOffset = Config.SwayTriangleTilt * math.abs(math.sin(state.swayClock * math.pi)) end
+    end
+    if Config.NoiseEnabled and Config.NoiseAmplitude > 0 then
+        local tn = os.clock() * Config.NoiseSpeed
+        local nx, ny, nz = noise3D(tn, Config.NoiseAmplitude, Config.NoiseOctaves, Config.NoiseLacunarity, Config.NoiseGain)
+        x = x + right.X * nx + forward.X * nz
+        z = z + right.Z * nx + forward.Z * nz
+        yOffset = yOffset + ny * 0.5
+    end
+    local poseAngle = (Config.ServerPose == "lie_back" and math.rad(-90)) or (Config.ServerPose == "lie_face" and math.rad(90)) or (Config.ServerPose == "tilt" and math.rad(8)) or 0
+    local flipAngle = Config.FlipUpsideDown and math.rad(180) or 0
+    local fake = CFrame.new(x, reportedY + yOffset, z) * CFrame.Angles(poseAngle, 0, flipAngle) * realCF.Rotation
+    root.CFrame = fake
+    root.AssemblyLinearVelocity = state.vel or Vector3.zero
+    root.AssemblyAngularVelocity = state.ang or Vector3.zero
+    if typeof(sethiddenproperty) == "function" then pcall(sethiddenproperty, root, "NetworkIsSleeping", false) end
+    state.fakePos = fake.Position
+    state.spoofed = true
+    updateFakeDot()
+end
+
+local function advance(dt)
+    local root, character = findRoot()
+    if not root or not character then return false end
+    local pos = root.Position
+    local stillFake = state.spoofed and state.fakePos and (pos - state.fakePos).Magnitude < 8
+    if not stillFake then
+        state.real = root.CFrame
+        state.vel = root.AssemblyLinearVelocity
+        state.ang = root.AssemblyAngularVelocity
+    end
+    if not state.real then return false end
+    dt = math.clamp(dt or (1 / 60), 0, 0.1)
+    if reportedY == nil then reportedY = state.real.Y end
+    if Config.SwayEnabled and Config.SwayRadius > 0 then state.swayClock = state.swayClock + dt end
+    return true
+end
+
+RunService.PostSimulation:Connect(function(dt)
+    if not Config.Enabled then return end
+    if not advance(dt) then return end
+    punch()
+    task.defer(function() if Config.Enabled and state.spoofed then punch() end end)
+end)
+
+RunService:BindToRenderStep("AntiAimRestore", Enum.RenderPriority.First.Value, function()
+    if not Config.Enabled then return end
+    restore()
+end)
+
+LP.CharacterAdded:Connect(function()
+    reportedY = nil; state.real = nil; state.vel = nil; state.ang = nil
+    state.fakePos = nil; state.spoofed = false; state.lockXZ = nil
+    state.swayClock = 0; updateFakeDot()
+end)
+
+--// =========================
+--// VISUALS
 --// =========================
 local saVisGui = Instance.new("ScreenGui", LP:WaitForChild("PlayerGui"))
 saVisGui.Name = "SilentAim_Visuals"
@@ -365,7 +481,7 @@ saTracer.Transparency = 1
 saTracer.Color = getgenv().SA_LineColor
 
 --// =========================
---// MAIN UI CREATION
+--// UI CREATION
 --// =========================
 local Window = WindUI:CreateWindow({
     Title = "999MS HUB [ Prison life ]", Icon = "rbxassetid://108958018844079", Author = "Made by 009.exe",
@@ -397,114 +513,74 @@ local bodyTab = Window:Tab({Title = L("TabBody"), Icon = "dna"})
 local MiscTab = Window:Tab({Title = L("TabMisc"), Icon = "settings"})
 local SettingsTab = Window:Tab({Title = L("TabSettings"), Icon = "cog"})
 
-local UI = {}
-
 -- MAIN TAB
-UI.GunBuff = Tab:Toggle({ Title = L("GunBuff"), Desc = L("GunBuffDesc"), Value = false, Callback = function(v) 
+Tab:Toggle({ Title = L("GunBuff"), Desc = L("GunBuffDesc"), Value = false, Callback = function(v) 
     getgenv().buffEnabled = v
     for _, t in pairs(player.Backpack:GetChildren()) do getgenv().HandleBuffOnTool(t) end
     if player.Character then for _, t in pairs(player.Character:GetChildren()) do getgenv().HandleBuffOnTool(t) end end
 end })
-UI.Hitbox = Tab:Toggle({ Title = L("Hitbox"), Desc = L("HitboxDesc"), Value = false, Callback = function(state) 
+Tab:Toggle({ Title = L("Hitbox"), Desc = L("HitboxDesc"), Value = false, Callback = function(state) 
     getgenv().hitboxEnabled = state
     if not state then for _, p in ipairs(Players:GetPlayers()) do if p ~= player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then local rp = p.Character.HumanoidRootPart; rp.Size, rp.Transparency, rp.Material, rp.CanCollide = Vector3.new(2,2,1), 1, Enum.Material.Plastic, false end end end
 end })
-UI.HitboxSize = Tab:Slider({ Title = L("HitboxSize"), Desc = L("HitboxSizeDesc"), Step = 1, Value = { Min = 2, Max = 15, Default = 2 }, Callback = function(v) getgenv().sizeMultiplier = v end })
-
-UI.AutoArrest = Tab:Toggle({ Title = L("AutoArrest"), Desc = L("AutoArrestDesc"), Value = getgenv().AutoArrestEnabled, Callback = function(state) getgenv().AutoArrestEnabled = state end })
-UI.AntiTase = Tab:Toggle({ Title = L("AntiTase"), Desc = L("AntiTaseDesc"), Value = getgenv().AntiTaseEnabled, Callback = function(state) 
+Tab:Slider({ Title = L("HitboxSize"), Desc = L("HitboxSizeDesc"), Step = 1, Value = { Min = 2, Max = 15, Default = 2 }, Callback = function(v) getgenv().sizeMultiplier = v end })
+Tab:Toggle({ Title = L("AutoArrest"), Desc = L("AutoArrestDesc"), Value = getgenv().AutoArrestEnabled, Callback = function(state) getgenv().AutoArrestEnabled = state end })
+Tab:Toggle({ Title = L("AntiTase"), Desc = L("AntiTaseDesc"), Value = getgenv().AntiTaseEnabled, Callback = function(state) 
     getgenv().AntiTaseEnabled = state
     antiTaseActive = state
     if state then applyAntiTase() else removeAntiTase() end
 end })
 
 -- AIMBOT TAB
-UI.SilentAim = AimTab:Toggle({ Title = L("SilentAim"), Desc = L("SilentAimDesc"), Value = getgenv().SA_Enabled, Callback = function(state) getgenv().SA_Enabled = state; if not state then getgenv().SA_AutoShoot = false; saLastFire = tick() end end })
-UI.AutoShoot = AimTab:Toggle({ Title = L("AutoShoot"), Desc = L("AutoShootDesc"), Value = getgenv().SA_AutoShoot, Callback = function(state) getgenv().SA_AutoShoot = state; if not state then saLastFire = tick() end end })
-UI.WallCheck = AimTab:Toggle({ Title = L("WallCheck"), Desc = L("WallCheckDesc"), Value = getgenv().SA_WallCheck, Callback = function(state) getgenv().SA_WallCheck = state end })
-UI.ShowDamage = AimTab:Toggle({ Title = L("ShowDamage"), Desc = L("ShowDamageDesc"), Value = getgenv().SA_ShowDamage, Callback = function(state) getgenv().SA_ShowDamage = state end })
-UI.HitSound = AimTab:Toggle({ Title = L("HitSound"), Desc = L("HitSoundDesc"), Value = getgenv().SA_HitSound, Callback = function(state) getgenv().SA_HitSound = state end })
-UI.ShowFOV = AimTab:Toggle({ Title = L("ShowFOV"), Desc = L("ShowFOVDesc"), Value = getgenv().SA_ShowVisuals, Callback = function(state) getgenv().SA_ShowVisuals = state end })
-UI.TracerColor = AimTab:Colorpicker({ Title = "Tracer Color", Default = getgenv().SA_LineColor, Callback = function(color) getgenv().SA_LineColor = color; if saTracer then saTracer.Color = color end end })
-UI.FOVSize = AimTab:Slider({ Title = L("FOVSize"), Desc = L("FOVSizeDesc"), Step = 10, Value = { Min = 50, Max = 2000, Default = getgenv().SA_FOV }, Callback = function(value) getgenv().SA_FOV = value end })
-UI.TargetTeams = AimTab:Dropdown({ Title = L("TargetTeams"), Desc = L("TargetTeamsDesc"), Values = { "Guards", "Inmates", "Criminals", "Hostile" }, Value = { "Guards" }, Multi = true, AllowNone = true, Callback = function(options) getgenv().SA_SelectedTeams = {}; for _, t in ipairs(options) do getgenv().SA_SelectedTeams[t] = true end end })
+AimTab:Toggle({ Title = L("SilentAim"), Desc = L("SilentAimDesc"), Value = getgenv().SA_Enabled, Callback = function(state) getgenv().SA_Enabled = state; if not state then getgenv().SA_AutoShoot = false; saLastFire = tick() end end })
+AimTab:Toggle({ Title = L("AutoShoot"), Desc = L("AutoShootDesc"), Value = getgenv().SA_AutoShoot, Callback = function(state) getgenv().SA_AutoShoot = state; if not state then saLastFire = tick() end end })
+AimTab:Toggle({ Title = L("WallCheck"), Desc = L("WallCheckDesc"), Value = getgenv().SA_WallCheck, Callback = function(state) getgenv().SA_WallCheck = state end })
+AimTab:Toggle({ Title = L("ShowDamage"), Desc = L("ShowDamageDesc"), Value = getgenv().SA_ShowDamage, Callback = function(state) getgenv().SA_ShowDamage = state end })
+AimTab:Toggle({ Title = L("HitSound"), Desc = L("HitSoundDesc"), Value = getgenv().SA_HitSound, Callback = function(state) getgenv().SA_HitSound = state end })
+AimTab:Toggle({ Title = L("ShowFOV"), Desc = L("ShowFOVDesc"), Value = getgenv().SA_ShowVisuals, Callback = function(state) getgenv().SA_ShowVisuals = state end })
+AimTab:Colorpicker({ Title = "Tracer Color", Default = getgenv().SA_LineColor, Callback = function(color) getgenv().SA_LineColor = color; if saTracer then saTracer.Color = color end end })
+AimTab:Slider({ Title = L("FOVSize"), Desc = L("FOVSizeDesc"), Step = 10, Value = { Min = 50, Max = 2000, Default = getgenv().SA_FOV }, Callback = function(value) getgenv().SA_FOV = value end })
+AimTab:Dropdown({ Title = L("TargetTeams"), Desc = L("TargetTeamsDesc"), Values = { "Guards", "Inmates", "Criminals", "Hostile" }, Value = { "Guards" }, Multi = true, AllowNone = true, Callback = function(options) getgenv().SA_SelectedTeams = {}; for _, t in ipairs(options) do getgenv().SA_SelectedTeams[t] = true end end })
 
 -- ESP TAB
-UI.EspName = EspTab:Toggle({ Title = L("EspName"), Desc = L("EspNameDesc"), Value = getgenv().ESP_Name, Callback = function(v) getgenv().ESP_Name = v end })
-UI.EspHealth = EspTab:Toggle({ Title = L("EspHealth"), Desc = L("EspHealthDesc"), Value = getgenv().ESP_Health, Callback = function(v) getgenv().ESP_Health = v end })
-UI.EspDist = EspTab:Toggle({ Title = L("EspDist"), Desc = L("EspDistDesc"), Value = getgenv().ESP_Distance, Callback = function(v) getgenv().ESP_Distance = v end })
-UI.EspHighlight = EspTab:Toggle({ Title = L("EspHighlight"), Desc = L("EspHighlightDesc"), Value = getgenv().ESP_Highlight, Callback = function(v) getgenv().ESP_Highlight = v end })
-UI.EspWeapon = EspTab:Toggle({ Title = L("EspWeapon"), Desc = L("EspWeaponDesc"), Value = getgenv().ESPGUNEnabled, Callback = function(state) getgenv().ESPGUNEnabled = state; if not state and getgenv().clearAllESPGUN then getgenv().clearAllESPGUN() end end })
+EspTab:Toggle({ Title = L("EspName"), Desc = L("EspNameDesc"), Value = getgenv().ESP_Name, Callback = function(v) getgenv().ESP_Name = v end })
+EspTab:Toggle({ Title = L("EspHealth"), Desc = L("EspHealthDesc"), Value = getgenv().ESP_Health, Callback = function(v) getgenv().ESP_Health = v end })
+EspTab:Toggle({ Title = L("EspDist"), Desc = L("EspDistDesc"), Value = getgenv().ESP_Distance, Callback = function(v) getgenv().ESP_Distance = v end })
+EspTab:Toggle({ Title = L("EspHighlight"), Desc = L("EspHighlightDesc"), Value = getgenv().ESP_Highlight, Callback = function(v) getgenv().ESP_Highlight = v end })
+EspTab:Toggle({ Title = L("EspWeapon"), Desc = L("EspWeaponDesc"), Value = getgenv().ESPGUNEnabled, Callback = function(state) getgenv().ESPGUNEnabled = state; if not state and getgenv().clearAllESPGUN then getgenv().clearAllESPGUN() end end })
 
 -- BODY TAB
-UI.SpeedHack = bodyTab:Toggle({ Title = L("SpeedHack"), Desc = L("SpeedHackDesc"), Value = getgenv().BodyWalkSpeedEnabled, Callback = function(state) getgenv().BodyWalkSpeedEnabled = state; if getgenv().UpdateBody then getgenv().UpdateBody() end end })
-UI.WalkSpeed = bodyTab:Slider({ Title = L("WalkSpeed"), Desc = L("WalkSpeedDesc"), Step = 1, Value = { Min = 16, Max = 120, Default = getgenv().BodyWalkSpeedValue }, Callback = function(value) getgenv().BodyWalkSpeedValue = value; if getgenv().UpdateBody then getgenv().UpdateBody() end end })
-UI.HighJump = bodyTab:Toggle({ Title = L("HighJump"), Desc = L("HighJumpDesc"), Value = getgenv().JumpHackEnabled, Callback = function(v) if getgenv().toggleHighJump then getgenv().toggleHighJump(v) end end })
-UI.JumpPower = bodyTab:Slider({ Title = L("JumpPower"), Desc = L("JumpPowerDesc"), Step = 5, Value = { Min = 50, Max = 500, Default = getgenv().jumpPowerValue }, Callback = function(v) getgenv().jumpPowerValue = tonumber(v) or 50 end })
-UI.Noclip = bodyTab:Toggle({ Title = L("Noclip"), Desc = L("NoclipDesc"), Value = getgenv().frontNoclip, Callback = function(state) getgenv().frontNoclip = state; if not state and getgenv().trackedParts then for part,_ in pairs(getgenv().trackedParts) do if part:IsA("BasePart") then part.CanCollide = true end end getgenv().trackedParts = {} end end })
-UI.FlyBypass = bodyTab:Toggle({ Title = L("FlyBypass"), Desc = L("FlyBypassDesc"), Value = getgenv()["_CR.DayToDay2044_Fly"], Callback = function(v) getgenv()["_CR.DayToDay2044_Fly"] = v end })
-UI.FlySpeed = bodyTab:Slider({ Title = L("FlySpeed"), Desc = L("FlySpeedDesc"), Step = 1, Value = { Min = 1, Max = 500, Default = getgenv()["_CR.DayToDay2044_Speed"] }, Callback = function(v) getgenv()["_CR.DayToDay2044_Speed"] = tonumber(v) or 100 end })
+bodyTab:Toggle({ Title = L("SpeedHack"), Desc = L("SpeedHackDesc"), Value = getgenv().BodyWalkSpeedEnabled, Callback = function(state) getgenv().BodyWalkSpeedEnabled = state; if getgenv().UpdateBody then getgenv().UpdateBody() end end })
+bodyTab:Slider({ Title = L("WalkSpeed"), Desc = L("WalkSpeedDesc"), Step = 1, Value = { Min = 16, Max = 120, Default = getgenv().BodyWalkSpeedValue }, Callback = function(value) getgenv().BodyWalkSpeedValue = value; if getgenv().UpdateBody then getgenv().UpdateBody() end end })
+bodyTab:Toggle({ Title = L("HighJump"), Desc = L("HighJumpDesc"), Value = getgenv().JumpHackEnabled, Callback = function(v) if getgenv().toggleHighJump then getgenv().toggleHighJump(v) end end })
+bodyTab:Slider({ Title = L("JumpPower"), Desc = L("JumpPowerDesc"), Step = 5, Value = { Min = 50, Max = 500, Default = getgenv().jumpPowerValue }, Callback = function(v) getgenv().jumpPowerValue = tonumber(v) or 50 end })
+bodyTab:Toggle({ Title = L("Noclip"), Desc = L("NoclipDesc"), Value = getgenv().frontNoclip, Callback = function(state) getgenv().frontNoclip = state; if not state and getgenv().trackedParts then for part,_ in pairs(getgenv().trackedParts) do if part:IsA("BasePart") then part.CanCollide = true end end getgenv().trackedParts = {} end end })
+bodyTab:Toggle({ Title = L("FlyBypass"), Desc = L("FlyBypassDesc"), Value = getgenv()["_CR.DayToDay2044_Fly"], Callback = function(v) getgenv()["_CR.DayToDay2044_Fly"] = v end })
+bodyTab:Slider({ Title = L("FlySpeed"), Desc = L("FlySpeedDesc"), Step = 1, Value = { Min = 1, Max = 500, Default = getgenv()["_CR.DayToDay2044_Speed"] }, Callback = function(v) getgenv()["_CR.DayToDay2044_Speed"] = tonumber(v) or 100 end })
 
--- MISC TAB
-UI.MeleeAura = MiscTab:Toggle({ Title = L("MeleeAura"), Desc = L("MeleeAuraDesc"), Value = getgenv().MeleeAuraEnabled, Callback = function(state) getgenv().MeleeAuraEnabled = state end })
-UI.MeleeRange = MiscTab:Slider({ Title = L("MeleeRange"), Desc = L("MeleeRangeDesc"), Step = 1, Value = { Min = 1, Max = 15, Default = getgenv().MeleeAuraRange }, Callback = function(v) getgenv().MeleeAuraRange = v end })
-UI.MeleeDelay = MiscTab:Slider({ Title = L("MeleeDelay"), Desc = L("MeleeDelayDesc"), Step = 0.1, Value = { Min = 0.1, Max = 2, Default = getgenv().MeleeAuraDelay }, Callback = function(v) getgenv().MeleeAuraDelay = v end })
+-- MISC TAB (Anti Aim)
+MiscTab:Toggle({ 
+    Title = L("AntiAim"), 
+    Desc = L("AntiAimDesc"), 
+    Value = false, 
+    Callback = function(state) 
+        Config.Enabled = state
+        if not state then
+            restore()
+            reportedY = nil
+            state.lockXZ = nil
+            state.spoofed = false
+            state.swayClock = 0
+            updateFakeDot()
+        end
+    end 
+})
 
 -- SETTINGS TAB
 SettingsTab:Dropdown({
     Title = L("SettingsTheme"), Desc = L("SettingsThemeDesc"), Values = {"Default", "Midnight Blue", "Blood Red", "Neon Green", "Dark Purple"}, Value = getgenv().CurrentTheme,
-    Callback = function(themeName)
-        getgenv().CurrentTheme = themeName
-        ApplyTheme(themeName)
-        Window:Notify({Title = "Theme Changed", Content = "Applied theme: " .. themeName, Duration = 3})
-    end
+    Callback = function(themeName) getgenv().CurrentTheme = themeName; ApplyTheme(themeName); Window:Notify({Title = "Theme Changed", Content = "Applied theme: " .. themeName, Duration = 3}) end
 })
-
-SettingsTab:Dropdown({
-    Title = L("SettingsLang"), Desc = L("SettingsLangDesc"), Values = {"English", "Thai"}, Value = getgenv().CurrentLang,
-    Callback = function(lang)
-        if getgenv().CurrentLang ~= lang then
-            getgenv().CurrentLang = lang
-            local function safeUpdate(obj, method, text) if obj and type(obj[method]) == "function" then pcall(obj[method], obj, text) end end
-
-            safeUpdate(UI.GunBuff, "SetTitle", L("GunBuff")); safeUpdate(UI.GunBuff, "SetDesc", L("GunBuffDesc"))
-            safeUpdate(UI.Hitbox, "SetTitle", L("Hitbox")); safeUpdate(UI.Hitbox, "SetDesc", L("HitboxDesc"))
-            safeUpdate(UI.HitboxSize, "SetTitle", L("HitboxSize")); safeUpdate(UI.HitboxSize, "SetDesc", L("HitboxSizeDesc"))
-            safeUpdate(UI.AutoArrest, "SetTitle", L("AutoArrest")); safeUpdate(UI.AutoArrest, "SetDesc", L("AutoArrestDesc"))
-            safeUpdate(UI.AntiTase, "SetTitle", L("AntiTase")); safeUpdate(UI.AntiTase, "SetDesc", L("AntiTaseDesc"))
-            
-            safeUpdate(UI.SilentAim, "SetTitle", L("SilentAim")); safeUpdate(UI.SilentAim, "SetDesc", L("SilentAimDesc"))
-            safeUpdate(UI.AutoShoot, "SetTitle", L("AutoShoot")); safeUpdate(UI.AutoShoot, "SetDesc", L("AutoShootDesc"))
-            safeUpdate(UI.WallCheck, "SetTitle", L("WallCheck")); safeUpdate(UI.WallCheck, "SetDesc", L("WallCheckDesc"))
-            safeUpdate(UI.ShowDamage, "SetTitle", L("ShowDamage")); safeUpdate(UI.ShowDamage, "SetDesc", L("ShowDamageDesc"))
-            safeUpdate(UI.HitSound, "SetTitle", L("HitSound")); safeUpdate(UI.HitSound, "SetDesc", L("HitSoundDesc"))
-            safeUpdate(UI.ShowFOV, "SetTitle", L("ShowFOV")); safeUpdate(UI.ShowFOV, "SetDesc", L("ShowFOVDesc"))
-            safeUpdate(UI.FOVSize, "SetTitle", L("FOVSize")); safeUpdate(UI.FOVSize, "SetDesc", L("FOVSizeDesc"))
-            safeUpdate(UI.TargetTeams, "SetTitle", L("TargetTeams")); safeUpdate(UI.TargetTeams, "SetDesc", L("TargetTeamsDesc"))
-            
-            safeUpdate(UI.EspName, "SetTitle", L("EspName")); safeUpdate(UI.EspName, "SetDesc", L("EspNameDesc"))
-            safeUpdate(UI.EspHealth, "SetTitle", L("EspHealth")); safeUpdate(UI.EspHealth, "SetDesc", L("EspHealthDesc"))
-            safeUpdate(UI.EspDist, "SetTitle", L("EspDist")); safeUpdate(UI.EspDist, "SetDesc", L("EspDistDesc"))
-            safeUpdate(UI.EspHighlight, "SetTitle", L("EspHighlight")); safeUpdate(UI.EspHighlight, "SetDesc", L("EspHighlightDesc"))
-            safeUpdate(UI.EspWeapon, "SetTitle", L("EspWeapon")); safeUpdate(UI.EspWeapon, "SetDesc", L("EspWeaponDesc"))
-            
-            safeUpdate(UI.SpeedHack, "SetTitle", L("SpeedHack")); safeUpdate(UI.SpeedHack, "SetDesc", L("SpeedHackDesc"))
-            safeUpdate(UI.WalkSpeed, "SetTitle", L("WalkSpeed")); safeUpdate(UI.WalkSpeed, "SetDesc", L("WalkSpeedDesc"))
-            safeUpdate(UI.HighJump, "SetTitle", L("HighJump")); safeUpdate(UI.HighJump, "SetDesc", L("HighJumpDesc"))
-            safeUpdate(UI.JumpPower, "SetTitle", L("JumpPower")); safeUpdate(UI.JumpPower, "SetDesc", L("JumpPowerDesc"))
-            safeUpdate(UI.Noclip, "SetTitle", L("Noclip")); safeUpdate(UI.Noclip, "SetDesc", L("NoclipDesc"))
-            safeUpdate(UI.FlyBypass, "SetTitle", L("FlyBypass")); safeUpdate(UI.FlyBypass, "SetDesc", L("FlyBypassDesc"))
-            safeUpdate(UI.FlySpeed, "SetTitle", L("FlySpeed")); safeUpdate(UI.FlySpeed, "SetDesc", L("FlySpeedDesc"))
-            
-            safeUpdate(UI.MeleeAura, "SetTitle", L("MeleeAura")); safeUpdate(UI.MeleeAura, "SetDesc", L("MeleeAuraDesc"))
-            safeUpdate(UI.MeleeRange, "SetTitle", L("MeleeRange")); safeUpdate(UI.MeleeRange, "SetDesc", L("MeleeRangeDesc"))
-            safeUpdate(UI.MeleeDelay, "SetTitle", L("MeleeDelay")); safeUpdate(UI.MeleeDelay, "SetDesc", L("MeleeDelayDesc"))
-
-            Window:Notify({Title = "Language Changed", Content = "Language set to " .. lang, Duration = 3})
-        end
-    end
-})
-
 
 --// =========================
 --// BACKGROUND LOGIC
@@ -739,24 +815,6 @@ task.spawn(function()
             if success then
                 ArrestCooldown = os.clock()
             end
-        end
-    end
-end)
-
--- 🔴 ลูป Melee Aura (ระยะ 4 สตัด)
-task.spawn(function()
-    while task.wait(getgenv().MeleeAuraDelay or 0.8) do
-        if not getgenv().MeleeAuraEnabled then continue end
-        local myChar = LP.Character; local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
-        if myRoot then 
-            for _, plr in ipairs(Players:GetPlayers()) do
-                if plr ~= LP and plr.Character then 
-                    local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
-                    if hrp and (myRoot.Position - hrp.Position).Magnitude <= 4 then 
-                        pcall(function() remotes.meleeremote:FireServer(plr) end) 
-                    end
-                end
-            end 
         end
     end
 end)
