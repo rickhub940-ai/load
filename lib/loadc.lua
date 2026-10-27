@@ -1,93 +1,26 @@
--- 999MS Stage 1. Receives the caller's values as positional locals.
--- HEADER: substituted per request and never obfuscated.
-local MS999_LINK = "__STAGE2_TOKEN__"
-local MS999_BASE = "__BASE_URL__"
-local MS999_SHA = "__STAGE2_SHA256__"
-local MS999_NONCE = "__STAGE2_NONCE__"
-local __ms999_unpack = table.unpack or unpack
-local __ms999_args = { n = select("#", ...), ... }
-local __ms999_base = __ms999_args.n
-local __ms999_extra = { MS999_LINK, MS999_BASE, MS999_SHA, MS999_NONCE }
-for __ms999_i = 1, #__ms999_extra do __ms999_args[__ms999_base + __ms999_i] = __ms999_extra[__ms999_i] end
-__ms999_args.n = __ms999_base + #__ms999_extra
-local __ms999_stage = function(...)
--- BODY BEGIN: obfuscate only the content below this line.
-local key, scriptName, msLink, msBase, msSha, msNonce = ...
-if type(key) ~= "string" then key = "" end
-if type(scriptName) ~= "string" or #scriptName < 1 or #scriptName > 64
-    or not scriptName:match("^[%w_%-]+$") then
-    scriptName = "main"
+local L="__STAGE2_TOKEN__"; local B="__BASE_URL__"; local H="__STAGE2_SHA256__"; local N="__STAGE2_NONCE__"
+local E1="__ST_ERR_HASHER__"; local E2="__ST_ERR_REQUEST__"; local E3="__ST_ERR_PROOF__"; local E4="__ST_ERR_FETCH__"; local E5="__ST_ERR_DIGEST__"; local E6="__ST_ERR_COMPILER__"; local E7="__ST_ERR_COMPILE__"
+local U=table.unpack or unpack; local A={n=select("#",...),...}; local C=A.n; local X={L,B,H,N,E1,E2,E3,E4,E5,E6,E7}
+for I=1,#X do A[C+I]=X[I] end; A.n=C+#X
+local F=function(...)
+-- Loadc stays readable; match somtank's wait, run-buster, protected fetch/compile flow.
+if not game:IsLoaded() then game.Loaded:Wait() end
+local k,s,l,b,h,n,e1,e2,e3,e4,e5,e6,e7=...
+if type(k)~="string" then k="" end
+if type(s)~="string" or #s<1 or #s>64 or not s:match("^[%w_%-]+$") then s="main" end; if s=="Main" then s="main" end
+local u=b.."/"..l; local v=u.."?run="..tostring(os.clock())
+local x={key=k,scriptName=s,chain={Version="999MS-chain-v1",Id=l:match("^(%x+)") or l,Stage="stage1",UpdatedAt=tick()}}
+local c=(type(syn)=="table" and syn.crypt) or crypt; local hs=type(c)=="table" and c.hash or nil
+if type(hs)~="function" then error(e1,0) end
+local rf=(type(syn)=="table" and syn.request) or (type(http)=="table" and http.request) or (type(request)=="function" and request) or (type(http_request)=="function" and http_request)
+if type(rf)~="function" then error(e2,0) end
+local ok,p=pcall(hs,"999MS-fetch-v1|"..n.."|"..u,"sha256"); if not ok or type(p)~="string" then error(e3,0) end
+-- This endpoint requires one-time POST proof; game:HttpGet (GET) is rejected.
+local ok,r=pcall(rf,{Url=v,Method="POST",Headers={["content-type"]="application/json"},Body='{"p":"'..p..'"}'})
+local d=type(r)=="table" and r.Body or nil; if not ok or type(d)~="string" or d=="" or #d>4*1024*1024 then error(e4,0) end
+local ok,g=pcall(hs,d,"sha256"); if not ok or type(g)~="string" or string.lower(g)~=h then error(e5,0) end
+local f=loadstring or load; if type(f)~="function" then error(e6,0) end
+local ok,q=pcall(f,d); if not ok or type(q)~="function" then error(e7,0) end
+x.chain.UpdatedAt=tick(); return q(x)
 end
-if scriptName == "Main" then scriptName = "main" end
-
-local link = msLink
-local url = msBase .. "/" .. link
-local sha = msSha
-local nonce = msNonce
-local ctx = {
-    key = key,
-    scriptName = scriptName,
-    chain = {
-        Version = "999MS-chain-v1",
-        Id = link:match("^(%x+)") or link,
-        Stage = "stage1",
-        UpdatedAt = tick(),
-    },
-}
-
-local crypto = (type(syn) == "table" and syn.crypt) or crypt
-local hasher = type(crypto) == "table" and crypto.hash or nil
-if type(hasher) ~= "function" then
-    error("MS999:S1:E04:LOADER_UNAVAILABLE", 0)
-end
-
-local requestCandidates = {
-    type(syn) == "table" and syn.request or false,
-    type(http) == "table" and http.request or false,
-    type(request) == "function" and request or false,
-    type(http_request) == "function" and http_request or false,
-}
-local requestFn
-for _, candidate in ipairs(requestCandidates) do
-    if type(candidate) == "function" then requestFn = candidate; break end
-end
-if not requestFn then
-    error("MS999:S1:E06:HTTP_REQUEST_UNAVAILABLE", 0)
-end
-
-local okProof, proof = pcall(hasher, "999MS-fetch-v1|" .. nonce .. "|" .. url, "sha256")
-if not okProof or type(proof) ~= "string" then
-    error("MS999:S1:E07:PROOF_FAILED", 0)
-end
-
-local okGet, response = pcall(requestFn, {
-    Url = url,
-    Method = "POST",
-    Headers = { ["content-type"] = "application/json" },
-    Body = '{"p":"' .. proof .. '"}',
-})
-local body = type(response) == "table" and response.Body or nil
-if not okGet or type(body) ~= "string" or body == "" or #body > 4 * 1024 * 1024 then
-    error("MS999:S1:E02:HTTP_GET_FAILED", 0)
-end
-
-local okHash, digest = pcall(hasher, body, "sha256")
-if not okHash or type(digest) ~= "string" or string.lower(digest) ~= sha then
-    error("MS999:S1:E03:SHA256_MISMATCH", 0)
-end
-
-local compiler = loadstring or load
-if type(compiler) ~= "function" then
-    error("MS999:S1:E04:LOADER_UNAVAILABLE", 0)
-end
-local okCompile, chunk = pcall(compiler, body)
-if not okCompile or type(chunk) ~= "function" then
-    error("MS999:S1:E05:STAGE2_COMPILE_FAILED", 0)
-end
-
-ctx.chain.UpdatedAt = tick()
-return chunk(ctx)
--- BODY END
-
-end
-return __ms999_stage(__ms999_unpack(__ms999_args, 1, __ms999_args.n))
+return F(U(A,1,A.n))
