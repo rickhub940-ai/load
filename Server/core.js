@@ -4000,6 +4000,10 @@ const ROOT_PAGE =
   "    .trust-ring{width:220px;height:220px;margin:72px auto 0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease .48s,transform .9s cubic-bezier(.2,.7,.2,1) .48s}\n" +
   "    .product-section.is-visible .trust-ring{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring strong{font-size:48px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .terms-note{margin:6px 0 54px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
+  "    .tech-label{margin:0 0 24px;color:rgba(7,8,11,.55);font-size:14px;font-weight:600;text-align:center}\n" +
+  "    .tech-strip{display:flex;justify-content:center;align-items:center;gap:clamp(28px,7vw,82px);padding:0 0 20px;color:rgba(16,18,25,.68)}\n" +
+  "    .tech-wordmark{display:flex;align-items:center;gap:9px;font-size:clamp(17px,2.4vw,25px);font-weight:750;letter-spacing:-.04em;white-space:nowrap}.tech-wordmark i{font-size:1.05em}.tech-wordmark:last-child{font-size:14px;letter-spacing:.13em}\n" +
   "    .why-section{border-top:1px solid #202024}\n" +
   "    .section-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:42px}\n" +
   "    .section-link{flex:none;padding-bottom:8px;color:#f4f4f5;font-weight:700}.section-link span{margin-left:12px;font-size:20px}\n" +
@@ -4045,12 +4049,20 @@ const ROOT_PAGE =
   "    @media (max-width:900px){\n" +
   "      .site-header{justify-content:space-between;padding:7px 20px}\n" +
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
-  "      .brand{width:42px;height:42px;background:#08090b;box-shadow:none}.brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
+  "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}\n" +
   "      .nav-links,.sign-in{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
-  "      .hero-stage{min-height:150svh;padding-left:22px;padding-right:22px}.hero{padding-top:clamp(58px,11vh,100px);padding-bottom:clamp(36px,7vh,72px)}\n" +
-  "      .headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
+  "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
   "    @media(max-width:720px){\n" +
+  "      .headline,.live-status{display:none}\n" +
+  "      .subhead{max-width:600px;margin:0 auto 24px;font-size:clamp(16px,4vw,19px);line-height:1.45}\n" +
+  "      .cta-group{max-width:560px;gap:12px;margin-bottom:20px}\n" +
+  "      .cta-primary{min-width:0;flex:1;padding:15px 16px;font-size:16px}\n" +
+  "      .terms-note{margin:22px 0 56px;font-size:13px}\n" +
+  "      .tech-label{margin-bottom:25px;font-size:14px}\n" +
+  "      .tech-strip{gap:clamp(22px,6vw,52px);padding-bottom:16px}\n" +
+  "      .tech-wordmark{font-size:clamp(17px,4.6vw,23px)}.tech-wordmark:last-child{font-size:12px}\n" +
+  "      .trust-strip{display:none}\n" +
   "      .feature-grid,.home-script-grid{grid-template-columns:1fr}\n" +
   "      .feature-card{min-height:260px}.home-script-grid{gap:28px}\n" +
   "      .product-window{aspect-ratio:3/2;padding:9px;border-radius:20px}.window-content{grid-template-columns:112px minmax(0,1fr);min-height:0}.window-sidebar{padding:8px 6px}.window-main{min-width:0;padding:6px;gap:4px}.window-bar{height:38px;gap:6px;padding:0 4px 5px}.window-dot{width:7px;height:7px}.window-app-icon{width:22px;height:22px;font-size:12px}.window-project{font-size:8px}.window-project small{margin-top:2px;font-size:7px}.window-status{margin-left:1px;padding:4px 6px;font-size:7px}.window-controls{display:none}.window-nav{gap:3px}.window-nav span{padding:5px 4px;font-size:8px;white-space:nowrap}.window-profile{gap:5px;font-size:8px}.window-avatar{width:22px;height:22px;font-size:12px}.window-profile small{font-size:7px}.script-option{min-height:0;flex:1;padding:4px 6px;border-radius:8px;gap:5px}.script-option strong{font-size:8px}.script-option p{margin-top:2px;font-size:6px;line-height:1.15}.script-toggle{width:30px;height:18px;padding:2px}.script-toggle i{width:14px;height:14px}\n" +
@@ -4058,7 +4070,8 @@ const ROOT_PAGE =
   "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
   "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
-  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}.product-section{padding-left:14px;padding-right:14px}.product-window{aspect-ratio:4/3;padding:7px;border-radius:18px;margin-top:28px}.window-content{grid-template-columns:86px minmax(0,1fr);min-height:0}.window-sidebar{padding:6px 4px}.window-nav{gap:3px}.window-nav span{padding:5px 3px;font-size:8px}.window-profile{display:flex;font-size:8px;gap:4px}.window-profile small{display:none}.window-avatar{width:22px;height:22px;font-size:11px}.window-main{padding:5px;gap:4px}.script-option{min-height:0;flex:1;padding:4px 6px;gap:4px;border-radius:8px}.script-option strong{font-size:8px;white-space:nowrap}.script-option p{margin-top:2px;font-size:7px;line-height:1.12;white-space:normal}.script-toggle{width:29px;height:18px;padding:2px}.script-toggle i{width:14px;height:14px}.window-bar{height:34px;gap:4px;padding:0 2px 3px}.window-dot{width:6px;height:6px}.window-app-icon{width:20px;height:20px;font-size:11px}.window-project{font-size:7px}.window-project small{font-size:6px}.window-status{font-size:7px;padding:3px 5px}}\n" +
+  "    @media(max-width:420px){.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}.terms-note{margin-bottom:52px}.tech-strip{gap:17px}.tech-wordmark{gap:6px;font-size:16px}.tech-wordmark:last-child{font-size:10px}.product-section{padding-left:14px;padding-right:14px}.product-window{aspect-ratio:4/3;padding:7px;border-radius:18px;margin-top:0}.window-content{grid-template-columns:86px minmax(0,1fr);min-height:0}.window-sidebar{padding:6px 4px}.window-nav{gap:3px}.window-nav span{padding:5px 3px;font-size:8px}.window-profile{display:flex;font-size:8px;gap:4px}.window-profile small{display:none}.window-avatar{width:22px;height:22px;font-size:11px}.window-main{padding:5px;gap:4px}.script-option{min-height:0;flex:1;padding:4px 6px;gap:4px;border-radius:8px}.script-option strong{font-size:8px;white-space:nowrap}.script-option p{margin-top:2px;font-size:7px;line-height:1.12;white-space:normal}.script-toggle{width:29px;height:18px;padding:2px}.script-toggle i{width:14px;height:14px}.window-bar{height:34px;gap:4px;padding:0 2px 3px}.window-dot{width:6px;height:6px}.window-app-icon{width:20px;height:20px;font-size:11px}.window-project{font-size:7px}.window-project small{font-size:6px}.window-status{font-size:7px;padding:3px 5px}}\n" +
+  "    @media(max-width:720px){.product-section{padding-top:clamp(90px,12svh,130px);padding-bottom:36px;background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 58%,#101012 100%)}.product-section .section-kicker,.product-section .section-heading,.product-section .section-copy,.trust-ring{display:none}.product-window{margin-top:0}.product-section .section-inner{width:min(100%,1120px)}}\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring{opacity:1;filter:none;transform:none}.product-window::after{display:none}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
@@ -4102,18 +4115,24 @@ const ROOT_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        A focused platform for Roblox. Fast, clear, and built around the scripts you use.\n" +
+  "        A focused platform for Roblox. Fast, stable, built to last.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
   "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
-  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn More</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary cta-secondary\">Explore Scripts</a>\n" +
   "      </div>\n" +
-  "\n" +
   "      <div class=\"live-status pop-element\">\n" +
   "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">CONNECTING TO 999MS</span>\n" +
   "      </div>\n" +
+  "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
   "    </main>\n" +
+  "      <p class=\"tech-label\">Technology behind 999MS</p>\n" +
+  "      <div class=\"tech-strip\" aria-label=\"999MS platform technology\">\n" +
+  "        <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\" aria-hidden=\"true\"></i> Roblox</span>\n" +
+  "        <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> SHA-256</span>\n" +
+  "        <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Discord</span>\n" +
+  "      </div>\n" +
   "      <div class=\"trust-strip\" aria-label=\"999MS platform features\">\n" +
   "        <span class=\"trust-item\"><i class=\"trust-mark\"></i><b>SHA-256</b> integrity checks</span>\n" +
   "        <span class=\"trust-item\"><i class=\"trust-mark\"></i>Stage-based loader</span>\n" +
@@ -4700,6 +4719,10 @@ const HUB_PAGE =
   "    .trust-ring{width:220px;height:220px;margin:72px auto 0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease .48s,transform .9s cubic-bezier(.2,.7,.2,1) .48s}\n" +
   "    .product-section.is-visible .trust-ring{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring strong{font-size:48px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .terms-note{margin:6px 0 54px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
+  "    .tech-label{margin:0 0 24px;color:rgba(7,8,11,.55);font-size:14px;font-weight:600;text-align:center}\n" +
+  "    .tech-strip{display:flex;justify-content:center;align-items:center;gap:clamp(28px,7vw,82px);padding:0 0 20px;color:rgba(16,18,25,.68)}\n" +
+  "    .tech-wordmark{display:flex;align-items:center;gap:9px;font-size:clamp(17px,2.4vw,25px);font-weight:750;letter-spacing:-.04em;white-space:nowrap}.tech-wordmark i{font-size:1.05em}.tech-wordmark:last-child{font-size:14px;letter-spacing:.13em}\n" +
   "    .why-section{border-top:1px solid #202024}\n" +
   "    .section-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:42px}\n" +
   "    .section-link{flex:none;padding-bottom:8px;color:#f4f4f5;font-weight:700}.section-link span{margin-left:12px;font-size:20px}\n" +
@@ -4745,12 +4768,20 @@ const HUB_PAGE =
   "    @media (max-width:900px){\n" +
   "      .site-header{justify-content:space-between;padding:7px 20px}\n" +
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
-  "      .brand{width:42px;height:42px;background:#08090b;box-shadow:none}.brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
+  "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}\n" +
   "      .nav-links,.sign-in{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
-  "      .hero-stage{min-height:150svh;padding-left:22px;padding-right:22px}.hero{padding-top:clamp(58px,11vh,100px);padding-bottom:clamp(36px,7vh,72px)}\n" +
-  "      .headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
+  "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
   "    @media(max-width:720px){\n" +
+  "      .headline,.live-status{display:none}\n" +
+  "      .subhead{max-width:600px;margin:0 auto 24px;font-size:clamp(16px,4vw,19px);line-height:1.45}\n" +
+  "      .cta-group{max-width:560px;gap:12px;margin-bottom:20px}\n" +
+  "      .cta-primary{min-width:0;flex:1;padding:15px 16px;font-size:16px}\n" +
+  "      .terms-note{margin:22px 0 56px;font-size:13px}\n" +
+  "      .tech-label{margin-bottom:25px;font-size:14px}\n" +
+  "      .tech-strip{gap:clamp(22px,6vw,52px);padding-bottom:16px}\n" +
+  "      .tech-wordmark{font-size:clamp(17px,4.6vw,23px)}.tech-wordmark:last-child{font-size:12px}\n" +
+  "      .trust-strip{display:none}\n" +
   "      .feature-grid,.home-script-grid{grid-template-columns:1fr}\n" +
   "      .feature-card{min-height:260px}.home-script-grid{gap:28px}\n" +
   "      .product-window{aspect-ratio:3/2;padding:9px;border-radius:20px}.window-content{grid-template-columns:112px minmax(0,1fr);min-height:0}.window-sidebar{padding:8px 6px}.window-main{min-width:0;padding:6px;gap:4px}.window-bar{height:38px;gap:6px;padding:0 4px 5px}.window-dot{width:7px;height:7px}.window-app-icon{width:22px;height:22px;font-size:12px}.window-project{font-size:8px}.window-project small{margin-top:2px;font-size:7px}.window-status{margin-left:1px;padding:4px 6px;font-size:7px}.window-controls{display:none}.window-nav{gap:3px}.window-nav span{padding:5px 4px;font-size:8px;white-space:nowrap}.window-profile{gap:5px;font-size:8px}.window-avatar{width:22px;height:22px;font-size:12px}.window-profile small{font-size:7px}.script-option{min-height:0;flex:1;padding:4px 6px;border-radius:8px;gap:5px}.script-option strong{font-size:8px}.script-option p{margin-top:2px;font-size:6px;line-height:1.15}.script-toggle{width:30px;height:18px;padding:2px}.script-toggle i{width:14px;height:14px}\n" +
@@ -4758,7 +4789,8 @@ const HUB_PAGE =
   "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
   "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
-  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}.product-section{padding-left:14px;padding-right:14px}.product-window{aspect-ratio:4/3;padding:7px;border-radius:18px;margin-top:28px}.window-content{grid-template-columns:86px minmax(0,1fr);min-height:0}.window-sidebar{padding:6px 4px}.window-nav{gap:3px}.window-nav span{padding:5px 3px;font-size:8px}.window-profile{display:flex;font-size:8px;gap:4px}.window-profile small{display:none}.window-avatar{width:22px;height:22px;font-size:11px}.window-main{padding:5px;gap:4px}.script-option{min-height:0;flex:1;padding:4px 6px;gap:4px;border-radius:8px}.script-option strong{font-size:8px;white-space:nowrap}.script-option p{margin-top:2px;font-size:7px;line-height:1.12;white-space:normal}.script-toggle{width:29px;height:18px;padding:2px}.script-toggle i{width:14px;height:14px}.window-bar{height:34px;gap:4px;padding:0 2px 3px}.window-dot{width:6px;height:6px}.window-app-icon{width:20px;height:20px;font-size:11px}.window-project{font-size:7px}.window-project small{font-size:6px}.window-status{font-size:7px;padding:3px 5px}}\n" +
+  "    @media(max-width:420px){.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}.terms-note{margin-bottom:52px}.tech-strip{gap:17px}.tech-wordmark{gap:6px;font-size:16px}.tech-wordmark:last-child{font-size:10px}.product-section{padding-left:14px;padding-right:14px}.product-window{aspect-ratio:4/3;padding:7px;border-radius:18px;margin-top:0}.window-content{grid-template-columns:86px minmax(0,1fr);min-height:0}.window-sidebar{padding:6px 4px}.window-nav{gap:3px}.window-nav span{padding:5px 3px;font-size:8px}.window-profile{display:flex;font-size:8px;gap:4px}.window-profile small{display:none}.window-avatar{width:22px;height:22px;font-size:11px}.window-main{padding:5px;gap:4px}.script-option{min-height:0;flex:1;padding:4px 6px;gap:4px;border-radius:8px}.script-option strong{font-size:8px;white-space:nowrap}.script-option p{margin-top:2px;font-size:7px;line-height:1.12;white-space:normal}.script-toggle{width:29px;height:18px;padding:2px}.script-toggle i{width:14px;height:14px}.window-bar{height:34px;gap:4px;padding:0 2px 3px}.window-dot{width:6px;height:6px}.window-app-icon{width:20px;height:20px;font-size:11px}.window-project{font-size:7px}.window-project small{font-size:6px}.window-status{font-size:7px;padding:3px 5px}}\n" +
+  "    @media(max-width:720px){.product-section{padding-top:clamp(90px,12svh,130px);padding-bottom:36px;background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 58%,#101012 100%)}.product-section .section-kicker,.product-section .section-heading,.product-section .section-copy,.trust-ring{display:none}.product-window{margin-top:0}.product-section .section-inner{width:min(100%,1120px)}}\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring{opacity:1;filter:none;transform:none}.product-window::after{display:none}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
@@ -4802,18 +4834,24 @@ const HUB_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        A focused platform for Roblox. Fast, clear, and built around the scripts you use.\n" +
+  "        A focused platform for Roblox. Fast, stable, built to last.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
   "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
-  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn More</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary cta-secondary\">Explore Scripts</a>\n" +
   "      </div>\n" +
-  "\n" +
   "      <div class=\"live-status pop-element\">\n" +
   "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">CONNECTING TO 999MS</span>\n" +
   "      </div>\n" +
+  "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
   "    </main>\n" +
+  "      <p class=\"tech-label\">Technology behind 999MS</p>\n" +
+  "      <div class=\"tech-strip\" aria-label=\"999MS platform technology\">\n" +
+  "        <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\" aria-hidden=\"true\"></i> Roblox</span>\n" +
+  "        <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> SHA-256</span>\n" +
+  "        <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Discord</span>\n" +
+  "      </div>\n" +
   "      <div class=\"trust-strip\" aria-label=\"999MS platform features\">\n" +
   "        <span class=\"trust-item\"><i class=\"trust-mark\"></i><b>SHA-256</b> integrity checks</span>\n" +
   "        <span class=\"trust-item\"><i class=\"trust-mark\"></i>Stage-based loader</span>\n" +
