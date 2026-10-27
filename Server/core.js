@@ -3920,8 +3920,13 @@ const ROOT_PAGE =
   "    .script-option{min-height:68px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(255,255,255,.035);border-radius:17px;background:linear-gradient(100deg,rgba(60,53,68,.9),rgba(48,42,56,.9));color:#f5f3f8}\n" +
   "    .script-option strong{display:block;font-size:14px;font-weight:700;line-height:1.2}.script-option p{margin:5px 0 0;color:#c2bdc9;font-size:12px;line-height:1.35}\n" +
   "    .script-toggle{width:54px;height:32px;flex:none;padding:4px;display:flex;justify-content:flex-end;align-items:center;border-radius:999px;background:#a32be8;box-shadow:0 0 0 1px rgba(255,255,255,.13),0 2px 9px rgba(163,43,232,.3)}.script-toggle i{width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0005}\n" +
-  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease .48s,transform .9s cubic-bezier(.2,.7,.2,1) .48s}\n" +
-  "    .product-section.is-visible .trust-ring{opacity:1;transform:translateY(0) scale(1)}\n" +
+  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{position:relative;width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}\n" +
+  "    .trust-ring.is-visible{opacity:1;transform:translateY(0) scale(1)}\n" +
+  "    .trust-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible}\n" +
+  "    .trust-track,.trust-progress{fill:none;stroke-width:10}\n" +
+  "    .trust-track{stroke:rgba(255,255,255,.12)}\n" +
+  "    .trust-progress{stroke:#9b73ff;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(155,115,255,.55))}\n" +
+  "    .trust-ring strong,.trust-ring span{position:relative;z-index:1}\n" +
   "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
   "    .compatibility-note{width:100%;padding-top:22px;border-top:1px solid #27272a;text-align:center}.compatibility-note strong{display:block;color:#bbbcc4;font-size:14px;font-weight:550}.compatibility-note span{display:block;margin-top:10px;color:#777982;font-size:12px;line-height:1.5}\n" +
   "    .terms-note{margin:6px 0 120px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
@@ -4069,7 +4074,10 @@ const ROOT_PAGE =
   "          </div>\n" +
   "        </div>\n" +
   "        <aside class=\"showcase-metrics\" aria-label=\"999MS verification and compatibility\">\n" +
-  "          <div class=\"trust-ring\" aria-label=\"SHA-256 verified loader stages\"><strong>100%</strong><span>SECURE</span></div>\n" +
+  "          <div class=\"trust-ring\" role=\"progressbar\" aria-label=\"SHA-256 verification\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\n" +
+  "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
+  "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
+  "          </div>\n" +
   "          <div class=\"compatibility-note\"><strong>Compatibility</strong><span>Verified loader stages</span></div>\n" +
   "        </aside>\n" +
   "        </div>\n" +
@@ -4248,6 +4256,55 @@ const ROOT_PAGE =
   "        uiObserver.observe(productWindow);\n" +
   "      } else if (productWindow) {\n" +
   "        productWindow.classList.add(\"is-visible\");\n" +
+  "      }\n" +
+  "\n" +
+  "      const trustRing = document.querySelector(\".trust-ring\");\n" +
+  "      const trustProgress = document.getElementById(\"trustProgress\");\n" +
+  "      const trustPercent = document.getElementById(\"trustPercent\");\n" +
+  "      if (trustRing && trustProgress && trustPercent) {\n" +
+  "        const circumference = 2 * Math.PI * 82;\n" +
+  "        const purple = [155, 115, 255];\n" +
+  "        const green = [34, 197, 94];\n" +
+  "        let trustStarted = false;\n" +
+  "        const paintTrustProgress = (amount) => {\n" +
+  "          const value = Math.round(amount);\n" +
+  "          const eased = Math.max(0, Math.min(1, amount / 100));\n" +
+  "          const color = purple.map((channel, index) => Math.round(channel + (green[index] - channel) * eased));\n" +
+  "          trustPercent.textContent = String(value);\n" +
+  "          trustRing.setAttribute(\"aria-valuenow\", String(value));\n" +
+  "          trustProgress.style.strokeDashoffset = String(circumference * (1 - eased));\n" +
+  "          trustProgress.style.stroke = `rgb(${color[0]} ${color[1]} ${color[2]})`;\n" +
+  "          trustProgress.style.filter = `drop-shadow(0 0 7px rgba(${color[0]},${color[1]},${color[2]},.55))`;\n" +
+  "          trustRing.style.boxShadow = `0 0 50px rgba(${color[0]},${color[1]},${color[2]},.16)`;\n" +
+  "        };\n" +
+  "        const startTrustProgress = () => {\n" +
+  "          if (trustStarted) return;\n" +
+  "          trustStarted = true;\n" +
+  "          trustRing.classList.add(\"is-visible\");\n" +
+  "          if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) {\n" +
+  "            paintTrustProgress(100);\n" +
+  "            return;\n" +
+  "          }\n" +
+  "          const startedAt = performance.now();\n" +
+  "          const duration = 3200;\n" +
+  "          const tick = (now) => {\n" +
+  "            const linear = Math.min(1, (now - startedAt) / duration);\n" +
+  "            const eased = 1 - Math.pow(1 - linear, 2.2);\n" +
+  "            paintTrustProgress(eased * 100);\n" +
+  "            if (linear < 1) requestAnimationFrame(tick);\n" +
+  "          };\n" +
+  "          requestAnimationFrame(tick);\n" +
+  "        };\n" +
+  "        if (\"IntersectionObserver\" in window) {\n" +
+  "          const trustObserver = new IntersectionObserver((entries, observer) => {\n" +
+  "            entries.forEach((entry) => {\n" +
+  "              if (entry.isIntersecting) { startTrustProgress(); observer.unobserve(entry.target); }\n" +
+  "            });\n" +
+  "          }, { threshold: 0.25 });\n" +
+  "          trustObserver.observe(trustRing);\n" +
+  "        } else {\n" +
+  "          startTrustProgress();\n" +
+  "        }\n" +
   "      }\n" +
   "\n" +
   "      const previewGrid = document.getElementById(\"homeScriptPreview\");\n" +
@@ -4565,8 +4622,13 @@ const HUB_PAGE =
   "    .script-option{min-height:68px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(255,255,255,.035);border-radius:17px;background:linear-gradient(100deg,rgba(60,53,68,.9),rgba(48,42,56,.9));color:#f5f3f8}\n" +
   "    .script-option strong{display:block;font-size:14px;font-weight:700;line-height:1.2}.script-option p{margin:5px 0 0;color:#c2bdc9;font-size:12px;line-height:1.35}\n" +
   "    .script-toggle{width:54px;height:32px;flex:none;padding:4px;display:flex;justify-content:flex-end;align-items:center;border-radius:999px;background:#a32be8;box-shadow:0 0 0 1px rgba(255,255,255,.13),0 2px 9px rgba(163,43,232,.3)}.script-toggle i{width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0005}\n" +
-  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease .48s,transform .9s cubic-bezier(.2,.7,.2,1) .48s}\n" +
-  "    .product-section.is-visible .trust-ring{opacity:1;transform:translateY(0) scale(1)}\n" +
+  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{position:relative;width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}\n" +
+  "    .trust-ring.is-visible{opacity:1;transform:translateY(0) scale(1)}\n" +
+  "    .trust-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible}\n" +
+  "    .trust-track,.trust-progress{fill:none;stroke-width:10}\n" +
+  "    .trust-track{stroke:rgba(255,255,255,.12)}\n" +
+  "    .trust-progress{stroke:#9b73ff;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(155,115,255,.55))}\n" +
+  "    .trust-ring strong,.trust-ring span{position:relative;z-index:1}\n" +
   "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
   "    .compatibility-note{width:100%;padding-top:22px;border-top:1px solid #27272a;text-align:center}.compatibility-note strong{display:block;color:#bbbcc4;font-size:14px;font-weight:550}.compatibility-note span{display:block;margin-top:10px;color:#777982;font-size:12px;line-height:1.5}\n" +
   "    .terms-note{margin:6px 0 120px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
@@ -4714,7 +4776,10 @@ const HUB_PAGE =
   "          </div>\n" +
   "        </div>\n" +
   "        <aside class=\"showcase-metrics\" aria-label=\"999MS verification and compatibility\">\n" +
-  "          <div class=\"trust-ring\" aria-label=\"SHA-256 verified loader stages\"><strong>100%</strong><span>SECURE</span></div>\n" +
+  "          <div class=\"trust-ring\" role=\"progressbar\" aria-label=\"SHA-256 verification\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\n" +
+  "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
+  "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
+  "          </div>\n" +
   "          <div class=\"compatibility-note\"><strong>Compatibility</strong><span>Verified loader stages</span></div>\n" +
   "        </aside>\n" +
   "        </div>\n" +
@@ -4893,6 +4958,55 @@ const HUB_PAGE =
   "        uiObserver.observe(productWindow);\n" +
   "      } else if (productWindow) {\n" +
   "        productWindow.classList.add(\"is-visible\");\n" +
+  "      }\n" +
+  "\n" +
+  "      const trustRing = document.querySelector(\".trust-ring\");\n" +
+  "      const trustProgress = document.getElementById(\"trustProgress\");\n" +
+  "      const trustPercent = document.getElementById(\"trustPercent\");\n" +
+  "      if (trustRing && trustProgress && trustPercent) {\n" +
+  "        const circumference = 2 * Math.PI * 82;\n" +
+  "        const purple = [155, 115, 255];\n" +
+  "        const green = [34, 197, 94];\n" +
+  "        let trustStarted = false;\n" +
+  "        const paintTrustProgress = (amount) => {\n" +
+  "          const value = Math.round(amount);\n" +
+  "          const eased = Math.max(0, Math.min(1, amount / 100));\n" +
+  "          const color = purple.map((channel, index) => Math.round(channel + (green[index] - channel) * eased));\n" +
+  "          trustPercent.textContent = String(value);\n" +
+  "          trustRing.setAttribute(\"aria-valuenow\", String(value));\n" +
+  "          trustProgress.style.strokeDashoffset = String(circumference * (1 - eased));\n" +
+  "          trustProgress.style.stroke = `rgb(${color[0]} ${color[1]} ${color[2]})`;\n" +
+  "          trustProgress.style.filter = `drop-shadow(0 0 7px rgba(${color[0]},${color[1]},${color[2]},.55))`;\n" +
+  "          trustRing.style.boxShadow = `0 0 50px rgba(${color[0]},${color[1]},${color[2]},.16)`;\n" +
+  "        };\n" +
+  "        const startTrustProgress = () => {\n" +
+  "          if (trustStarted) return;\n" +
+  "          trustStarted = true;\n" +
+  "          trustRing.classList.add(\"is-visible\");\n" +
+  "          if (window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches) {\n" +
+  "            paintTrustProgress(100);\n" +
+  "            return;\n" +
+  "          }\n" +
+  "          const startedAt = performance.now();\n" +
+  "          const duration = 3200;\n" +
+  "          const tick = (now) => {\n" +
+  "            const linear = Math.min(1, (now - startedAt) / duration);\n" +
+  "            const eased = 1 - Math.pow(1 - linear, 2.2);\n" +
+  "            paintTrustProgress(eased * 100);\n" +
+  "            if (linear < 1) requestAnimationFrame(tick);\n" +
+  "          };\n" +
+  "          requestAnimationFrame(tick);\n" +
+  "        };\n" +
+  "        if (\"IntersectionObserver\" in window) {\n" +
+  "          const trustObserver = new IntersectionObserver((entries, observer) => {\n" +
+  "            entries.forEach((entry) => {\n" +
+  "              if (entry.isIntersecting) { startTrustProgress(); observer.unobserve(entry.target); }\n" +
+  "            });\n" +
+  "          }, { threshold: 0.25 });\n" +
+  "          trustObserver.observe(trustRing);\n" +
+  "        } else {\n" +
+  "          startTrustProgress();\n" +
+  "        }\n" +
   "      }\n" +
   "\n" +
   "      const previewGrid = document.getElementById(\"homeScriptPreview\");\n" +
