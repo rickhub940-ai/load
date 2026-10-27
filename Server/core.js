@@ -3794,24 +3794,17 @@ const ROOT_PAGE =
   "\n" +
   "    /* ===== Page Layout ===== */\n" +
   "    .page { position:relative; z-index:3; width:100%; display:flex; flex-direction:column; align-items:stretch; padding-bottom:0; }\n" +
-  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:100svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 32px; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
-  "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
-  "    .hero-stage > * { width:min(100%,1200px); }\n" +
+  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:calc(100svh - 92px); display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) clamp(110px,16vh,180px); overflow:hidden; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
+  "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
+  "    .hero-stage::after { content:\"\"; position:absolute; z-index:0; left:0; right:0; bottom:0; height:clamp(170px,22vh,260px); background:linear-gradient(180deg,rgba(5,5,5,0),#050505); pointer-events:none; }\n" +
+  "    .hero-stage > * { position:relative; z-index:1; width:min(100%,1200px); }\n" +
   "\n" +
   "    /* ===== Header ===== */\n" +
-  "    .site-header {\n" +
-  "      width: 100%; max-width: 1200px;\n" +
-  "      display: flex; align-items: center; justify-content: center;\n" +
-  "      position:fixed; top:0; left:0; right:0; z-index:50; margin:0 auto; padding:14px clamp(16px,4vw,42px);\n" +
-  "    }\n" +
+  "    .site-header { position:sticky; top:0; z-index:50; width:min(100%,1200px); margin:0 auto; padding:12px clamp(16px,4vw,42px); display:flex; align-items:center; justify-content:center; }\n" +
+  "    .site-header::before { content:\"\"; position:absolute; z-index:0; top:0; bottom:0; left:calc(50% - 50vw); right:calc(50% - 50vw); background:transparent; transition:background .2s ease; pointer-events:none; }\n" +
+  "    body.scrolled .site-header::before { background:rgba(5,5,6,.94); border-bottom:1px solid #202024; backdrop-filter:blur(16px); }\n" +
   "\n" +
-  "    .nav-pill {\n" +
-  "      display: flex; align-items: center; justify-content: space-between;\n" +
-  "      width: 100%; height: 64px; padding: 0 8px 0 16px;\n" +
-  "      border-radius: 999px; background: rgba(255,255,255,.28);\n" +
-  "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
-  "      border: 1px solid rgba(8,10,18,.09); box-shadow: 0 8px 32px rgba(20,30,55,.08);\n" +
-  "    }\n" +
+  "    .nav-pill { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; height:64px; padding:0 8px 0 16px; border-radius:0; background:transparent; border:0; box-shadow:none; backdrop-filter:none; }\n" +
   "\n" +
   "    .brand {\n" +
   "      flex-shrink: 0; display: grid; place-items: center;\n" +
@@ -3827,9 +3820,9 @@ const ROOT_PAGE =
   "    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }\n" +
   "    .nav-link { font-size:14px; font-weight:600; color:rgba(7,8,11,.62); transition:color .2s ease; }\n" +
   "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
-  "    body.scrolled .nav-pill{background:rgba(10,10,12,.86);border-color:rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.35)}\n" +
   "    body.scrolled .nav-link{color:#a6a6ae}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
-  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:rgba(15,15,17,.75)}\n" +
+  "    body.scrolled .sign-in{background:#fff;color:#050505}\n" +
+  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:transparent}\n" +
   "\n" +
   "    .sign-in {\n" +
   "      display: inline-flex; align-items: center; justify-content: center;\n" +
@@ -4044,11 +4037,11 @@ const ROOT_PAGE =
   "\n" +
   "    /* ===== Mobile Responsive ===== */\n" +
   "    @media (max-width:900px){\n" +
-  "      .site-header{justify-content:space-between;padding:8px 0}\n" +
+  "      .site-header{justify-content:space-between;padding:7px 20px}\n" +
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
   "      .brand{width:42px;height:42px;background:#08090b;box-shadow:none}.brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
-  "      .nav-links,.sign-in{display:none}.burger{display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
-  "      .hero-stage{min-height:100svh;padding-left:22px;padding-right:22px}.hero{padding-top:clamp(70px,14vh,130px);padding-bottom:clamp(42px,9vh,90px)}\n" +
+  "      .nav-links,.sign-in{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
+  "      .hero-stage{min-height:calc(100svh - 66px);padding-left:22px;padding-right:22px}.hero{padding-top:clamp(58px,11vh,100px);padding-bottom:clamp(36px,7vh,72px)}\n" +
   "      .headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
   "    @media(max-width:720px){\n" +
@@ -4059,7 +4052,7 @@ const ROOT_PAGE =
   "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
   "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
-  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1}}\n" +
+  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}}\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
@@ -4073,9 +4066,8 @@ const ROOT_PAGE =
   "  </div>\n" +
   "\n" +
   "  <div class=\"page\">\n" +
-  "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Header -->\n" +
-  "    <header class=\"site-header pop-element\">\n" +
+  "    <header class=\"site-header\">\n" +
   "      <div class=\"nav-pill\">\n" +
   "        <a href=\"/\" class=\"brand\" aria-label=\"Home\">\n" +
   "          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 60%; height: 60%;\">\n" +
@@ -4098,6 +4090,7 @@ const ROOT_PAGE =
   "      </button>\n" +
   "    </header>\n" +
   "\n" +
+  "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Hero -->\n" +
   "    <main class=\"hero\">\n" +
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
@@ -4107,8 +4100,8 @@ const ROOT_PAGE =
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Explore ScriptHub</a>\n" +
-  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn more</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn More</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
@@ -4489,24 +4482,17 @@ const HUB_PAGE =
   "\n" +
   "    /* ===== Page Layout ===== */\n" +
   "    .page { position:relative; z-index:3; width:100%; display:flex; flex-direction:column; align-items:stretch; padding-bottom:0; }\n" +
-  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:100svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 32px; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
-  "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
-  "    .hero-stage > * { width:min(100%,1200px); }\n" +
+  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:calc(100svh - 92px); display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) clamp(110px,16vh,180px); overflow:hidden; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
+  "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
+  "    .hero-stage::after { content:\"\"; position:absolute; z-index:0; left:0; right:0; bottom:0; height:clamp(170px,22vh,260px); background:linear-gradient(180deg,rgba(5,5,5,0),#050505); pointer-events:none; }\n" +
+  "    .hero-stage > * { position:relative; z-index:1; width:min(100%,1200px); }\n" +
   "\n" +
   "    /* ===== Header ===== */\n" +
-  "    .site-header {\n" +
-  "      width: 100%; max-width: 1200px;\n" +
-  "      display: flex; align-items: center; justify-content: center;\n" +
-  "      position:fixed; top:0; left:0; right:0; z-index:50; margin:0 auto; padding:14px clamp(16px,4vw,42px);\n" +
-  "    }\n" +
+  "    .site-header { position:sticky; top:0; z-index:50; width:min(100%,1200px); margin:0 auto; padding:12px clamp(16px,4vw,42px); display:flex; align-items:center; justify-content:center; }\n" +
+  "    .site-header::before { content:\"\"; position:absolute; z-index:0; top:0; bottom:0; left:calc(50% - 50vw); right:calc(50% - 50vw); background:transparent; transition:background .2s ease; pointer-events:none; }\n" +
+  "    body.scrolled .site-header::before { background:rgba(5,5,6,.94); border-bottom:1px solid #202024; backdrop-filter:blur(16px); }\n" +
   "\n" +
-  "    .nav-pill {\n" +
-  "      display: flex; align-items: center; justify-content: space-between;\n" +
-  "      width: 100%; height: 64px; padding: 0 8px 0 16px;\n" +
-  "      border-radius: 999px; background: rgba(255,255,255,.28);\n" +
-  "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
-  "      border: 1px solid rgba(8,10,18,.09); box-shadow: 0 8px 32px rgba(20,30,55,.08);\n" +
-  "    }\n" +
+  "    .nav-pill { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; height:64px; padding:0 8px 0 16px; border-radius:0; background:transparent; border:0; box-shadow:none; backdrop-filter:none; }\n" +
   "\n" +
   "    .brand {\n" +
   "      flex-shrink: 0; display: grid; place-items: center;\n" +
@@ -4522,9 +4508,9 @@ const HUB_PAGE =
   "    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }\n" +
   "    .nav-link { font-size:14px; font-weight:600; color:rgba(7,8,11,.62); transition:color .2s ease; }\n" +
   "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
-  "    body.scrolled .nav-pill{background:rgba(10,10,12,.86);border-color:rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.35)}\n" +
   "    body.scrolled .nav-link{color:#a6a6ae}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
-  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:rgba(15,15,17,.75)}\n" +
+  "    body.scrolled .sign-in{background:#fff;color:#050505}\n" +
+  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:transparent}\n" +
   "\n" +
   "    .sign-in {\n" +
   "      display: inline-flex; align-items: center; justify-content: center;\n" +
@@ -4739,11 +4725,11 @@ const HUB_PAGE =
   "\n" +
   "    /* ===== Mobile Responsive ===== */\n" +
   "    @media (max-width:900px){\n" +
-  "      .site-header{justify-content:space-between;padding:8px 0}\n" +
+  "      .site-header{justify-content:space-between;padding:7px 20px}\n" +
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
   "      .brand{width:42px;height:42px;background:#08090b;box-shadow:none}.brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
-  "      .nav-links,.sign-in{display:none}.burger{display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
-  "      .hero-stage{min-height:100svh;padding-left:22px;padding-right:22px}.hero{padding-top:clamp(70px,14vh,130px);padding-bottom:clamp(42px,9vh,90px)}\n" +
+  "      .nav-links,.sign-in{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
+  "      .hero-stage{min-height:calc(100svh - 66px);padding-left:22px;padding-right:22px}.hero{padding-top:clamp(58px,11vh,100px);padding-bottom:clamp(36px,7vh,72px)}\n" +
   "      .headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
   "    @media(max-width:720px){\n" +
@@ -4754,7 +4740,7 @@ const HUB_PAGE =
   "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
   "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
-  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1}}\n" +
+  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}}\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
@@ -4768,9 +4754,8 @@ const HUB_PAGE =
   "  </div>\n" +
   "\n" +
   "  <div class=\"page\">\n" +
-  "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Header -->\n" +
-  "    <header class=\"site-header pop-element\">\n" +
+  "    <header class=\"site-header\">\n" +
   "      <div class=\"nav-pill\">\n" +
   "        <a href=\"/\" class=\"brand\" aria-label=\"Home\">\n" +
   "          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 60%; height: 60%;\">\n" +
@@ -4793,6 +4778,7 @@ const HUB_PAGE =
   "      </button>\n" +
   "    </header>\n" +
   "\n" +
+  "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Hero -->\n" +
   "    <main class=\"hero\">\n" +
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
@@ -4802,8 +4788,8 @@ const HUB_PAGE =
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Explore ScriptHub</a>\n" +
-  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn more</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn More</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
