@@ -3978,22 +3978,21 @@ const ROOT_PAGE =
   "    .product-section{padding-top:100px}\n" +
   "    .product-window{margin-top:48px;padding:14px;border:1px solid #2a2a2e;border-radius:26px;background:linear-gradient(145deg,#151517,#09090a);box-shadow:0 35px 100px rgba(0,0,0,.55);opacity:0;transform:translateY(90px) scale(.96);transition:opacity .9s ease .18s,transform 1s cubic-bezier(.2,.7,.2,1) .18s;will-change:opacity,transform}\n" +
   "    .product-section.is-visible .product-window{opacity:1;transform:translateY(0) scale(1)}\n" +
-  "    .window-bar{height:42px;display:flex;align-items:center;gap:8px;padding:0 8px 12px;color:#777;font-size:11px}\n" +
-  "    .window-dot{width:10px;height:10px;border-radius:50%;background:#444}.window-dot:first-child{background:#f06c70}.window-dot:nth-child(2){background:#e9bd55}.window-dot:nth-child(3){background:#50c878}\n" +
-  "    .window-status{margin-left:10px;padding:5px 11px;border-radius:999px;background:#153c2a;color:#73e6a1;font-weight:700}\n" +
-  "    .window-name{margin-left:auto;color:#b9b9c0;font-weight:600}\n" +
-  "    .window-content{min-height:320px;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #232327;border-radius:19px;background:#0b0b0d;opacity:0;transform:translateY(42px);transition:opacity .8s ease .38s,transform .85s cubic-bezier(.2,.7,.2,1) .38s}\n" +
+  "    .window-bar{height:64px;display:flex;align-items:center;gap:10px;padding:0 10px 12px;color:#aaa6b2;font-size:11px}\n" +
+  "    .window-dot{width:10px;height:10px;flex:none;border-radius:50%;background:#444}.window-dot:first-child{background:#f06c70}.window-dot:nth-child(2){background:#e9bd55}.window-dot:nth-child(3){background:#50c878}\n" +
+  "    .window-app-icon{width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:9px;background:linear-gradient(145deg,#f4f4f7,#b9bac4);color:#17121d;font-weight:850;font-size:16px}\n" +
+  "    .window-project{min-width:0;color:#f6f4fa;font-size:12px;font-weight:750;line-height:1.2}.window-project small{display:block;margin-top:4px;color:#a5a0ac;font-size:10px;font-weight:500}\n" +
+  "    .window-status{flex:none;margin-left:6px;padding:6px 11px;border-radius:999px;background:#15b9e7;color:#07131a;font-size:10px;font-weight:800}\n" +
+  "    .window-controls{margin-left:auto;display:flex;gap:17px;color:#d9d5df;font-size:17px}\n" +
+  "    .window-content{min-height:420px;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #34283e;border-radius:19px;background:rgba(24,15,31,.96);opacity:0;transform:translateY(42px);transition:opacity .8s ease .38s,transform .85s cubic-bezier(.2,.7,.2,1) .38s}\n" +
   "    .product-section.is-visible .window-content{opacity:1;transform:translateY(0)}\n" +
-  "    .window-sidebar{padding:20px 13px;border-right:1px solid #242428;background:#09090a}\n" +
-  "    .window-brand{display:flex;align-items:center;gap:10px;margin:0 0 20px;font-size:14px;font-weight:700}\n" +
-  "    .window-logo{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:#f5f5f5;color:#111;font-weight:800}\n" +
-  "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#92929a;font-size:12px}.window-nav span:first-child{background:#1b1b1e;color:#fff}\n" +
-  "    .window-main{padding:clamp(18px,4vw,38px)}\n" +
-  "    .window-main h3{font-size:clamp(19px,3vw,28px);letter-spacing:-.04em}.window-main p{margin:8px 0 24px;color:#92929a;font-size:13px}\n" +
-  "    .window-feature{max-width:570px;padding:21px;border:1px solid #2d2d33;border-radius:18px;background:linear-gradient(135deg,#1b1b20,#111114)}\n" +
-  "    .window-feature-top{display:flex;gap:14px;align-items:center}.window-app-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:13px;background:#f4f4f5;color:#0a0a0b;font-weight:800;font-size:20px}\n" +
-  "    .window-feature strong{display:block;font-size:15px}.window-feature small{display:block;margin-top:4px;color:#96969e;font-size:12px}\n" +
-  "    .window-feature-action{margin-top:18px;padding:12px;border-radius:11px;background:#202025;color:#f5f5f6;text-align:center;font-size:12px;font-weight:650}\n" +
+  "    .window-sidebar{display:flex;flex-direction:column;padding:20px 12px;border-right:1px solid #382a42;background:rgba(19,12,25,.88)}\n" +
+  "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#b5afbf;font-size:12px}.window-nav span.active{background:#34213f;color:#fff}\n" +
+  "    .window-profile{display:flex;align-items:center;gap:10px;margin-top:auto;padding:12px 4px 2px;color:#f4f1f8;font-size:12px;font-weight:700}.window-avatar{width:38px;height:38px;display:grid;place-items:center;flex:none;border-radius:50%;background:linear-gradient(145deg,#f1ccbd,#87675f);color:#21161a;font-size:17px}.window-profile small{display:block;margin-top:3px;color:#9b95a2;font-size:10px;font-weight:500}\n" +
+  "    .window-main{padding:18px;display:flex;flex-direction:column;gap:9px}\n" +
+  "    .script-option{min-height:68px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(255,255,255,.035);border-radius:17px;background:linear-gradient(100deg,rgba(60,53,68,.9),rgba(48,42,56,.9));color:#f5f3f8}\n" +
+  "    .script-option strong{display:block;font-size:14px;font-weight:700;line-height:1.2}.script-option p{margin:5px 0 0;color:#c2bdc9;font-size:12px;line-height:1.35}\n" +
+  "    .script-toggle{width:54px;height:32px;flex:none;padding:4px;display:flex;justify-content:flex-end;align-items:center;border-radius:999px;background:#a32be8;box-shadow:0 0 0 1px rgba(255,255,255,.13),0 2px 9px rgba(163,43,232,.3)}.script-toggle i{width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0005}\n" +
   "    .trust-ring{width:220px;height:220px;margin:72px auto 0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease .48s,transform .9s cubic-bezier(.2,.7,.2,1) .48s}\n" +
   "    .product-section.is-visible .trust-ring{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring strong{font-size:48px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
@@ -4050,12 +4049,12 @@ const ROOT_PAGE =
   "    @media(max-width:720px){\n" +
   "      .feature-grid,.home-script-grid{grid-template-columns:1fr}\n" +
   "      .feature-card{min-height:260px}.home-script-grid{gap:28px}\n" +
-  "      .window-content{grid-template-columns:1fr}.window-sidebar{display:none}.window-main{padding:20px}\n" +
-  "      .window-status{margin-left:6px}.window-name{font-size:10px}.section-title-row{align-items:flex-start;flex-direction:column}.section-link{padding:0}\n" +
+  "      .window-content{grid-template-columns:116px minmax(0,1fr);min-height:380px}.window-sidebar{padding:14px 7px}.window-main{padding:10px;gap:7px}.window-bar{gap:7px;padding-left:4px;padding-right:4px}.window-project{font-size:10px}.window-project small{font-size:9px}.window-status{margin-left:2px;padding:5px 7px;font-size:9px}.window-controls{display:none}.window-nav{gap:5px}.window-nav span{padding:8px 6px;font-size:10px}.window-profile{gap:6px;font-size:10px}.window-avatar{width:29px;height:29px}.script-option{min-height:62px;padding:9px 10px;border-radius:13px;gap:8px}.script-option strong{font-size:12px}.script-option p{font-size:10px}.script-toggle{width:42px;height:26px}.script-toggle i{width:18px;height:18px}\n" +
+  "      .section-title-row{align-items:flex-start;flex-direction:column}.section-link{padding:0}\n" +
   "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
   "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
-  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}}\n" +
+  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}.product-window{padding:8px;border-radius:19px}.window-content{grid-template-columns:92px minmax(0,1fr);min-height:350px}.window-sidebar{padding:12px 5px}.window-nav span{padding:8px 5px;font-size:9px}.window-profile{font-size:9px;gap:4px}.window-profile small{display:none}.window-avatar{width:24px;height:24px;font-size:12px}.window-main{padding:7px;gap:6px}.script-option{min-height:59px;padding:7px 8px;gap:6px;border-radius:11px}.script-option strong{font-size:10px}.script-option p{font-size:9px;line-height:1.25}.script-toggle{width:34px;height:22px;padding:3px}.script-toggle i{width:16px;height:16px}.window-bar{height:56px}.window-app-icon{width:25px;height:25px;font-size:13px}}\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring{opacity:1;transform:none}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
@@ -4124,10 +4123,16 @@ const ROOT_PAGE =
   "        <h2 class=\"section-heading\">Your Roblox scripts, in one place.</h2>\n" +
   "        <p class=\"section-copy\">999MS brings a protected loader and a growing script catalog together in a focused, easy-to-use experience.</p>\n" +
   "        <div class=\"product-window\" aria-label=\"Illustration of the 999MS workspace\">\n" +
-  "          <div class=\"window-bar\"><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-status\">\u25cf Status: Ready</span><span class=\"window-name\">999MS Workspace</span></div>\n" +
-  "          <div class=\"window-content\">\n" +
-  "            <aside class=\"window-sidebar\"><div class=\"window-brand\"><span class=\"window-logo\">9</span><span>999MS</span></div><nav class=\"window-nav\"><span>\u25a6 &nbsp; Script library</span><span>\u25c7 &nbsp; Loader</span><span>\u2699 &nbsp; Settings</span><span>\u25c9 &nbsp; Community</span></nav></aside>\n" +
-  "            <div class=\"window-main\"><h3>Welcome to 999MS</h3><p>Find a script for your next Roblox session.</p><div class=\"window-feature\"><div class=\"window-feature-top\"><span class=\"window-app-icon\">9</span><div><strong>999MS ScriptHub</strong><small>Browse community scripts and supported experiences.</small></div></div><div class=\"window-feature-action\">Explore the script library&nbsp; \u2192</div></div></div>\n" +
+  "          <div class=\"window-bar\"><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-app-icon\">9</span><span class=\"window-project\">999MS HUB [ Prison life ]<small>Made by 999MS</small></span><span class=\"window-status\">v1.0.0</span><span class=\"window-controls\" aria-hidden=\"true\">\u2212 &nbsp; \u26f6 &nbsp; \u00d7</span></div>\n" +
+  "          <div class=\"window-content\" aria-label=\"Static preview of the 999MS script interface\">\n" +
+  "            <aside class=\"window-sidebar\"><nav class=\"window-nav\"><span>\u2637 &nbsp; MAIN</span><span class=\"active\">\u25c9 &nbsp; AIMBOT</span><span>\u25ce &nbsp; ESP</span><span>\u2667 &nbsp; Body</span><span>\u2699 &nbsp; MISC</span><span>\u2699 &nbsp; SETTINGS</span></nav><div class=\"window-profile\"><span class=\"window-avatar\">9</span><span>999MS<small>Community script</small></span></div></aside>\n" +
+  "            <div class=\"window-main\">\n" +
+  "              <div class=\"script-option\"><div><strong>Silent Aim</strong><p>Redirects your bullets to hit the closest target.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>Auto Shoot</strong><p>Automatically fires when a target is in your FOV.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>WallCheck</strong><p>Only locks onto targets you can actually see.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>Show Damage</strong><p>Shows floating damage numbers when you hit someone.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>Hit Sound</strong><p>Plays a sound effect when you hit a target.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "            </div>\n" +
   "          </div>\n" +
   "        </div>\n" +
   "        <div class=\"trust-ring\" aria-label=\"SHA-256 verified loader stages\"><strong>SHA</strong><span>VERIFIED</span></div>\n" +
@@ -4669,22 +4674,21 @@ const HUB_PAGE =
   "    .product-section{padding-top:100px}\n" +
   "    .product-window{margin-top:48px;padding:14px;border:1px solid #2a2a2e;border-radius:26px;background:linear-gradient(145deg,#151517,#09090a);box-shadow:0 35px 100px rgba(0,0,0,.55);opacity:0;transform:translateY(90px) scale(.96);transition:opacity .9s ease .18s,transform 1s cubic-bezier(.2,.7,.2,1) .18s;will-change:opacity,transform}\n" +
   "    .product-section.is-visible .product-window{opacity:1;transform:translateY(0) scale(1)}\n" +
-  "    .window-bar{height:42px;display:flex;align-items:center;gap:8px;padding:0 8px 12px;color:#777;font-size:11px}\n" +
-  "    .window-dot{width:10px;height:10px;border-radius:50%;background:#444}.window-dot:first-child{background:#f06c70}.window-dot:nth-child(2){background:#e9bd55}.window-dot:nth-child(3){background:#50c878}\n" +
-  "    .window-status{margin-left:10px;padding:5px 11px;border-radius:999px;background:#153c2a;color:#73e6a1;font-weight:700}\n" +
-  "    .window-name{margin-left:auto;color:#b9b9c0;font-weight:600}\n" +
-  "    .window-content{min-height:320px;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #232327;border-radius:19px;background:#0b0b0d;opacity:0;transform:translateY(42px);transition:opacity .8s ease .38s,transform .85s cubic-bezier(.2,.7,.2,1) .38s}\n" +
+  "    .window-bar{height:64px;display:flex;align-items:center;gap:10px;padding:0 10px 12px;color:#aaa6b2;font-size:11px}\n" +
+  "    .window-dot{width:10px;height:10px;flex:none;border-radius:50%;background:#444}.window-dot:first-child{background:#f06c70}.window-dot:nth-child(2){background:#e9bd55}.window-dot:nth-child(3){background:#50c878}\n" +
+  "    .window-app-icon{width:30px;height:30px;flex:none;display:grid;place-items:center;border-radius:9px;background:linear-gradient(145deg,#f4f4f7,#b9bac4);color:#17121d;font-weight:850;font-size:16px}\n" +
+  "    .window-project{min-width:0;color:#f6f4fa;font-size:12px;font-weight:750;line-height:1.2}.window-project small{display:block;margin-top:4px;color:#a5a0ac;font-size:10px;font-weight:500}\n" +
+  "    .window-status{flex:none;margin-left:6px;padding:6px 11px;border-radius:999px;background:#15b9e7;color:#07131a;font-size:10px;font-weight:800}\n" +
+  "    .window-controls{margin-left:auto;display:flex;gap:17px;color:#d9d5df;font-size:17px}\n" +
+  "    .window-content{min-height:420px;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #34283e;border-radius:19px;background:rgba(24,15,31,.96);opacity:0;transform:translateY(42px);transition:opacity .8s ease .38s,transform .85s cubic-bezier(.2,.7,.2,1) .38s}\n" +
   "    .product-section.is-visible .window-content{opacity:1;transform:translateY(0)}\n" +
-  "    .window-sidebar{padding:20px 13px;border-right:1px solid #242428;background:#09090a}\n" +
-  "    .window-brand{display:flex;align-items:center;gap:10px;margin:0 0 20px;font-size:14px;font-weight:700}\n" +
-  "    .window-logo{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:#f5f5f5;color:#111;font-weight:800}\n" +
-  "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#92929a;font-size:12px}.window-nav span:first-child{background:#1b1b1e;color:#fff}\n" +
-  "    .window-main{padding:clamp(18px,4vw,38px)}\n" +
-  "    .window-main h3{font-size:clamp(19px,3vw,28px);letter-spacing:-.04em}.window-main p{margin:8px 0 24px;color:#92929a;font-size:13px}\n" +
-  "    .window-feature{max-width:570px;padding:21px;border:1px solid #2d2d33;border-radius:18px;background:linear-gradient(135deg,#1b1b20,#111114)}\n" +
-  "    .window-feature-top{display:flex;gap:14px;align-items:center}.window-app-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:13px;background:#f4f4f5;color:#0a0a0b;font-weight:800;font-size:20px}\n" +
-  "    .window-feature strong{display:block;font-size:15px}.window-feature small{display:block;margin-top:4px;color:#96969e;font-size:12px}\n" +
-  "    .window-feature-action{margin-top:18px;padding:12px;border-radius:11px;background:#202025;color:#f5f5f6;text-align:center;font-size:12px;font-weight:650}\n" +
+  "    .window-sidebar{display:flex;flex-direction:column;padding:20px 12px;border-right:1px solid #382a42;background:rgba(19,12,25,.88)}\n" +
+  "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#b5afbf;font-size:12px}.window-nav span.active{background:#34213f;color:#fff}\n" +
+  "    .window-profile{display:flex;align-items:center;gap:10px;margin-top:auto;padding:12px 4px 2px;color:#f4f1f8;font-size:12px;font-weight:700}.window-avatar{width:38px;height:38px;display:grid;place-items:center;flex:none;border-radius:50%;background:linear-gradient(145deg,#f1ccbd,#87675f);color:#21161a;font-size:17px}.window-profile small{display:block;margin-top:3px;color:#9b95a2;font-size:10px;font-weight:500}\n" +
+  "    .window-main{padding:18px;display:flex;flex-direction:column;gap:9px}\n" +
+  "    .script-option{min-height:68px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid rgba(255,255,255,.035);border-radius:17px;background:linear-gradient(100deg,rgba(60,53,68,.9),rgba(48,42,56,.9));color:#f5f3f8}\n" +
+  "    .script-option strong{display:block;font-size:14px;font-weight:700;line-height:1.2}.script-option p{margin:5px 0 0;color:#c2bdc9;font-size:12px;line-height:1.35}\n" +
+  "    .script-toggle{width:54px;height:32px;flex:none;padding:4px;display:flex;justify-content:flex-end;align-items:center;border-radius:999px;background:#a32be8;box-shadow:0 0 0 1px rgba(255,255,255,.13),0 2px 9px rgba(163,43,232,.3)}.script-toggle i{width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px #0005}\n" +
   "    .trust-ring{width:220px;height:220px;margin:72px auto 0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease .48s,transform .9s cubic-bezier(.2,.7,.2,1) .48s}\n" +
   "    .product-section.is-visible .trust-ring{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring strong{font-size:48px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
@@ -4741,12 +4745,12 @@ const HUB_PAGE =
   "    @media(max-width:720px){\n" +
   "      .feature-grid,.home-script-grid{grid-template-columns:1fr}\n" +
   "      .feature-card{min-height:260px}.home-script-grid{gap:28px}\n" +
-  "      .window-content{grid-template-columns:1fr}.window-sidebar{display:none}.window-main{padding:20px}\n" +
-  "      .window-status{margin-left:6px}.window-name{font-size:10px}.section-title-row{align-items:flex-start;flex-direction:column}.section-link{padding:0}\n" +
+  "      .window-content{grid-template-columns:116px minmax(0,1fr);min-height:380px}.window-sidebar{padding:14px 7px}.window-main{padding:10px;gap:7px}.window-bar{gap:7px;padding-left:4px;padding-right:4px}.window-project{font-size:10px}.window-project small{font-size:9px}.window-status{margin-left:2px;padding:5px 7px;font-size:9px}.window-controls{display:none}.window-nav{gap:5px}.window-nav span{padding:8px 6px;font-size:10px}.window-profile{gap:6px;font-size:10px}.window-avatar{width:29px;height:29px}.script-option{min-height:62px;padding:9px 10px;border-radius:13px;gap:8px}.script-option strong{font-size:12px}.script-option p{font-size:10px}.script-toggle{width:42px;height:26px}.script-toggle i{width:18px;height:18px}\n" +
+  "      .section-title-row{align-items:flex-start;flex-direction:column}.section-link{padding:0}\n" +
   "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
   "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
-  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}}\n" +
+  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1;padding:14px 10px;font-size:14px;white-space:nowrap}.product-window{padding:8px;border-radius:19px}.window-content{grid-template-columns:92px minmax(0,1fr);min-height:350px}.window-sidebar{padding:12px 5px}.window-nav span{padding:8px 5px;font-size:9px}.window-profile{font-size:9px;gap:4px}.window-profile small{display:none}.window-avatar{width:24px;height:24px;font-size:12px}.window-main{padding:7px;gap:6px}.script-option{min-height:59px;padding:7px 8px;gap:6px;border-radius:11px}.script-option strong{font-size:10px}.script-option p{font-size:9px;line-height:1.25}.script-toggle{width:34px;height:22px;padding:3px}.script-toggle i{width:16px;height:16px}.window-bar{height:56px}.window-app-icon{width:25px;height:25px;font-size:13px}}\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring{opacity:1;transform:none}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
@@ -4815,10 +4819,16 @@ const HUB_PAGE =
   "        <h2 class=\"section-heading\">Your Roblox scripts, in one place.</h2>\n" +
   "        <p class=\"section-copy\">999MS brings a protected loader and a growing script catalog together in a focused, easy-to-use experience.</p>\n" +
   "        <div class=\"product-window\" aria-label=\"Illustration of the 999MS workspace\">\n" +
-  "          <div class=\"window-bar\"><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-status\">\u25cf Status: Ready</span><span class=\"window-name\">999MS Workspace</span></div>\n" +
-  "          <div class=\"window-content\">\n" +
-  "            <aside class=\"window-sidebar\"><div class=\"window-brand\"><span class=\"window-logo\">9</span><span>999MS</span></div><nav class=\"window-nav\"><span>\u25a6 &nbsp; Script library</span><span>\u25c7 &nbsp; Loader</span><span>\u2699 &nbsp; Settings</span><span>\u25c9 &nbsp; Community</span></nav></aside>\n" +
-  "            <div class=\"window-main\"><h3>Welcome to 999MS</h3><p>Find a script for your next Roblox session.</p><div class=\"window-feature\"><div class=\"window-feature-top\"><span class=\"window-app-icon\">9</span><div><strong>999MS ScriptHub</strong><small>Browse community scripts and supported experiences.</small></div></div><div class=\"window-feature-action\">Explore the script library&nbsp; \u2192</div></div></div>\n" +
+  "          <div class=\"window-bar\"><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-app-icon\">9</span><span class=\"window-project\">999MS HUB [ Prison life ]<small>Made by 999MS</small></span><span class=\"window-status\">v1.0.0</span><span class=\"window-controls\" aria-hidden=\"true\">\u2212 &nbsp; \u26f6 &nbsp; \u00d7</span></div>\n" +
+  "          <div class=\"window-content\" aria-label=\"Static preview of the 999MS script interface\">\n" +
+  "            <aside class=\"window-sidebar\"><nav class=\"window-nav\"><span>\u2637 &nbsp; MAIN</span><span class=\"active\">\u25c9 &nbsp; AIMBOT</span><span>\u25ce &nbsp; ESP</span><span>\u2667 &nbsp; Body</span><span>\u2699 &nbsp; MISC</span><span>\u2699 &nbsp; SETTINGS</span></nav><div class=\"window-profile\"><span class=\"window-avatar\">9</span><span>999MS<small>Community script</small></span></div></aside>\n" +
+  "            <div class=\"window-main\">\n" +
+  "              <div class=\"script-option\"><div><strong>Silent Aim</strong><p>Redirects your bullets to hit the closest target.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>Auto Shoot</strong><p>Automatically fires when a target is in your FOV.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>WallCheck</strong><p>Only locks onto targets you can actually see.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>Show Damage</strong><p>Shows floating damage numbers when you hit someone.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "              <div class=\"script-option\"><div><strong>Hit Sound</strong><p>Plays a sound effect when you hit a target.</p></div><span class=\"script-toggle\" aria-hidden=\"true\"><i></i></span></div>\n" +
+  "            </div>\n" +
   "          </div>\n" +
   "        </div>\n" +
   "        <div class=\"trust-ring\" aria-label=\"SHA-256 verified loader stages\"><strong>SHA</strong><span>VERIFIED</span></div>\n" +
