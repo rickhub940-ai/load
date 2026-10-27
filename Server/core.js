@@ -14,6 +14,209 @@ const EMBEDDED_PAGES = {
   // Pages are appended below from pages/ by scripts/embed-page.js (`npm run pages`).
 };
 
+// BEGIN PAGE /scripts - generated from pages/scripts.html; run `npm run pages` to refresh.
+const SCRIPTS_PAGE =
+  "<!doctype html>\n" +
+  "<html lang=\"en\">\n" +
+  "<head>\n" +
+  "  <meta charset=\"utf-8\" />\n" +
+  "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n" +
+  "  <meta name=\"theme-color\" content=\"#050505\" />\n" +
+  "  <meta name=\"description\" content=\"Browse the 999MS script library.\" />\n" +
+  "  <title>Script list \u2014 999MS</title>\n" +
+  "  <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" />\n" +
+  "  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n" +
+  "  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700;750;800&display=swap\" rel=\"stylesheet\" />\n" +
+  "  <style>\n" +
+  "    :root{color-scheme:dark;--bg:#050505;--panel:#0a0a0c;--line:#202024;--muted:#85858e;--soft:#b5b5bd;--white:#f7f7f8;--accent:#ededf0;--blue:#39aafa;--max:1180px}\n" +
+  "    *,*::before,*::after{box-sizing:border-box}\n" +
+  "    html{background:var(--bg);scroll-behavior:smooth}\n" +
+  "    body{margin:0;background:var(--bg);color:var(--white);font:400 16px/1.5 Inter,system-ui,-apple-system,\"Segoe UI\",sans-serif;-webkit-font-smoothing:antialiased}\n" +
+  "    body.lock{overflow:hidden}\n" +
+  "    a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inherit}\n" +
+  "    .topbar{height:78px;position:sticky;top:0;z-index:20;background:rgba(5,5,5,.94);border-bottom:1px solid #1a1a1c;backdrop-filter:blur(16px)}\n" +
+  "    .nav{width:min(var(--max),100%);height:100%;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between}\n" +
+  "    .brand{display:flex;align-items:center;gap:11px;font-size:18px;font-weight:750;letter-spacing:-.045em}\n" +
+  "    .brand-mark{width:38px;height:30px;display:grid;place-items:center;color:#050505;background:#f6f6f6;border-radius:9px;font-size:16px;font-weight:800;letter-spacing:-.1em;transform:skew(-8deg)}\n" +
+  "    .brand-name{color:#f7f7f8}.brand-name span{color:#888}\n" +
+  "    .nav-actions{display:flex;align-items:center;gap:28px}\n" +
+  "    .nav-link{font-size:14px;color:#a6a6ae;transition:color .18s ease}.nav-link:hover,.nav-link.active{color:#fff}\n" +
+  "    .nav-cta{height:40px;padding:0 17px;border:1px solid #303035;border-radius:999px;background:#f4f4f4;color:#080808;font-size:13px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;transition:transform .18s ease,background .18s ease}\n" +
+  "    .nav-cta:hover{transform:translateY(-1px);background:#fff}\n" +
+  "    .menu-btn{width:42px;height:42px;border:1px solid #252529;border-radius:50%;background:#0d0d0f;display:none;align-items:center;justify-content:center;cursor:pointer}\n" +
+  "    .menu-btn svg{width:19px;height:19px}\n" +
+  "    .mobile-menu{display:none}\n" +
+  "    main{width:min(var(--max),100%);margin:0 auto;padding:52px 24px 96px}\n" +
+  "    .intro{padding:0 0 34px;border-bottom:1px solid var(--line)}\n" +
+  "    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 17px;color:#9999a1;text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:700}\n" +
+  "    .eyebrow-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px rgba(165,243,107,.45)}\n" +
+  "    h1{margin:0;font-size:clamp(36px,6.3vw,64px);line-height:1.06;font-weight:750;letter-spacing:-.065em}\n" +
+  "    .subtitle{margin:17px 0 0;color:#85858e;font-size:clamp(15px,2vw,19px);letter-spacing:-.02em}\n" +
+  "    .list-tools{margin-top:27px;display:flex;align-items:center;justify-content:space-between;gap:16px}\n" +
+  "    .count-pill{min-height:42px;padding:0 16px;display:inline-flex;align-items:center;gap:8px;border:1px solid #252529;border-radius:999px;background:#09090b;color:#a2a2aa;font-size:13px;white-space:nowrap}\n" +
+  "    .count-pill strong{color:#f2f2f4;font-weight:650}\n" +
+  "    .search{width:min(310px,46vw);height:42px;padding:0 13px;display:flex;align-items:center;gap:9px;border:1px solid #252529;border-radius:999px;background:#09090b;transition:border-color .18s ease}\n" +
+  "    .search:focus-within{border-color:#55555f}\n" +
+  "    .search svg{width:16px;height:16px;color:#73737c;flex:none}\n" +
+  "    .search input{width:100%;min-width:0;border:0;outline:0;background:transparent;color:#f2f2f4;font-size:13px}\n" +
+  "    .search input::placeholder{color:#6e6e76}\n" +
+  "    .section-label{display:flex;align-items:center;justify-content:space-between;margin:28px 0 20px;color:#a6a6ae;font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}\n" +
+  "    .section-label .sort-note{color:#66666e;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none}\n" +
+  "    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 24px}\n" +
+  "    .script-card{min-width:0;cursor:pointer;outline:none;transition:transform .2s ease}\n" +
+  "    .script-card:hover{transform:translateY(-3px)}\n" +
+  "    .script-card:focus-visible .cover{outline:2px solid #f5f5f5;outline-offset:3px}\n" +
+  "    .cover{position:relative;aspect-ratio:1.78/1;overflow:hidden;border:1px solid #27272c;border-radius:23px;background:radial-gradient(ellipse at 72% 30%,rgba(255,255,255,.2),transparent 37%),linear-gradient(135deg,#1c1c20,#111116 48%,#242428);isolation:isolate}.cover.has-image .cover-placeholder{display:none}\n" +
+  "    .cover::before,.cover::after{content:\"\";position:absolute;z-index:1;pointer-events:none}\n" +
+  "    .cover::before{width:43%;aspect-ratio:1;border-radius:50%;right:11%;top:11%;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(165,243,107,.08));filter:blur(1px);box-shadow:0 25px 70px rgba(0,0,0,.3)}\n" +
+  "    .cover::after{inset:0;background:linear-gradient(180deg,transparent 33%,rgba(0,0,0,.74) 100%)}\n" +
+  "    .cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transition:transform .4s ease}\n" +
+  "    .script-card:hover .cover img{transform:scale(1.035)}\n" +
+  "    .cover-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.86);font-size:clamp(60px,10vw,130px);font-weight:800;letter-spacing:-.12em;text-shadow:0 6px 30px rgba(0,0,0,.4);z-index:0}\n" +
+  "    .cover-flag{position:absolute;left:16px;top:16px;z-index:2;padding:7px 12px;border:1px solid rgba(255,255,255,.16);border-radius:999px;background:rgba(7,7,9,.76);backdrop-filter:blur(10px);font-size:11px;font-weight:700;color:#ededf0}\n" +
+  "    .cover-title{position:absolute;left:20px;right:20px;bottom:16px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}\n" +
+  "    .cover-title strong{max-width:82%;font-size:clamp(17px,2.3vw,25px);line-height:1.12;font-weight:750;letter-spacing:-.05em;text-shadow:0 2px 12px #000}\n" +
+  "    .cover-arrow{width:34px;height:34px;flex:none;display:grid;place-items:center;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(0,0,0,.34);font-size:18px}\n" +
+  "    .card-body{padding:17px 3px 0}\n" +
+  "    .card-title{margin:0;color:#f5f5f6;font-size:clamp(17px,2vw,21px);font-weight:700;line-height:1.25;letter-spacing:-.04em}\n" +
+  "    .author-row{min-width:0;margin-top:14px;display:flex;align-items:center;gap:10px;color:#aaaab2;font-size:13px}\n" +
+  "    .avatar{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#e8e8e8,#777);color:#111;font-size:11px;font-weight:800;box-shadow:0 0 0 2px #242428}\n" +
+  "    .author-name{color:#e7e7ea;font-weight:650;white-space:nowrap}\n" +
+  "    .crown{color:#ffca52;font-size:15px;line-height:1}\n" +
+  "    .verified{width:16px;height:16px;display:grid;place-items:center;flex:none;border-radius:50%;background:#39aafa;color:#fff;font-size:10px;font-weight:800}\n" +
+  "    .sep{color:#4f4f57}\n" +
+  "    .file-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#707079;font-size:12px}\n" +
+  "    .card-meta{margin-top:16px;display:flex;align-items:center;gap:16px;color:#81818a;font-size:13px}\n" +
+  "    .meta-item{display:inline-flex;align-items:center;gap:7px}\n" +
+  "    .meta-item svg{width:15px;height:15px;color:#75757e}\n" +
+  "    .meta-spacer{flex:1}\n" +
+  "    .updated{color:#66666f;font-size:12px}\n" +
+  "    .card-rule{height:1px;margin-top:19px;background:#1d1d21}\n" +
+  "    .loading-card{aspect-ratio:1.78/1;border:1px solid #1e1e23;border-radius:23px;background:linear-gradient(100deg,#0b0b0d 20%,#141417 38%,#0b0b0d 60%);background-size:200% 100%;animation:shimmer 1.3s ease infinite}\n" +
+  "    @keyframes shimmer{to{background-position-x:-200%}}\n" +
+  "    .empty{grid-column:1/-1;padding:55px 24px;border:1px solid #222227;border-radius:20px;color:#92929a;text-align:center;background:#09090b}\n" +
+  "    .empty strong{display:block;margin-bottom:7px;color:#eee;font-size:18px}\n" +
+  "    footer{border-top:1px solid #1a1a1e;padding:48px 24px 35px;color:#85858e}\n" +
+  "    .footer-inner{width:min(var(--max),100%);margin:auto;display:flex;align-items:flex-start;justify-content:space-between;gap:40px}\n" +
+  "    .footer-brand{display:flex;align-items:center;gap:12px;color:#f4f4f5;font-size:20px;font-weight:700}\n" +
+  "    .footer-copy{max-width:430px;margin:14px 0 20px;color:#85858e;font-size:14px;line-height:1.7}\n" +
+  "    .copyright{font-size:12px;color:#65656d}\n" +
+  "    .footer-links{display:flex;gap:22px;color:#9a9aa2;font-size:13px}\n" +
+  "    .footer-links a:hover{color:#fff}\n" +
+  "    dialog{width:min(700px,calc(100% - 28px));max-height:min(90vh,900px);padding:0;border:1px solid #28282d;border-radius:24px;background:#09090b;color:#f5f5f6;box-shadow:0 25px 100px rgba(0,0,0,.75);overflow:auto}\n" +
+  "    dialog::backdrop{background:rgba(0,0,0,.77);backdrop-filter:blur(8px)}\n" +
+  "    .detail-cover{position:relative;aspect-ratio:1.9/1;background:linear-gradient(135deg,#121a17,#121217);overflow:hidden}\n" +
+  "    .detail-cover img{width:100%;height:100%;object-fit:cover}\n" +
+  "    .detail-cover::after{content:\"\";position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(7,7,8,.88))}\n" +
+  "    .detail-close{position:absolute;right:15px;top:15px;z-index:3;width:38px;height:38px;border:1px solid #ffffff30;border-radius:50%;background:#050505ad;color:#fff;font-size:23px;cursor:pointer}\n" +
+  "    .detail-content{padding:24px}\n" +
+  "    .detail-title{margin:0;font-size:clamp(24px,5vw,34px);letter-spacing:-.05em;line-height:1.12}\n" +
+  "    .detail-author{margin:18px 0 22px;display:flex;align-items:center;gap:11px}\n" +
+  "    .copy-main{width:100%;min-height:54px;border-radius:999px;background:#f7f7f8;color:#09090a;font-size:16px;font-weight:700;cursor:pointer;transition:transform .18s ease,background .18s ease}\n" +
+  "    .copy-main:hover{transform:translateY(-1px);background:#fff}\n" +
+  "    .detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}\n" +
+  "    .detail-actions a,.detail-actions button{min-height:45px;padding:0 12px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #29292f;border-radius:14px;background:#0d0d10;color:#e4e4e8;font-size:13px;font-weight:600;cursor:pointer}\n" +
+  "    .detail-actions a:hover,.detail-actions button:hover{background:#151519}\n" +
+  "    .details-list{margin:23px 0 0;border-top:1px solid #25252a}\n" +
+  "    .detail-line{min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #25252a;color:#85858e;font-size:14px}\n" +
+  "    .detail-line strong{color:#ececef;font-weight:600;text-align:right}\n" +
+  "    .code-panel{margin-top:20px;border:1px solid #25252a;border-radius:17px;overflow:hidden;background:#070709}\n" +
+  "    .code-head{padding:15px 17px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #222227}\n" +
+  "    .code-icon{width:40px;height:40px;display:grid;place-items:center;border:1px solid #303037;border-radius:12px;color:#a4a4ac;font-family:monospace;font-size:14px}\n" +
+  "    .code-head strong{display:block;font-size:15px}.code-head span{display:block;margin-top:3px;color:#777780;font-size:12px}\n" +
+  "    .code-note{margin:0;padding:18px;color:#9c9ca5;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap}\n" +
+  "    @media(max-width:700px){\n" +
+  "      .topbar{height:70px}.nav{padding:0 20px}.nav-actions{display:none}.menu-btn{display:flex}\n" +
+  "      .mobile-menu{position:absolute;left:12px;right:12px;top:calc(100% + 9px);padding:10px;border:1px solid #29292e;border-radius:17px;background:rgba(10,10,12,.98);box-shadow:0 15px 40px #000b}\n" +
+  "      .mobile-menu.open{display:grid}.mobile-menu a{padding:13px 12px;border-radius:10px;color:#dedee2;font-size:14px}.mobile-menu a:hover{background:#17171a}\n" +
+  "      main{padding:40px 20px 72px}.intro{padding-bottom:25px}.eyebrow{margin-bottom:13px}.subtitle{margin-top:13px;line-height:1.55}\n" +
+  "      .list-tools{margin-top:22px}.search{width:44px;padding:0;justify-content:center;border-radius:50%;cursor:pointer}.search input{display:none}.search.open{width:min(250px,57vw);padding:0 12px;border-radius:999px;justify-content:flex-start}.search.open input{display:block}\n" +
+  "      .section-label{margin:24px 0 16px}.grid{grid-template-columns:1fr;gap:30px}.cover{aspect-ratio:1.64/1;border-radius:21px}.card-body{padding-top:15px}.card-meta{margin-top:14px}\n" +
+  "      footer{padding:38px 20px 30px}.footer-inner{display:block}.footer-links{margin-top:25px;flex-wrap:wrap}.detail-content{padding:20px}.detail-cover{aspect-ratio:1.55/1}\n" +
+  "    }\n" +
+  "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}\n" +
+  "  </style>\n" +
+  "</head>\n" +
+  "<body>\n" +
+  "  <header class=\"topbar\">\n" +
+  "    <div class=\"nav\">\n" +
+  "      <a class=\"brand\" href=\"/\" aria-label=\"999MS home\"><span class=\"brand-mark\">9</span><span class=\"brand-name\">999<span>MS</span></span></a>\n" +
+  "      <nav class=\"nav-actions\" aria-label=\"Main navigation\">\n" +
+  "        <a class=\"nav-link\" href=\"/\">Home</a><a class=\"nav-link active\" href=\"/scripts\">Scripts</a><a class=\"nav-link\" href=\"/key\">Get key</a>\n" +
+  "        <a class=\"nav-cta\" href=\"/key\">Get started</a>\n" +
+  "      </nav>\n" +
+  "      <button class=\"menu-btn\" id=\"menuBtn\" type=\"button\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M4 6h16M4 12h16M4 18h16\"/></svg></button>\n" +
+  "      <nav class=\"mobile-menu\" id=\"mobileMenu\" aria-label=\"Mobile navigation\"><a href=\"/\">Home</a><a href=\"/scripts\">Scripts</a><a href=\"/key\">Get key</a></nav>\n" +
+  "    </div>\n" +
+  "  </header>\n" +
+  "  <main>\n" +
+  "    <section class=\"intro\" aria-labelledby=\"pageTitle\">\n" +
+  "      <p class=\"eyebrow\"><span class=\"eyebrow-dot\"></span>999MS \u00b7 COMMUNITY LIBRARY</p>\n" +
+  "      <h1 id=\"pageTitle\">999MS Script list.</h1>\n" +
+  "      <p class=\"subtitle\">Browse scripts published for supported Roblox experiences.</p>\n" +
+  "      <div class=\"list-tools\">\n" +
+  "        <div class=\"count-pill\" id=\"countPill\"><strong id=\"scriptCount\">Loading</strong><span id=\"countLabel\">scripts</span></div>\n" +
+  "        <label class=\"search\" id=\"searchWrap\" aria-label=\"Search scripts\">\n" +
+  "          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"><circle cx=\"10.8\" cy=\"10.8\" r=\"6.8\"/><path d=\"m16 16 4.2 4.2\"/></svg>\n" +
+  "          <input id=\"searchInput\" type=\"search\" placeholder=\"Search scripts\" autocomplete=\"off\" />\n" +
+  "        </label>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "    <div class=\"section-label\"><span>Available scripts</span><span class=\"sort-note\" id=\"sortNote\">Newest first</span></div>\n" +
+  "    <section class=\"grid\" id=\"scriptGrid\" aria-live=\"polite\" aria-label=\"Available scripts\">\n" +
+  "      <div class=\"loading-card\" aria-hidden=\"true\"></div><div class=\"loading-card\" aria-hidden=\"true\"></div>\n" +
+  "    </section>\n" +
+  "  </main>\n" +
+  "  <footer>\n" +
+  "    <div class=\"footer-inner\">\n" +
+  "      <div><a class=\"footer-brand\" href=\"/\"><span class=\"brand-mark\">9</span><span>999MS</span></a><p class=\"footer-copy\">A fast, simple Lua script hub for supported Roblox experiences.</p><div class=\"copyright\">\u00a9 <span id=\"year\"></span> 999MS.</div></div>\n" +
+  "      <nav class=\"footer-links\" aria-label=\"Footer navigation\"><a href=\"/\">Home</a><a href=\"/scripts\">Scripts</a><a href=\"/key\">Get key</a></nav>\n" +
+  "    </div>\n" +
+  "  </footer>\n" +
+  "  <dialog id=\"detailDialog\" aria-labelledby=\"detailTitle\">\n" +
+  "    <div class=\"detail-cover\" id=\"detailCover\"><button class=\"detail-close\" id=\"closeDetail\" type=\"button\" aria-label=\"Close\">\u00d7</button></div>\n" +
+  "    <div class=\"detail-content\">\n" +
+  "      <h2 class=\"detail-title\" id=\"detailTitle\"></h2>\n" +
+  "      <div class=\"detail-author\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\" id=\"detailFile\"></span></div>\n" +
+  "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy loader</button>\n" +
+  "      <div class=\"detail-actions\"><a href=\"/key\">Get key</a><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
+  "      <div class=\"details-list\"><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Updated</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
+  "      <div class=\"code-panel\"><div class=\"code-head\"><span class=\"code-icon\">&lt;/&gt;</span><div><strong>Script code</strong><span>Protected source \u00b7 loader snippet</span></div></div><pre class=\"code-note\" id=\"detailCode\">-- Source is protected. Use Copy loader to get the launch command.</pre></div>\n" +
+  "    </div>\n" +
+  "  </dialog>\n" +
+  "  <script>\n" +
+  "    (function(){\n" +
+  "      'use strict';\n" +
+  "      var grid=document.getElementById('scriptGrid'),count=document.getElementById('scriptCount'),countLabel=document.getElementById('countLabel'),input=document.getElementById('searchInput'),searchWrap=document.getElementById('searchWrap'),dlg=document.getElementById('detailDialog'),chosen=null,all=[],games={};\n" +
+  "      document.getElementById('year').textContent=String(new Date().getFullYear());\n" +
+  "      function esc(v){return String(v==null?'':v).replace(/[&<>\"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]})}\n" +
+  "      function titleCase(v){return String(v||'').replace(/[_-]+/g,' ').replace(/\\b\\w/g,function(c){return c.toUpperCase()})}\n" +
+  "      function fmtSize(v){var n=Number(v)||0;if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(n<10240?1:0)+' KB';return (n/1048576).toFixed(1)+' MB'}\n" +
+  "      function fmtDate(v){if(!v)return '\u2014';var d=new Date(v);return isNaN(d.getTime())?'\u2014':d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}\n" +
+  "      function nameFor(x){var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
+  "      function svg(kind){if(kind==='file')return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M8 13h8M8 17h8\"/></svg>';return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z\"/></svg>'}\n" +
+  "      function createCard(x,i){var game=games[x.placeId]||{},name=nameFor(x),card=document.createElement('article');card.className='script-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script');\n" +
+  "        var image=game.icon?'<img src=\"'+esc(game.icon)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
+  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span><span class=\"cover-flag\">'+(i===0?'RECENTLY UPDATED':'OFFICIAL')+'</span><div class=\"cover-title\"><strong>'+esc(name)+'</strong><span class=\"cover-arrow\" aria-hidden=\"true\">\u2197</span></div></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+' \u2014 Official 999MS</h2><div class=\"author-row\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+fmtSize(x.size)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
+  "        var img=card.querySelector('img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
+  "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search.':'New scripts will appear here when published.')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
+  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover');cover.querySelectorAll('img').forEach(function(n){n.remove()});if(g.icon){var im=document.createElement('img');im.src=g.icon;im.alt='';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=fmtSize(x.size);document.getElementById('detailCode').textContent='-- '+name+'\\n-- Source is protected. Use Copy loader to get the launch command.';dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
+  "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
+  "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
+  "      document.getElementById('copyLoader').addEventListener('click',function(){if(!chosen)return;var text='local License = \"\"\\nlocal Script = \"'+chosen.name+'\"\\nloadstring(game:HttpGet(\"'+location.origin+'/loadc.lua\"))(License, Script)';copyText(text,this)});\n" +
+  "      document.getElementById('shareScript').addEventListener('click',function(){if(!chosen)return;var url=location.origin+'/scripts?script='+encodeURIComponent(chosen.name);if(navigator.share)navigator.share({title:nameFor(chosen)+' \u2014 999MS',url:url}).catch(function(){});else copyText(url,this)});\n" +
+  "      input.addEventListener('input',render);searchWrap.addEventListener('click',function(){if(window.innerWidth<=700&&!searchWrap.classList.contains('open')){searchWrap.classList.add('open');input.focus()}});input.addEventListener('blur',function(){if(!input.value&&window.innerWidth<=700)searchWrap.classList.remove('open')});\n" +
+  "      var mb=document.getElementById('menuBtn'),mm=document.getElementById('mobileMenu');mb.addEventListener('click',function(){var o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});document.addEventListener('keydown',function(e){if(e.key==='Escape'){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}});\n" +
+  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});render();var ids=[];all.forEach(function(x){if(ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again.</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
+  "      load();\n" +
+  "    })();\n" +
+  "  </script>\n" +
+  "</body>\n" +
+  "</html>\n";
+Object.assign(EMBEDDED_PAGES, { "/scripts": SCRIPTS_PAGE });
+// END PAGE /scripts
+
 // BEGIN PAGE /stats - generated from pages/stats.html; run `npm run pages` to refresh.
 const STATS_PAGE =
   "<!DOCTYPE html>\n" +
@@ -3808,6 +4011,7 @@ const KEY_PAGE =
   "        <span class=\"brand-name\">999MS</span>\n" +
   "      </a>\n" +
   "      <nav class=\"nav-links\" aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
+  "        <a class=\"nav-link\" href=\"/scripts\">Scripts</a>\n" +
   "        <a class=\"nav-link\" href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
   "      </nav>\n" +
   "      <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
@@ -4568,7 +4772,7 @@ const ROOT_PAGE =
   "        </a>\n" +
   "        <nav class=\"nav-links\">\n" +
   "          <a href=\"#\" class=\"nav-link is-active\">Home</a>\n" +
-  "          <a href=\"#\" class=\"nav-link\">Scripts</a>\n" +
+  "          <a href=\"/scripts\" class=\"nav-link\">Scripts</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
@@ -5233,7 +5437,7 @@ const HUB_PAGE =
   "        </a>\n" +
   "        <nav class=\"nav-links\">\n" +
   "          <a href=\"#\" class=\"nav-link is-active\">Home</a>\n" +
-  "          <a href=\"#\" class=\"nav-link\">Scripts</a>\n" +
+  "          <a href=\"/scripts\" class=\"nav-link\">Scripts</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
@@ -8245,7 +8449,8 @@ async function handler(req, res) {
   // Vercel rewrites the public pages to the same function with a page
   // selector; locally they are served straight from their own path.
   const pagePath = url.pathname === '/api/auth'
-    ? (req.query?.page || url.searchParams.get('page')) : url.pathname;
+    ? (req.query?.page || url.searchParams.get('page'))
+    : (url.pathname === '/' ? '/' : url.pathname.replace(/\/+$/, ''));
   const page = Object.prototype.hasOwnProperty.call(EMBEDDED_PAGES, pagePath)
     ? EMBEDDED_PAGES[pagePath]
     : null;

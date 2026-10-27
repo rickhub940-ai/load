@@ -19,6 +19,10 @@
       "dest": "/api/auth?page=/hub"
     },
     {
+      "src": "/scripts/?$",
+      "dest": "/api/auth?page=/scripts"
+    },
+    {
       "src": "/key",
       "dest": "/api/auth?page=/key"
     },
