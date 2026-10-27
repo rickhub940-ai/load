@@ -28,7 +28,7 @@ const SCRIPTS_PAGE =
   "  <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin />\n" +
   "  <link href=\"https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700;750;800&display=swap\" rel=\"stylesheet\" />\n" +
   "  <style>\n" +
-  "    :root{color-scheme:dark;--bg:#050505;--panel:#0a0a0c;--line:#202024;--muted:#85858e;--soft:#b5b5bd;--white:#f7f7f8;--accent:#ededf0;--blue:#39aafa;--max:1180px}\n" +
+  "    :root{color-scheme:dark;--bg:#050505;--panel:#0a0a0c;--line:#202024;--muted:#85858e;--soft:#b5b5bd;--white:#f7f7f8;--accent:#22c55e;--blue:#39aafa;--max:1180px}\n" +
   "    *,*::before,*::after{box-sizing:border-box}\n" +
   "    html{background:var(--bg);scroll-behavior:smooth}\n" +
   "    body{margin:0;background:var(--bg);color:var(--white);font:400 16px/1.5 Inter,system-ui,-apple-system,\"Segoe UI\",sans-serif;-webkit-font-smoothing:antialiased}\n" +
@@ -49,7 +49,7 @@ const SCRIPTS_PAGE =
   "    main{width:min(var(--max),100%);margin:0 auto;padding:52px 24px 96px}\n" +
   "    .intro{padding:0 0 34px;border-bottom:1px solid var(--line)}\n" +
   "    .eyebrow{display:flex;align-items:center;gap:9px;margin:0 0 17px;color:#9999a1;text-transform:uppercase;letter-spacing:.13em;font-size:11px;font-weight:700}\n" +
-  "    .eyebrow-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px rgba(165,243,107,.45)}\n" +
+  "    .eyebrow-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 12px rgba(34,197,94,.55)}\n" +
   "    h1{margin:0;font-size:clamp(36px,6.3vw,64px);line-height:1.06;font-weight:750;letter-spacing:-.065em}\n" +
   "    .subtitle{margin:17px 0 0;color:#85858e;font-size:clamp(15px,2vw,19px);letter-spacing:-.02em}\n" +
   "    .list-tools{margin-top:27px;display:flex;align-items:center;justify-content:space-between;gap:16px}\n" +
@@ -63,10 +63,10 @@ const SCRIPTS_PAGE =
   "    .section-label{display:flex;align-items:center;justify-content:space-between;margin:28px 0 20px;color:#a6a6ae;font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}\n" +
   "    .section-label .sort-note{color:#66666e;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none}\n" +
   "    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 24px}\n" +
-  "    .script-card{min-width:0;cursor:pointer;outline:none;transition:transform .2s ease}\n" +
-  "    .script-card:hover{transform:translateY(-3px)}\n" +
-  "    .script-card:focus-visible .cover{outline:2px solid #f5f5f5;outline-offset:3px}\n" +
-  "    .cover{position:relative;aspect-ratio:1.78/1;overflow:hidden;border:1px solid #27272c;border-radius:23px;background:radial-gradient(ellipse at 72% 30%,rgba(255,255,255,.2),transparent 37%),linear-gradient(135deg,#1c1c20,#111116 48%,#242428);isolation:isolate}.cover.has-image .cover-placeholder{display:none}\n" +
+  "    .script-card{min-width:0;overflow:hidden;cursor:pointer;outline:none;border:1px solid #222226;border-radius:25px;background:linear-gradient(180deg,#0b0b0d,#080809);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}\n" +
+  "    .script-card:hover{transform:translateY(-3px);border-color:#3a3a40;box-shadow:0 18px 45px rgba(0,0,0,.28)}\n" +
+  "    .script-card:focus-visible{outline:2px solid var(--accent);outline-offset:4px}\n" +
+  "    .cover{position:relative;aspect-ratio:1.72/1;overflow:hidden;border:0;border-radius:0;background:radial-gradient(ellipse at 72% 30%,rgba(255,255,255,.2),transparent 37%),linear-gradient(135deg,#1c1c20,#111116 48%,#242428);isolation:isolate}.cover.has-image .cover-placeholder{display:none}\n" +
   "    .cover::before,.cover::after{content:\"\";position:absolute;z-index:1;pointer-events:none}\n" +
   "    .cover::before{width:43%;aspect-ratio:1;border-radius:50%;right:11%;top:11%;background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(165,243,107,.08));filter:blur(1px);box-shadow:0 25px 70px rgba(0,0,0,.3)}\n" +
   "    .cover::after{inset:0;background:linear-gradient(180deg,transparent 33%,rgba(0,0,0,.74) 100%)}\n" +
@@ -77,7 +77,7 @@ const SCRIPTS_PAGE =
   "    .cover-title{position:absolute;left:20px;right:20px;bottom:16px;z-index:2;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}\n" +
   "    .cover-title strong{max-width:82%;font-size:clamp(17px,2.3vw,25px);line-height:1.12;font-weight:750;letter-spacing:-.05em;text-shadow:0 2px 12px #000}\n" +
   "    .cover-arrow{width:34px;height:34px;flex:none;display:grid;place-items:center;border:1px solid rgba(255,255,255,.3);border-radius:50%;background:rgba(0,0,0,.34);font-size:18px}\n" +
-  "    .card-body{padding:17px 3px 0}\n" +
+  "    .card-body{padding:17px 18px 16px}\n" +
   "    .card-title{margin:0;color:#f5f5f6;font-size:clamp(17px,2vw,21px);font-weight:700;line-height:1.25;letter-spacing:-.04em}\n" +
   "    .author-row{min-width:0;margin-top:14px;display:flex;align-items:center;gap:10px;color:#aaaab2;font-size:13px}\n" +
   "    .avatar{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#e8e8e8,#777);color:#111;font-size:11px;font-weight:800;box-shadow:0 0 0 2px #242428}\n" +
@@ -114,7 +114,7 @@ const SCRIPTS_PAGE =
   "    .detail-author{margin:18px 0 22px;display:flex;align-items:center;gap:11px}\n" +
   "    .copy-main{width:100%;min-height:54px;border-radius:999px;background:#f7f7f8;color:#09090a;font-size:16px;font-weight:700;cursor:pointer;transition:transform .18s ease,background .18s ease}\n" +
   "    .copy-main:hover{transform:translateY(-1px);background:#fff}\n" +
-  "    .detail-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:11px}\n" +
+  "    .detail-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:11px}\n" +
   "    .detail-actions a,.detail-actions button{min-height:45px;padding:0 12px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #29292f;border-radius:14px;background:#0d0d10;color:#e4e4e8;font-size:13px;font-weight:600;cursor:pointer}\n" +
   "    .detail-actions a:hover,.detail-actions button:hover{background:#151519}\n" +
   "    .details-list{margin:23px 0 0;border-top:1px solid #25252a}\n" +
@@ -131,7 +131,7 @@ const SCRIPTS_PAGE =
   "      .mobile-menu.open{display:grid}.mobile-menu a{padding:13px 12px;border-radius:10px;color:#dedee2;font-size:14px}.mobile-menu a:hover{background:#17171a}\n" +
   "      main{padding:40px 20px 72px}.intro{padding-bottom:25px}.eyebrow{margin-bottom:13px}.subtitle{margin-top:13px;line-height:1.55}\n" +
   "      .list-tools{margin-top:22px}.search{width:44px;padding:0;justify-content:center;border-radius:50%;cursor:pointer}.search input{display:none}.search.open{width:min(250px,57vw);padding:0 12px;border-radius:999px;justify-content:flex-start}.search.open input{display:block}\n" +
-  "      .section-label{margin:24px 0 16px}.grid{grid-template-columns:1fr;gap:30px}.cover{aspect-ratio:1.64/1;border-radius:21px}.card-body{padding-top:15px}.card-meta{margin-top:14px}\n" +
+  "      .section-label{margin:24px 0 16px}.grid{grid-template-columns:1fr;gap:30px}.cover{aspect-ratio:1.64/1;border-radius:0}.card-body{padding-top:15px}.card-meta{margin-top:14px}\n" +
   "      footer{padding:38px 20px 30px}.footer-inner{display:block}.footer-links{margin-top:25px;flex-wrap:wrap}.detail-content{padding:20px}.detail-cover{aspect-ratio:1.55/1}\n" +
   "    }\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}\n" +
@@ -142,11 +142,10 @@ const SCRIPTS_PAGE =
   "    <div class=\"nav\">\n" +
   "      <a class=\"brand\" href=\"/\" aria-label=\"999MS home\"><span class=\"brand-mark\">9</span><span class=\"brand-name\">999<span>MS</span></span></a>\n" +
   "      <nav class=\"nav-actions\" aria-label=\"Main navigation\">\n" +
-  "        <a class=\"nav-link\" href=\"/\">Home</a><a class=\"nav-link active\" href=\"/scripts\">Scripts</a><a class=\"nav-link\" href=\"/key\">Get key</a>\n" +
-  "        <a class=\"nav-cta\" href=\"/key\">Get started</a>\n" +
+  "        <a class=\"nav-link\" href=\"/\">Home</a><a class=\"nav-link active\" href=\"/scripts\">Scripts</a>\n" +
   "      </nav>\n" +
   "      <button class=\"menu-btn\" id=\"menuBtn\" type=\"button\" aria-label=\"Open menu\" aria-expanded=\"false\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\"><path d=\"M4 6h16M4 12h16M4 18h16\"/></svg></button>\n" +
-  "      <nav class=\"mobile-menu\" id=\"mobileMenu\" aria-label=\"Mobile navigation\"><a href=\"/\">Home</a><a href=\"/scripts\">Scripts</a><a href=\"/key\">Get key</a></nav>\n" +
+  "      <nav class=\"mobile-menu\" id=\"mobileMenu\" aria-label=\"Mobile navigation\"><a href=\"/\">Home</a><a href=\"/scripts\">Scripts</a></nav>\n" +
   "    </div>\n" +
   "  </header>\n" +
   "  <main>\n" +
@@ -170,7 +169,7 @@ const SCRIPTS_PAGE =
   "  <footer>\n" +
   "    <div class=\"footer-inner\">\n" +
   "      <div><a class=\"footer-brand\" href=\"/\"><span class=\"brand-mark\">9</span><span>999MS</span></a><p class=\"footer-copy\">A fast, simple Lua script hub for supported Roblox experiences.</p><div class=\"copyright\">\u00a9 <span id=\"year\"></span> 999MS.</div></div>\n" +
-  "      <nav class=\"footer-links\" aria-label=\"Footer navigation\"><a href=\"/\">Home</a><a href=\"/scripts\">Scripts</a><a href=\"/key\">Get key</a></nav>\n" +
+  "      <nav class=\"footer-links\" aria-label=\"Footer navigation\"><a href=\"/\">Home</a><a href=\"/scripts\">Scripts</a></nav>\n" +
   "    </div>\n" +
   "  </footer>\n" +
   "  <dialog id=\"detailDialog\" aria-labelledby=\"detailTitle\">\n" +
@@ -179,7 +178,7 @@ const SCRIPTS_PAGE =
   "      <h2 class=\"detail-title\" id=\"detailTitle\"></h2>\n" +
   "      <div class=\"detail-author\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\" id=\"detailFile\"></span></div>\n" +
   "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy loader</button>\n" +
-  "      <div class=\"detail-actions\"><a href=\"/key\">Get key</a><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
+  "      <div class=\"detail-actions\"><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
   "      <div class=\"details-list\"><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Updated</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
   "      <div class=\"code-panel\"><div class=\"code-head\"><span class=\"code-icon\">&lt;/&gt;</span><div><strong>Script code</strong><span>Protected source \u00b7 loader snippet</span></div></div><pre class=\"code-note\" id=\"detailCode\">-- Source is protected. Use Copy loader to get the launch command.</pre></div>\n" +
   "    </div>\n" +
@@ -193,18 +192,20 @@ const SCRIPTS_PAGE =
   "      function titleCase(v){return String(v||'').replace(/[_-]+/g,' ').replace(/\\b\\w/g,function(c){return c.toUpperCase()})}\n" +
   "      function fmtSize(v){var n=Number(v)||0;if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(n<10240?1:0)+' KB';return (n/1048576).toFixed(1)+' MB'}\n" +
   "      function fmtDate(v){if(!v)return '\u2014';var d=new Date(v);return isNaN(d.getTime())?'\u2014':d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}\n" +
+  "      function loaderText(x){return 'local License = \"\"\\nlocal Script = \"'+x.name+'\"\\nloadstring(game:HttpGet(\"'+location.origin+'/loadc.lua\"))(License, Script)'}\n" +
+  "      function loaderSize(x){return fmtSize(new Blob([loaderText(x)]).size)}\n" +
   "      function nameFor(x){var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
   "      function svg(kind){if(kind==='file')return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M8 13h8M8 17h8\"/></svg>';return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z\"/></svg>'}\n" +
   "      function createCard(x,i){var game=games[x.placeId]||{},name=nameFor(x),card=document.createElement('article');card.className='script-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script');\n" +
   "        var image=game.icon?'<img src=\"'+esc(game.icon)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
-  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span><span class=\"cover-flag\">'+(i===0?'RECENTLY UPDATED':'OFFICIAL')+'</span><div class=\"cover-title\"><strong>'+esc(name)+'</strong><span class=\"cover-arrow\" aria-hidden=\"true\">\u2197</span></div></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+' \u2014 Official 999MS</h2><div class=\"author-row\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+fmtSize(x.size)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
+  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span><span class=\"cover-flag\">'+(i===0?'RECENTLY UPDATED':'OFFICIAL')+'</span><div class=\"cover-title\"><strong>'+esc(name)+'</strong><span class=\"cover-arrow\" aria-hidden=\"true\">\u2197</span></div></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+' \u2014 Official 999MS</h2><div class=\"author-row\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
   "        var img=card.querySelector('img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
   "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search.':'New scripts will appear here when published.')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
-  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover');cover.querySelectorAll('img').forEach(function(n){n.remove()});if(g.icon){var im=document.createElement('img');im.src=g.icon;im.alt='';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=fmtSize(x.size);document.getElementById('detailCode').textContent='-- '+name+'\\n-- Source is protected. Use Copy loader to get the launch command.';dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover');cover.querySelectorAll('img').forEach(function(n){n.remove()});if(g.icon){var im=document.createElement('img');im.src=g.icon;im.alt='';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').textContent='-- '+name+'\\n-- Source is protected. Use Copy loader to get the launch command.';dlg.showModal();document.body.classList.add('lock')}\n" +
   "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
   "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
   "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
-  "      document.getElementById('copyLoader').addEventListener('click',function(){if(!chosen)return;var text='local License = \"\"\\nlocal Script = \"'+chosen.name+'\"\\nloadstring(game:HttpGet(\"'+location.origin+'/loadc.lua\"))(License, Script)';copyText(text,this)});\n" +
+  "      document.getElementById('copyLoader').addEventListener('click',function(){if(!chosen)return;var text=loaderText(chosen);copyText(text,this)});\n" +
   "      document.getElementById('shareScript').addEventListener('click',function(){if(!chosen)return;var url=location.origin+'/scripts?script='+encodeURIComponent(chosen.name);if(navigator.share)navigator.share({title:nameFor(chosen)+' \u2014 999MS',url:url}).catch(function(){});else copyText(url,this)});\n" +
   "      input.addEventListener('input',render);searchWrap.addEventListener('click',function(){if(window.innerWidth<=700&&!searchWrap.classList.contains('open')){searchWrap.classList.add('open');input.focus()}});input.addEventListener('blur',function(){if(!input.value&&window.innerWidth<=700)searchWrap.classList.remove('open')});\n" +
   "      var mb=document.getElementById('menuBtn'),mm=document.getElementById('mobileMenu');mb.addEventListener('click',function(){var o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});document.addEventListener('keydown',function(e){if(e.key==='Escape'){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}});\n" +
@@ -2056,7 +2057,6 @@ const CONTROL_PAGE =
   "        <nav class=\"nav-links\">\n" +
   "          <a href=\"/\" class=\"nav-link\">Home</a>\n" +
   "          <a href=\"/hub\" class=\"nav-link\">Scripts</a>\n" +
-  "          <a href=\"/key\" class=\"nav-link\">Key</a>\n" +
   "          <a href=\"/control\" class=\"nav-link is-active\">Control</a>\n" +
   "          <a href=\"/stats\" class=\"nav-link\">Stats</a>\n" +
   "        </nav>\n" +
@@ -2594,7 +2594,7 @@ const CONTROL_PAGE =
   "    var host = $('scriptList');\n" +
   "    $('scriptCount').textContent = String(currentScriptItems.length);\n" +
   "    if (!currentScriptItems.length) {\n" +
-  "      host.innerHTML = '<div class=\"hint\" style=\"margin:0\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e1b\u0e42\u0e0a\u0e27\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 /key</div>';\n" +
+  "      host.innerHTML = '<div class=\"hint\" style=\"margin:0\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e44\u0e1b\u0e42\u0e0a\u0e27\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 /scripts</div>';\n" +
   "      return;\n" +
   "    }\n" +
   "    host.innerHTML = currentScriptItems.map(function (item, index) {\n" +
@@ -3545,11 +3545,8 @@ module.exports = async function handler(req, res) {
     return res.status(200).json(out);
   }
 
-  // Public map metadata for /key: the page shows one card per supported map
-  // (icon + name), and a browser cannot call the Roblox endpoints itself
-  // (no CORS headers), so the lookup is proxied — and cached — here.
-  // Public list of the scripts uploaded from the Control panel. Bodies are
-  // never exposed here: this only feeds the map cards on /key.
+  // Public list of scripts uploaded from the Control panel. Bodies are never
+  // exposed here; this metadata powers the public scripts catalog.
   if (action === 'scripts-list') {
     if (req.method !== 'GET') return res.status(405).json({ ok: false });
     res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=60');
@@ -3656,720 +3653,7 @@ module.exports = async function handler(req, res) {
   }
 };
 
-// BEGIN PAGE /key - generated from pages/key.html; run `npm run pages` to refresh.
-const KEY_PAGE =
-  "<!DOCTYPE html>\n" +
-  "<html lang=\"th\">\n" +
-  "<head>\n" +
-  "<meta charset=\"utf-8\" />\n" +
-  "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\" />\n" +
-  "<title>999MS \u2014 Key System &amp; Loader</title>\n" +
-  "<meta name=\"description\" content=\"999MS \u2014 \u0e23\u0e30\u0e1a\u0e1a\u0e04\u0e35\u0e22\u0e4c\u0e41\u0e25\u0e30\u0e15\u0e31\u0e27\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Roblox: \u0e1c\u0e39\u0e01 HWID, \u0e2d\u0e2d\u0e01 ticket \u0e2d\u0e32\u0e22\u0e38\u0e2a\u0e31\u0e49\u0e19, \u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a\u0e2b\u0e25\u0e32\u0e22\u0e0a\u0e31\u0e49\u0e19\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07\" />\n" +
-  "<meta name=\"theme-color\" content=\"#000000\" />\n" +
-  "<meta property=\"og:title\" content=\"999MS \u2014 Key System &amp; Loader\" />\n" +
-  "<meta property=\"og:description\" content=\"\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e41\u0e1a\u0e1a stage chain \u0e15\u0e23\u0e27\u0e08 SHA-256 \u0e17\u0e38\u0e01\u0e17\u0e2d\u0e14 \u2014 \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e19 executor \u0e44\u0e14\u0e49\u0e40\u0e25\u0e22\" />\n" +
-  "<meta property=\"og:type\" content=\"website\" />\n" +
-  "<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23000'/%3E%3Cpath d='M20 42c6-10 10-14 14-20M24 22h16v6h-7l7 14h-6l-4-8-5 8h-6l9-14h-4z' fill='%2322c55e'/%3E%3C/svg%3E\" />\n" +
-  "\n" +
-  "<link rel=\"preconnect\" href=\"https://db.onlinewebfonts.com\" crossorigin />\n" +
-  "<link href=\"https://db.onlinewebfonts.com/c/8cb707a9b8a73f8a7403336b861c3074?family=BubbledotICG-FinePos\" rel=\"stylesheet\" />\n" +
-  "\n" +
-  "<script>\n" +
-  "  // Animation is progressive enhancement: if JS or motion is unavailable the\n" +
-  "  // page still renders fully, it simply appears without the fly-in.\n" +
-  "  try {\n" +
-  "    if (!window.matchMedia || !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
-  "      document.documentElement.classList.add('js-anim');\n" +
-  "    }\n" +
-  "  } catch (e) {}\n" +
-  "</script>\n" +
-  "\n" +
-  "<style>\n" +
-  "  :root {\n" +
-  "    --bg: #000000;\n" +
-  "    --text: #ffffff;\n" +
-  "    --muted: #9a9aa2;\n" +
-  "    --line: rgba(255, 255, 255, 0.1);\n" +
-  "    --line-2: rgba(255, 255, 255, 0.2);\n" +
-  "    --green: #22c55e;\n" +
-  "    --glass: rgba(255, 255, 255, 0.035);\n" +
-  "    --glass-2: rgba(255, 255, 255, 0.06);\n" +
-  "    --radius: 18px;\n" +
-  "    /* Dot-matrix for Latin/digits, Thai falls through to the system Thai font. */\n" +
-  "    --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", \"Leelawadee UI\", \"Thonburi\",\n" +
-  "                 \"Noto Sans Thai\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
-  "    --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, \"Liberation Mono\", monospace;\n" +
-  "  }\n" +
-  "\n" +
-  "  * { box-sizing: border-box; }\n" +
-  "  html { scroll-behavior: smooth; }\n" +
-  "  body {\n" +
-  "    margin: 0;\n" +
-  "    background: var(--bg);\n" +
-  "    color: var(--text);\n" +
-  "    font-family: var(--font-sans);\n" +
-  "    -webkit-font-smoothing: antialiased;\n" +
-  "    line-height: 1.65;\n" +
-  "    overflow-x: hidden;\n" +
-  "    letter-spacing: 0.02em;\n" +
-  "  }\n" +
-  "  a { color: inherit; text-decoration: none; }\n" +
-  "  button { font-family: inherit; }\n" +
-  "  .wrap { width: min(1120px, 92vw); margin-inline: auto; }\n" +
-  "  .mono { font-family: var(--font-mono); }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 background \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .bg-wave { position: fixed; inset: 0; z-index: 0; background: #000; overflow: hidden; }\n" +
-  "  .bg-wave::before {\n" +
-  "    content: \"\"; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;\n" +
-  "    background:\n" +
-  "      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),\n" +
-  "      radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.07) 0%, transparent 40%);\n" +
-  "    filter: blur(80px);\n" +
-  "    animation: waveMove1 20s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .bg-wave::after {\n" +
-  "    content: \"\"; position: absolute; bottom: -50%; right: -50%; width: 150%; height: 150%;\n" +
-  "    background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 60%);\n" +
-  "    filter: blur(100px);\n" +
-  "    animation: waveMove2 25s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .green-orb { position: absolute; border-radius: 50%; filter: blur(60px); z-index: 1; pointer-events: none; }\n" +
-  "  .orb-1 {\n" +
-  "    width: 45vw; height: 45vw; top: -15%; right: -10%;\n" +
-  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.32) 0%, transparent 70%);\n" +
-  "    animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .orb-2 {\n" +
-  "    width: 35vw; height: 35vw; bottom: 5%; left: -5%;\n" +
-  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
-  "    animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .orb-3 {\n" +
-  "    width: 25vw; height: 25vw; top: 40%; left: 30%;\n" +
-  "    background: radial-gradient(circle, rgba(34, 197, 94, 0.16) 0%, transparent 70%);\n" +
-  "    animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
-  "  }\n" +
-  "  .bg-wave .noise {\n" +
-  "    position: absolute; inset: 0; opacity: 0.12; z-index: 2; pointer-events: none;\n" +
-  "    mix-blend-mode: overlay;\n" +
-  "    background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");\n" +
-  "  }\n" +
-  "  @keyframes waveMove1 {\n" +
-  "    0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
-  "    50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
-  "    100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
-  "  }\n" +
-  "  @keyframes waveMove2 {\n" +
-  "    0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
-  "    50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
-  "    100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
-  "  }\n" +
-  "  @keyframes orbFloat1 { 0% { transform: translate(0,0) scale(1); opacity:.35 } 100% { transform: translate(-15%,20%) scale(1.3); opacity:.7 } }\n" +
-  "  @keyframes orbFloat2 { 0% { transform: translate(0,0) scale(1); opacity:.25 } 100% { transform: translate(20%,-15%) scale(1.4); opacity:.6 } }\n" +
-  "  @keyframes orbFloat3 { 0% { transform: translate(0,0) scale(1); opacity:.18 } 100% { transform: translate(-10%,-20%) scale(1.5); opacity:.45 } }\n" +
-  "\n" +
-  "  .page { position: relative; z-index: 3; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 nav \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .site-header {\n" +
-  "    position: sticky; top: 20px; z-index: 50;\n" +
-  "    display: flex; justify-content: center;\n" +
-  "    padding: 0 clamp(10px, 2vw, 20px);\n" +
-  "  }\n" +
-  "  .nav-pill {\n" +
-  "    width: 100%; max-width: 1120px;\n" +
-  "    display: flex; align-items: center; gap: 18px;\n" +
-  "    height: 64px; padding: 0 8px 0 14px;\n" +
-  "    border-radius: 999px;\n" +
-  "    background: rgba(10, 10, 12, 0.4);\n" +
-  "    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
-  "    border: 1px solid rgba(255, 255, 255, 0.1);\n" +
-  "    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n" +
-  "  }\n" +
-  "  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; flex-shrink: 0; }\n" +
-  "  .mark {\n" +
-  "    width: 44px; height: 44px; border-radius: 50%;\n" +
-  "    display: grid; place-items: center;\n" +
-  "    background: #fff; overflow: hidden;\n" +
-  "    box-shadow: 0 0 15px rgba(255, 255, 255, 0.25);\n" +
-  "    transition: transform .25s ease;\n" +
-  "  }\n" +
-  "  .brand:hover .mark { transform: scale(1.05); }\n" +
-  "  .mark svg { width: 60%; height: 60%; }\n" +
-  "  .brand-name { font-size: 1.02rem; letter-spacing: .04em; }\n" +
-  "  .nav-links { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); margin-left: auto; }\n" +
-  "  .nav-link { font-size: 14px; color: var(--muted); transition: color .2s ease; }\n" +
-  "  .nav-link:hover { color: #fff; }\n" +
-  "  .burger {\n" +
-  "    display: none; width: 44px; height: 44px; border-radius: 50%;\n" +
-  "    flex-direction: column; align-items: center; justify-content: center; gap: 5px;\n" +
-  "    background: rgba(255,255,255,.06); border: 1px solid var(--line); cursor: pointer;\n" +
-  "  }\n" +
-  "  .burger span { display: block; width: 18px; height: 1.5px; background: #fff; border-radius: 2px; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 buttons \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .btn {\n" +
-  "    display: inline-flex; align-items: center; justify-content: center; gap: 9px;\n" +
-  "    padding: 12px 22px; border-radius: 999px;\n" +
-  "    border: 1px solid var(--line-2);\n" +
-  "    background: var(--glass); color: var(--text);\n" +
-  "    font-size: .92rem; font-weight: 600; cursor: pointer; white-space: nowrap;\n" +
-  "    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;\n" +
-  "  }\n" +
-  "  .btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.32); background: var(--glass-2); }\n" +
-  "  .btn-primary {\n" +
-  "    border: 0; background: #fff; color: #000;\n" +
-  "    box-shadow: 0 0 0 1px rgba(255,255,255,.1), 0 0 22px rgba(255,255,255,.22);\n" +
-  "  }\n" +
-  "  .btn-primary:hover { box-shadow: 0 0 0 1px rgba(255,255,255,.4), 0 0 38px rgba(255,255,255,.45); }\n" +
-  "  .btn-primary.copied {\n" +
-  "    background: var(--green); color: #04160a;\n" +
-  "    box-shadow: 0 0 0 1px rgba(34,197,94,.5), 0 0 32px rgba(34,197,94,.6);\n" +
-  "  }\n" +
-  "  .btn-ghost { background: transparent; }\n" +
-  "  .btn svg { flex-shrink: 0; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 hero \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .hero {\n" +
-  "    display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center;\n" +
-  "    padding: 64px 0 72px;\n" +
-  "  }\n" +
-  "  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }\n" +
-  "  .status-line { display: flex; align-items: center; gap: 9px; margin-top: 22px; font-size: .92rem; color: var(--muted); }\n" +
-  "  .dot { width: 9px; height: 9px; border-radius: 50%; background: #5c6478; flex-shrink: 0; }\n" +
-  "  .dot.ok {\n" +
-  "    background: var(--green); box-shadow: 0 0 10px var(--green);\n" +
-  "    animation: dotPulse 1.8s cubic-bezier(.215,.61,.355,1) infinite;\n" +
-  "  }\n" +
-  "  .dot.bad { background: #ff6b81; box-shadow: 0 0 10px rgba(255,107,129,.6); }\n" +
-  "  @keyframes dotPulse {\n" +
-  "    0% { box-shadow: 0 0 0 0 rgba(34,197,94,.5); }\n" +
-  "    100% { box-shadow: 0 0 0 8px rgba(34,197,94,0); }\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 code card \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .code-card {\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));\n" +
-  "    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;\n" +
-  "    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);\n" +
-  "    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
-  "    transition: transform .2s ease;\n" +
-  "  }\n" +
-  "  .code-top {\n" +
-  "    display: flex; align-items: center; gap: 8px;\n" +
-  "    padding: 12px 16px; border-bottom: 1px solid var(--line);\n" +
-  "    background: rgba(0,0,0,.35);\n" +
-  "  }\n" +
-  "  .tl { width: 10px; height: 10px; border-radius: 50%; }\n" +
-  "  .tl:nth-child(1) { background: #ff5f57; }\n" +
-  "  .tl:nth-child(2) { background: #febc2e; }\n" +
-  "  .tl:nth-child(3) { background: #28c840; }\n" +
-  "  .code-name { margin-left: 8px; font-family: var(--font-mono); font-size: .78rem; color: var(--muted); }\n" +
-  "  .code-body {\n" +
-  "    padding: 22px 18px; font-family: var(--font-mono);\n" +
-  "    font-size: .86rem; line-height: 1.8; overflow-x: auto;\n" +
-  "  }\n" +
-  "  .code-body .c { color: #6b7280; }\n" +
-  "  .code-body .f { color: var(--green); }\n" +
-  "  .code-body .s { color: #a3e635; }\n" +
-  "  .code-body .p { color: #e7e9f0; }\n" +
-  "  .copy-row { display: flex; gap: 10px; padding: 0 16px 16px; }\n" +
-  "  .copy-row .btn { flex: 1; justify-content: center; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 map cards (image + name + per-map copy) \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .maps-card {\n" +
-  "    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));\n" +
-  "    border: 1px solid var(--line-2); border-radius: var(--radius); overflow: hidden;\n" +
-  "    box-shadow: 0 30px 80px -40px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.06);\n" +
-  "    transform: perspective(1200px) rotateY(-4deg) rotateX(2deg);\n" +
-  "  }\n" +
-  "  .map-list { padding: 10px; display: grid; gap: 10px; max-height: 470px; overflow-y: auto; }\n" +
-  "  .map-row {\n" +
-  "    display: flex; align-items: center; gap: 12px; padding: 10px;\n" +
-  "    border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.03);\n" +
-  "    transition: border-color .18s ease, background .18s ease;\n" +
-  "  }\n" +
-  "  .map-row:hover { border-color: var(--line-2); background: rgba(255,255,255,.06); }\n" +
-  "  .map-thumb {\n" +
-  "    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0; object-fit: cover;\n" +
-  "    background: var(--glass-2); border: 1px solid var(--line);\n" +
-  "  }\n" +
-  "  .map-initial {\n" +
-  "    width: 52px; height: 52px; border-radius: 12px; flex-shrink: 0;\n" +
-  "    display: grid; place-items: center; font-weight: 700; font-size: 1.2rem;\n" +
-  "    background: linear-gradient(140deg, rgba(34,197,94,.35), rgba(255,255,255,.05));\n" +
-  "    border: 1px solid var(--line-2); text-transform: uppercase;\n" +
-  "  }\n" +
-  "  .map-text { min-width: 0; flex: 0 1 auto; }\n" +
-  "  .map-name { font-size: .96rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
-  "  .map-sub { font-family: var(--font-mono); font-size: .71rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }\n" +
-  "  .map-row .btn { flex-shrink: 0; padding: 7px 14px; font-size: .84rem; margin-left: 2px; }\n" +
-  "  .map-empty { padding: 30px 16px; text-align: center; color: var(--muted); font-size: .9rem; }\n" +
-  "  .pill {\n" +
-  "    font-size: .72rem; color: var(--muted); padding: 2px 10px;\n" +
-  "    border: 1px solid var(--line); border-radius: 999px;\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 sections \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  section { padding: 68px 0; }\n" +
-  "  .sec-head { max-width: 62ch; margin-bottom: 34px; }\n" +
-  "  .kicker {\n" +
-  "    font-family: var(--font-mono); font-size: .74rem; letter-spacing: .2em;\n" +
-  "    text-transform: uppercase; color: var(--green); margin: 0 0 10px;\n" +
-  "  }\n" +
-  "  h2 { font-size: clamp(1.45rem, 2.6vw, 2.05rem); margin: 0 0 12px; letter-spacing: -0.02em; }\n" +
-  "  .sec-head p { color: var(--muted); margin: 0; }\n" +
-  "\n" +
-  "  /* faq */\n" +
-  "  .faq { border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: var(--glass); }\n" +
-  "  .faq details { border-bottom: 1px solid var(--line); }\n" +
-  "  .faq details:last-child { border-bottom: 0; }\n" +
-  "  .faq summary {\n" +
-  "    cursor: pointer; padding: 18px 22px; font-weight: 600; list-style: none;\n" +
-  "    display: flex; align-items: center; justify-content: space-between; gap: 12px;\n" +
-  "  }\n" +
-  "  .faq summary::-webkit-details-marker { display: none; }\n" +
-  "  .faq summary::after { content: \"+\"; color: var(--green); font-size: 1.2rem; line-height: 1; }\n" +
-  "  .faq details[open] summary::after { content: \"\u2013\"; }\n" +
-  "  .faq p { margin: 0; padding: 0 22px 20px; color: var(--muted); font-size: .93rem; max-width: 78ch; }\n" +
-  "\n" +
-  "  footer { padding: 48px 0 64px; border-top: 1px solid var(--line); }\n" +
-  "  .foot { display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; font-size: .9rem; color: var(--muted); }\n" +
-  "  .foot a:hover { color: #fff; }\n" +
-  "  .disclaimer { color: #6b6b74; font-size: .8rem; margin: 18px 0 0; max-width: 90ch; }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 fly-in animation \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  .js-anim .char,\n" +
-  "  .js-anim .pop-element {\n" +
-  "    opacity: 0; visibility: hidden;\n" +
-  "    transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.6) rotate(var(--tr, 0deg));\n" +
-  "    filter: blur(10px);\n" +
-  "  }\n" +
-  "  .js-anim .pop-in {\n" +
-  "    visibility: visible;\n" +
-  "    animation: bouncyRandomPop 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;\n" +
-  "    animation-delay: var(--delay, 0s);\n" +
-  "  }\n" +
-  "  @keyframes bouncyRandomPop {\n" +
-  "    0% { opacity: 0; transform: translate(var(--tx, 0px), var(--ty, 0px)) scale(.25) rotate(var(--tr, 0deg)); filter: blur(14px); }\n" +
-  "    60% { opacity: 1; transform: translate(0, 0) scale(1.06) rotate(0deg); filter: blur(0); }\n" +
-  "    80% { transform: translate(0, 0) scale(.97) rotate(0deg); }\n" +
-  "    100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); filter: blur(0); }\n" +
-  "  }\n" +
-  "  @media (prefers-reduced-motion: reduce) {\n" +
-  "    .js-anim .char,\n" +
-  "    .js-anim .pop-element {\n" +
-  "      opacity: 1 !important; visibility: visible !important;\n" +
-  "      transform: none !important; filter: none !important; animation: none !important;\n" +
-  "    }\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2550\u2550\u2550\u2550\u2550\u2550\u2550 responsive \u2550\u2550\u2550\u2550\u2550\u2550\u2550 */\n" +
-  "  @media (max-width: 960px) {\n" +
-  "    .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 44px; }\n" +
-  "    .code-card { transform: none; }\n" +
-  "    .maps-card { transform: none; }\n" +
-  "  }\n" +
-  "  @media (max-width: 900px) {\n" +
-  "    .nav-links, .nav-pill .btn { display: none; }\n" +
-  "    .burger { display: flex; margin-left: auto; }\n" +
-  "    .nav-pill.is-open {\n" +
-  "      flex-wrap: wrap; height: auto; padding-bottom: 14px; border-radius: 26px;\n" +
-  "    }\n" +
-  "    .nav-pill.is-open .nav-links {\n" +
-  "      display: flex; flex-direction: column; align-items: stretch;\n" +
-  "      gap: 4px; order: 3; width: 100%; margin: 12px 0 0;\n" +
-  "      padding: 12px; border-radius: 18px;\n" +
-  "      background: rgba(10,10,12,.9); border: 1px solid var(--line);\n" +
-  "    }\n" +
-  "    .nav-pill.is-open .nav-link { padding: 10px 12px; border-radius: 12px; }\n" +
-  "    .nav-pill.is-open .nav-link:hover { background: rgba(255,255,255,.06); }\n" +
-  "    .nav-pill.is-open .btn { display: inline-flex; order: 4; width: 100%; margin-top: 10px; }\n" +
-  "  }\n" +
-  "</style>\n" +
-  "</head>\n" +
-  "<body>\n" +
-  "<div class=\"bg-wave\">\n" +
-  "  <div class=\"green-orb orb-1\"></div>\n" +
-  "  <div class=\"green-orb orb-2\"></div>\n" +
-  "  <div class=\"green-orb orb-3\"></div>\n" +
-  "  <div class=\"noise\"></div>\n" +
-  "</div>\n" +
-  "\n" +
-  "<div class=\"page\">\n" +
-  "  <header class=\"site-header\">\n" +
-  "    <div class=\"wrap nav-pill\" id=\"navPill\">\n" +
-  "      <a class=\"brand\" href=\"#top\" aria-label=\"999MS home\">\n" +
-  "        <span class=\"mark\">\n" +
-  "          <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\">\n" +
-  "            <path d=\"M12 2L2 7L12 12L22 7L12 2Z\" fill=\"#000\"/>\n" +
-  "            <path d=\"M2 17L12 22L22 17\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
-  "            <path d=\"M2 12L12 17L22 12\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
-  "          </svg>\n" +
-  "        </span>\n" +
-  "        <span class=\"brand-name\">999MS</span>\n" +
-  "      </a>\n" +
-  "      <nav class=\"nav-links\" aria-label=\"\u0e2b\u0e25\u0e31\u0e01\">\n" +
-  "        <a class=\"nav-link\" href=\"/scripts\">Scripts</a>\n" +
-  "        <a class=\"nav-link\" href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
-  "      </nav>\n" +
-  "      <button class=\"btn btn-primary\" id=\"copyNav\" type=\"button\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</button>\n" +
-  "      <button class=\"burger\" id=\"burger\" type=\"button\" aria-label=\"\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39\" aria-expanded=\"false\">\n" +
-  "        <span></span><span></span><span></span>\n" +
-  "      </button>\n" +
-  "    </div>\n" +
-  "  </header>\n" +
-  "\n" +
-  "  <main id=\"top\">\n" +
-  "    <div class=\"wrap hero\">\n" +
-  "      <div>\n" +
-  "        <div class=\"hero-actions pop-element\">\n" +
-  "          <button class=\"btn btn-primary\" id=\"copyHero\" type=\"button\">\n" +
-  "            <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg>\n" +
-  "          \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 loadstring\n" +
-  "        </button>\n" +
-  "      </div>\n" +
-  "        <div class=\"status-line pop-element\">\n" +
-  "          <span class=\"dot\" id=\"heroDot\"></span>\n" +
-  "          <span id=\"heroStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e23\u0e30\u0e1a\u0e1a\u2026</span>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "\n" +
-  "      <div class=\"maps-card pop-element\">\n" +
-  "        <div class=\"code-top\">\n" +
-  "          <span class=\"tl\"></span><span class=\"tl\"></span><span class=\"tl\"></span>\n" +
-  "          <span class=\"code-name\">maps.lua</span>\n" +
-  "          <span style=\"margin-left:auto\" class=\"pill mono\" id=\"mapsCount\">\u2014</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"map-list\" id=\"mapList\">\n" +
-  "          <div class=\"map-empty\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e41\u0e21\u0e1e\u2026</div>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </div>\n" +
-  "\n" +
-  "    <section id=\"faq\">\n" +
-  "      <div class=\"wrap\">\n" +
-  "        <div class=\"sec-head\">\n" +
-  "          <p class=\"kicker\">FAQ</p>\n" +
-  "          <h2 class=\"pop-element\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22</h2>\n" +
-  "        </div>\n" +
-  "        <div class=\"faq pop-element\">\n" +
-  "          <details>\n" +
-  "            <summary>\u0e04\u0e35\u0e22\u0e4c\u0e43\u0e0a\u0e49\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19\u0e2b\u0e23\u0e37\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e37\u0e48\u0e19\u0e44\u0e14\u0e49\u0e44\u0e2b\u0e21</summary>\n" +
-  "            <p>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e04\u0e35\u0e22\u0e4c\u0e16\u0e39\u0e01\u0e1c\u0e39\u0e01\u0e41\u0e1a\u0e1a <span class=\"mono\">hwid_\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span> \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48\u0e15\u0e2d\u0e19\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19 (\u0e1c\u0e39\u0e01\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e41\u0e25\u0e30\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e19\u0e31\u0e49\u0e19\u0e46) \u0e2b\u0e32\u0e01\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e23\u0e35\u0e40\u0e0b\u0e47\u0e15\u0e01\u0e32\u0e23\u0e1c\u0e39\u0e01 \u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e17\u0e35\u0e21\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15</p>\n" +
-  "          </details>\n" +
-  "          <details>\n" +
-  "            <summary>\u0e02\u0e36\u0e49\u0e19\u0e27\u0e48\u0e32 HWID mismatch \u0e15\u0e49\u0e2d\u0e07\u0e17\u0e33\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23</summary>\n" +
-  "            <p>\u0e41\u0e1b\u0e25\u0e27\u0e48\u0e32\u0e23\u0e30\u0e1a\u0e1a\u0e15\u0e23\u0e27\u0e08\u0e1e\u0e1a\u0e27\u0e48\u0e32\u0e04\u0e35\u0e22\u0e4c\u0e19\u0e35\u0e49\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2d\u0e37\u0e48\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e15\u0e31\u0e27 executor \u0e23\u0e32\u0e22\u0e07\u0e32\u0e19\u0e04\u0e48\u0e32 HWID \u0e44\u0e21\u0e48\u0e04\u0e07\u0e17\u0e35\u0e48 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e2a\u0e15\u0e32\u0e23\u0e4c\u0e17 executor \u0e41\u0e25\u0e49\u0e27\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e21\u0e48 \u0e2b\u0e32\u0e01\u0e22\u0e31\u0e07\u0e02\u0e36\u0e49\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e2b\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d\u0e0b\u0e31\u0e1e\u0e1e\u0e2d\u0e23\u0e4c\u0e15\u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e23\u0e2b\u0e31\u0e2a diagnostic</p>\n" +
-  "          </details>\n" +
-  "          <details>\n" +
-  "            <summary>\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a executor \u0e15\u0e31\u0e27\u0e44\u0e2b\u0e19\u0e1a\u0e49\u0e32\u0e07</summary>\n" +
-  "            <p>Xeno/Sola</p>\n" +
-  "          </details>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "    </section>\n" +
-  "\n" +
-  "  </main>\n" +
-  "\n" +
-  "  <footer>\n" +
-  "    <div class=\"wrap\">\n" +
-  "      <div class=\"foot\">\n" +
-  "        <span>\u00a9 2026 999MS \u00b7 Key system &amp; loader</span>\n" +
-  "        <span style=\"display:flex;gap:18px\">\n" +
-  "          <a href=\"#faq\">\u0e04\u0e33\u0e16\u0e32\u0e21\u0e1a\u0e48\u0e2d\u0e22</a>\n" +
-  "          <a href=\"/control\">Control</a>\n" +
-  "          <a href=\"https://yura.lol/09ms\" rel=\"noopener\">Discord</a>\n" +
-  "        </span>\n" +
-  "      </div>\n" +
-  "      <p class=\"disclaimer\">\n" +
-  "        999MS \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e21\u0e35\u0e04\u0e27\u0e32\u0e21\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e02\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e1a Roblox Corporation \u0e2b\u0e23\u0e37\u0e2d\u0e1c\u0e39\u0e49\u0e1e\u0e31\u0e12\u0e19\u0e32\u0e40\u0e01\u0e21\u0e43\u0e14 \u0e46 \u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e2d\u0e32\u0e08\u0e1c\u0e34\u0e14\u0e02\u0e49\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e02\u0e2d\u0e07\u0e40\u0e01\u0e21\n" +
-  "        \u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e14\u0e49\u0e27\u0e22\u0e15\u0e19\u0e40\u0e2d\u0e07\n" +
-  "      </p>\n" +
-  "    </div>\n" +
-  "  </footer>\n" +
-  "</div>\n" +
-  "\n" +
-  "<script>\n" +
-  "(function () {\n" +
-  "  'use strict';\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 loader line + clipboard \u2500\u2500\u2500 */\n" +
-  "  var FALLBACK_HOST = 'loader999mss.vercel.app';\n" +
-  "  var host = location.host && location.host.indexOf('localhost') !== 0 && location.host !== ''\n" +
-  "    ? location.host\n" +
-  "    : FALLBACK_HOST;\n" +
-  "  var url = 'https://' + host + '/loadc.lua';\n" +
-  "  var command = 'local License = \"\"\\nlocal Script = \"\"\\nloadstring(game:HttpGet(\"' + url + '\"))(License, Script)';\n" +
-  "\n" +
-  "  var scriptUrlEl = document.getElementById('scriptUrl');\n" +
-  "  if (scriptUrlEl) scriptUrlEl.textContent = '\"' + url + '\"';\n" +
-  "\n" +
-  "  function flash(btn) {\n" +
-  "    if (!btn) return;\n" +
-  "    var original = btn.getAttribute('data-label') || btn.textContent;\n" +
-  "    btn.setAttribute('data-label', original);\n" +
-  "    btn.classList.add('copied');\n" +
-  "    btn.textContent = '\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27 \u2713';\n" +
-  "    clearTimeout(btn._t);\n" +
-  "    btn._t = setTimeout(function () {\n" +
-  "      btn.classList.remove('copied');\n" +
-  "      btn.textContent = original;\n" +
-  "    }, 1600);\n" +
-  "  }\n" +
-  "\n" +
-  "  function legacy(text, btn) {\n" +
-  "    var ta = document.createElement('textarea');\n" +
-  "    ta.value = text;\n" +
-  "    ta.setAttribute('readonly', '');\n" +
-  "    ta.style.position = 'fixed';\n" +
-  "    ta.style.opacity = '0';\n" +
-  "    document.body.appendChild(ta);\n" +
-  "    ta.select();\n" +
-  "    try { document.execCommand('copy'); flash(btn); } catch (e) {}\n" +
-  "    document.body.removeChild(ta);\n" +
-  "  }\n" +
-  "\n" +
-  "  function copy(text, btn) {\n" +
-  "    if (navigator.clipboard && navigator.clipboard.writeText) {\n" +
-  "      navigator.clipboard.writeText(text).then(function () { flash(btn); }, function () { legacy(text, btn); });\n" +
-  "      return;\n" +
-  "    }\n" +
-  "    legacy(text, btn);\n" +
-  "  }\n" +
-  "\n" +
-  "  ['copyNav', 'copyHero'].forEach(function (id) {\n" +
-  "    var btn = document.getElementById(id);\n" +
-  "    if (btn) btn.addEventListener('click', function () { copy(command, btn); });\n" +
-  "  });\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 map cards: image + name + a copy button per map \u2500\u2500\u2500\n" +
-  "     \u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e41\u0e21\u0e1e\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e44\u0e27\u0e49\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Control\n" +
-  "     (place id + \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c + \u0e44\u0e1f\u0e25\u0e4c) \u2014 \u0e23\u0e39\u0e1b\u0e01\u0e31\u0e1a\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e\u0e14\u0e36\u0e07\u0e08\u0e32\u0e01 Roblox \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\n" +
-  "  */\n" +
-  "  var MAPS = [];\n" +
-  "\n" +
-  "  function snippetFor(scriptName) {\n" +
-  "    return 'local License = \"\"\\nlocal Script = \"' + scriptName + '\"\\nloadstring(game:HttpGet(\"' + url + '\"))(License, Script)';\n" +
-  "  }\n" +
-  "\n" +
-  "  function esc(value) {\n" +
-  "    return String(value === null || value === undefined ? '' : value)\n" +
-  "      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')\n" +
-  "      .replace(/\"/g, '&quot;').replace(/'/g, '&#39;');\n" +
-  "  }\n" +
-  "\n" +
-  "  function initialOf(name, placeId) {\n" +
-  "    var source = (name || '').replace(/^[^A-Za-z0-9\\u0e00-\\u0e7f]+/, '');\n" +
-  "    var letter = source.charAt(0) || (placeId || '?').charAt(0);\n" +
-  "    return letter.toUpperCase();\n" +
-  "  }\n" +
-  "\n" +
-  "  function renderMaps(info) {\n" +
-  "    var host = document.getElementById('mapList');\n" +
-  "    var count = document.getElementById('mapsCount');\n" +
-  "    if (!host) return;\n" +
-  "    if (count) count.textContent = String(MAPS.length) + ' \u0e41\u0e21\u0e1e';\n" +
-  "    if (!MAPS.length) {\n" +
-  "      host.innerHTML = '<div class=\"map-empty\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u2014 \u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Control \u0e41\u0e25\u0e49\u0e27\u0e08\u0e30\u0e02\u0e36\u0e49\u0e19\u0e15\u0e23\u0e07\u0e19\u0e35\u0e49</div>';\n" +
-  "      return;\n" +
-  "    }\n" +
-  "    host.innerHTML = MAPS.map(function (game, index) {\n" +
-  "      var meta = info[game.placeId] || {};\n" +
-  "      var name = meta.name || game.name;\n" +
-  "      var icon = meta.icon || '';\n" +
-  "      var thumb = icon\n" +
-  "        ? '<img class=\"map-thumb\" id=\"thumb' + index + '\" src=\"' + esc(icon) + '\" alt=\"' + esc(name) + '\" loading=\"lazy\" referrerpolicy=\"no-referrer\" />'\n" +
-  "        : '<span class=\"map-initial\">' + esc(initialOf(name, game.name)) + '</span>';\n" +
-  "      var sub = (meta.name && meta.name !== game.name)\n" +
-  "        ? '<div class=\"map-sub\">script ' + esc(game.name) + '</div>'\n" +
-  "        : '';\n" +
-  "      return '<div class=\"map-row\">' +\n" +
-  "        thumb +\n" +
-  "        '<div class=\"map-text\">' +\n" +
-  "          '<div class=\"map-name\">' + esc(name) + '</div>' +\n" +
-  "          sub +\n" +
-  "        '</div>' +\n" +
-  "        '<button class=\"btn btn-ghost\" type=\"button\" data-map=\"' + index + '\">\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</button>' +\n" +
-  "      '</div>';\n" +
-  "    }).join('');\n" +
-  "\n" +
-  "    // \u0e16\u0e49\u0e32\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 \u0e43\u0e2b\u0e49\u0e01\u0e25\u0e31\u0e1a\u0e44\u0e1b\u0e43\u0e0a\u0e49\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e41\u0e23\u0e01\u0e02\u0e2d\u0e07\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e\n" +
-  "    MAPS.forEach(function (game, index) {\n" +
-  "      var img = document.getElementById('thumb' + index);\n" +
-  "      if (!img) return;\n" +
-  "      img.addEventListener('error', function () {\n" +
-  "        var meta = info[game.placeId] || {};\n" +
-  "        var fallback = document.createElement('span');\n" +
-  "        fallback.className = 'map-initial';\n" +
-  "        fallback.textContent = initialOf(meta.name || game.name, game.name);\n" +
-  "        if (img.parentNode) img.parentNode.replaceChild(fallback, img);\n" +
-  "      });\n" +
-  "    });\n" +
-  "\n" +
-  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-map]'), function (btn) {\n" +
-  "      btn.addEventListener('click', function () {\n" +
-  "        var game = MAPS[Number(btn.getAttribute('data-map'))];\n" +
-  "        if (game) copy(snippetFor(game.name), btn);\n" +
-  "      });\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  function loadMaps() {\n" +
-  "    fetch('/api/scripts', { headers: { accept: 'application/json' } })\n" +
-  "      .then(function (res) { return res.ok ? res.json() : null; })\n" +
-  "      .then(function (data) {\n" +
-  "        var items = (data && Array.isArray(data.items)) ? data.items : [];\n" +
-  "        MAPS = items.filter(function (item) {\n" +
-  "          return item && item.placeId && item.name;\n" +
-  "        }).map(function (item) {\n" +
-  "          return { placeId: String(item.placeId), name: String(item.name) };\n" +
-  "        });\n" +
-  "        // Render straight away (name falls back to \"Place <id>\"), then fill in\n" +
-  "        // the Roblox name and icon when that lookup comes back.\n" +
-  "        renderMaps({});\n" +
-  "        var ids = [];\n" +
-  "        MAPS.forEach(function (game) { if (ids.indexOf(game.placeId) === -1) ids.push(game.placeId); });\n" +
-  "        if (!ids.length) return;\n" +
-  "        return fetch('/api/games?ids=' + ids.join(','), { headers: { accept: 'application/json' } })\n" +
-  "          .then(function (res) { return res.ok ? res.json() : null; })\n" +
-  "          .then(function (meta) {\n" +
-  "            var info = {};\n" +
-  "            if (meta && Array.isArray(meta.games)) {\n" +
-  "              meta.games.forEach(function (row) {\n" +
-  "                if (row && row.placeId) info[String(row.placeId)] = row;\n" +
-  "              });\n" +
-  "            }\n" +
-  "            renderMaps(info);\n" +
-  "          })\n" +
-  "          .catch(function () { /* the placeholder names stay */ });\n" +
-  "      })\n" +
-  "      .catch(function (err) {\n" +
-  "        var host = document.getElementById('mapList');\n" +
-  "        if (host) host.innerHTML = '<div class=\"map-empty\">\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u2014 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e19\u0e49\u0e32</div>';\n" +
-  "      });\n" +
-  "  }\n" +
-  "\n" +
-  "  loadMaps();\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 live API status \u2500\u2500\u2500 */\n" +
-  "  var heroDot = document.getElementById('heroDot');\n" +
-  "  var heroStatus = document.getElementById('heroStatus');\n" +
-  "\n" +
-  "  function setDot(el, cls) {\n" +
-  "    if (!el) return;\n" +
-  "    el.classList.remove('ok', 'bad');\n" +
-  "    if (cls) el.classList.add(cls);\n" +
-  "  }\n" +
-  "\n" +
-  "  function check() {\n" +
-  "    var started = Date.now();\n" +
-  "    setDot(heroDot, '');\n" +
-  "\n" +
-  "    var controller = window.AbortController ? new AbortController() : null;\n" +
-  "    var timer = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;\n" +
-  "\n" +
-  "    fetch('/api/health', { cache: 'no-store', signal: controller ? controller.signal : undefined })\n" +
-  "      .then(function (res) {\n" +
-  "        if (!res.ok) throw new Error('HTTP ' + res.status);\n" +
-  "        return res.json();\n" +
-  "      })\n" +
-  "      .then(function (data) {\n" +
-  "        var ms = Date.now() - started;\n" +
-  "        if (heroStatus) heroStatus.textContent = '\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e2d\u0e19\u0e44\u0e25\u0e19\u0e4c \u00b7 ' + ms + ' ms';\n" +
-  "        setDot(heroDot, 'ok');\n" +
-  "      })\n" +
-  "      .catch(function () {\n" +
-  "        var offlinePreview = !/^https?:$/.test(location.protocol) || !location.host;\n" +
-  "        if (heroStatus) {\n" +
-  "          heroStatus.textContent = offlinePreview\n" +
-  "            ? '\u0e1e\u0e23\u0e35\u0e27\u0e34\u0e27\u0e41\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e15\u0e48\u0e2d\u0e40\u0e19\u0e47\u0e15 \u2014 \u0e40\u0e1b\u0e34\u0e14\u0e1a\u0e19\u0e40\u0e27\u0e47\u0e1a\u0e08\u0e23\u0e34\u0e07\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e14\u0e39\u0e2a\u0e16\u0e32\u0e19\u0e30'\n" +
-  "            : '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49 (\u0e2d\u0e32\u0e08\u0e16\u0e39\u0e01\u0e1a\u0e25\u0e47\u0e2d\u0e01\u0e2b\u0e23\u0e37\u0e2d\u0e2d\u0e2d\u0e1f\u0e44\u0e25\u0e19\u0e4c)';\n" +
-  "        }\n" +
-  "        setDot(heroDot, offlinePreview ? '' : 'bad');\n" +
-  "      })\n" +
-  "      .then(function () { if (timer) clearTimeout(timer); });\n" +
-  "  }\n" +
-  "\n" +
-  "  check();\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 mobile menu \u2500\u2500\u2500 */\n" +
-  "  var burger = document.getElementById('burger');\n" +
-  "  var navPill = document.getElementById('navPill');\n" +
-  "  if (burger && navPill) {\n" +
-  "    burger.addEventListener('click', function () {\n" +
-  "      var open = navPill.classList.toggle('is-open');\n" +
-  "      burger.setAttribute('aria-expanded', open ? 'true' : 'false');\n" +
-  "      burger.setAttribute('aria-label', open ? '\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39' : '\u0e40\u0e1b\u0e34\u0e14\u0e40\u0e21\u0e19\u0e39');\n" +
-  "    });\n" +
-  "    navPill.addEventListener('click', function (event) {\n" +
-  "      if (event.target.closest('.nav-link')) {\n" +
-  "        navPill.classList.remove('is-open');\n" +
-  "        burger.setAttribute('aria-expanded', 'false');\n" +
-  "      }\n" +
-  "    });\n" +
-  "  }\n" +
-  "\n" +
-  "  /* \u2500\u2500\u2500 fly-in: random direction per element \u2500\u2500\u2500 */\n" +
-  "  var animated = document.documentElement.classList.contains('js-anim');\n" +
-  "\n" +
-  "  function randomDir() {\n" +
-  "    return {\n" +
-  "      tx: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',\n" +
-  "      ty: ((Math.random() - 0.5) * 420).toFixed(1) + 'px',\n" +
-  "      tr: ((Math.random() - 0.5) * 120).toFixed(1) + 'deg'\n" +
-  "    };\n" +
-  "  }\n" +
-  "\n" +
-  "  function arm(el, delay) {\n" +
-  "    var d = randomDir();\n" +
-  "    el.style.setProperty('--tx', d.tx);\n" +
-  "    el.style.setProperty('--ty', d.ty);\n" +
-  "    el.style.setProperty('--tr', d.tr);\n" +
-  "    el.style.setProperty('--delay', delay + 's');\n" +
-  "    el.classList.add('pop-in');\n" +
-  "  }\n" +
-  "\n" +
-  "  /* everything else: fly in when it scrolls into view */\n" +
-  "  var pops = [].slice.call(document.querySelectorAll('.pop-element'));\n" +
-  "  if (!animated) {\n" +
-  "    pops.forEach(function (el) { el.classList.add('pop-in'); });\n" +
-  "  } else if ('IntersectionObserver' in window) {\n" +
-  "    var io = new IntersectionObserver(function (entries) {\n" +
-  "      var shown = 0;\n" +
-  "      entries.forEach(function (entry) {\n" +
-  "        if (!entry.isIntersecting) return;\n" +
-  "        arm(entry.target, shown * 0.09);\n" +
-  "        shown += 1;\n" +
-  "        io.unobserve(entry.target);\n" +
-  "      });\n" +
-  "    }, { rootMargin: '0px 0px -5% 0px', threshold: 0.06 });\n" +
-  "    pops.forEach(function (el) { io.observe(el); });\n" +
-  "  } else {\n" +
-  "    pops.forEach(function (el, index) { arm(el, index * 0.08); });\n" +
-  "  }\n" +
-  "\n" +
-  "  /* pointer tilt on the code card */\n" +
-  "  var card = document.querySelector('.code-card');\n" +
-  "  if (card && window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {\n" +
-  "    card.addEventListener('pointermove', function (event) {\n" +
-  "      if (window.innerWidth < 960) return;\n" +
-  "      var r = card.getBoundingClientRect();\n" +
-  "      var x = (event.clientX - r.left) / r.width - 0.5;\n" +
-  "      var y = (event.clientY - r.top) / r.height - 0.5;\n" +
-  "      card.style.transform = 'perspective(1200px) rotateY(' + (-4 + x * 5).toFixed(2) + 'deg) rotateX(' + (2 - y * 5).toFixed(2) + 'deg)';\n" +
-  "    });\n" +
-  "    card.addEventListener('pointerleave', function () { card.style.transform = ''; });\n" +
-  "  }\n" +
-  "})();\n" +
-  "</script>\n" +
-  "</body>\n" +
-  "</html>\n" +
-  "\n" +
-  "<!-- deploy trigger: 2026-10-22T00:00:00Z -->\n";
-Object.assign(EMBEDDED_PAGES, { "/key": KEY_PAGE });
-// END PAGE /key
+
 // BEGIN PAGE / - generated from pages/index.html; run `npm run pages` to refresh.
 const ROOT_PAGE =
   "<!DOCTYPE html>\n" +
@@ -4776,7 +4060,7 @@ const ROOT_PAGE =
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
-  "        <a href=\"/key\" class=\"sign-in\">Get Started</a>\n" +
+  "        <a href=\"/scripts\" class=\"sign-in\">Browse Scripts</a>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -4792,9 +4076,8 @@ const ROOT_PAGE =
   "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
   "      </p>\n" +
   "\n" +
-  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32 key system (\u0e41\u0e1a\u0e1a\u0e40\u0e01\u0e48\u0e32) -->\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/key\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Browse Scripts</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
@@ -5441,7 +4724,7 @@ const HUB_PAGE =
   "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
   "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
   "        </nav>\n" +
-  "        <a href=\"/key\" class=\"sign-in\">Get Started</a>\n" +
+  "        <a href=\"/scripts\" class=\"sign-in\">Browse Scripts</a>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -5457,9 +4740,8 @@ const HUB_PAGE =
   "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
   "      </p>\n" +
   "\n" +
-  "      <!-- \u0e1b\u0e38\u0e48\u0e21 Get Started \u0e1e\u0e32\u0e44\u0e1b\u0e2b\u0e19\u0e49\u0e32 key system (\u0e41\u0e1a\u0e1a\u0e40\u0e01\u0e48\u0e32) -->\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/key\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Browse Scripts</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
@@ -6715,8 +5997,8 @@ async function supabaseRows(pathname) {
   return Array.isArray(rows) ? rows : null;
 }
 
-// The warm lambda keeps the list for a minute so the /key cards appear without
-// waiting for a cross-region round trip on every page load.
+// The warm lambda keeps the list for a minute so the public catalog appears
+// without waiting for a cross-region round trip on every page load.
 let scriptsListCache = { at: 0, items: [], scope: 'memory' };
 
 async function handleScriptsList(req, res) {
@@ -8451,6 +7733,11 @@ async function handler(req, res) {
   const pagePath = url.pathname === '/api/auth'
     ? (req.query?.page || url.searchParams.get('page'))
     : (url.pathname === '/' ? '/' : url.pathname.replace(/\/+$/, ''));
+  if (pagePath === '/key') {
+    res.setHeader('Cache-Control', 'no-store');
+    res.setHeader('Location', '/scripts');
+    return res.status(308).send('');
+  }
   const page = Object.prototype.hasOwnProperty.call(EMBEDDED_PAGES, pagePath)
     ? EMBEDDED_PAGES[pagePath]
     : null;

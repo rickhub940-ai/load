@@ -20,7 +20,6 @@ const PAGE_SOURCES = Object.freeze({
   '/': 'pages/index.html',
   '/hub': 'pages/hub.html',
   '/scripts': 'pages/scripts.html',
-  '/key': 'pages/key.html',
   '/control': 'pages/control.html',
   '/stats': 'pages/stats.html',
 });
