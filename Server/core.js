@@ -3978,8 +3978,8 @@ const ROOT_PAGE =
   "    .product-section{padding-top:100px}\n" +
   "    .product-window{position:relative;width:100%;aspect-ratio:16/9;margin-top:48px;padding:14px;display:flex;flex-direction:column;overflow:hidden;border:1px solid #2a2a2e;border-radius:26px;background:linear-gradient(145deg,#151517,#09090a);box-shadow:0 35px 100px rgba(0,0,0,.55);opacity:0;filter:blur(12px) brightness(1.35);transform:translateY(90px) scale(.94);transition:opacity .9s ease .18s,transform 1s cubic-bezier(.2,.7,.2,1) .18s,filter .85s ease .18s;will-change:opacity,transform,filter}\n" +
   "    .product-window::after{content:\"\";position:absolute;z-index:5;top:-35%;bottom:-35%;left:-65%;width:58%;pointer-events:none;opacity:0;transform:translateX(-110%) skewX(-17deg);background:linear-gradient(90deg,transparent,rgba(173,119,255,.08) 24%,rgba(255,255,255,.72) 50%,rgba(173,119,255,.2) 72%,transparent);mix-blend-mode:screen}\n" +
-  "    .product-section.is-visible .product-window{opacity:1;filter:blur(0) brightness(1);transform:translateY(0) scale(1);animation:ui-warp-glow 1.2s ease-out .25s both}\n" +
-  "    .product-section.is-visible .product-window::after{animation:ui-light-warp 1.25s cubic-bezier(.2,.7,.2,1) .28s both}\n" +
+  "    .product-window.is-visible{opacity:1;filter:blur(0) brightness(1);transform:translateY(0) scale(1);animation:ui-warp-glow 1.2s ease-out .25s both}\n" +
+  "    .product-window.is-visible::after{animation:ui-light-warp 1.25s cubic-bezier(.2,.7,.2,1) .28s both}\n" +
   "    @keyframes ui-light-warp{0%{opacity:0;transform:translateX(-110%) skewX(-17deg)}20%{opacity:.95}78%{opacity:.8}100%{opacity:0;transform:translateX(300%) skewX(-17deg)}}\n" +
   "    @keyframes ui-warp-glow{0%,100%{box-shadow:0 35px 100px rgba(0,0,0,.55),0 0 0 rgba(155,115,255,0)}35%{box-shadow:0 35px 100px rgba(0,0,0,.55),0 0 42px rgba(155,115,255,.62),0 0 90px rgba(110,80,255,.28)}}\n" +
   "    .window-bar{height:64px;display:flex;align-items:center;gap:10px;padding:0 10px 12px;color:#aaa6b2;font-size:11px}\n" +
@@ -3989,7 +3989,7 @@ const ROOT_PAGE =
   "    .window-status{flex:none;margin-left:6px;padding:6px 11px;border-radius:999px;background:#15b9e7;color:#07131a;font-size:10px;font-weight:800}\n" +
   "    .window-controls{margin-left:auto;display:flex;gap:17px;color:#d9d5df;font-size:17px}\n" +
   "    .window-content{min-height:0;flex:1;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #34283e;border-radius:19px;background:rgba(24,15,31,.96);opacity:0;transform:translateY(42px);transition:opacity .8s ease .38s,transform .85s cubic-bezier(.2,.7,.2,1) .38s}\n" +
-  "    .product-section.is-visible .window-content{opacity:1;transform:translateY(0)}\n" +
+  "    .product-window.is-visible .window-content{opacity:1;transform:translateY(0)}\n" +
   "    .window-sidebar{display:flex;flex-direction:column;padding:20px 12px;border-right:1px solid #382a42;background:rgba(19,12,25,.88)}\n" +
   "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#b5afbf;font-size:12px}.window-nav span.active{background:#34213f;color:#fff}\n" +
   "    .window-profile{display:flex;align-items:center;gap:10px;margin-top:auto;padding:12px 4px 2px;color:#f4f1f8;font-size:12px;font-weight:700}.window-avatar{width:38px;height:38px;display:grid;place-items:center;flex:none;border-radius:50%;background:linear-gradient(145deg,#f1ccbd,#87675f);color:#21161a;font-size:17px}.window-profile small{display:block;margin-top:3px;color:#9b95a2;font-size:10px;font-weight:500}\n" +
@@ -4323,6 +4323,18 @@ const ROOT_PAGE =
   "        document.querySelectorAll(\".reveal\").forEach((el) => revealObserver.observe(el));\n" +
   "      } else {\n" +
   "        document.querySelectorAll(\".reveal\").forEach((el) => el.classList.add(\"is-visible\"));\n" +
+  "      }\n" +
+  "\n" +
+  "      const productWindow = document.querySelector(\".product-window\");\n" +
+  "      if (productWindow && \"IntersectionObserver\" in window) {\n" +
+  "        const uiObserver = new IntersectionObserver((entries, observer) => {\n" +
+  "          entries.forEach((entry) => {\n" +
+  "            if (entry.isIntersecting) { entry.target.classList.add(\"is-visible\"); observer.unobserve(entry.target); }\n" +
+  "          });\n" +
+  "        }, { threshold: 0.08 });\n" +
+  "        uiObserver.observe(productWindow);\n" +
+  "      } else if (productWindow) {\n" +
+  "        productWindow.classList.add(\"is-visible\");\n" +
   "      }\n" +
   "\n" +
   "      const previewGrid = document.getElementById(\"homeScriptPreview\");\n" +
@@ -4698,8 +4710,8 @@ const HUB_PAGE =
   "    .product-section{padding-top:100px}\n" +
   "    .product-window{position:relative;width:100%;aspect-ratio:16/9;margin-top:48px;padding:14px;display:flex;flex-direction:column;overflow:hidden;border:1px solid #2a2a2e;border-radius:26px;background:linear-gradient(145deg,#151517,#09090a);box-shadow:0 35px 100px rgba(0,0,0,.55);opacity:0;filter:blur(12px) brightness(1.35);transform:translateY(90px) scale(.94);transition:opacity .9s ease .18s,transform 1s cubic-bezier(.2,.7,.2,1) .18s,filter .85s ease .18s;will-change:opacity,transform,filter}\n" +
   "    .product-window::after{content:\"\";position:absolute;z-index:5;top:-35%;bottom:-35%;left:-65%;width:58%;pointer-events:none;opacity:0;transform:translateX(-110%) skewX(-17deg);background:linear-gradient(90deg,transparent,rgba(173,119,255,.08) 24%,rgba(255,255,255,.72) 50%,rgba(173,119,255,.2) 72%,transparent);mix-blend-mode:screen}\n" +
-  "    .product-section.is-visible .product-window{opacity:1;filter:blur(0) brightness(1);transform:translateY(0) scale(1);animation:ui-warp-glow 1.2s ease-out .25s both}\n" +
-  "    .product-section.is-visible .product-window::after{animation:ui-light-warp 1.25s cubic-bezier(.2,.7,.2,1) .28s both}\n" +
+  "    .product-window.is-visible{opacity:1;filter:blur(0) brightness(1);transform:translateY(0) scale(1);animation:ui-warp-glow 1.2s ease-out .25s both}\n" +
+  "    .product-window.is-visible::after{animation:ui-light-warp 1.25s cubic-bezier(.2,.7,.2,1) .28s both}\n" +
   "    @keyframes ui-light-warp{0%{opacity:0;transform:translateX(-110%) skewX(-17deg)}20%{opacity:.95}78%{opacity:.8}100%{opacity:0;transform:translateX(300%) skewX(-17deg)}}\n" +
   "    @keyframes ui-warp-glow{0%,100%{box-shadow:0 35px 100px rgba(0,0,0,.55),0 0 0 rgba(155,115,255,0)}35%{box-shadow:0 35px 100px rgba(0,0,0,.55),0 0 42px rgba(155,115,255,.62),0 0 90px rgba(110,80,255,.28)}}\n" +
   "    .window-bar{height:64px;display:flex;align-items:center;gap:10px;padding:0 10px 12px;color:#aaa6b2;font-size:11px}\n" +
@@ -4709,7 +4721,7 @@ const HUB_PAGE =
   "    .window-status{flex:none;margin-left:6px;padding:6px 11px;border-radius:999px;background:#15b9e7;color:#07131a;font-size:10px;font-weight:800}\n" +
   "    .window-controls{margin-left:auto;display:flex;gap:17px;color:#d9d5df;font-size:17px}\n" +
   "    .window-content{min-height:0;flex:1;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #34283e;border-radius:19px;background:rgba(24,15,31,.96);opacity:0;transform:translateY(42px);transition:opacity .8s ease .38s,transform .85s cubic-bezier(.2,.7,.2,1) .38s}\n" +
-  "    .product-section.is-visible .window-content{opacity:1;transform:translateY(0)}\n" +
+  "    .product-window.is-visible .window-content{opacity:1;transform:translateY(0)}\n" +
   "    .window-sidebar{display:flex;flex-direction:column;padding:20px 12px;border-right:1px solid #382a42;background:rgba(19,12,25,.88)}\n" +
   "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#b5afbf;font-size:12px}.window-nav span.active{background:#34213f;color:#fff}\n" +
   "    .window-profile{display:flex;align-items:center;gap:10px;margin-top:auto;padding:12px 4px 2px;color:#f4f1f8;font-size:12px;font-weight:700}.window-avatar{width:38px;height:38px;display:grid;place-items:center;flex:none;border-radius:50%;background:linear-gradient(145deg,#f1ccbd,#87675f);color:#21161a;font-size:17px}.window-profile small{display:block;margin-top:3px;color:#9b95a2;font-size:10px;font-weight:500}\n" +
@@ -5043,6 +5055,18 @@ const HUB_PAGE =
   "        document.querySelectorAll(\".reveal\").forEach((el) => revealObserver.observe(el));\n" +
   "      } else {\n" +
   "        document.querySelectorAll(\".reveal\").forEach((el) => el.classList.add(\"is-visible\"));\n" +
+  "      }\n" +
+  "\n" +
+  "      const productWindow = document.querySelector(\".product-window\");\n" +
+  "      if (productWindow && \"IntersectionObserver\" in window) {\n" +
+  "        const uiObserver = new IntersectionObserver((entries, observer) => {\n" +
+  "          entries.forEach((entry) => {\n" +
+  "            if (entry.isIntersecting) { entry.target.classList.add(\"is-visible\"); observer.unobserve(entry.target); }\n" +
+  "          });\n" +
+  "        }, { threshold: 0.08 });\n" +
+  "        uiObserver.observe(productWindow);\n" +
+  "      } else if (productWindow) {\n" +
+  "        productWindow.classList.add(\"is-visible\");\n" +
   "      }\n" +
   "\n" +
   "      const previewGrid = document.getElementById(\"homeScriptPreview\");\n" +
