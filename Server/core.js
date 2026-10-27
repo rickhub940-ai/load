@@ -5603,7 +5603,7 @@ async function serveArtifact(req, res, name, url, origin) {
     };
     let rendered = template
       .replaceAll('__STAGE2_TOKEN__', link.token)
-      .replaceAll('__STAGE2_SHA256__', run.sha)
+      .replaceAll('__Z__', run.sha)
       .replaceAll('__STAGE2_NONCE__', chainLinks.deriveNonce(link.token))
       .replaceAll('__BASE_URL__', baseUrl);
     for (const [marker, code] of Object.entries(stageErrorCodes)) {
