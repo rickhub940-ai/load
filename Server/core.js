@@ -3697,7 +3697,7 @@ const ROOT_PAGE =
   "    html { scroll-behavior: smooth; }\n" +
   "\n" +
   "    body {\n" +
-  "      background: var(--bg);\n" +
+  "      background: #dce4f5;\n" +
   "      color: var(--text);\n" +
   "      font-family: var(--font-sans);\n" +
   "      -webkit-font-smoothing: antialiased;\n" +
@@ -3710,91 +3710,9 @@ const ROOT_PAGE =
   "    button { font-family: inherit; border: none; background: none; cursor: pointer; }\n" +
   "    img { display: block; max-width: 100%; }\n" +
   "\n" +
-  "    /* ===== Background ===== */\n" +
-  "    .bg-wave {\n" +
-  "      position: fixed; inset: 0; z-index: 0;\n" +
-  "      background-color: #000; overflow: hidden;\n" +
-  "    }\n" +
-  "\n" +
-  "    .bg-wave::before {\n" +
-  "      content: \"\"; position: absolute; top: -50%; left: -50%;\n" +
-  "      width: 200%; height: 200%;\n" +
-  "      background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),\n" +
-  "                  radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);\n" +
-  "      filter: blur(80px);\n" +
-  "      animation: waveMove1 20s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .bg-wave::after {\n" +
-  "      content: \"\"; position: absolute; bottom: -50%; right: -50%;\n" +
-  "      width: 150%; height: 150%;\n" +
-  "      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);\n" +
-  "      filter: blur(100px);\n" +
-  "      animation: waveMove2 25s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .green-orb {\n" +
-  "      position: absolute; border-radius: 50%;\n" +
-  "      filter: blur(60px); z-index: 1; pointer-events: none;\n" +
-  "    }\n" +
-  "\n" +
-  "    .orb-1 {\n" +
-  "      width: 45vw; height: 45vw;\n" +
-  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, transparent 70%);\n" +
-  "      top: -15%; right: -10%;\n" +
-  "      animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .orb-2 {\n" +
-  "      width: 35vw; height: 35vw;\n" +
-  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%);\n" +
-  "      bottom: 5%; left: -5%;\n" +
-  "      animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .orb-3 {\n" +
-  "      width: 25vw; height: 25vw;\n" +
-  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
-  "      top: 40%; left: 30%;\n" +
-  "      animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .bg-wave .noise {\n" +
-  "      position: absolute; inset: 0; opacity: 0.15;\n" +
-  "      background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\");\n" +
-  "      mix-blend-mode: overlay; pointer-events: none; z-index: 2;\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes waveMove1 {\n" +
-  "      0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
-  "      50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
-  "      100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes waveMove2 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
-  "      50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
-  "      100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes orbFloat1 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }\n" +
-  "      100% { transform: translate(-15%, 20%) scale(1.3); opacity: 0.8; }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes orbFloat2 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }\n" +
-  "      100% { transform: translate(20%, -15%) scale(1.4); opacity: 0.7; }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes orbFloat3 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }\n" +
-  "      100% { transform: translate(-10%, -20%) scale(1.5); opacity: 0.5; }\n" +
-  "    }\n" +
-  "\n" +
   "    /* ===== Page Layout ===== */\n" +
   "    .page { position:relative; z-index:3; width:100%; display:flex; flex-direction:column; align-items:stretch; padding-bottom:0; }\n" +
-  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:52svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 24px; overflow:hidden; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
+  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:52svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 24px; overflow:visible; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
   "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
   "    .hero-stage::after { display:none; }\n" +
   "    .hero-stage > * { position:relative; z-index:1; width:min(100%,1200px); }\n" +
@@ -3913,6 +3831,7 @@ const ROOT_PAGE =
   "      0% { background-position: -200% 0; }\n" +
   "      100% { background-position: 200% 0; }\n" +
   "    }\n" +
+  "    @media(min-width:901px){.char,.char.pop-in{background:none;color:#08090b;opacity:1;visibility:visible;transform:none;filter:none;animation:none}.char.shimmer-ready::after{display:none}}\n" +
   "\n" +
   "    /* =========================================\n" +
   "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
@@ -4057,7 +3976,7 @@ const ROOT_PAGE =
   "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
   "    @media(max-width:720px){\n" +
-  "      body{background:#dce4f5}.bg-wave{display:none}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}\n" +
+  "      body{background:#dce4f5}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}\n" +
   "      .headline,.live-status{display:none}\n" +
   "      .subhead{max-width:600px;margin:0 auto 24px;font-size:clamp(16px,4vw,19px);line-height:1.45}\n" +
   "      .cta-group{max-width:560px;gap:12px;margin-bottom:20px}\n" +
@@ -4080,14 +3999,6 @@ const ROOT_PAGE =
   "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
-  "  <!-- Background -->\n" +
-  "  <div class=\"bg-wave\">\n" +
-  "    <div class=\"green-orb orb-1\"></div>\n" +
-  "    <div class=\"green-orb orb-2\"></div>\n" +
-  "    <div class=\"green-orb orb-3\"></div>\n" +
-  "    <div class=\"noise\"></div>\n" +
-  "  </div>\n" +
-  "\n" +
   "  <div class=\"page\">\n" +
   "    <!-- Header -->\n" +
   "    <header class=\"site-header\">\n" +
@@ -4428,7 +4339,7 @@ const HUB_PAGE =
   "    html { scroll-behavior: smooth; }\n" +
   "\n" +
   "    body {\n" +
-  "      background: var(--bg);\n" +
+  "      background: #dce4f5;\n" +
   "      color: var(--text);\n" +
   "      font-family: var(--font-sans);\n" +
   "      -webkit-font-smoothing: antialiased;\n" +
@@ -4441,91 +4352,9 @@ const HUB_PAGE =
   "    button { font-family: inherit; border: none; background: none; cursor: pointer; }\n" +
   "    img { display: block; max-width: 100%; }\n" +
   "\n" +
-  "    /* ===== Background ===== */\n" +
-  "    .bg-wave {\n" +
-  "      position: fixed; inset: 0; z-index: 0;\n" +
-  "      background-color: #000; overflow: hidden;\n" +
-  "    }\n" +
-  "\n" +
-  "    .bg-wave::before {\n" +
-  "      content: \"\"; position: absolute; top: -50%; left: -50%;\n" +
-  "      width: 200%; height: 200%;\n" +
-  "      background: radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.12) 0%, transparent 50%),\n" +
-  "                  radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 40%);\n" +
-  "      filter: blur(80px);\n" +
-  "      animation: waveMove1 20s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .bg-wave::after {\n" +
-  "      content: \"\"; position: absolute; bottom: -50%; right: -50%;\n" +
-  "      width: 150%; height: 150%;\n" +
-  "      background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);\n" +
-  "      filter: blur(100px);\n" +
-  "      animation: waveMove2 25s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .green-orb {\n" +
-  "      position: absolute; border-radius: 50%;\n" +
-  "      filter: blur(60px); z-index: 1; pointer-events: none;\n" +
-  "    }\n" +
-  "\n" +
-  "    .orb-1 {\n" +
-  "      width: 45vw; height: 45vw;\n" +
-  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, transparent 70%);\n" +
-  "      top: -15%; right: -10%;\n" +
-  "      animation: orbFloat1 15s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .orb-2 {\n" +
-  "      width: 35vw; height: 35vw;\n" +
-  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.25) 0%, transparent 70%);\n" +
-  "      bottom: 5%; left: -5%;\n" +
-  "      animation: orbFloat2 18s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .orb-3 {\n" +
-  "      width: 25vw; height: 25vw;\n" +
-  "      background: radial-gradient(circle, rgba(34, 197, 94, 0.2) 0%, transparent 70%);\n" +
-  "      top: 40%; left: 30%;\n" +
-  "      animation: orbFloat3 12s ease-in-out infinite alternate;\n" +
-  "    }\n" +
-  "\n" +
-  "    .bg-wave .noise {\n" +
-  "      position: absolute; inset: 0; opacity: 0.15;\n" +
-  "      background-image: url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E\");\n" +
-  "      mix-blend-mode: overlay; pointer-events: none; z-index: 2;\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes waveMove1 {\n" +
-  "      0% { transform: translate(0, 0) scale(1) rotate(0deg); }\n" +
-  "      50% { transform: translate(10%, 15%) scale(1.1) rotate(10deg); }\n" +
-  "      100% { transform: translate(-5%, 5%) scale(0.9) rotate(-5deg); }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes waveMove2 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.8; }\n" +
-  "      50% { transform: translate(-15%, -10%) scale(1.2); opacity: 1; }\n" +
-  "      100% { transform: translate(5%, -5%) scale(0.95); opacity: 0.7; }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes orbFloat1 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }\n" +
-  "      100% { transform: translate(-15%, 20%) scale(1.3); opacity: 0.8; }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes orbFloat2 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }\n" +
-  "      100% { transform: translate(20%, -15%) scale(1.4); opacity: 0.7; }\n" +
-  "    }\n" +
-  "\n" +
-  "    @keyframes orbFloat3 {\n" +
-  "      0% { transform: translate(0, 0) scale(1); opacity: 0.2; }\n" +
-  "      100% { transform: translate(-10%, -20%) scale(1.5); opacity: 0.5; }\n" +
-  "    }\n" +
-  "\n" +
   "    /* ===== Page Layout ===== */\n" +
   "    .page { position:relative; z-index:3; width:100%; display:flex; flex-direction:column; align-items:stretch; padding-bottom:0; }\n" +
-  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:52svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 24px; overflow:hidden; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
+  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:52svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 24px; overflow:visible; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
   "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:0; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
   "    .hero-stage::after { display:none; }\n" +
   "    .hero-stage > * { position:relative; z-index:1; width:min(100%,1200px); }\n" +
@@ -4644,6 +4473,7 @@ const HUB_PAGE =
   "      0% { background-position: -200% 0; }\n" +
   "      100% { background-position: 200% 0; }\n" +
   "    }\n" +
+  "    @media(min-width:901px){.char,.char.pop-in{background:none;color:#08090b;opacity:1;visibility:visible;transform:none;filter:none;animation:none}.char.shimmer-ready::after{display:none}}\n" +
   "\n" +
   "    /* =========================================\n" +
   "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
@@ -4788,7 +4618,7 @@ const HUB_PAGE =
   "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
   "    @media(max-width:720px){\n" +
-  "      body{background:#dce4f5}.bg-wave{display:none}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}\n" +
+  "      body{background:#dce4f5}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}\n" +
   "      .headline,.live-status{display:none}\n" +
   "      .subhead{max-width:600px;margin:0 auto 24px;font-size:clamp(16px,4vw,19px);line-height:1.45}\n" +
   "      .cta-group{max-width:560px;gap:12px;margin-bottom:20px}\n" +
@@ -4811,14 +4641,6 @@ const HUB_PAGE =
   "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
-  "  <!-- Background -->\n" +
-  "  <div class=\"bg-wave\">\n" +
-  "    <div class=\"green-orb orb-1\"></div>\n" +
-  "    <div class=\"green-orb orb-2\"></div>\n" +
-  "    <div class=\"green-orb orb-3\"></div>\n" +
-  "    <div class=\"noise\"></div>\n" +
-  "  </div>\n" +
-  "\n" +
   "  <div class=\"page\">\n" +
   "    <!-- Header -->\n" +
   "    <header class=\"site-header\">\n" +
