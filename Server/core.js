@@ -3684,8 +3684,8 @@ const ROOT_PAGE =
   "      --nav-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);\n" +
   "      \n" +
   "      /* \u0e1f\u0e2d\u0e19\u0e15\u0e4c Dot-matrix \u0e17\u0e31\u0e49\u0e07\u0e2b\u0e19\u0e49\u0e32 */\n" +
-  "      --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
-  "      --font-display: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
+  "      --font-sans: \"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
+  "      --font-display: \"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
   "    }\n" +
   "\n" +
   "    *, *::before, *::after {\n" +
@@ -3793,26 +3793,24 @@ const ROOT_PAGE =
   "    }\n" +
   "\n" +
   "    /* ===== Page Layout ===== */\n" +
-  "    .page {\n" +
-  "      position: relative; z-index: 3;\n" +
-  "      display: flex; flex-direction: column; align-items: center;\n" +
-  "      min-height: 100vh; padding: 0 clamp(14px, 3vw, 32px) 80px;\n" +
-  "    }\n" +
+  "    .page { position:relative; z-index:3; width:100%; display:flex; flex-direction:column; align-items:stretch; padding-bottom:0; }\n" +
+  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:100svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 32px; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
+  "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
+  "    .hero-stage > * { width:min(100%,1200px); }\n" +
   "\n" +
   "    /* ===== Header ===== */\n" +
   "    .site-header {\n" +
-  "      width: 100%; max-width: 900px;\n" +
+  "      width: 100%; max-width: 1200px;\n" +
   "      display: flex; align-items: center; justify-content: center;\n" +
-  "      position: sticky; top: 20px; z-index: 50; margin-bottom: 80px;\n" +
+  "      position:fixed; top:0; left:0; right:0; z-index:50; margin:0 auto; padding:14px clamp(16px,4vw,42px);\n" +
   "    }\n" +
   "\n" +
   "    .nav-pill {\n" +
   "      display: flex; align-items: center; justify-content: space-between;\n" +
   "      width: 100%; height: 64px; padding: 0 8px 0 16px;\n" +
-  "      border-radius: 999px; background: rgba(10, 10, 12, 0.4);\n" +
+  "      border-radius: 999px; background: rgba(255,255,255,.28);\n" +
   "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
-  "      border: 1px solid rgba(255, 255, 255, 0.1);\n" +
-  "      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n" +
+  "      border: 1px solid rgba(8,10,18,.09); box-shadow: 0 8px 32px rgba(20,30,55,.08);\n" +
   "    }\n" +
   "\n" +
   "    .brand {\n" +
@@ -3827,13 +3825,16 @@ const ROOT_PAGE =
   "    .brand img { width: 72%; height: 72%; object-fit: contain; }\n" +
   "\n" +
   "    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }\n" +
-  "    .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s ease; }\n" +
-  "    .nav-link:hover, .nav-link.is-active { color: #fff; }\n" +
+  "    .nav-link { font-size:14px; font-weight:600; color:rgba(7,8,11,.62); transition:color .2s ease; }\n" +
+  "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
+  "    body.scrolled .nav-pill{background:rgba(10,10,12,.86);border-color:rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.35)}\n" +
+  "    body.scrolled .nav-link{color:#a6a6ae}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
+  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:rgba(15,15,17,.75)}\n" +
   "\n" +
   "    .sign-in {\n" +
   "      display: inline-flex; align-items: center; justify-content: center;\n" +
   "      height: 48px; padding: 0 24px; border-radius: 999px;\n" +
-  "      background: #fff; color: #000; font-size: 14px; font-weight: 600;\n" +
+  "      background: #050505; color: #fff; font-size: 14px; font-weight: 600;\n" +
   "      transition: transform 0.2s ease, opacity 0.2s, box-shadow 0.2s;\n" +
   "    }\n" +
   "\n" +
@@ -3852,9 +3853,9 @@ const ROOT_PAGE =
   "\n" +
   "    /* ===== Hero Section ===== */\n" +
   "    .hero {\n" +
-  "      width: 100%; max-width: 900px;\n" +
-  "      display: flex; flex-direction: column; align-items: center;\n" +
-  "      text-align: center; padding: 40px 0 100px;\n" +
+  "      width: 100%; max-width: 1000px; flex:1;\n" +
+  "      display: flex; flex-direction: column; align-items: center; justify-content:center;\n" +
+  "      text-align: center; padding: clamp(54px,10vh,110px) 0 clamp(38px,7vh,72px);\n" +
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
@@ -3863,18 +3864,17 @@ const ROOT_PAGE =
   "    .headline {\n" +
   "      display: flex; align-items: center; justify-content: center;\n" +
   "      flex-wrap: wrap; gap: 0.05em;\n" +
-  "      font-weight: 400; font-size: clamp(48px, 9vw, 110px);\n" +
-  "      letter-spacing: -0.02em; line-height: 1.1;\n" +
-  "      margin-bottom: 24px; perspective: 1000px;\n" +
+  "      font-weight: 700; font-size: clamp(52px, 11vw, 112px);\n" +
+  "      letter-spacing: .13em; line-height: 1.08;\n" +
+  "      margin-bottom: 22px; perspective: 1000px; color:#07080b;\n" +
   "      min-height: 1.2em;\n" +
   "    }\n" +
   "\n" +
   "    .char {\n" +
   "      display: inline-block;\n" +
-  "      background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
-  "      -webkit-background-clip: text; background-clip: text;\n" +
-  "      color: transparent;\n" +
-  "      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));\n" +
+  "      background: linear-gradient(180deg,#08090d 10%,#303440 100%);\n" +
+  "      -webkit-background-clip:text; background-clip:text;\n" +
+  "      color:transparent; filter:none;\n" +
   "      opacity: 0; visibility: hidden; /* \u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e23\u0e2d\u0e04\u0e34\u0e27 */\n" +
   "    }\n" +
   "\n" +
@@ -3924,28 +3924,28 @@ const ROOT_PAGE =
   "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
   "       ========================================= */\n" +
   "    .subhead {\n" +
-  "      max-width: 650px; font-size: clamp(16px, 2vw, 18px);\n" +
-  "      line-height: 1.6; color: #ccc; margin-bottom: 40px;\n" +
+  "      max-width:720px; font-size:clamp(16px,2vw,20px);\n" +
+  "      line-height:1.55; color:rgba(7,8,11,.78); margin-bottom:28px;\n" +
   "    }\n" +
   "\n" +
   "    .cta-group {\n" +
-  "      display: flex; justify-content: center;\n" +
-  "      width: 100%; max-width: 500px; margin-bottom: 32px;\n" +
+  "      display:flex; justify-content:center; flex-wrap:wrap; gap:14px;\n" +
+  "      width:100%; max-width:560px; margin-bottom:28px;\n" +
   "    }\n" +
   "\n" +
   "    .cta-primary {\n" +
   "      display: flex; align-items: center; justify-content: center;\n" +
-  "      /* \u0e1b\u0e23\u0e31\u0e1a\u0e43\u0e2b\u0e49\u0e01\u0e27\u0e49\u0e32\u0e07\u0e02\u0e36\u0e49\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e14\u0e39\u0e2a\u0e21\u0e14\u0e38\u0e25\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e21\u0e35\u0e1b\u0e38\u0e48\u0e21 Discord */\n" +
-  "      width: 100%; max-width: 280px; padding: 16px 24px;\n" +
-  "      border-radius: 999px; background: #fff; color: #000;\n" +
-  "      font-size: 15px; font-weight: 600;\n" +
-  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.2);\n" +
-  "      transition: transform 0.25s ease, box-shadow 0.25s ease;\n" +
+  "      width:auto; min-width:220px; padding:16px 26px;\n" +
+  "      border-radius:999px; background:#050505; color:#fff;\n" +
+  "      font-size:16px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.12);\n" +
+  "      transition:transform .25s ease,box-shadow .25s ease;\n" +
   "    }\n" +
+  "    .cta-secondary{background:rgba(255,255,255,.38);color:#08090c;box-shadow:none}\n" +
+  "    .cta-secondary:hover{background:rgba(255,255,255,.68);box-shadow:0 10px 28px rgba(20,30,55,.1)}\n" +
   "\n" +
   "    .cta-primary:hover {\n" +
   "      transform: translateY(-2px) scale(1.01);\n" +
-  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.5);\n" +
+  "      box-shadow:0 12px 30px rgba(0,0,0,.2);\n" +
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
@@ -3953,22 +3953,19 @@ const ROOT_PAGE =
   "       ========================================= */\n" +
   "    .live-status {\n" +
   "      display: flex; align-items: center; gap: 10px;\n" +
-  "      font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: #22c55e;\n" +
-  "      text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);\n" +
+  "      font-size:12px; font-weight:700; letter-spacing:.06em; color:#14783d;\n" +
+  "      text-shadow:none;\n" +
   "    }\n" +
   "\n" +
   "    .status-dot {\n" +
-  "      position: relative; width: 10px; height: 10px;\n" +
-  "      background: #22c55e; border-radius: 50%;\n" +
-  "      box-shadow: 0 0 10px #22c55e;\n" +
+  "      position:relative; width:9px; height:9px;\n" +
+  "      background:#22a85a; border-radius:50%; box-shadow:0 0 0 4px rgba(34,168,90,.14);\n" +
   "    }\n" +
   "\n" +
   "    .status-dot::after {\n" +
-  "      content: \"\"; position: absolute; top: 50%; left: 50%;\n" +
-  "      width: 100%; height: 100%; background: #22c55e;\n" +
-  "      border-radius: 50%; transform: translate(-50%, -50%);\n" +
-  "      animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;\n" +
-  "      z-index: -1;\n" +
+  "      content:\"\"; position:absolute; top:50%; left:50%; width:100%; height:100%;\n" +
+  "      background:#22a85a; border-radius:50%; transform:translate(-50%,-50%);\n" +
+  "      animation:pulseRing 1.5s cubic-bezier(.215,.61,.355,1) infinite; z-index:-1;\n" +
   "    }\n" +
   "\n" +
   "    @keyframes pulseRing {\n" +
@@ -3977,34 +3974,57 @@ const ROOT_PAGE =
   "    }\n" +
   "\n" +
   "    /* ===== Stats Section ===== */\n" +
-  "    .stats-section {\n" +
-  "      width: 100%; max-width: 1000px; padding: 60px 20px;\n" +
-  "      margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1);\n" +
-  "    }\n" +
-  "\n" +
-  "    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }\n" +
-  "\n" +
-  "    .stat {\n" +
-  "      display: flex; flex-direction: column; align-items: center;\n" +
-  "      text-align: center; gap: 6px;\n" +
-  "      background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1);\n" +
-  "      padding: 24px 16px; border-radius: 16px;\n" +
-  "      backdrop-filter: blur(10px); transition: background 0.3s, border-color 0.3s;\n" +
-  "    }\n" +
-  "\n" +
-  "    .stat:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); }\n" +
-  "\n" +
-  "    .stat-icon {\n" +
-  "      font-size: clamp(22px, 3vw, 33px); color: #fff; line-height: 1;\n" +
-  "      text-shadow: 0 0 10px rgba(255,255,255,0.5);\n" +
-  "    }\n" +
-  "\n" +
-  "    .stat-value {\n" +
-  "      font-size: clamp(18px, 2.2vw, 26px); font-weight: 500; color: #fff;\n" +
-  "      font-variant-numeric: tabular-nums;\n" +
-  "    }\n" +
-  "\n" +
-  "    .stat-label { font-size: 12px; color: #aaa; }\n" +
+  "    .trust-strip{display:flex;justify-content:center;align-items:center;gap:clamp(22px,5vw,70px);flex-wrap:wrap;padding:10px 0 20px;color:rgba(6,8,12,.57);font-size:13px;font-weight:600}\n" +
+  "    .trust-item{display:flex;align-items:center;gap:9px;white-space:nowrap}\n" +
+  "    .trust-item b{color:#111;font-weight:700}.trust-mark{width:7px;height:7px;border-radius:50%;background:#111;opacity:.48}\n" +
+  "    .dark-section{width:100%;padding:clamp(76px,10vw,132px) clamp(20px,5vw,64px);background:#050505;color:#f7f7f8}\n" +
+  "    .section-inner{width:min(1120px,100%);margin:0 auto}\n" +
+  "    .section-kicker{margin-bottom:18px;color:#888991;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}\n" +
+  "    .section-heading{max-width:760px;margin:0;font-size:clamp(38px,7vw,76px);line-height:.99;letter-spacing:-.065em;font-weight:700}\n" +
+  "    .section-copy{max-width:640px;margin:22px 0 0;color:#92929b;font-size:clamp(16px,2vw,20px);line-height:1.65}\n" +
+  "    .product-section{padding-top:100px}\n" +
+  "    .product-window{margin-top:48px;padding:14px;border:1px solid #2a2a2e;border-radius:26px;background:linear-gradient(145deg,#151517,#09090a);box-shadow:0 35px 100px rgba(0,0,0,.55)}\n" +
+  "    .window-bar{height:42px;display:flex;align-items:center;gap:8px;padding:0 8px 12px;color:#777;font-size:11px}\n" +
+  "    .window-dot{width:10px;height:10px;border-radius:50%;background:#444}.window-dot:first-child{background:#f06c70}.window-dot:nth-child(2){background:#e9bd55}.window-dot:nth-child(3){background:#50c878}\n" +
+  "    .window-status{margin-left:10px;padding:5px 11px;border-radius:999px;background:#153c2a;color:#73e6a1;font-weight:700}\n" +
+  "    .window-name{margin-left:auto;color:#b9b9c0;font-weight:600}\n" +
+  "    .window-content{min-height:320px;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #232327;border-radius:19px;background:#0b0b0d}\n" +
+  "    .window-sidebar{padding:20px 13px;border-right:1px solid #242428;background:#09090a}\n" +
+  "    .window-brand{display:flex;align-items:center;gap:10px;margin:0 0 20px;font-size:14px;font-weight:700}\n" +
+  "    .window-logo{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:#f5f5f5;color:#111;font-weight:800}\n" +
+  "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#92929a;font-size:12px}.window-nav span:first-child{background:#1b1b1e;color:#fff}\n" +
+  "    .window-main{padding:clamp(18px,4vw,38px)}\n" +
+  "    .window-main h3{font-size:clamp(19px,3vw,28px);letter-spacing:-.04em}.window-main p{margin:8px 0 24px;color:#92929a;font-size:13px}\n" +
+  "    .window-feature{max-width:570px;padding:21px;border:1px solid #2d2d33;border-radius:18px;background:linear-gradient(135deg,#1b1b20,#111114)}\n" +
+  "    .window-feature-top{display:flex;gap:14px;align-items:center}.window-app-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:13px;background:#f4f4f5;color:#0a0a0b;font-weight:800;font-size:20px}\n" +
+  "    .window-feature strong{display:block;font-size:15px}.window-feature small{display:block;margin-top:4px;color:#96969e;font-size:12px}\n" +
+  "    .window-feature-action{margin-top:18px;padding:12px;border-radius:11px;background:#202025;color:#f5f5f6;text-align:center;font-size:12px;font-weight:650}\n" +
+  "    .trust-ring{width:220px;height:220px;margin:72px auto 0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14)}\n" +
+  "    .trust-ring strong{font-size:48px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .why-section{border-top:1px solid #202024}\n" +
+  "    .section-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:42px}\n" +
+  "    .section-link{flex:none;padding-bottom:8px;color:#f4f4f5;font-weight:700}.section-link span{margin-left:12px;font-size:20px}\n" +
+  "    .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}\n" +
+  "    .feature-card{min-height:280px;padding:clamp(24px,4vw,42px);display:flex;flex-direction:column;justify-content:space-between;border:1px solid #29292d;border-radius:28px;background:#1b1b1e}\n" +
+  "    .feature-card small{color:#a0a0a7;font-size:14px;font-weight:700}.feature-card h3{max-width:460px;margin-top:6px;font-size:clamp(24px,3.7vw,38px);line-height:1.1;letter-spacing:-.05em}\n" +
+  "    .feature-card p{max-width:460px;margin-top:18px;color:#a0a0a7;font-size:16px;line-height:1.65}\n" +
+  "    .feature-icon{align-self:flex-start;margin-top:28px;color:#c4c4ca;font-size:42px;line-height:1}\n" +
+  "    .scripts-section{border-top:1px solid #202024}\n" +
+  "    .home-script-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:42px}\n" +
+  "    .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}\n" +
+  "    .home-script-cover img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.home-script-card:hover img{transform:scale(1.04)}\n" +
+  "    .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}\n" +
+  "    .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}\n" +
+  "    .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}\n" +
+  "    .community-section{padding-top:25px;padding-bottom:100px}\n" +
+  "    .community-card{padding:clamp(30px,6vw,70px);border:1px solid #28282c;border-radius:32px;background:radial-gradient(ellipse at 85% 15%,rgba(125,99,196,.13),transparent 35%),#09090b}\n" +
+  "    .community-card h2{max-width:680px;font-size:clamp(38px,7vw,70px);line-height:1;letter-spacing:-.06em}\n" +
+  "    .community-card p{max-width:620px;margin:20px 0 30px;color:#93939b;font-size:18px;line-height:1.6}\n" +
+  "    .community-action{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 26px;border-radius:999px;background:#f5f5f5;color:#080808;font-weight:700}\n" +
+  "    .site-footer{padding:48px clamp(20px,5vw,64px) 35px;border-top:1px solid #202024;background:#050505;color:#9999a1}\n" +
+  "    .footer-inner{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px}\n" +
+  "    .footer-brand{color:#f5f5f5;font-size:22px;font-weight:700}.footer-copy{max-width:400px;margin-top:14px;line-height:1.7}.footer-col strong{display:block;margin-bottom:15px;color:#e8e8eb}.footer-col a{display:block;margin:11px 0;color:#888890}.footer-col a:hover{color:#fff}.footer-bottom{width:min(1120px,100%);margin:36px auto 0;padding-top:20px;border-top:1px solid #202024;color:#696970;font-size:12px}\n" +
+  "    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.reveal.is-visible{opacity:1;transform:none}\n" +
   "\n" +
   "    /* =========================================\n" +
   "       Elements \u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b: \u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\u0e2b\u0e21\u0e14!\n" +
@@ -4023,15 +4043,24 @@ const ROOT_PAGE =
   "    }\n" +
   "\n" +
   "    /* ===== Mobile Responsive ===== */\n" +
-  "    @media (max-width: 900px) {\n" +
-  "      .nav-pill { display: none; }\n" +
-  "      .burger { display: flex; }\n" +
-  "      .site-header { justify-content: space-between; padding: 0 10px; }\n" +
+  "    @media (max-width:900px){\n" +
+  "      .site-header{justify-content:space-between;padding:8px 0}\n" +
+  "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
+  "      .brand{width:42px;height:42px;background:#08090b;box-shadow:none}.brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
+  "      .nav-links,.sign-in{display:none}.burger{display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
+  "      .hero-stage{min-height:100svh;padding-left:22px;padding-right:22px}.hero{padding-top:clamp(70px,14vh,130px);padding-bottom:clamp(42px,9vh,90px)}\n" +
+  "      .headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
-  "\n" +
-  "    @media (max-width: 720px) {\n" +
-  "      .stats { grid-template-columns: repeat(2, 1fr); }\n" +
+  "    @media(max-width:720px){\n" +
+  "      .feature-grid,.home-script-grid{grid-template-columns:1fr}\n" +
+  "      .feature-card{min-height:260px}.home-script-grid{gap:28px}\n" +
+  "      .window-content{grid-template-columns:1fr}.window-sidebar{display:none}.window-main{padding:20px}\n" +
+  "      .window-status{margin-left:6px}.window-name{font-size:10px}.section-title-row{align-items:flex-start;flex-direction:column}.section-link{padding:0}\n" +
+  "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
+  "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
+  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1}}\n" +
+  "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
@@ -4044,10 +4073,11 @@ const ROOT_PAGE =
   "  </div>\n" +
   "\n" +
   "  <div class=\"page\">\n" +
+  "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Header -->\n" +
   "    <header class=\"site-header pop-element\">\n" +
   "      <div class=\"nav-pill\">\n" +
-  "        <a href=\"#\" class=\"brand\" aria-label=\"Home\">\n" +
+  "        <a href=\"/\" class=\"brand\" aria-label=\"Home\">\n" +
   "          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 60%; height: 60%;\">\n" +
   "            <path d=\"M12 2L2 7L12 12L22 7L12 2Z\" fill=\"#000\"/>\n" +
   "            <path d=\"M2 17L12 22L22 17\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
@@ -4055,10 +4085,10 @@ const ROOT_PAGE =
   "          </svg>\n" +
   "        </a>\n" +
   "        <nav class=\"nav-links\">\n" +
-  "          <a href=\"#\" class=\"nav-link is-active\">Home</a>\n" +
+  "          <a href=\"/\" class=\"nav-link is-active\">Home</a>\n" +
   "          <a href=\"/scripts\" class=\"nav-link\">Scripts</a>\n" +
-  "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
-  "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
+  "          <a href=\"#why-999ms\" class=\"nav-link\">Why 999MS</a>\n" +
+  "          <a href=\"#workflow\" class=\"nav-link\">How it works</a>\n" +
   "        </nav>\n" +
   "        <a href=\"/scripts\" class=\"sign-in\">Browse Scripts</a>\n" +
   "      </div>\n" +
@@ -4073,43 +4103,69 @@ const ROOT_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
+  "        A focused platform for Roblox. Fast, clear, and built around the scripts you use.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Browse Scripts</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Explore ScriptHub</a>\n" +
+  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn more</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
-  "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">LIVE - 99.9% UPTIME</span>\n" +
+  "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">CONNECTING TO 999MS</span>\n" +
   "      </div>\n" +
   "    </main>\n" +
+  "      <div class=\"trust-strip\" aria-label=\"999MS platform features\">\n" +
+  "        <span class=\"trust-item\"><i class=\"trust-mark\"></i><b>SHA-256</b> integrity checks</span>\n" +
+  "        <span class=\"trust-item\"><i class=\"trust-mark\"></i>Stage-based loader</span>\n" +
+  "        <span class=\"trust-item\"><i class=\"trust-mark\"></i>Community script library</span>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
   "\n" +
-  "    <!-- Stats Section -->\n" +
-  "    <section class=\"stats-section pop-element\">\n" +
-  "      <div class=\"stats\">\n" +
-  "        <div class=\"stat\" id=\"statLatency\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
-  "          <span class=\"stat-icon\">&lt;</span>\n" +
-  "          <span class=\"stat-value\">0ms</span>\n" +
-  "          <span class=\"stat-label\">Inference Time</span>\n" +
+  "    <section class=\"dark-section product-section reveal\" id=\"workflow\">\n" +
+  "      <div class=\"section-inner\">\n" +
+  "        <p class=\"section-kicker\">A better script workflow</p>\n" +
+  "        <h2 class=\"section-heading\">Your Roblox scripts, in one place.</h2>\n" +
+  "        <p class=\"section-copy\">999MS brings a protected loader and a growing script catalog together in a focused, easy-to-use experience.</p>\n" +
+  "        <div class=\"product-window\" aria-label=\"Illustration of the 999MS workspace\">\n" +
+  "          <div class=\"window-bar\"><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-status\">\u25cf Status: Ready</span><span class=\"window-name\">999MS Workspace</span></div>\n" +
+  "          <div class=\"window-content\">\n" +
+  "            <aside class=\"window-sidebar\"><div class=\"window-brand\"><span class=\"window-logo\">9</span><span>999MS</span></div><nav class=\"window-nav\"><span>\u25a6 &nbsp; Script library</span><span>\u25c7 &nbsp; Loader</span><span>\u2699 &nbsp; Settings</span><span>\u25c9 &nbsp; Community</span></nav></aside>\n" +
+  "            <div class=\"window-main\"><h3>Welcome to 999MS</h3><p>Find a script for your next Roblox session.</p><div class=\"window-feature\"><div class=\"window-feature-top\"><span class=\"window-app-icon\">9</span><div><strong>999MS ScriptHub</strong><small>Browse community scripts and supported experiences.</small></div></div><div class=\"window-feature-action\">Explore the script library&nbsp; \u2192</div></div></div>\n" +
+  "          </div>\n" +
   "        </div>\n" +
-  "        <div class=\"stat\" data-target=\"99.99\" data-suffix=\"%\" data-decimals=\"2\">\n" +
-  "          <span class=\"stat-icon\">%</span>\n" +
-  "          <span class=\"stat-value\">0%</span>\n" +
-  "          <span class=\"stat-label\">Platform Uptime</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"stat\" data-target=\"24\" data-suffix=\"/7\" data-decimals=\"0\">\n" +
-  "          <span class=\"stat-icon\">*</span>\n" +
-  "          <span class=\"stat-value\">0/7</span>\n" +
-  "          <span class=\"stat-label\">Autonomous Runtime</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"stat\" data-target=\"2.4\" data-suffix=\"M\" data-decimals=\"1\">\n" +
-  "          <span class=\"stat-icon\">#</span>\n" +
-  "          <span class=\"stat-value\">0M</span>\n" +
-  "          <span class=\"stat-label\">Context Windows</span>\n" +
+  "        <div class=\"trust-ring\" aria-label=\"SHA-256 verified loader stages\"><strong>SHA</strong><span>VERIFIED</span></div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
+  "      <div class=\"section-inner\">\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
+  "        <div class=\"feature-grid\">\n" +
+  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader verifies each delivered stage with SHA-256 before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Find scripts without the hunt.</h3><p>Browse supported experiences, view update information, and copy the matching loader command.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
   "        </div>\n" +
   "      </div>\n" +
   "    </section>\n" +
+  "\n" +
+  "    <section class=\"dark-section scripts-section reveal\">\n" +
+  "      <div class=\"section-inner\">\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Your scripts, close by.</h2><p class=\"section-copy\">Take a look through the latest scripts published to the 999MS library.</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
+  "        <div class=\"home-script-grid\" id=\"homeScriptPreview\" aria-live=\"polite\"><div class=\"home-script-empty\">Loading the latest scripts\u2026</div></div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <section class=\"dark-section community-section reveal\">\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Open the library to explore published scripts, check the available metadata, and copy the loader command.</p><a class=\"community-action\" href=\"/scripts\">Explore ScriptHub&nbsp; \u2192</a></div></div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
+  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A focused loader and script library for Roblox experiences.</p></div>\n" +
+  "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
+  "      <div class=\"footer-col\"><strong>Platform</strong><a href=\"/control\">Control panel</a><a href=\"/stats\">Service status</a></div>\n" +
+  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
   "  </div>\n" +
   "\n" +
   "  <script>\n" +
@@ -4206,13 +4262,15 @@ const ROOT_PAGE =
   "            navLinks.style.display = \"flex\";\n" +
   "            navLinks.style.flexDirection = \"column\";\n" +
   "            navLinks.style.position = \"absolute\";\n" +
-  "            navLinks.style.top = \"70px\";\n" +
+  "            navLinks.style.top = \"66px\";\n" +
   "            navLinks.style.left = \"0\";\n" +
   "            navLinks.style.width = \"100%\";\n" +
-  "            navLinks.style.background = \"rgba(10,10,12,0.95)\";\n" +
-  "            navLinks.style.padding = \"20px\";\n" +
-  "            navLinks.style.borderRadius = \"16px\";\n" +
-  "            navLinks.style.border = \"1px solid rgba(255,255,255,0.1)\";\n" +
+  "            navLinks.style.background = \"rgba(248,249,252,0.98)\";\n" +
+  "            navLinks.style.padding = \"18px\";\n" +
+  "            navLinks.style.borderRadius = \"18px\";\n" +
+  "            navLinks.style.border = \"1px solid rgba(10,12,18,0.12)\";\n" +
+  "            navLinks.style.boxShadow = \"0 18px 42px rgba(0,0,0,0.18)\";\n" +
+  "            navLinks.style.zIndex = \"60\";\n" +
   "            signIn.style.display = \"none\";\n" +
   "          } else {\n" +
   "            navLinks.style.display = \"\";\n" +
@@ -4221,74 +4279,50 @@ const ROOT_PAGE =
   "        });\n" +
   "      }\n" +
   "\n" +
-  "      // =========================================\n" +
-  "      // 4. Stats Count-up Animation\n" +
-  "      // =========================================\n" +
-  "      const stats = document.querySelectorAll(\".stat\");\n" +
-  "      let started = false;\n" +
-  "      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);\n" +
-  "\n" +
-  "      function animateStat(el, index) {\n" +
-  "        const target = parseFloat(el.dataset.target);\n" +
-  "        const suffix = el.dataset.suffix || \"\";\n" +
-  "        const decimals = parseInt(el.dataset.decimals || \"0\", 10);\n" +
-  "        const valueEl = el.querySelector(\".stat-value\");\n" +
-  "        const duration = 1500 + index * 80;\n" +
-  "        const delay = 3500 + (index * 90); // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e02\u0e49\u0e32\u0e17\u0e35\u0e48\u0e01\u0e48\u0e2d\u0e19\n" +
-  "\n" +
-  "        setTimeout(() => {\n" +
-  "          const startTime = performance.now();\n" +
-  "          function frame(now) {\n" +
-  "            const elapsed = now - startTime;\n" +
-  "            const progress = Math.min(elapsed / duration, 1);\n" +
-  "            const eased = easeOutCubic(progress);\n" +
-  "            valueEl.textContent = (target * eased).toFixed(decimals) + suffix;\n" +
-  "            if (progress < 1) requestAnimationFrame(frame);\n" +
-  "            else valueEl.textContent = target.toFixed(decimals) + suffix;\n" +
-  "          }\n" +
-  "          requestAnimationFrame(frame);\n" +
-  "        }, delay);\n" +
-  "      }\n" +
-  "\n" +
-  "      function startCounters() {\n" +
-  "        if (started) return;\n" +
-  "        started = true;\n" +
-  "        stats.forEach(animateStat);\n" +
-  "      }\n" +
-  "\n" +
-  "      if (\"IntersectionObserver\" in window && stats.length) {\n" +
-  "        const observer = new IntersectionObserver((entries) => {\n" +
-  "          entries.forEach((entry) => {\n" +
-  "            if (entry.isIntersecting) {\n" +
-  "              startCounters();\n" +
-  "              observer.disconnect();\n" +
-  "            }\n" +
-  "          });\n" +
-  "        }, { threshold: 0.25 });\n" +
-  "        observer.observe(stats[0]);\n" +
-  "      } else {\n" +
-  "        setTimeout(startCounters, 3500);\n" +
-  "      }\n" +
-  "\n" +
-  "      // =========================================\n" +
-  "      // 5. Real latency instead of a fake number\n" +
-  "      // =========================================\n" +
+  "      // Keep the live badge tied to the actual API health endpoint.\n" +
   "      const liveText = document.getElementById(\"liveText\");\n" +
   "      const liveDot = document.getElementById(\"liveDot\");\n" +
-  "      const latencyCard = document.getElementById(\"statLatency\");\n" +
-  "      const latencyValue = latencyCard ? latencyCard.querySelector(\".stat-value\") : null;\n" +
+  "      const probeStart = Date.now();\n" +
+  "      const homeYear = document.getElementById(\"homeYear\");\n" +
+  "      if (homeYear) homeYear.textContent = String(new Date().getFullYear());\n" +
+  "      const updateHeaderTone = () => document.body.classList.toggle(\"scrolled\", window.scrollY > 80);\n" +
+  "      updateHeaderTone();\n" +
+  "      window.addEventListener(\"scroll\", updateHeaderTone, { passive: true });\n" +
   "\n" +
-  "      function applyLatency(ms) {\n" +
-  "        if (latencyCard) {\n" +
-  "          latencyCard.dataset.target = String(ms);\n" +
-  "          latencyCard.dataset.suffix = \"ms\";\n" +
-  "          latencyCard.dataset.decimals = \"0\";\n" +
-  "        }\n" +
-  "        // The counter only runs once; if it already fired, write the value now.\n" +
-  "        if (started && latencyValue) latencyValue.textContent = ms + \"ms\";\n" +
+  "      if (\"IntersectionObserver\" in window) {\n" +
+  "        const revealObserver = new IntersectionObserver((entries, observer) => {\n" +
+  "          entries.forEach((entry) => {\n" +
+  "            if (entry.isIntersecting) { entry.target.classList.add(\"is-visible\"); observer.unobserve(entry.target); }\n" +
+  "          });\n" +
+  "        }, { threshold: 0.08 });\n" +
+  "        document.querySelectorAll(\".reveal\").forEach((el) => revealObserver.observe(el));\n" +
+  "      } else {\n" +
+  "        document.querySelectorAll(\".reveal\").forEach((el) => el.classList.add(\"is-visible\"));\n" +
   "      }\n" +
   "\n" +
-  "      const probeStart = Date.now();\n" +
+  "      const previewGrid = document.getElementById(\"homeScriptPreview\");\n" +
+  "      const safe = (value) => String(value == null ? \"\" : value).replace(/[&<>\"']/g, (ch) => ({\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",'\"':\"&quot;\",\"'\":\"&#39;\"}[ch]));\n" +
+  "      const scriptTitle = (value) => String(value || \"Script\").replace(/[_-]+/g,\" \").replace(/\\b\\w/g,(ch)=>ch.toUpperCase());\n" +
+  "      if (previewGrid) {\n" +
+  "        fetch(\"/api/scripts\", { cache: \"no-store\" }).then((res) => { if (!res.ok) throw new Error(\"scripts unavailable\"); return res.json(); }).then(async (data) => {\n" +
+  "          const items = Array.isArray(data.items) ? data.items.slice(0,3) : [];\n" +
+  "          if (!items.length) { previewGrid.innerHTML = '<div class=\"home-script-empty\">No scripts are published yet. Check back soon.</div>'; return; }\n" +
+  "          const ids = items.map((item) => item.placeId).filter(Boolean).join(\",\");\n" +
+  "          let games = {};\n" +
+  "          if (ids) {\n" +
+  "            try { const gameRes = await fetch(\"/api/games?ids=\" + encodeURIComponent(ids), { cache: \"no-store\" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}\n" +
+  "          }\n" +
+  "          previewGrid.innerHTML = items.map((item) => {\n" +
+  "            const game = games[String(item.placeId)] || {};\n" +
+  "            const title = game.name || scriptTitle(item.name);\n" +
+  "            const cover = game.icon ? '<img src=\"' + safe(game.icon) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>' + safe(title.slice(0,1).toUpperCase() || \"9\") + '</span>';\n" +
+  "            const date = item.updatedAt ? new Date(item.updatedAt).toLocaleDateString(undefined,{year:\"numeric\",month:\"short\",day:\"numeric\"}) : \"Recently published\";\n" +
+  "            return '<a class=\"home-script-card\" href=\"/scripts\"><div class=\"home-script-cover\">' + cover + '</div><h3>' + safe(title) + '</h3><p class=\"home-script-meta\">999MS &nbsp;\u00b7&nbsp; ' + safe(item.name) + '.lua &nbsp;\u00b7&nbsp; ' + safe(date) + '</p></a>';\n" +
+  "          }).join(\"\");\n" +
+  "          previewGrid.querySelectorAll(\"img\").forEach((img) => img.addEventListener(\"error\", () => { const cover = img.parentNode; img.remove(); const span = document.createElement(\"span\"); span.textContent = \"9\"; cover.appendChild(span); }));\n" +
+  "        }).catch(() => { previewGrid.innerHTML = '<div class=\"home-script-empty\">The script library is temporarily unavailable. <a href=\"/scripts\" style=\"color:#fff\">Open ScriptHub \u2192</a></div>'; });\n" +
+  "      }\n" +
+  "\n" +
   "      fetch(\"/api/health\", { cache: \"no-store\" })\n" +
   "        .then((res) => {\n" +
   "          if (!res.ok) throw new Error(\"HTTP \" + res.status);\n" +
@@ -4296,12 +4330,9 @@ const ROOT_PAGE =
   "        })\n" +
   "        .then((data) => {\n" +
   "          const ms = Date.now() - probeStart;\n" +
-  "          applyLatency(ms);\n" +
   "          if (liveText) liveText.textContent = \"LIVE \u00b7 \" + ms + \" MS \u00b7 v\" + (data.version || \"\");\n" +
   "        })\n" +
   "        .catch(() => {\n" +
-  "          if (latencyCard) latencyCard.dataset.target = \"0\";\n" +
-  "          if (started && latencyValue) latencyValue.textContent = \"\u2014\";\n" +
   "          if (liveText) {\n" +
   "            liveText.textContent = \"OFFLINE \u2014 API NOT REACHABLE\";\n" +
   "            liveText.style.color = \"#ff6b81\";\n" +
@@ -4348,8 +4379,8 @@ const HUB_PAGE =
   "      --nav-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);\n" +
   "      \n" +
   "      /* \u0e1f\u0e2d\u0e19\u0e15\u0e4c Dot-matrix \u0e17\u0e31\u0e49\u0e07\u0e2b\u0e19\u0e49\u0e32 */\n" +
-  "      --font-sans: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
-  "      --font-display: \"BubbledotICG-FinePos\", \"Geist Pixel Circle\", monospace;\n" +
+  "      --font-sans: \"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
+  "      --font-display: \"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif;\n" +
   "    }\n" +
   "\n" +
   "    *, *::before, *::after {\n" +
@@ -4457,26 +4488,24 @@ const HUB_PAGE =
   "    }\n" +
   "\n" +
   "    /* ===== Page Layout ===== */\n" +
-  "    .page {\n" +
-  "      position: relative; z-index: 3;\n" +
-  "      display: flex; flex-direction: column; align-items: center;\n" +
-  "      min-height: 100vh; padding: 0 clamp(14px, 3vw, 32px) 80px;\n" +
-  "    }\n" +
+  "    .page { position:relative; z-index:3; width:100%; display:flex; flex-direction:column; align-items:stretch; padding-bottom:0; }\n" +
+  "    .hero-stage { position:relative; isolation:isolate; width:100%; min-height:100svh; display:flex; flex-direction:column; align-items:center; padding:0 clamp(16px,4vw,42px) 32px; color:#07080b; background:linear-gradient(135deg,#dbe3f4 0%,#b9c5e3 46%,#e4eaf5 100%); }\n" +
+  "    .hero-stage::before { content:\"\"; position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse at 22% 26%,rgba(255,255,255,.75),transparent 45%),radial-gradient(ellipse at 82% 66%,rgba(255,255,255,.46),transparent 45%); }\n" +
+  "    .hero-stage > * { width:min(100%,1200px); }\n" +
   "\n" +
   "    /* ===== Header ===== */\n" +
   "    .site-header {\n" +
-  "      width: 100%; max-width: 900px;\n" +
+  "      width: 100%; max-width: 1200px;\n" +
   "      display: flex; align-items: center; justify-content: center;\n" +
-  "      position: sticky; top: 20px; z-index: 50; margin-bottom: 80px;\n" +
+  "      position:fixed; top:0; left:0; right:0; z-index:50; margin:0 auto; padding:14px clamp(16px,4vw,42px);\n" +
   "    }\n" +
   "\n" +
   "    .nav-pill {\n" +
   "      display: flex; align-items: center; justify-content: space-between;\n" +
   "      width: 100%; height: 64px; padding: 0 8px 0 16px;\n" +
-  "      border-radius: 999px; background: rgba(10, 10, 12, 0.4);\n" +
+  "      border-radius: 999px; background: rgba(255,255,255,.28);\n" +
   "      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);\n" +
-  "      border: 1px solid rgba(255, 255, 255, 0.1);\n" +
-  "      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);\n" +
+  "      border: 1px solid rgba(8,10,18,.09); box-shadow: 0 8px 32px rgba(20,30,55,.08);\n" +
   "    }\n" +
   "\n" +
   "    .brand {\n" +
@@ -4491,13 +4520,16 @@ const HUB_PAGE =
   "    .brand img { width: 72%; height: 72%; object-fit: contain; }\n" +
   "\n" +
   "    .nav-links { display: flex; align-items: center; gap: clamp(16px, 2.5vw, 32px); }\n" +
-  "    .nav-link { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s ease; }\n" +
-  "    .nav-link:hover, .nav-link.is-active { color: #fff; }\n" +
+  "    .nav-link { font-size:14px; font-weight:600; color:rgba(7,8,11,.62); transition:color .2s ease; }\n" +
+  "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
+  "    body.scrolled .nav-pill{background:rgba(10,10,12,.86);border-color:rgba(255,255,255,.12);box-shadow:0 8px 32px rgba(0,0,0,.35)}\n" +
+  "    body.scrolled .nav-link{color:#a6a6ae}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
+  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:rgba(15,15,17,.75)}\n" +
   "\n" +
   "    .sign-in {\n" +
   "      display: inline-flex; align-items: center; justify-content: center;\n" +
   "      height: 48px; padding: 0 24px; border-radius: 999px;\n" +
-  "      background: #fff; color: #000; font-size: 14px; font-weight: 600;\n" +
+  "      background: #050505; color: #fff; font-size: 14px; font-weight: 600;\n" +
   "      transition: transform 0.2s ease, opacity 0.2s, box-shadow 0.2s;\n" +
   "    }\n" +
   "\n" +
@@ -4516,9 +4548,9 @@ const HUB_PAGE =
   "\n" +
   "    /* ===== Hero Section ===== */\n" +
   "    .hero {\n" +
-  "      width: 100%; max-width: 900px;\n" +
-  "      display: flex; flex-direction: column; align-items: center;\n" +
-  "      text-align: center; padding: 40px 0 100px;\n" +
+  "      width: 100%; max-width: 1000px; flex:1;\n" +
+  "      display: flex; flex-direction: column; align-items: center; justify-content:center;\n" +
+  "      text-align: center; padding: clamp(54px,10vh,110px) 0 clamp(38px,7vh,72px);\n" +
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
@@ -4527,18 +4559,17 @@ const HUB_PAGE =
   "    .headline {\n" +
   "      display: flex; align-items: center; justify-content: center;\n" +
   "      flex-wrap: wrap; gap: 0.05em;\n" +
-  "      font-weight: 400; font-size: clamp(48px, 9vw, 110px);\n" +
-  "      letter-spacing: -0.02em; line-height: 1.1;\n" +
-  "      margin-bottom: 24px; perspective: 1000px;\n" +
+  "      font-weight: 700; font-size: clamp(52px, 11vw, 112px);\n" +
+  "      letter-spacing: .13em; line-height: 1.08;\n" +
+  "      margin-bottom: 22px; perspective: 1000px; color:#07080b;\n" +
   "      min-height: 1.2em;\n" +
   "    }\n" +
   "\n" +
   "    .char {\n" +
   "      display: inline-block;\n" +
-  "      background: linear-gradient(180deg, #ffffff 20%, #a0a0a0 100%);\n" +
-  "      -webkit-background-clip: text; background-clip: text;\n" +
-  "      color: transparent;\n" +
-  "      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.2));\n" +
+  "      background: linear-gradient(180deg,#08090d 10%,#303440 100%);\n" +
+  "      -webkit-background-clip:text; background-clip:text;\n" +
+  "      color:transparent; filter:none;\n" +
   "      opacity: 0; visibility: hidden; /* \u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e23\u0e2d\u0e04\u0e34\u0e27 */\n" +
   "    }\n" +
   "\n" +
@@ -4588,28 +4619,28 @@ const HUB_PAGE =
   "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
   "       ========================================= */\n" +
   "    .subhead {\n" +
-  "      max-width: 650px; font-size: clamp(16px, 2vw, 18px);\n" +
-  "      line-height: 1.6; color: #ccc; margin-bottom: 40px;\n" +
+  "      max-width:720px; font-size:clamp(16px,2vw,20px);\n" +
+  "      line-height:1.55; color:rgba(7,8,11,.78); margin-bottom:28px;\n" +
   "    }\n" +
   "\n" +
   "    .cta-group {\n" +
-  "      display: flex; justify-content: center;\n" +
-  "      width: 100%; max-width: 500px; margin-bottom: 32px;\n" +
+  "      display:flex; justify-content:center; flex-wrap:wrap; gap:14px;\n" +
+  "      width:100%; max-width:560px; margin-bottom:28px;\n" +
   "    }\n" +
   "\n" +
   "    .cta-primary {\n" +
   "      display: flex; align-items: center; justify-content: center;\n" +
-  "      /* \u0e1b\u0e23\u0e31\u0e1a\u0e43\u0e2b\u0e49\u0e01\u0e27\u0e49\u0e32\u0e07\u0e02\u0e36\u0e49\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e14\u0e39\u0e2a\u0e21\u0e14\u0e38\u0e25\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e44\u0e21\u0e48\u0e21\u0e35\u0e1b\u0e38\u0e48\u0e21 Discord */\n" +
-  "      width: 100%; max-width: 280px; padding: 16px 24px;\n" +
-  "      border-radius: 999px; background: #fff; color: #000;\n" +
-  "      font-size: 15px; font-weight: 600;\n" +
-  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.2);\n" +
-  "      transition: transform 0.25s ease, box-shadow 0.25s ease;\n" +
+  "      width:auto; min-width:220px; padding:16px 26px;\n" +
+  "      border-radius:999px; background:#050505; color:#fff;\n" +
+  "      font-size:16px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.12);\n" +
+  "      transition:transform .25s ease,box-shadow .25s ease;\n" +
   "    }\n" +
+  "    .cta-secondary{background:rgba(255,255,255,.38);color:#08090c;box-shadow:none}\n" +
+  "    .cta-secondary:hover{background:rgba(255,255,255,.68);box-shadow:0 10px 28px rgba(20,30,55,.1)}\n" +
   "\n" +
   "    .cta-primary:hover {\n" +
   "      transform: translateY(-2px) scale(1.01);\n" +
-  "      box-shadow: 0 0 0 1px rgba(255,255,255,0.3), 0 0 40px rgba(255,255,255,0.5);\n" +
+  "      box-shadow:0 12px 30px rgba(0,0,0,.2);\n" +
   "    }\n" +
   "\n" +
   "    /* =========================================\n" +
@@ -4617,22 +4648,19 @@ const HUB_PAGE =
   "       ========================================= */\n" +
   "    .live-status {\n" +
   "      display: flex; align-items: center; gap: 10px;\n" +
-  "      font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: #22c55e;\n" +
-  "      text-shadow: 0 0 10px rgba(34, 197, 94, 0.5);\n" +
+  "      font-size:12px; font-weight:700; letter-spacing:.06em; color:#14783d;\n" +
+  "      text-shadow:none;\n" +
   "    }\n" +
   "\n" +
   "    .status-dot {\n" +
-  "      position: relative; width: 10px; height: 10px;\n" +
-  "      background: #22c55e; border-radius: 50%;\n" +
-  "      box-shadow: 0 0 10px #22c55e;\n" +
+  "      position:relative; width:9px; height:9px;\n" +
+  "      background:#22a85a; border-radius:50%; box-shadow:0 0 0 4px rgba(34,168,90,.14);\n" +
   "    }\n" +
   "\n" +
   "    .status-dot::after {\n" +
-  "      content: \"\"; position: absolute; top: 50%; left: 50%;\n" +
-  "      width: 100%; height: 100%; background: #22c55e;\n" +
-  "      border-radius: 50%; transform: translate(-50%, -50%);\n" +
-  "      animation: pulseRing 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;\n" +
-  "      z-index: -1;\n" +
+  "      content:\"\"; position:absolute; top:50%; left:50%; width:100%; height:100%;\n" +
+  "      background:#22a85a; border-radius:50%; transform:translate(-50%,-50%);\n" +
+  "      animation:pulseRing 1.5s cubic-bezier(.215,.61,.355,1) infinite; z-index:-1;\n" +
   "    }\n" +
   "\n" +
   "    @keyframes pulseRing {\n" +
@@ -4641,34 +4669,57 @@ const HUB_PAGE =
   "    }\n" +
   "\n" +
   "    /* ===== Stats Section ===== */\n" +
-  "    .stats-section {\n" +
-  "      width: 100%; max-width: 1000px; padding: 60px 20px;\n" +
-  "      margin: 0 auto; border-top: 1px solid rgba(255,255,255,0.1);\n" +
-  "    }\n" +
-  "\n" +
-  "    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }\n" +
-  "\n" +
-  "    .stat {\n" +
-  "      display: flex; flex-direction: column; align-items: center;\n" +
-  "      text-align: center; gap: 6px;\n" +
-  "      background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255,255,255,0.1);\n" +
-  "      padding: 24px 16px; border-radius: 16px;\n" +
-  "      backdrop-filter: blur(10px); transition: background 0.3s, border-color 0.3s;\n" +
-  "    }\n" +
-  "\n" +
-  "    .stat:hover { background: rgba(255, 255, 255, 0.05); border-color: rgba(255,255,255,0.3); }\n" +
-  "\n" +
-  "    .stat-icon {\n" +
-  "      font-size: clamp(22px, 3vw, 33px); color: #fff; line-height: 1;\n" +
-  "      text-shadow: 0 0 10px rgba(255,255,255,0.5);\n" +
-  "    }\n" +
-  "\n" +
-  "    .stat-value {\n" +
-  "      font-size: clamp(18px, 2.2vw, 26px); font-weight: 500; color: #fff;\n" +
-  "      font-variant-numeric: tabular-nums;\n" +
-  "    }\n" +
-  "\n" +
-  "    .stat-label { font-size: 12px; color: #aaa; }\n" +
+  "    .trust-strip{display:flex;justify-content:center;align-items:center;gap:clamp(22px,5vw,70px);flex-wrap:wrap;padding:10px 0 20px;color:rgba(6,8,12,.57);font-size:13px;font-weight:600}\n" +
+  "    .trust-item{display:flex;align-items:center;gap:9px;white-space:nowrap}\n" +
+  "    .trust-item b{color:#111;font-weight:700}.trust-mark{width:7px;height:7px;border-radius:50%;background:#111;opacity:.48}\n" +
+  "    .dark-section{width:100%;padding:clamp(76px,10vw,132px) clamp(20px,5vw,64px);background:#050505;color:#f7f7f8}\n" +
+  "    .section-inner{width:min(1120px,100%);margin:0 auto}\n" +
+  "    .section-kicker{margin-bottom:18px;color:#888991;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}\n" +
+  "    .section-heading{max-width:760px;margin:0;font-size:clamp(38px,7vw,76px);line-height:.99;letter-spacing:-.065em;font-weight:700}\n" +
+  "    .section-copy{max-width:640px;margin:22px 0 0;color:#92929b;font-size:clamp(16px,2vw,20px);line-height:1.65}\n" +
+  "    .product-section{padding-top:100px}\n" +
+  "    .product-window{margin-top:48px;padding:14px;border:1px solid #2a2a2e;border-radius:26px;background:linear-gradient(145deg,#151517,#09090a);box-shadow:0 35px 100px rgba(0,0,0,.55)}\n" +
+  "    .window-bar{height:42px;display:flex;align-items:center;gap:8px;padding:0 8px 12px;color:#777;font-size:11px}\n" +
+  "    .window-dot{width:10px;height:10px;border-radius:50%;background:#444}.window-dot:first-child{background:#f06c70}.window-dot:nth-child(2){background:#e9bd55}.window-dot:nth-child(3){background:#50c878}\n" +
+  "    .window-status{margin-left:10px;padding:5px 11px;border-radius:999px;background:#153c2a;color:#73e6a1;font-weight:700}\n" +
+  "    .window-name{margin-left:auto;color:#b9b9c0;font-weight:600}\n" +
+  "    .window-content{min-height:320px;display:grid;grid-template-columns:210px minmax(0,1fr);overflow:hidden;border:1px solid #232327;border-radius:19px;background:#0b0b0d}\n" +
+  "    .window-sidebar{padding:20px 13px;border-right:1px solid #242428;background:#09090a}\n" +
+  "    .window-brand{display:flex;align-items:center;gap:10px;margin:0 0 20px;font-size:14px;font-weight:700}\n" +
+  "    .window-logo{width:28px;height:28px;display:grid;place-items:center;border-radius:8px;background:#f5f5f5;color:#111;font-weight:800}\n" +
+  "    .window-nav{display:grid;gap:7px}.window-nav span{padding:10px 11px;border-radius:10px;color:#92929a;font-size:12px}.window-nav span:first-child{background:#1b1b1e;color:#fff}\n" +
+  "    .window-main{padding:clamp(18px,4vw,38px)}\n" +
+  "    .window-main h3{font-size:clamp(19px,3vw,28px);letter-spacing:-.04em}.window-main p{margin:8px 0 24px;color:#92929a;font-size:13px}\n" +
+  "    .window-feature{max-width:570px;padding:21px;border:1px solid #2d2d33;border-radius:18px;background:linear-gradient(135deg,#1b1b20,#111114)}\n" +
+  "    .window-feature-top{display:flex;gap:14px;align-items:center}.window-app-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:13px;background:#f4f4f5;color:#0a0a0b;font-weight:800;font-size:20px}\n" +
+  "    .window-feature strong{display:block;font-size:15px}.window-feature small{display:block;margin-top:4px;color:#96969e;font-size:12px}\n" +
+  "    .window-feature-action{margin-top:18px;padding:12px;border-radius:11px;background:#202025;color:#f5f5f6;text-align:center;font-size:12px;font-weight:650}\n" +
+  "    .trust-ring{width:220px;height:220px;margin:72px auto 0;display:grid;place-content:center;text-align:center;border:10px solid #9b73ff;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14)}\n" +
+  "    .trust-ring strong{font-size:48px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .why-section{border-top:1px solid #202024}\n" +
+  "    .section-title-row{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:42px}\n" +
+  "    .section-link{flex:none;padding-bottom:8px;color:#f4f4f5;font-weight:700}.section-link span{margin-left:12px;font-size:20px}\n" +
+  "    .feature-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}\n" +
+  "    .feature-card{min-height:280px;padding:clamp(24px,4vw,42px);display:flex;flex-direction:column;justify-content:space-between;border:1px solid #29292d;border-radius:28px;background:#1b1b1e}\n" +
+  "    .feature-card small{color:#a0a0a7;font-size:14px;font-weight:700}.feature-card h3{max-width:460px;margin-top:6px;font-size:clamp(24px,3.7vw,38px);line-height:1.1;letter-spacing:-.05em}\n" +
+  "    .feature-card p{max-width:460px;margin-top:18px;color:#a0a0a7;font-size:16px;line-height:1.65}\n" +
+  "    .feature-icon{align-self:flex-start;margin-top:28px;color:#c4c4ca;font-size:42px;line-height:1}\n" +
+  "    .scripts-section{border-top:1px solid #202024}\n" +
+  "    .home-script-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:42px}\n" +
+  "    .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}\n" +
+  "    .home-script-cover img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.home-script-card:hover img{transform:scale(1.04)}\n" +
+  "    .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}\n" +
+  "    .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}\n" +
+  "    .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}\n" +
+  "    .community-section{padding-top:25px;padding-bottom:100px}\n" +
+  "    .community-card{padding:clamp(30px,6vw,70px);border:1px solid #28282c;border-radius:32px;background:radial-gradient(ellipse at 85% 15%,rgba(125,99,196,.13),transparent 35%),#09090b}\n" +
+  "    .community-card h2{max-width:680px;font-size:clamp(38px,7vw,70px);line-height:1;letter-spacing:-.06em}\n" +
+  "    .community-card p{max-width:620px;margin:20px 0 30px;color:#93939b;font-size:18px;line-height:1.6}\n" +
+  "    .community-action{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 26px;border-radius:999px;background:#f5f5f5;color:#080808;font-weight:700}\n" +
+  "    .site-footer{padding:48px clamp(20px,5vw,64px) 35px;border-top:1px solid #202024;background:#050505;color:#9999a1}\n" +
+  "    .footer-inner{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px}\n" +
+  "    .footer-brand{color:#f5f5f5;font-size:22px;font-weight:700}.footer-copy{max-width:400px;margin-top:14px;line-height:1.7}.footer-col strong{display:block;margin-bottom:15px;color:#e8e8eb}.footer-col a{display:block;margin:11px 0;color:#888890}.footer-col a:hover{color:#fff}.footer-bottom{width:min(1120px,100%);margin:36px auto 0;padding-top:20px;border-top:1px solid #202024;color:#696970;font-size:12px}\n" +
+  "    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.reveal.is-visible{opacity:1;transform:none}\n" +
   "\n" +
   "    /* =========================================\n" +
   "       Elements \u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b: \u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\u0e2b\u0e21\u0e14!\n" +
@@ -4687,15 +4738,24 @@ const HUB_PAGE =
   "    }\n" +
   "\n" +
   "    /* ===== Mobile Responsive ===== */\n" +
-  "    @media (max-width: 900px) {\n" +
-  "      .nav-pill { display: none; }\n" +
-  "      .burger { display: flex; }\n" +
-  "      .site-header { justify-content: space-between; padding: 0 10px; }\n" +
+  "    @media (max-width:900px){\n" +
+  "      .site-header{justify-content:space-between;padding:8px 0}\n" +
+  "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
+  "      .brand{width:42px;height:42px;background:#08090b;box-shadow:none}.brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
+  "      .nav-links,.sign-in{display:none}.burger{display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
+  "      .hero-stage{min-height:100svh;padding-left:22px;padding-right:22px}.hero{padding-top:clamp(70px,14vh,130px);padding-bottom:clamp(42px,9vh,90px)}\n" +
+  "      .headline{letter-spacing:.09em;font-size:clamp(43px,11vw,82px)}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
-  "\n" +
-  "    @media (max-width: 720px) {\n" +
-  "      .stats { grid-template-columns: repeat(2, 1fr); }\n" +
+  "    @media(max-width:720px){\n" +
+  "      .feature-grid,.home-script-grid{grid-template-columns:1fr}\n" +
+  "      .feature-card{min-height:260px}.home-script-grid{gap:28px}\n" +
+  "      .window-content{grid-template-columns:1fr}.window-sidebar{display:none}.window-main{padding:20px}\n" +
+  "      .window-status{margin-left:6px}.window-name{font-size:10px}.section-title-row{align-items:flex-start;flex-direction:column}.section-link{padding:0}\n" +
+  "      .footer-inner{grid-template-columns:1fr 1fr}.footer-brand-col{grid-column:1/-1}\n" +
+  "      .dark-section{padding-left:22px;padding-right:22px}.product-section{padding-top:76px}\n" +
   "    }\n" +
+  "    @media(max-width:420px){.trust-strip{display:grid;grid-template-columns:1fr 1fr;justify-items:center}.trust-item{font-size:10px}.hero-stage{padding-left:18px;padding-right:18px}.cta-primary{min-width:0;flex:1}}\n" +
+  "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
@@ -4708,10 +4768,11 @@ const HUB_PAGE =
   "  </div>\n" +
   "\n" +
   "  <div class=\"page\">\n" +
+  "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Header -->\n" +
   "    <header class=\"site-header pop-element\">\n" +
   "      <div class=\"nav-pill\">\n" +
-  "        <a href=\"#\" class=\"brand\" aria-label=\"Home\">\n" +
+  "        <a href=\"/\" class=\"brand\" aria-label=\"Home\">\n" +
   "          <svg viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 60%; height: 60%;\">\n" +
   "            <path d=\"M12 2L2 7L12 12L22 7L12 2Z\" fill=\"#000\"/>\n" +
   "            <path d=\"M2 17L12 22L22 17\" stroke=\"#000\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n" +
@@ -4719,10 +4780,10 @@ const HUB_PAGE =
   "          </svg>\n" +
   "        </a>\n" +
   "        <nav class=\"nav-links\">\n" +
-  "          <a href=\"#\" class=\"nav-link is-active\">Home</a>\n" +
+  "          <a href=\"/\" class=\"nav-link is-active\">Home</a>\n" +
   "          <a href=\"/scripts\" class=\"nav-link\">Scripts</a>\n" +
-  "          <a href=\"#\" class=\"nav-link\">Pricing</a>\n" +
-  "          <a href=\"#\" class=\"nav-link\">Docs</a>\n" +
+  "          <a href=\"#why-999ms\" class=\"nav-link\">Why 999MS</a>\n" +
+  "          <a href=\"#workflow\" class=\"nav-link\">How it works</a>\n" +
   "        </nav>\n" +
   "        <a href=\"/scripts\" class=\"sign-in\">Browse Scripts</a>\n" +
   "      </div>\n" +
@@ -4737,43 +4798,69 @@ const HUB_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        Elevate your gameplay with Roblox premium undetected scripts. Built for performance, security, and seamless execution across all your favorite experiences.\n" +
+  "        A focused platform for Roblox. Fast, clear, and built around the scripts you use.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Browse Scripts</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Explore ScriptHub</a>\n" +
+  "        <a href=\"#why-999ms\" class=\"cta-primary cta-secondary\">Learn more</a>\n" +
   "      </div>\n" +
   "\n" +
   "      <div class=\"live-status pop-element\">\n" +
-  "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">LIVE - 99.9% UPTIME</span>\n" +
+  "        <span class=\"status-dot\" id=\"liveDot\"></span> <span id=\"liveText\">CONNECTING TO 999MS</span>\n" +
   "      </div>\n" +
   "    </main>\n" +
+  "      <div class=\"trust-strip\" aria-label=\"999MS platform features\">\n" +
+  "        <span class=\"trust-item\"><i class=\"trust-mark\"></i><b>SHA-256</b> integrity checks</span>\n" +
+  "        <span class=\"trust-item\"><i class=\"trust-mark\"></i>Stage-based loader</span>\n" +
+  "        <span class=\"trust-item\"><i class=\"trust-mark\"></i>Community script library</span>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
   "\n" +
-  "    <!-- Stats Section -->\n" +
-  "    <section class=\"stats-section pop-element\">\n" +
-  "      <div class=\"stats\">\n" +
-  "        <div class=\"stat\" id=\"statLatency\" data-target=\"120\" data-suffix=\"ms\" data-decimals=\"0\">\n" +
-  "          <span class=\"stat-icon\">&lt;</span>\n" +
-  "          <span class=\"stat-value\">0ms</span>\n" +
-  "          <span class=\"stat-label\">Inference Time</span>\n" +
+  "    <section class=\"dark-section product-section reveal\" id=\"workflow\">\n" +
+  "      <div class=\"section-inner\">\n" +
+  "        <p class=\"section-kicker\">A better script workflow</p>\n" +
+  "        <h2 class=\"section-heading\">Your Roblox scripts, in one place.</h2>\n" +
+  "        <p class=\"section-copy\">999MS brings a protected loader and a growing script catalog together in a focused, easy-to-use experience.</p>\n" +
+  "        <div class=\"product-window\" aria-label=\"Illustration of the 999MS workspace\">\n" +
+  "          <div class=\"window-bar\"><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-dot\"></span><span class=\"window-status\">\u25cf Status: Ready</span><span class=\"window-name\">999MS Workspace</span></div>\n" +
+  "          <div class=\"window-content\">\n" +
+  "            <aside class=\"window-sidebar\"><div class=\"window-brand\"><span class=\"window-logo\">9</span><span>999MS</span></div><nav class=\"window-nav\"><span>\u25a6 &nbsp; Script library</span><span>\u25c7 &nbsp; Loader</span><span>\u2699 &nbsp; Settings</span><span>\u25c9 &nbsp; Community</span></nav></aside>\n" +
+  "            <div class=\"window-main\"><h3>Welcome to 999MS</h3><p>Find a script for your next Roblox session.</p><div class=\"window-feature\"><div class=\"window-feature-top\"><span class=\"window-app-icon\">9</span><div><strong>999MS ScriptHub</strong><small>Browse community scripts and supported experiences.</small></div></div><div class=\"window-feature-action\">Explore the script library&nbsp; \u2192</div></div></div>\n" +
+  "          </div>\n" +
   "        </div>\n" +
-  "        <div class=\"stat\" data-target=\"99.99\" data-suffix=\"%\" data-decimals=\"2\">\n" +
-  "          <span class=\"stat-icon\">%</span>\n" +
-  "          <span class=\"stat-value\">0%</span>\n" +
-  "          <span class=\"stat-label\">Platform Uptime</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"stat\" data-target=\"24\" data-suffix=\"/7\" data-decimals=\"0\">\n" +
-  "          <span class=\"stat-icon\">*</span>\n" +
-  "          <span class=\"stat-value\">0/7</span>\n" +
-  "          <span class=\"stat-label\">Autonomous Runtime</span>\n" +
-  "        </div>\n" +
-  "        <div class=\"stat\" data-target=\"2.4\" data-suffix=\"M\" data-decimals=\"1\">\n" +
-  "          <span class=\"stat-icon\">#</span>\n" +
-  "          <span class=\"stat-value\">0M</span>\n" +
-  "          <span class=\"stat-label\">Context Windows</span>\n" +
+  "        <div class=\"trust-ring\" aria-label=\"SHA-256 verified loader stages\"><strong>SHA</strong><span>VERIFIED</span></div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
+  "      <div class=\"section-inner\">\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
+  "        <div class=\"feature-grid\">\n" +
+  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader verifies each delivered stage with SHA-256 before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Find scripts without the hunt.</h3><p>Browse supported experiences, view update information, and copy the matching loader command.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
   "        </div>\n" +
   "      </div>\n" +
   "    </section>\n" +
+  "\n" +
+  "    <section class=\"dark-section scripts-section reveal\">\n" +
+  "      <div class=\"section-inner\">\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Your scripts, close by.</h2><p class=\"section-copy\">Take a look through the latest scripts published to the 999MS library.</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
+  "        <div class=\"home-script-grid\" id=\"homeScriptPreview\" aria-live=\"polite\"><div class=\"home-script-empty\">Loading the latest scripts\u2026</div></div>\n" +
+  "      </div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <section class=\"dark-section community-section reveal\">\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Open the library to explore published scripts, check the available metadata, and copy the loader command.</p><a class=\"community-action\" href=\"/scripts\">Explore ScriptHub&nbsp; \u2192</a></div></div>\n" +
+  "    </section>\n" +
+  "\n" +
+  "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
+  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A focused loader and script library for Roblox experiences.</p></div>\n" +
+  "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
+  "      <div class=\"footer-col\"><strong>Platform</strong><a href=\"/control\">Control panel</a><a href=\"/stats\">Service status</a></div>\n" +
+  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
   "  </div>\n" +
   "\n" +
   "  <script>\n" +
@@ -4870,13 +4957,15 @@ const HUB_PAGE =
   "            navLinks.style.display = \"flex\";\n" +
   "            navLinks.style.flexDirection = \"column\";\n" +
   "            navLinks.style.position = \"absolute\";\n" +
-  "            navLinks.style.top = \"70px\";\n" +
+  "            navLinks.style.top = \"66px\";\n" +
   "            navLinks.style.left = \"0\";\n" +
   "            navLinks.style.width = \"100%\";\n" +
-  "            navLinks.style.background = \"rgba(10,10,12,0.95)\";\n" +
-  "            navLinks.style.padding = \"20px\";\n" +
-  "            navLinks.style.borderRadius = \"16px\";\n" +
-  "            navLinks.style.border = \"1px solid rgba(255,255,255,0.1)\";\n" +
+  "            navLinks.style.background = \"rgba(248,249,252,0.98)\";\n" +
+  "            navLinks.style.padding = \"18px\";\n" +
+  "            navLinks.style.borderRadius = \"18px\";\n" +
+  "            navLinks.style.border = \"1px solid rgba(10,12,18,0.12)\";\n" +
+  "            navLinks.style.boxShadow = \"0 18px 42px rgba(0,0,0,0.18)\";\n" +
+  "            navLinks.style.zIndex = \"60\";\n" +
   "            signIn.style.display = \"none\";\n" +
   "          } else {\n" +
   "            navLinks.style.display = \"\";\n" +
@@ -4885,74 +4974,50 @@ const HUB_PAGE =
   "        });\n" +
   "      }\n" +
   "\n" +
-  "      // =========================================\n" +
-  "      // 4. Stats Count-up Animation\n" +
-  "      // =========================================\n" +
-  "      const stats = document.querySelectorAll(\".stat\");\n" +
-  "      let started = false;\n" +
-  "      const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);\n" +
-  "\n" +
-  "      function animateStat(el, index) {\n" +
-  "        const target = parseFloat(el.dataset.target);\n" +
-  "        const suffix = el.dataset.suffix || \"\";\n" +
-  "        const decimals = parseInt(el.dataset.decimals || \"0\", 10);\n" +
-  "        const valueEl = el.querySelector(\".stat-value\");\n" +
-  "        const duration = 1500 + index * 80;\n" +
-  "        const delay = 3500 + (index * 90); // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e40\u0e02\u0e49\u0e32\u0e17\u0e35\u0e48\u0e01\u0e48\u0e2d\u0e19\n" +
-  "\n" +
-  "        setTimeout(() => {\n" +
-  "          const startTime = performance.now();\n" +
-  "          function frame(now) {\n" +
-  "            const elapsed = now - startTime;\n" +
-  "            const progress = Math.min(elapsed / duration, 1);\n" +
-  "            const eased = easeOutCubic(progress);\n" +
-  "            valueEl.textContent = (target * eased).toFixed(decimals) + suffix;\n" +
-  "            if (progress < 1) requestAnimationFrame(frame);\n" +
-  "            else valueEl.textContent = target.toFixed(decimals) + suffix;\n" +
-  "          }\n" +
-  "          requestAnimationFrame(frame);\n" +
-  "        }, delay);\n" +
-  "      }\n" +
-  "\n" +
-  "      function startCounters() {\n" +
-  "        if (started) return;\n" +
-  "        started = true;\n" +
-  "        stats.forEach(animateStat);\n" +
-  "      }\n" +
-  "\n" +
-  "      if (\"IntersectionObserver\" in window && stats.length) {\n" +
-  "        const observer = new IntersectionObserver((entries) => {\n" +
-  "          entries.forEach((entry) => {\n" +
-  "            if (entry.isIntersecting) {\n" +
-  "              startCounters();\n" +
-  "              observer.disconnect();\n" +
-  "            }\n" +
-  "          });\n" +
-  "        }, { threshold: 0.25 });\n" +
-  "        observer.observe(stats[0]);\n" +
-  "      } else {\n" +
-  "        setTimeout(startCounters, 3500);\n" +
-  "      }\n" +
-  "\n" +
-  "      // =========================================\n" +
-  "      // 5. Real latency instead of a fake number\n" +
-  "      // =========================================\n" +
+  "      // Keep the live badge tied to the actual API health endpoint.\n" +
   "      const liveText = document.getElementById(\"liveText\");\n" +
   "      const liveDot = document.getElementById(\"liveDot\");\n" +
-  "      const latencyCard = document.getElementById(\"statLatency\");\n" +
-  "      const latencyValue = latencyCard ? latencyCard.querySelector(\".stat-value\") : null;\n" +
+  "      const probeStart = Date.now();\n" +
+  "      const homeYear = document.getElementById(\"homeYear\");\n" +
+  "      if (homeYear) homeYear.textContent = String(new Date().getFullYear());\n" +
+  "      const updateHeaderTone = () => document.body.classList.toggle(\"scrolled\", window.scrollY > 80);\n" +
+  "      updateHeaderTone();\n" +
+  "      window.addEventListener(\"scroll\", updateHeaderTone, { passive: true });\n" +
   "\n" +
-  "      function applyLatency(ms) {\n" +
-  "        if (latencyCard) {\n" +
-  "          latencyCard.dataset.target = String(ms);\n" +
-  "          latencyCard.dataset.suffix = \"ms\";\n" +
-  "          latencyCard.dataset.decimals = \"0\";\n" +
-  "        }\n" +
-  "        // The counter only runs once; if it already fired, write the value now.\n" +
-  "        if (started && latencyValue) latencyValue.textContent = ms + \"ms\";\n" +
+  "      if (\"IntersectionObserver\" in window) {\n" +
+  "        const revealObserver = new IntersectionObserver((entries, observer) => {\n" +
+  "          entries.forEach((entry) => {\n" +
+  "            if (entry.isIntersecting) { entry.target.classList.add(\"is-visible\"); observer.unobserve(entry.target); }\n" +
+  "          });\n" +
+  "        }, { threshold: 0.08 });\n" +
+  "        document.querySelectorAll(\".reveal\").forEach((el) => revealObserver.observe(el));\n" +
+  "      } else {\n" +
+  "        document.querySelectorAll(\".reveal\").forEach((el) => el.classList.add(\"is-visible\"));\n" +
   "      }\n" +
   "\n" +
-  "      const probeStart = Date.now();\n" +
+  "      const previewGrid = document.getElementById(\"homeScriptPreview\");\n" +
+  "      const safe = (value) => String(value == null ? \"\" : value).replace(/[&<>\"']/g, (ch) => ({\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",'\"':\"&quot;\",\"'\":\"&#39;\"}[ch]));\n" +
+  "      const scriptTitle = (value) => String(value || \"Script\").replace(/[_-]+/g,\" \").replace(/\\b\\w/g,(ch)=>ch.toUpperCase());\n" +
+  "      if (previewGrid) {\n" +
+  "        fetch(\"/api/scripts\", { cache: \"no-store\" }).then((res) => { if (!res.ok) throw new Error(\"scripts unavailable\"); return res.json(); }).then(async (data) => {\n" +
+  "          const items = Array.isArray(data.items) ? data.items.slice(0,3) : [];\n" +
+  "          if (!items.length) { previewGrid.innerHTML = '<div class=\"home-script-empty\">No scripts are published yet. Check back soon.</div>'; return; }\n" +
+  "          const ids = items.map((item) => item.placeId).filter(Boolean).join(\",\");\n" +
+  "          let games = {};\n" +
+  "          if (ids) {\n" +
+  "            try { const gameRes = await fetch(\"/api/games?ids=\" + encodeURIComponent(ids), { cache: \"no-store\" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}\n" +
+  "          }\n" +
+  "          previewGrid.innerHTML = items.map((item) => {\n" +
+  "            const game = games[String(item.placeId)] || {};\n" +
+  "            const title = game.name || scriptTitle(item.name);\n" +
+  "            const cover = game.icon ? '<img src=\"' + safe(game.icon) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>' + safe(title.slice(0,1).toUpperCase() || \"9\") + '</span>';\n" +
+  "            const date = item.updatedAt ? new Date(item.updatedAt).toLocaleDateString(undefined,{year:\"numeric\",month:\"short\",day:\"numeric\"}) : \"Recently published\";\n" +
+  "            return '<a class=\"home-script-card\" href=\"/scripts\"><div class=\"home-script-cover\">' + cover + '</div><h3>' + safe(title) + '</h3><p class=\"home-script-meta\">999MS &nbsp;\u00b7&nbsp; ' + safe(item.name) + '.lua &nbsp;\u00b7&nbsp; ' + safe(date) + '</p></a>';\n" +
+  "          }).join(\"\");\n" +
+  "          previewGrid.querySelectorAll(\"img\").forEach((img) => img.addEventListener(\"error\", () => { const cover = img.parentNode; img.remove(); const span = document.createElement(\"span\"); span.textContent = \"9\"; cover.appendChild(span); }));\n" +
+  "        }).catch(() => { previewGrid.innerHTML = '<div class=\"home-script-empty\">The script library is temporarily unavailable. <a href=\"/scripts\" style=\"color:#fff\">Open ScriptHub \u2192</a></div>'; });\n" +
+  "      }\n" +
+  "\n" +
   "      fetch(\"/api/health\", { cache: \"no-store\" })\n" +
   "        .then((res) => {\n" +
   "          if (!res.ok) throw new Error(\"HTTP \" + res.status);\n" +
@@ -4960,12 +5025,9 @@ const HUB_PAGE =
   "        })\n" +
   "        .then((data) => {\n" +
   "          const ms = Date.now() - probeStart;\n" +
-  "          applyLatency(ms);\n" +
   "          if (liveText) liveText.textContent = \"LIVE \u00b7 \" + ms + \" MS \u00b7 v\" + (data.version || \"\");\n" +
   "        })\n" +
   "        .catch(() => {\n" +
-  "          if (latencyCard) latencyCard.dataset.target = \"0\";\n" +
-  "          if (started && latencyValue) latencyValue.textContent = \"\u2014\";\n" +
   "          if (liveText) {\n" +
   "            liveText.textContent = \"OFFLINE \u2014 API NOT REACHABLE\";\n" +
   "            liveText.style.color = \"#ff6b81\";\n" +
