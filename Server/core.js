@@ -3783,13 +3783,11 @@ const ROOT_PAGE =
   "    @media(min-width:901px){\n" +
   "      .hero{padding-top:clamp(20px,3vw,44px)}\n" +
   "      .headline{position:relative;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:nowrap;gap:.035em;font-size:clamp(68px,12vw,190px);line-height:.88;margin:0 0 clamp(20px,2.5vw,36px)}\n" +
-  "      .char,.char.pop-in{visibility:visible;opacity:1;transform:none;filter:none;animation:none;background:none;color:#07080b}\n" +
-  "      .char.shimmer-ready::after{display:none}\n" +
   "    }\n" +
   "\n" +
   "    .char {\n" +
   "      display: inline-block;\n" +
-  "      background: linear-gradient(180deg,#08090d 10%,#303440 100%);\n" +
+  "      background: linear-gradient(180deg,#050609 8%,#777b86 54%,#202229 100%);\n" +
   "      -webkit-background-clip:text; background-clip:text;\n" +
   "      color:transparent; filter:none;\n" +
   "      opacity: 0; visibility: hidden; /* \u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e23\u0e2d\u0e04\u0e34\u0e27 */\n" +
@@ -3836,7 +3834,6 @@ const ROOT_PAGE =
   "      0% { background-position: -200% 0; }\n" +
   "      100% { background-position: 200% 0; }\n" +
   "    }\n" +
-  "    @media(min-width:901px){.char,.char.pop-in{background:none;color:#08090b;opacity:1;visibility:visible;transform:none;filter:none;animation:none}.char.shimmer-ready::after{display:none}}\n" +
   "\n" +
   "    /* =========================================\n" +
   "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
@@ -3978,8 +3975,9 @@ const ROOT_PAGE =
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
   "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}\n" +
   "      .nav-links,.nav-actions{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
-  "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
+  "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element{opacity:0;visibility:hidden;transform:translateY(18px);filter:blur(6px)}.pop-element.pop-in{visibility:visible;animation:heroReveal .75s cubic-bezier(.2,.7,.2,1) var(--delay) both}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
+  "    @keyframes heroReveal{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}\n" +
   "    @media(max-width:720px){\n" +
   "      body{background:#dce4f5}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}\n" +
   "      .headline,.live-status{display:none}\n" +
@@ -4178,7 +4176,7 @@ const ROOT_PAGE =
   "        el.style.setProperty('--tr', dir.tr);\n" +
   "        \n" +
   "        // \u0e43\u0e2b\u0e49\u0e40\u0e23\u0e34\u0e48\u0e21\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e40\u0e23\u0e34\u0e48\u0e21\u0e42\u0e1c\u0e25\u0e48\u0e44\u0e1b\u0e41\u0e25\u0e49\u0e27\u0e19\u0e34\u0e14\u0e19\u0e36\u0e07 (\u0e40\u0e23\u0e34\u0e48\u0e21\u0e17\u0e35\u0e48 1.8 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35)\n" +
-  "        const delay = 1.8 + (index * 0.2);\n" +
+  "        const delay = window.matchMedia(\"(max-width: 900px)\").matches ? 0.12 + (index * 0.12) : 1.8 + (index * 0.2);\n" +
   "        el.style.setProperty('--delay', `${delay}s`);\n" +
   "        \n" +
   "        setTimeout(() => {\n" +
@@ -4430,13 +4428,11 @@ const HUB_PAGE =
   "    @media(min-width:901px){\n" +
   "      .hero{padding-top:clamp(20px,3vw,44px)}\n" +
   "      .headline{position:relative;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:nowrap;gap:.035em;font-size:clamp(68px,12vw,190px);line-height:.88;margin:0 0 clamp(20px,2.5vw,36px)}\n" +
-  "      .char,.char.pop-in{visibility:visible;opacity:1;transform:none;filter:none;animation:none;background:none;color:#07080b}\n" +
-  "      .char.shimmer-ready::after{display:none}\n" +
   "    }\n" +
   "\n" +
   "    .char {\n" +
   "      display: inline-block;\n" +
-  "      background: linear-gradient(180deg,#08090d 10%,#303440 100%);\n" +
+  "      background: linear-gradient(180deg,#050609 8%,#777b86 54%,#202229 100%);\n" +
   "      -webkit-background-clip:text; background-clip:text;\n" +
   "      color:transparent; filter:none;\n" +
   "      opacity: 0; visibility: hidden; /* \u0e0b\u0e48\u0e2d\u0e19\u0e44\u0e27\u0e49\u0e23\u0e2d\u0e04\u0e34\u0e27 */\n" +
@@ -4483,7 +4479,6 @@ const HUB_PAGE =
   "      0% { background-position: -200% 0; }\n" +
   "      100% { background-position: 200% 0; }\n" +
   "    }\n" +
-  "    @media(min-width:901px){.char,.char.pop-in{background:none;color:#08090b;opacity:1;visibility:visible;transform:none;filter:none;animation:none}.char.shimmer-ready::after{display:none}}\n" +
   "\n" +
   "    /* =========================================\n" +
   "       Subhead & CTA (\u0e25\u0e1a Discord \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27)\n" +
@@ -4625,8 +4620,9 @@ const HUB_PAGE =
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
   "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}\n" +
   "      .nav-links,.nav-actions{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
-  "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
+  "      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element{opacity:0;visibility:hidden;transform:translateY(18px);filter:blur(6px)}.pop-element.pop-in{visibility:visible;animation:heroReveal .75s cubic-bezier(.2,.7,.2,1) var(--delay) both}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
+  "    @keyframes heroReveal{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}\n" +
   "    @media(max-width:720px){\n" +
   "      body{background:#dce4f5}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}\n" +
   "      .headline,.live-status{display:none}\n" +
@@ -4825,7 +4821,7 @@ const HUB_PAGE =
   "        el.style.setProperty('--tr', dir.tr);\n" +
   "        \n" +
   "        // \u0e43\u0e2b\u0e49\u0e40\u0e23\u0e34\u0e48\u0e21\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e40\u0e23\u0e34\u0e48\u0e21\u0e42\u0e1c\u0e25\u0e48\u0e44\u0e1b\u0e41\u0e25\u0e49\u0e27\u0e19\u0e34\u0e14\u0e19\u0e36\u0e07 (\u0e40\u0e23\u0e34\u0e48\u0e21\u0e17\u0e35\u0e48 1.8 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35)\n" +
-  "        const delay = 1.8 + (index * 0.2);\n" +
+  "        const delay = window.matchMedia(\"(max-width: 900px)\").matches ? 0.12 + (index * 0.12) : 1.8 + (index * 0.2);\n" +
   "        el.style.setProperty('--delay', `${delay}s`);\n" +
   "        \n" +
   "        setTimeout(() => {\n" +

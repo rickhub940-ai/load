@@ -125,13 +125,11 @@
     @media(min-width:901px){
       .hero{padding-top:clamp(20px,3vw,44px)}
       .headline{position:relative;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:nowrap;gap:.035em;font-size:clamp(68px,12vw,190px);line-height:.88;margin:0 0 clamp(20px,2.5vw,36px)}
-      .char,.char.pop-in{visibility:visible;opacity:1;transform:none;filter:none;animation:none;background:none;color:#07080b}
-      .char.shimmer-ready::after{display:none}
     }
 
     .char {
       display: inline-block;
-      background: linear-gradient(180deg,#08090d 10%,#303440 100%);
+      background: linear-gradient(180deg,#050609 8%,#777b86 54%,#202229 100%);
       -webkit-background-clip:text; background-clip:text;
       color:transparent; filter:none;
       opacity: 0; visibility: hidden; /* ซ่อนไว้รอคิว */
@@ -178,7 +176,6 @@
       0% { background-position: -200% 0; }
       100% { background-position: 200% 0; }
     }
-    @media(min-width:901px){.char,.char.pop-in{background:none;color:#08090b;opacity:1;visibility:visible;transform:none;filter:none;animation:none}.char.shimmer-ready::after{display:none}}
 
     /* =========================================
        Subhead & CTA (ลบ Discord ออกแล้ว)
@@ -320,8 +317,9 @@
       .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}
       .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}
       .nav-links,.nav-actions{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}
-      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element,.pop-element.pop-in{opacity:1;visibility:visible;transform:none;filter:none;animation:none}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}
+      .hero-stage{min-height:0;padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:18px;padding-bottom:22px}.pop-element{opacity:0;visibility:hidden;transform:translateY(18px);filter:blur(6px)}.pop-element.pop-in{visibility:visible;animation:heroReveal .75s cubic-bezier(.2,.7,.2,1) var(--delay) both}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;white-space:normal;letter-spacing:.09em;font-size:clamp(43px,11vw,82px);margin-bottom:16px}.trust-strip{gap:18px 28px;font-size:11px}
     }
+    @keyframes heroReveal{from{opacity:0;transform:translateY(18px);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
     @media(max-width:720px){
       body{background:#dce4f5}.hero-stage{background:linear-gradient(180deg,#dce4f5 0%,#cbd5eb 100%)}.hero-stage::after{display:none}.site-header{top:12px}.hero{padding-top:0}
       .headline,.live-status{display:none}
@@ -520,7 +518,7 @@
         el.style.setProperty('--tr', dir.tr);
         
         // ให้เริ่มหลังจากตัวอักษรเริ่มโผล่ไปแล้วนิดนึง (เริ่มที่ 1.8 วินาที)
-        const delay = 1.8 + (index * 0.2);
+        const delay = window.matchMedia("(max-width: 900px)").matches ? 0.12 + (index * 0.12) : 1.8 + (index * 0.2);
         el.style.setProperty('--delay', `${delay}s`);
         
         setTimeout(() => {
