@@ -5,6 +5,18 @@
       "includeFiles": "{lib,scripts}/**/*.lua"
     }
   },
+  "redirects": [
+    {
+      "source": "/key",
+      "destination": "/scripts",
+      "permanent": true
+    },
+    {
+      "source": "/key/",
+      "destination": "/scripts",
+      "permanent": true
+    }
+  ],
   "routes": [
     {
       "src": "/",
@@ -19,8 +31,8 @@
       "dest": "/api/auth?page=/hub"
     },
     {
-      "src": "/key",
-      "dest": "/api/auth?page=/key"
+      "src": "/scripts/?$",
+      "dest": "/api/auth?page=/scripts"
     },
     {
       "src": "/stats",

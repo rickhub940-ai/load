@@ -631,7 +631,6 @@
         <nav class="nav-links">
           <a href="/" class="nav-link">Home</a>
           <a href="/hub" class="nav-link">Scripts</a>
-          <a href="/key" class="nav-link">Key</a>
           <a href="/control" class="nav-link is-active">Control</a>
           <a href="/stats" class="nav-link">Stats</a>
         </nav>
@@ -1169,7 +1168,7 @@
     var host = $('scriptList');
     $('scriptCount').textContent = String(currentScriptItems.length);
     if (!currentScriptItems.length) {
-      host.innerHTML = '<div class="hint" style="margin:0">ยังไม่มีสคริปต์ — อัปโหลดแล้วจะไปโชว์ในหน้า /key</div>';
+      host.innerHTML = '<div class="hint" style="margin:0">ยังไม่มีสคริปต์ — อัปโหลดแล้วจะไปโชว์ในหน้า /scripts</div>';
       return;
     }
     host.innerHTML = currentScriptItems.map(function (item, index) {

@@ -19,7 +19,7 @@ const CORE = path.join(PROJECT_ROOT, 'Server', 'core.js');
 const PAGE_SOURCES = Object.freeze({
   '/': 'pages/index.html',
   '/hub': 'pages/hub.html',
-  '/key': 'pages/key.html',
+  '/scripts': 'pages/scripts.html',
   '/control': 'pages/control.html',
   '/stats': 'pages/stats.html',
 });
