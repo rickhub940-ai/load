@@ -13,6 +13,9 @@ const path = require('node:path');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const CORE = path.join(PROJECT_ROOT, 'Server', 'core.js');
+// Bundle the exact supplied HUB screenshot into server-rendered homepage HTML.
+const HUB_UI_IMAGE = path.join(PROJECT_ROOT, 'assets', '999ms-hub-ui-reference.jpg');
+const HUB_UI_DATA_URI = `data:image/jpeg;base64,${fs.readFileSync(HUB_UI_IMAGE).toString('base64')}`;
 
 // Route -> source file. Add a row here and the page becomes servable once the
 // route is also reachable (vercel.json rewrite + the page lookup in core.js).
@@ -88,8 +91,10 @@ function main() {
     if (only && route !== only) continue;
     const abs = path.join(PROJECT_ROOT, file);
     if (!fs.existsSync(abs)) throw new Error(`missing page source: ${file}`);
-    const html = fs.readFileSync(abs, 'utf8');
-    if (!html.trim()) throw new Error(`empty page source: ${file}`);
+    const template = fs.readFileSync(abs, 'utf8');
+    if (!template.trim()) throw new Error(`empty page source: ${file}`);
+    const html = template.replaceAll('{{HUB_UI_REFERENCE_IMAGE}}', HUB_UI_DATA_URI);
+    if (html.includes('{{HUB_UI_REFERENCE_IMAGE}}')) throw new Error(`unexpanded UI image token in ${file}`);
     source = replaceRegion(source, route, renderBlock(route, html));
     changed++;
     console.log(`embedded ${route} <- ${file} (${Buffer.byteLength(html)} bytes)`);
