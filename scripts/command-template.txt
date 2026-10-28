@@ -1,0 +1,3 @@
+local License = ""
+local Script = "{{script}}"
+loadstring(game:HttpGet("{{origin}}/loadc.lua"))(License, Script)

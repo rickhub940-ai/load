@@ -743,6 +743,12 @@
         <div class="card-b stack">
           <p class="hint">อัปโหลดหรือกด <b>แก้ไข</b> สคริปต์ที่มีอยู่ได้ตลอด — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> สูงสุด 25 MB) ส่วน Supabase เก็บแค่ metadata ขนาดเล็ก (ชื่อแมพ, Place ID และโหมดคีย์)</p>
           <p class="hint">ใส่เฉพาะโค้ดของแมพได้เลย — runtime ตรวจสอบและบันทึกสถิติก่อนรันให้อัตโนมัติ ไม่ต้องคัดลอก verification จาก <span class="mono">main.lua</span>; obfuscate ทั้งไฟล์ได้</p>
+          <div style="display:grid;gap:9px;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)">
+            <div><b>คำสั่งที่ปุ่ม Copy ในหน้า Scripts คัดลอก</b><div class="hint" style="margin:3px 0 0">กำหนดรูปแบบ Lua ได้เอง — ใช้ {{script}}, {{placeId}}, {{origin}}, {{license}} เป็นตัวแปร</div></div>
+            <textarea id="copyTemplate" rows="4" spellcheck="false" class="mono" style="font-size:.76rem" placeholder="local Script = &quot;{{script}}&quot;"></textarea>
+            <pre id="copyTemplatePreview" class="mono" style="margin:0;padding:10px 12px;white-space:pre-wrap;overflow:auto;border:1px solid var(--line);border-radius:10px;background:#070709;color:#d8dee9;font-size:.74rem"></pre>
+            <div class="row" style="align-items:center"><button class="btn btn-sm btn-primary" id="saveCopyTemplate" type="button">บันทึกรูปแบบคำสั่ง</button><span class="hint" id="copyTemplateMeta" style="margin:0"></span></div>
+          </div>
           <div id="editBanner" style="display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);font-size:.82rem">
             <span style="color:var(--green);font-weight:600" id="editBannerText">กำลังแก้ไข —</span>
             <span class="spacer"></span>
@@ -1265,6 +1271,55 @@
     }).catch(function () { renderScripts([]); });
   }
 
+  function renderCommandTemplatePreview() {
+    var field = $('copyTemplate');
+    var preview = $('copyTemplatePreview');
+    if (!field || !preview) return;
+    preview.textContent = field.value
+      .replace(/\{\{script\}\}/g, 'main')
+      .replace(/\{\{placeId\}\}/g, '123456789')
+      .replace(/\{\{origin\}\}/g, 'https://999ms.example')
+      .replace(/\{\{license\}\}/g, '');
+  }
+
+  function loadCommandTemplate() {
+    return api('/api/control/scripts', { op: 'get-command' }).then(function (result) {
+      var data = result.data || {};
+      if (result.status !== 200 || !data.ok) {
+        $('copyTemplateMeta').textContent = data.reason || 'โหลดรูปแบบคำสั่งไม่สำเร็จ';
+        return;
+      }
+      $('copyTemplate').value = data.commandTemplate || '';
+      $('copyTemplateMeta').textContent = 'ตั้งค่าแล้ว — ใช้บนหน้า Scripts';
+      renderCommandTemplatePreview();
+    }).catch(function () { $('copyTemplateMeta').textContent = 'โหลดรูปแบบคำสั่งไม่สำเร็จ'; });
+  }
+
+  if ($('copyTemplate')) $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);
+  if ($('saveCopyTemplate')) $('saveCopyTemplate').addEventListener('click', function () {
+    var button = this;
+    var template = $('copyTemplate').value;
+    button.disabled = true;
+    button.textContent = 'กำลังบันทึก…';
+    $('copyTemplateMeta').textContent = 'กำลังบันทึกลง GitHub…';
+    api('/api/control/scripts', { op: 'save-command', commandTemplate: template }).then(function (result) {
+      var data = result.data || {};
+      if (result.status === 200 && data.ok) {
+        $('copyTemplateMeta').textContent = 'บันทึกแล้ว · หน้า Scripts จะใช้รูปแบบนี้';
+        toast('บันทึกรูปแบบคำสั่งแล้ว', 'ok');
+        logLine('อัปเดตรูปแบบคำสั่งคัดลอกหน้า Scripts', 'ok');
+      } else {
+        var reason = data.reason || ('HTTP ' + result.status);
+        $('copyTemplateMeta').textContent = 'บันทึกไม่สำเร็จ: ' + reason;
+        toast('บันทึกไม่สำเร็จ: ' + reason, 'err');
+      }
+    }).catch(function (err) {
+      var reason = err && err.message ? err.message : 'network error';
+      $('copyTemplateMeta').textContent = 'บันทึกไม่สำเร็จ: ' + reason;
+      toast('บันทึกไม่สำเร็จ: ' + reason, 'err');
+    }).finally(function () { button.disabled = false; button.textContent = 'บันทึกรูปแบบคำสั่ง'; });
+  });
+
   function deleteScript(item) {
     api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })
       .then(function (result) {
@@ -1442,6 +1497,7 @@
     }).catch(function () {});
 
     loadScripts();
+    loadCommandTemplate();
 
     api('/api/control/bans').then(function (result) {
       if (result.status !== 200) return;

@@ -126,7 +126,8 @@ const SCRIPTS_PAGE =
   "    .code-head-main{min-width:0;display:flex;align-items:center;gap:12px}.code-icon{width:40px;height:40px;display:grid;place-items:center;flex:none;border:1px solid #303037;border-radius:12px;color:#a4a4ac;font-family:monospace;font-size:14px}\n" +
   "    .code-head-copy{min-width:0}.code-head strong{display:block;font-size:15px}.code-head-copy span{display:block;margin-top:3px;color:#777780;font-size:12px}\n" +
   "    .code-copy{min-height:36px;padding:0 14px;border:1px solid #303037;border-radius:11px;background:#101013;color:#e8e8eb;font-size:13px;font-weight:650;cursor:pointer}.code-copy:hover{background:#19191d}\n" +
-  "    .code-note{margin:0;padding:18px;color:#9c9ca5;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap}\n" +
+  "    .code-note{margin:0;padding:18px;color:#cdd3de;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap;tab-size:2}\n" +
+  "    .lua-keyword{color:#c792ea}.lua-string{color:#c3e88d}.lua-comment{color:#697386}.lua-number{color:#f78c6c}.lua-global{color:#82aaff}\n" +
   "    @media(max-width:700px){\n" +
   "      .topbar{height:70px}.nav{padding:0 20px}.nav-actions{display:none}.menu-btn{display:flex}\n" +
   "      .mobile-menu{position:absolute;left:12px;right:12px;top:calc(100% + 9px);padding:10px;border:1px solid #29292e;border-radius:17px;background:rgba(10,10,12,.98);box-shadow:0 15px 40px #000b}\n" +
@@ -188,14 +189,15 @@ const SCRIPTS_PAGE =
   "  <script>\n" +
   "    (function(){\n" +
   "      'use strict';\n" +
-  "      var grid=document.getElementById('scriptGrid'),count=document.getElementById('scriptCount'),countLabel=document.getElementById('countLabel'),input=document.getElementById('searchInput'),searchWrap=document.getElementById('searchWrap'),dlg=document.getElementById('detailDialog'),chosen=null,all=[],games={};\n" +
+  "      var grid=document.getElementById('scriptGrid'),count=document.getElementById('scriptCount'),countLabel=document.getElementById('countLabel'),input=document.getElementById('searchInput'),searchWrap=document.getElementById('searchWrap'),dlg=document.getElementById('detailDialog'),chosen=null,all=[],games={},commandTemplate='local License = \"\"\\nlocal Script = \"{{script}}\"\\nloadstring(game:HttpGet(\"{{origin}}/loadc.lua\"))(License, Script)';\n" +
   "      document.getElementById('year').textContent=String(new Date().getFullYear());\n" +
   "      function esc(v){return String(v==null?'':v).replace(/[&<>\"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]})}\n" +
   "      function titleCase(v){return String(v||'').replace(/[_-]+/g,' ').replace(/\\b\\w/g,function(c){return c.toUpperCase()})}\n" +
   "      function fmtSize(v){var n=Number(v)||0;if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(n<10240?1:0)+' KB';return (n/1048576).toFixed(1)+' MB'}\n" +
   "      function fmtDate(v){if(!v)return '\u2014';var d=new Date(v);return isNaN(d.getTime())?'\u2014':d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}\n" +
-  "      function loaderText(x){return 'local License = \"\"\\nlocal Script = \"'+x.name+'\"\\nloadstring(game:HttpGet(\"'+location.origin+'/loadc.lua\"))(License, Script)'}\n" +
-  "      function loaderSize(x){return fmtSize(new Blob([loaderText(x)]).size)}\n" +
+  "      function commandText(x){return String(commandTemplate).replace(/\\{\\{(script|placeId|origin|license)\\}\\}/g,function(_,key){if(key==='script')return String(x.name||'');if(key==='placeId')return String(x.placeId||'');if(key==='origin')return location.origin;if(key==='license')return '';return ''})}\n" +
+  "      function highlightLua(code){var source=String(code),re=/--[^\\n]*|\"(?:\\\\.|[^\"\\\\])*\"|'(?:\\\\.|[^'\\\\])*'|\\b(?:local|function|return|if|then|else|elseif|end|for|while|do|in|repeat|until|break|and|or|not|true|false|nil)\\b|\\b\\d+(?:\\.\\d+)?\\b|\\b(?:game|workspace|script)\\b/g,out='',last=0,m;while((m=re.exec(source))){out+=esc(source.slice(last,m.index));var t=m[0],c=t.slice(0,2)==='--'?'comment':t[0]==='\"'||t[0]===\"'\"?'string':/^(?:local|function|return|if|then|else|elseif|end|for|while|do|in|repeat|until|break|and|or|not|true|false|nil)$/.test(t)?'keyword':/^\\d/.test(t)?'number':'global';out+='<span class=\"lua-'+c+'\">'+esc(t)+'</span>';last=m.index+t.length}return out+esc(source.slice(last))}\n" +
+  "      function loaderSize(x){return fmtSize(new Blob([commandText(x)]).size)}\n" +
   "      function nameFor(x){var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
   "      function svg(kind){if(kind==='file')return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M8 13h8M8 17h8\"/></svg>';return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z\"/></svg>'}\n" +
   "      function createCard(x,i){var game=games[x.placeId]||{},name=nameFor(x),card=document.createElement('article');card.className='script-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script');\n" +
@@ -203,16 +205,16 @@ const SCRIPTS_PAGE =
   "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span><span class=\"cover-flag\">'+(i===0?'RECENTLY UPDATED':'OFFICIAL')+'</span><div class=\"cover-title\"><strong>'+esc(name)+'</strong><span class=\"cover-arrow\" aria-hidden=\"true\">\u2197</span></div></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+' \u2014 Official 999MS</h2><div class=\"author-row\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
   "        var img=card.querySelector('img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
   "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search.':'New scripts will appear here when published.')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
-  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover');cover.querySelectorAll('img').forEach(function(n){n.remove()});if(g.icon){var im=document.createElement('img');im.src=g.icon;im.alt='';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').textContent=loaderText(x);dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover');cover.querySelectorAll('img').forEach(function(n){n.remove()});if(g.icon){var im=document.createElement('img');im.src=g.icon;im.alt='';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
   "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
   "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
   "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
-  "      document.getElementById('copyLoader').addEventListener('click',function(){if(!chosen)return;var text=loaderText(chosen);copyText(text,this)});\n" +
-  "      document.getElementById('copyCode').addEventListener('click',function(){if(!chosen)return;copyText(loaderText(chosen),this)});\n" +
+  "      document.getElementById('copyLoader').addEventListener('click',function(){if(!chosen)return;var text=commandText(chosen);copyText(text,this)});\n" +
+  "      document.getElementById('copyCode').addEventListener('click',function(){if(!chosen)return;copyText(commandText(chosen),this)});\n" +
   "      document.getElementById('shareScript').addEventListener('click',function(){if(!chosen)return;var url=location.origin+'/scripts?script='+encodeURIComponent(chosen.name);if(navigator.share)navigator.share({title:nameFor(chosen)+' \u2014 999MS',url:url}).catch(function(){});else copyText(url,this)});\n" +
   "      input.addEventListener('input',render);searchWrap.addEventListener('click',function(){if(window.innerWidth<=700&&!searchWrap.classList.contains('open')){searchWrap.classList.add('open');input.focus()}});input.addEventListener('blur',function(){if(!input.value&&window.innerWidth<=700)searchWrap.classList.remove('open')});\n" +
   "      var mb=document.getElementById('menuBtn'),mm=document.getElementById('mobileMenu');mb.addEventListener('click',function(){var o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});document.addEventListener('keydown',function(e){if(e.key==='Escape'){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}});\n" +
-  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});render();var ids=[];all.forEach(function(x){if(ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again.</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
+  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});if(d&&typeof d.commandTemplate==='string'&&d.commandTemplate.trim())commandTemplate=d.commandTemplate;render();var ids=[];all.forEach(function(x){if(ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again.</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
   "      load();\n" +
   "    })();\n" +
   "  </script>\n" +
@@ -2172,6 +2174,12 @@ const CONTROL_PAGE =
   "        <div class=\"card-b stack\">\n" +
   "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 <b>\u0e41\u0e01\u0e49\u0e44\u0e02</b> \u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e15\u0e25\u0e2d\u0e14 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e41\u0e04\u0e48 metadata \u0e02\u0e19\u0e32\u0e14\u0e40\u0e25\u0e47\u0e01 (\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e, Place ID \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e21\u0e14\u0e04\u0e35\u0e22\u0e4c)</p>\n" +
   "          <p class=\"hint\">\u0e43\u0e2a\u0e48\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e42\u0e04\u0e49\u0e14\u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22 \u2014 runtime \u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e41\u0e25\u0e30\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 verification \u0e08\u0e32\u0e01 <span class=\"mono\">main.lua</span>; obfuscate \u0e17\u0e31\u0e49\u0e07\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e14\u0e49</p>\n" +
+  "          <div style=\"display:grid;gap:9px;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)\">\n" +
+  "            <div><b>\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e17\u0e35\u0e48\u0e1b\u0e38\u0e48\u0e21 Copy \u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Scripts \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</b><div class=\"hint\" style=\"margin:3px 0 0\">\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a Lua \u0e44\u0e14\u0e49\u0e40\u0e2d\u0e07 \u2014 \u0e43\u0e0a\u0e49 {{script}}, {{placeId}}, {{origin}}, {{license}} \u0e40\u0e1b\u0e47\u0e19\u0e15\u0e31\u0e27\u0e41\u0e1b\u0e23</div></div>\n" +
+  "            <textarea id=\"copyTemplate\" rows=\"4\" spellcheck=\"false\" class=\"mono\" style=\"font-size:.76rem\" placeholder=\"local Script = &quot;{{script}}&quot;\"></textarea>\n" +
+  "            <pre id=\"copyTemplatePreview\" class=\"mono\" style=\"margin:0;padding:10px 12px;white-space:pre-wrap;overflow:auto;border:1px solid var(--line);border-radius:10px;background:#070709;color:#d8dee9;font-size:.74rem\"></pre>\n" +
+  "            <div class=\"row\" style=\"align-items:center\"><button class=\"btn btn-sm btn-primary\" id=\"saveCopyTemplate\" type=\"button\">\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07</button><span class=\"hint\" id=\"copyTemplateMeta\" style=\"margin:0\"></span></div>\n" +
+  "          </div>\n" +
   "          <div id=\"editBanner\" style=\"display:none;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:1px solid rgba(34,197,94,.4);background:rgba(34,197,94,.08);font-size:.82rem\">\n" +
   "            <span style=\"color:var(--green);font-weight:600\" id=\"editBannerText\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02 \u2014</span>\n" +
   "            <span class=\"spacer\"></span>\n" +
@@ -2694,6 +2702,55 @@ const CONTROL_PAGE =
   "    }).catch(function () { renderScripts([]); });\n" +
   "  }\n" +
   "\n" +
+  "  function renderCommandTemplatePreview() {\n" +
+  "    var field = $('copyTemplate');\n" +
+  "    var preview = $('copyTemplatePreview');\n" +
+  "    if (!field || !preview) return;\n" +
+  "    preview.textContent = field.value\n" +
+  "      .replace(/\\{\\{script\\}\\}/g, 'main')\n" +
+  "      .replace(/\\{\\{placeId\\}\\}/g, '123456789')\n" +
+  "      .replace(/\\{\\{origin\\}\\}/g, 'https://999ms.example')\n" +
+  "      .replace(/\\{\\{license\\}\\}/g, '');\n" +
+  "  }\n" +
+  "\n" +
+  "  function loadCommandTemplate() {\n" +
+  "    return api('/api/control/scripts', { op: 'get-command' }).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      if (result.status !== 200 || !data.ok) {\n" +
+  "        $('copyTemplateMeta').textContent = data.reason || '\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08';\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      $('copyTemplate').value = data.commandTemplate || '';\n" +
+  "      $('copyTemplateMeta').textContent = '\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e43\u0e0a\u0e49\u0e1a\u0e19\u0e2b\u0e19\u0e49\u0e32 Scripts';\n" +
+  "      renderCommandTemplatePreview();\n" +
+  "    }).catch(function () { $('copyTemplateMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08'; });\n" +
+  "  }\n" +
+  "\n" +
+  "  if ($('copyTemplate')) $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);\n" +
+  "  if ($('saveCopyTemplate')) $('saveCopyTemplate').addEventListener('click', function () {\n" +
+  "    var button = this;\n" +
+  "    var template = $('copyTemplate').value;\n" +
+  "    button.disabled = true;\n" +
+  "    button.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u2026';\n" +
+  "    $('copyTemplateMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e25\u0e07 GitHub\u2026';\n" +
+  "    api('/api/control/scripts', { op: 'save-command', commandTemplate: template }).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      if (result.status === 200 && data.ok) {\n" +
+  "        $('copyTemplateMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e41\u0e25\u0e49\u0e27 \u00b7 \u0e2b\u0e19\u0e49\u0e32 Scripts \u0e08\u0e30\u0e43\u0e0a\u0e49\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e19\u0e35\u0e49';\n" +
+  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
+  "        logLine('\u0e2d\u0e31\u0e1b\u0e40\u0e14\u0e15\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01\u0e2b\u0e19\u0e49\u0e32 Scripts', 'ok');\n" +
+  "      } else {\n" +
+  "        var reason = data.reason || ('HTTP ' + result.status);\n" +
+  "        $('copyTemplateMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason;\n" +
+  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason, 'err');\n" +
+  "      }\n" +
+  "    }).catch(function (err) {\n" +
+  "      var reason = err && err.message ? err.message : 'network error';\n" +
+  "      $('copyTemplateMeta').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason;\n" +
+  "      toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason, 'err');\n" +
+  "    }).finally(function () { button.disabled = false; button.textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07'; });\n" +
+  "  });\n" +
+  "\n" +
   "  function deleteScript(item) {\n" +
   "    api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })\n" +
   "      .then(function (result) {\n" +
@@ -2871,6 +2928,7 @@ const CONTROL_PAGE =
   "    }).catch(function () {});\n" +
   "\n" +
   "    loadScripts();\n" +
+  "    loadCommandTemplate();\n" +
   "\n" +
   "    api('/api/control/bans').then(function (result) {\n" +
   "      if (result.status !== 200) return;\n" +
@@ -6068,41 +6126,135 @@ async function supabaseRows(pathname) {
   return Array.isArray(rows) ? rows : null;
 }
 
-// The warm lambda keeps the list for a minute so the public catalog appears
-// without waiting for a cross-region round trip on every page load.
-let scriptsListCache = { at: 0, items: [], scope: 'memory' };
+const DEFAULT_COMMAND_TEMPLATE = 'local License = ""\nlocal Script = "{{script}}"\nloadstring(game:HttpGet("{{origin}}/loadc.lua"))(License, Script)';
+let commandTemplateCache = { at: 0, value: DEFAULT_COMMAND_TEMPLATE };
+
+function validCommandTemplate(value) {
+  return typeof value === 'string' && value.trim().length > 0 && Buffer.byteLength(value, 'utf8') <= 8192 && !value.includes('\0');
+}
+
+async function fetchCommandTemplateFromGithub() {
+  const cfg = githubConfig();
+  const parts = githubRepoParts();
+  const repoPath = 'scripts/command-template.txt';
+  if (cfg) {
+    try {
+      const url = GITHUB_API + '/repos/' + cfg.repo + '/contents/' + repoPath + '?ref=' + encodeURIComponent(cfg.branch);
+      const res = await fetch(url, {
+        method: 'GET', signal: AbortSignal.timeout(10000),
+        headers: { authorization: 'Bearer ' + cfg.token, accept: 'application/vnd.github.raw+json', 'x-github-api-version': '2022-11-28', 'user-agent': '999ms-loader' },
+      });
+      if (res.ok) {
+        const value = await res.text();
+        if (validCommandTemplate(value)) return value;
+      }
+    } catch { /* use the checked-in default below */ }
+  }
+  if (parts) {
+    try {
+      const url = 'https://raw.githubusercontent.com/' + parts.repo + '/' + encodeURIComponent(parts.branch) + '/' + repoPath;
+      const res = await fetch(url, { method: 'GET', signal: AbortSignal.timeout(8000), headers: { 'user-agent': '999ms-loader' } });
+      if (res.ok) {
+        const value = await res.text();
+        if (validCommandTemplate(value)) return value;
+      }
+    } catch { /* return default */ }
+  }
+  return DEFAULT_COMMAND_TEMPLATE;
+}
+
+async function getCommandTemplate() {
+  if (Date.now() - commandTemplateCache.at < 30000) return commandTemplateCache.value;
+  const value = await fetchCommandTemplateFromGithub();
+  commandTemplateCache = { at: Date.now(), value: value };
+  return value;
+}
+
+async function commitCommandTemplateToGithub(value) {
+  const cfg = githubConfig();
+  if (!cfg) return { ok: false, reason: 'ยังไม่ได้ตั้ง GITHUB_TOKEN ใน Vercel' };
+  const refPath = '/repos/' + cfg.repo + '/git/ref/heads/' + encodeURIComponent(cfg.branch);
+  const refRes = await githubRequest(refPath, { method: 'GET' });
+  const headSha = refRes.ok && refRes.data && refRes.data.object && refRes.data.object.sha;
+  if (!headSha) return { ok: false, reason: (refRes.data && refRes.data.message) || ('github ref ' + refRes.status) };
+  const commitRes = await githubRequest('/repos/' + cfg.repo + '/git/commits/' + headSha, { method: 'GET' });
+  const baseTree = commitRes.ok && commitRes.data && commitRes.data.tree && commitRes.data.tree.sha;
+  if (!baseTree) return { ok: false, reason: (commitRes.data && commitRes.data.message) || ('github commit ' + commitRes.status) };
+  const blobRes = await githubRequest('/repos/' + cfg.repo + '/git/blobs', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ content: Buffer.from(value, 'utf8').toString('base64'), encoding: 'base64' }),
+  });
+  const blobSha = blobRes.ok && blobRes.data && blobRes.data.sha;
+  if (!blobSha) return { ok: false, reason: (blobRes.data && blobRes.data.message) || ('github blob ' + blobRes.status) };
+  const treeRes = await githubRequest('/repos/' + cfg.repo + '/git/trees', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ base_tree: baseTree, tree: [{ path: 'scripts/command-template.txt', mode: '100644', type: 'blob', sha: blobSha }] }),
+  });
+  const treeSha = treeRes.ok && treeRes.data && treeRes.data.sha;
+  if (!treeSha) return { ok: false, reason: (treeRes.data && treeRes.data.message) || ('github tree ' + treeRes.status) };
+  if (treeSha === baseTree) return { ok: true, branch: cfg.branch, commit: headSha, updated: false };
+  const newCommit = await githubRequest('/repos/' + cfg.repo + '/git/commits', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ message: 'site: update copied script command', tree: treeSha, parents: [headSha] }),
+  });
+  const commitSha = newCommit.ok && newCommit.data && newCommit.data.sha;
+  if (!commitSha) return { ok: false, reason: (newCommit.data && newCommit.data.message) || ('github commit ' + newCommit.status) };
+  const upd = await githubRequest('/repos/' + cfg.repo + '/git/refs/heads/' + encodeURIComponent(cfg.branch), {
+    method: 'PATCH', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ sha: commitSha }),
+  });
+  if (!upd.ok) return { ok: false, reason: (upd.data && upd.data.message) || ('github ref update ' + upd.status) };
+  return { ok: true, branch: cfg.branch, commit: commitSha, updated: true };
+}
+
+// The warm lambda keeps script metadata and the public command template briefly.
+let scriptsListCache = { at: 0, items: [], scope: 'memory', commandTemplate: DEFAULT_COMMAND_TEMPLATE };
 
 async function handleScriptsList(req, res) {
   const now = Date.now();
   if (scriptsListCache.items && now - scriptsListCache.at < 60000) {
     return res.status(200).json({
-      ok: true,
-      items: scriptsListCache.items,
-      scope: scriptsListCache.scope,
-      cached: true,
+      ok: true, items: scriptsListCache.items, scope: scriptsListCache.scope,
+      commandTemplate: scriptsListCache.commandTemplate || DEFAULT_COMMAND_TEMPLATE, cached: true,
     });
   }
-  const rows = await supabaseRows(
-    '/rest/v1/scripts?select=place_id,script_name,size,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
+  const results = await Promise.all([
+    supabaseRows('/rest/v1/scripts?select=place_id,script_name,size,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX),
+    getCommandTemplate(),
+  ]);
+  const rows = results[0];
   const items = (rows || []).map(function (row) {
     return {
-      placeId: String(row.place_id || ''),
-      name: String(row.script_name || ''),
-      size: Number(row.size) || 0,
-      updatedAt: row.updated_at || null,
+      placeId: String(row.place_id || ''), name: String(row.script_name || ''),
+      size: Number(row.size) || 0, updatedAt: row.updated_at || null,
     };
   }).filter(function (item) { return item.placeId && item.name; });
-  scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory' };
+  scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory', commandTemplate: results[1] || DEFAULT_COMMAND_TEMPLATE };
   return res.status(200).json({
-    ok: true,
-    items: items,
-    scope: scriptsListCache.scope,
+    ok: true, items: items, scope: scriptsListCache.scope,
+    commandTemplate: scriptsListCache.commandTemplate,
   });
 }
 
 async function handleControlScripts(req, res) {
   const body = req.body || {};
   const op = String(body.op || 'list');
+
+  if (op === 'get-command') {
+    return res.status(200).json({ ok: true, commandTemplate: await getCommandTemplate(), defaultTemplate: DEFAULT_COMMAND_TEMPLATE });
+  }
+
+  if (op === 'save-command') {
+    const template = body.commandTemplate;
+    if (!validCommandTemplate(template)) return res.status(400).json({ ok: false, reason: 'รูปแบบคำสั่งต้องไม่เกิน 8 KB' });
+    const github = await commitCommandTemplateToGithub(template);
+    if (!github.ok) return res.status(502).json({ ok: false, reason: github.reason || 'บันทึกรูปแบบคำสั่งไม่สำเร็จ' });
+    commandTemplateCache = { at: Date.now(), value: template };
+    scriptsListCache.commandTemplate = template;
+    scriptsListCache.at = 0;
+    noteEvent('command_template_save', 'updated public copy command template');
+    return res.status(200).json({ ok: true, commandTemplate: template, github: github });
+  }
 
   if (op === 'get') {
     const name = sbText(body.name, 64);
