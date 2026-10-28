@@ -1539,8 +1539,7 @@
       $('linkUrl').value = data.url || '';
       $('linkLine').value = data.line || '';
       $('linkStub').value = data.stub || '';
-      $('linkMeta').textContent = 'id ' + (data.id || '') + ' · sha256 ' + String(data.sha256 || '').slice(0, 16) +
-        '… · หมดอายุ ' + new Date(data.expiresAt).toLocaleString('th-TH');
+      $('linkMeta').textContent = 'id ' + (data.id || '') + ' · หมดอายุ ' + new Date(data.expiresAt).toLocaleString('th-TH');
       logLine('สร้างลิงก์ ' + (data.id || ''), 'ok');
       toast('สร้างลิงก์แล้ว', 'ok');
     }).catch(function () {

@@ -2967,8 +2967,7 @@ const CONTROL_PAGE =
   "      $('linkUrl').value = data.url || '';\n" +
   "      $('linkLine').value = data.line || '';\n" +
   "      $('linkStub').value = data.stub || '';\n" +
-  "      $('linkMeta').textContent = 'id ' + (data.id || '') + ' \u00b7 sha256 ' + String(data.sha256 || '').slice(0, 16) +\n" +
-  "        '\u2026 \u00b7 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38 ' + new Date(data.expiresAt).toLocaleString('th-TH');\n" +
+  "      $('linkMeta').textContent = 'id ' + (data.id || '') + ' \u00b7 \u0e2b\u0e21\u0e14\u0e2d\u0e32\u0e22\u0e38 ' + new Date(data.expiresAt).toLocaleString('th-TH');\n" +
   "      logLine('\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e25\u0e34\u0e07\u0e01\u0e4c ' + (data.id || ''), 'ok');\n" +
   "      toast('\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e25\u0e34\u0e07\u0e01\u0e4c\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
   "    }).catch(function () {\n" +
@@ -4052,13 +4051,13 @@ const ROOT_PAGE =
   "          <div class=\"tech-track\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\" aria-hidden=\"true\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> SHA-256</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> Secure</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "          <div class=\"tech-track\" aria-hidden=\"true\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> SHA-256</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> Secure</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "        </div>\n" +
@@ -4093,7 +4092,7 @@ const ROOT_PAGE =
   "          </div>\n" +
   "        </div>\n" +
   "        <aside class=\"showcase-metrics\" aria-label=\"999MS verification and compatibility\">\n" +
-  "          <div class=\"trust-ring\" role=\"progressbar\" aria-label=\"SHA-256 verification\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\n" +
+  "          <div class=\"trust-ring\" role=\"progressbar\" aria-label=\"Integrity verification\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\n" +
   "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
   "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
   "          </div>\n" +
@@ -4107,7 +4106,7 @@ const ROOT_PAGE =
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
   "        <div class=\"feature-grid\">\n" +
-  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader verifies each delivered stage with SHA-256 before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader checks each delivered stage before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Find scripts without the hunt.</h3><p>Browse supported experiences, view update information, and copy the matching loader command.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
@@ -4774,13 +4773,13 @@ const HUB_PAGE =
   "          <div class=\"tech-track\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\" aria-hidden=\"true\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> SHA-256</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> Secure</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "          <div class=\"tech-track\" aria-hidden=\"true\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> SHA-256</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> Secure</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "        </div>\n" +
@@ -4815,7 +4814,7 @@ const HUB_PAGE =
   "          </div>\n" +
   "        </div>\n" +
   "        <aside class=\"showcase-metrics\" aria-label=\"999MS verification and compatibility\">\n" +
-  "          <div class=\"trust-ring\" role=\"progressbar\" aria-label=\"SHA-256 verification\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\n" +
+  "          <div class=\"trust-ring\" role=\"progressbar\" aria-label=\"Integrity verification\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\">\n" +
   "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
   "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
   "          </div>\n" +
@@ -4829,7 +4828,7 @@ const HUB_PAGE =
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
   "        <div class=\"feature-grid\">\n" +
-  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader verifies each delivered stage with SHA-256 before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader checks each delivered stage before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Find scripts without the hunt.</h3><p>Browse supported experiences, view update information, and copy the matching loader command.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
