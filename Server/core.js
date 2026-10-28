@@ -3920,10 +3920,10 @@ const ROOT_PAGE =
   "    .trust-ring.is-visible{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible}\n" +
   "    .trust-track,.trust-progress{fill:none;stroke-width:10}\n" +
-  "    .trust-track{stroke:rgba(255,255,255,.12)}\n" +
-  "    .trust-progress{stroke:#9b73ff;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(155,115,255,.55))}\n" +
+  "    .trust-track{stroke:rgba(0,255,102,.22)}\n" +
+  "    .trust-progress{stroke:#00ff66;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(0,255,102,.72))}\n" +
   "    .trust-ring strong,.trust-ring span{position:relative;z-index:1}\n" +
-  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em;color:#00ff66}.trust-ring strong span{margin:0;color:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}.trust-ring span{margin-top:10px;color:#9dffbd;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
   "    .compatibility-note{width:100%;padding-top:22px;border-top:1px solid #27272a;text-align:center}.compatibility-note strong{display:block;color:#bbbcc4;font-size:14px;font-weight:550}.compatibility-note span{display:block;margin-top:10px;color:#777982;font-size:12px;line-height:1.5}\n" +
   "    .terms-note{margin:6px 0 120px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
   "    .tech-label{margin:0 0 22px;color:rgba(7,8,11,.55);font-size:14px;font-weight:600;text-align:center}\n" +
@@ -4281,13 +4281,11 @@ const ROOT_PAGE =
   "      const trustPercent = document.getElementById(\"trustPercent\");\n" +
   "      if (trustRing && trustProgress && trustPercent) {\n" +
   "        const circumference = 2 * Math.PI * 82;\n" +
-  "        const purple = [155, 115, 255];\n" +
-  "        const green = [34, 197, 94];\n" +
+  "        const green = [0, 255, 102];\n" +
   "        let trustStarted = false;\n" +
   "        const paintTrustProgress = (amount) => {\n" +
   "          const value = Math.round(amount);\n" +
   "          const eased = Math.max(0, Math.min(1, amount / 100));\n" +
-  "          const color = purple.map((channel, index) => Math.round(channel + (green[index] - channel) * eased));\n" +
   "          trustPercent.textContent = String(value);\n" +
   "          trustRing.setAttribute(\"aria-valuenow\", String(value));\n" +
   "          trustProgress.style.strokeDashoffset = String(circumference * (1 - eased));\n" +
@@ -4304,7 +4302,7 @@ const ROOT_PAGE =
   "            return;\n" +
   "          }\n" +
   "          const startedAt = performance.now();\n" +
-  "          const duration = 3200;\n" +
+  "          const duration = 1000;\n" +
   "          const tick = (now) => {\n" +
   "            const linear = Math.min(1, (now - startedAt) / duration);\n" +
   "            const eased = 1 - Math.pow(1 - linear, 2.2);\n" +
@@ -4642,10 +4640,10 @@ const HUB_PAGE =
   "    .trust-ring.is-visible{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible}\n" +
   "    .trust-track,.trust-progress{fill:none;stroke-width:10}\n" +
-  "    .trust-track{stroke:rgba(255,255,255,.12)}\n" +
-  "    .trust-progress{stroke:#9b73ff;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(155,115,255,.55))}\n" +
+  "    .trust-track{stroke:rgba(0,255,102,.22)}\n" +
+  "    .trust-progress{stroke:#00ff66;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(0,255,102,.72))}\n" +
   "    .trust-ring strong,.trust-ring span{position:relative;z-index:1}\n" +
-  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em}.trust-ring span{margin-top:10px;color:#92929a;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em;color:#00ff66}.trust-ring strong span{margin:0;color:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}.trust-ring span{margin-top:10px;color:#9dffbd;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
   "    .compatibility-note{width:100%;padding-top:22px;border-top:1px solid #27272a;text-align:center}.compatibility-note strong{display:block;color:#bbbcc4;font-size:14px;font-weight:550}.compatibility-note span{display:block;margin-top:10px;color:#777982;font-size:12px;line-height:1.5}\n" +
   "    .terms-note{margin:6px 0 120px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
   "    .tech-label{margin:0 0 22px;color:rgba(7,8,11,.55);font-size:14px;font-weight:600;text-align:center}\n" +
@@ -5003,13 +5001,11 @@ const HUB_PAGE =
   "      const trustPercent = document.getElementById(\"trustPercent\");\n" +
   "      if (trustRing && trustProgress && trustPercent) {\n" +
   "        const circumference = 2 * Math.PI * 82;\n" +
-  "        const purple = [155, 115, 255];\n" +
-  "        const green = [34, 197, 94];\n" +
+  "        const green = [0, 255, 102];\n" +
   "        let trustStarted = false;\n" +
   "        const paintTrustProgress = (amount) => {\n" +
   "          const value = Math.round(amount);\n" +
   "          const eased = Math.max(0, Math.min(1, amount / 100));\n" +
-  "          const color = purple.map((channel, index) => Math.round(channel + (green[index] - channel) * eased));\n" +
   "          trustPercent.textContent = String(value);\n" +
   "          trustRing.setAttribute(\"aria-valuenow\", String(value));\n" +
   "          trustProgress.style.strokeDashoffset = String(circumference * (1 - eased));\n" +
@@ -5026,7 +5022,7 @@ const HUB_PAGE =
   "            return;\n" +
   "          }\n" +
   "          const startedAt = performance.now();\n" +
-  "          const duration = 3200;\n" +
+  "          const duration = 1000;\n" +
   "          const tick = (now) => {\n" +
   "            const linear = Math.min(1, (now - startedAt) / duration);\n" +
   "            const eased = 1 - Math.pow(1 - linear, 2.2);\n" +
