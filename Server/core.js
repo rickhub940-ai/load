@@ -3916,14 +3916,14 @@ const ROOT_PAGE =
   "    .window-profile{display:flex;align-items:center;gap:9px;margin-top:auto;padding:0 6px;color:#f7f7f9;font-size:14px;font-weight:700}.window-avatar{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:50%;background:linear-gradient(145deg,#32343a,#15161a);color:#cfd0d4;font-size:22px}.window-profile small{display:block;margin-top:3px;color:#8d9099;font-size:11px;font-weight:500}\n" +
   "    .window-main{min-width:0;padding:16px 20px;display:flex;flex-direction:column;gap:14px;background:#17181c}.hub-project-head{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#f3f3f5}.hub-project-head h3{font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.025em}.hub-project-head i{color:#a5a7b0;font-size:18px}\n" +
   "    .discord-card{min-width:0;padding:14px;display:flex;flex-direction:column;gap:8px;border-radius:22px;background:#24252a}.discord-card-heading{display:flex;align-items:center;gap:12px;min-width:0}.discord-card-icon{width:58px;height:58px;flex:none;display:grid;place-items:center;border-radius:15px;background:#050608;color:#fff;font-size:34px}.discord-copy{min-width:0}.discord-copy h4{color:#f7f7f8;font-size:18px;line-height:1.2;font-weight:700;letter-spacing:-.02em}.discord-copy p{margin-top:5px;color:#b1b3bb;font-size:14px;line-height:1.3}.discord-actions{display:grid;gap:8px}.discord-action{min-height:48px;padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:12px;border-radius:15px;color:#fff;font-size:17px;font-weight:700}.discord-action i{font-size:21px}.discord-server{background:#1877f2}.discord-destroy{background:#050608}\n" +
-  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{position:relative;width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}\n" +
+  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{position:relative;width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border-radius:50%;box-shadow:0 0 50px rgba(0,255,60,.22);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}\n" +
   "    .trust-ring.is-visible{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible}\n" +
   "    .trust-track,.trust-progress{fill:none;stroke-width:10}\n" +
-  "    .trust-track{stroke:rgba(0,255,102,.22)}\n" +
-  "    .trust-progress{stroke:#00ff66;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(0,255,102,.72))}\n" +
+  "    .trust-track{stroke:rgba(0,255,60,.2)}\n" +
+  "    .trust-progress{stroke:#00ff3c;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 11px rgba(0,255,60,.95))}\n" +
   "    .trust-ring strong,.trust-ring span{position:relative;z-index:1}\n" +
-  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em;color:#00ff66}.trust-ring strong span{margin:0;color:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}.trust-ring span{margin-top:10px;color:#9dffbd;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em;color:#00ff3c}.trust-ring strong span{margin:0;color:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}.trust-ring span{margin-top:10px;color:#9dffbd;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
   "    .compatibility-note{width:100%;padding-top:22px;border-top:1px solid #27272a;text-align:center}.compatibility-note strong{display:block;color:#bbbcc4;font-size:14px;font-weight:550}.compatibility-note span{display:block;margin-top:10px;color:#777982;font-size:12px;line-height:1.5}\n" +
   "    .terms-note{margin:6px 0 120px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
   "    .tech-label{margin:0 0 22px;color:rgba(7,8,11,.55);font-size:14px;font-weight:600;text-align:center}\n" +
@@ -4281,17 +4281,19 @@ const ROOT_PAGE =
   "      const trustPercent = document.getElementById(\"trustPercent\");\n" +
   "      if (trustRing && trustProgress && trustPercent) {\n" +
   "        const circumference = 2 * Math.PI * 82;\n" +
-  "        const green = [0, 255, 102];\n" +
+  "        const green = [0, 255, 60];\n" +
   "        let trustStarted = false;\n" +
   "        const paintTrustProgress = (amount) => {\n" +
-  "          const value = Math.round(amount);\n" +
-  "          const eased = Math.max(0, Math.min(1, amount / 100));\n" +
+  "          const bounded = Math.max(0, Math.min(100, Number.isFinite(amount) ? amount : 0));\n" +
+  "          const value = Math.round(bounded);\n" +
+  "          const eased = bounded / 100;\n" +
+  "          const color = green;\n" +
   "          trustPercent.textContent = String(value);\n" +
   "          trustRing.setAttribute(\"aria-valuenow\", String(value));\n" +
   "          trustProgress.style.strokeDashoffset = String(circumference * (1 - eased));\n" +
   "          trustProgress.style.stroke = `rgb(${color[0]} ${color[1]} ${color[2]})`;\n" +
-  "          trustProgress.style.filter = `drop-shadow(0 0 7px rgba(${color[0]},${color[1]},${color[2]},.55))`;\n" +
-  "          trustRing.style.boxShadow = `0 0 50px rgba(${color[0]},${color[1]},${color[2]},.16)`;\n" +
+  "          trustProgress.style.filter = `drop-shadow(0 0 7px rgba(${color[0]},${color[1]},${color[2]},.95))`;\n" +
+  "          trustRing.style.boxShadow = `0 0 50px rgba(${color[0]},${color[1]},${color[2]},.28)`;\n" +
   "        };\n" +
   "        const startTrustProgress = () => {\n" +
   "          if (trustStarted) return;\n" +
@@ -4304,7 +4306,7 @@ const ROOT_PAGE =
   "          const startedAt = performance.now();\n" +
   "          const duration = 1000;\n" +
   "          const tick = (now) => {\n" +
-  "            const linear = Math.min(1, (now - startedAt) / duration);\n" +
+  "            const linear = Math.max(0, Math.min(1, (now - startedAt) / duration));\n" +
   "            const eased = 1 - Math.pow(1 - linear, 2.2);\n" +
   "            paintTrustProgress(eased * 100);\n" +
   "            if (linear < 1) requestAnimationFrame(tick);\n" +
@@ -4636,14 +4638,14 @@ const HUB_PAGE =
   "    .window-profile{display:flex;align-items:center;gap:9px;margin-top:auto;padding:0 6px;color:#f7f7f9;font-size:14px;font-weight:700}.window-avatar{width:42px;height:42px;display:grid;place-items:center;flex:none;border-radius:50%;background:linear-gradient(145deg,#32343a,#15161a);color:#cfd0d4;font-size:22px}.window-profile small{display:block;margin-top:3px;color:#8d9099;font-size:11px;font-weight:500}\n" +
   "    .window-main{min-width:0;padding:16px 20px;display:flex;flex-direction:column;gap:14px;background:#17181c}.hub-project-head{display:flex;align-items:center;justify-content:space-between;gap:16px;color:#f3f3f5}.hub-project-head h3{font-size:20px;line-height:1.2;font-weight:700;letter-spacing:-.025em}.hub-project-head i{color:#a5a7b0;font-size:18px}\n" +
   "    .discord-card{min-width:0;padding:14px;display:flex;flex-direction:column;gap:8px;border-radius:22px;background:#24252a}.discord-card-heading{display:flex;align-items:center;gap:12px;min-width:0}.discord-card-icon{width:58px;height:58px;flex:none;display:grid;place-items:center;border-radius:15px;background:#050608;color:#fff;font-size:34px}.discord-copy{min-width:0}.discord-copy h4{color:#f7f7f8;font-size:18px;line-height:1.2;font-weight:700;letter-spacing:-.02em}.discord-copy p{margin-top:5px;color:#b1b3bb;font-size:14px;line-height:1.3}.discord-actions{display:grid;gap:8px}.discord-action{min-height:48px;padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:12px;border-radius:15px;color:#fff;font-size:17px;font-weight:700}.discord-action i{font-size:21px}.discord-server{background:#1877f2}.discord-destroy{background:#050608}\n" +
-  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{position:relative;width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border-radius:50%;box-shadow:0 0 50px rgba(155,115,255,.14);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}\n" +
+  "    .showcase-metrics{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:42px}.trust-ring{position:relative;width:190px;height:190px;margin:0;display:grid;place-content:center;text-align:center;border-radius:50%;box-shadow:0 0 50px rgba(0,255,60,.22);opacity:0;transform:translateY(44px) scale(.82);transition:opacity .8s ease,transform .9s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}\n" +
   "    .trust-ring.is-visible{opacity:1;transform:translateY(0) scale(1)}\n" +
   "    .trust-ring svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);pointer-events:none;overflow:visible}\n" +
   "    .trust-track,.trust-progress{fill:none;stroke-width:10}\n" +
-  "    .trust-track{stroke:rgba(0,255,102,.22)}\n" +
-  "    .trust-progress{stroke:#00ff66;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 7px rgba(0,255,102,.72))}\n" +
+  "    .trust-track{stroke:rgba(0,255,60,.2)}\n" +
+  "    .trust-progress{stroke:#00ff3c;stroke-linecap:round;stroke-dasharray:515.22;stroke-dashoffset:515.22;filter:drop-shadow(0 0 11px rgba(0,255,60,.95))}\n" +
   "    .trust-ring strong,.trust-ring span{position:relative;z-index:1}\n" +
-  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em;color:#00ff66}.trust-ring strong span{margin:0;color:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}.trust-ring span{margin-top:10px;color:#9dffbd;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
+  "    .trust-ring strong{font-size:44px;line-height:1;letter-spacing:-.06em;color:#00ff3c}.trust-ring strong span{margin:0;color:inherit;font-size:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit}.trust-ring span{margin-top:10px;color:#9dffbd;font-size:12px;font-weight:800;letter-spacing:.25em}\n" +
   "    .compatibility-note{width:100%;padding-top:22px;border-top:1px solid #27272a;text-align:center}.compatibility-note strong{display:block;color:#bbbcc4;font-size:14px;font-weight:550}.compatibility-note span{display:block;margin-top:10px;color:#777982;font-size:12px;line-height:1.5}\n" +
   "    .terms-note{margin:6px 0 120px;color:rgba(7,8,11,.78);font-size:14px;line-height:1.5;text-align:center}.terms-note a{text-decoration:underline;text-underline-offset:3px}\n" +
   "    .tech-label{margin:0 0 22px;color:rgba(7,8,11,.55);font-size:14px;font-weight:600;text-align:center}\n" +
@@ -5001,17 +5003,19 @@ const HUB_PAGE =
   "      const trustPercent = document.getElementById(\"trustPercent\");\n" +
   "      if (trustRing && trustProgress && trustPercent) {\n" +
   "        const circumference = 2 * Math.PI * 82;\n" +
-  "        const green = [0, 255, 102];\n" +
+  "        const green = [0, 255, 60];\n" +
   "        let trustStarted = false;\n" +
   "        const paintTrustProgress = (amount) => {\n" +
-  "          const value = Math.round(amount);\n" +
-  "          const eased = Math.max(0, Math.min(1, amount / 100));\n" +
+  "          const bounded = Math.max(0, Math.min(100, Number.isFinite(amount) ? amount : 0));\n" +
+  "          const value = Math.round(bounded);\n" +
+  "          const eased = bounded / 100;\n" +
+  "          const color = green;\n" +
   "          trustPercent.textContent = String(value);\n" +
   "          trustRing.setAttribute(\"aria-valuenow\", String(value));\n" +
   "          trustProgress.style.strokeDashoffset = String(circumference * (1 - eased));\n" +
   "          trustProgress.style.stroke = `rgb(${color[0]} ${color[1]} ${color[2]})`;\n" +
-  "          trustProgress.style.filter = `drop-shadow(0 0 7px rgba(${color[0]},${color[1]},${color[2]},.55))`;\n" +
-  "          trustRing.style.boxShadow = `0 0 50px rgba(${color[0]},${color[1]},${color[2]},.16)`;\n" +
+  "          trustProgress.style.filter = `drop-shadow(0 0 7px rgba(${color[0]},${color[1]},${color[2]},.95))`;\n" +
+  "          trustRing.style.boxShadow = `0 0 50px rgba(${color[0]},${color[1]},${color[2]},.28)`;\n" +
   "        };\n" +
   "        const startTrustProgress = () => {\n" +
   "          if (trustStarted) return;\n" +
@@ -5024,7 +5028,7 @@ const HUB_PAGE =
   "          const startedAt = performance.now();\n" +
   "          const duration = 1000;\n" +
   "          const tick = (now) => {\n" +
-  "            const linear = Math.min(1, (now - startedAt) / duration);\n" +
+  "            const linear = Math.max(0, Math.min(1, (now - startedAt) / duration));\n" +
   "            const eased = 1 - Math.pow(1 - linear, 2.2);\n" +
   "            paintTrustProgress(eased * 100);\n" +
   "            if (linear < 1) requestAnimationFrame(tick);\n" +
