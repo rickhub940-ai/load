@@ -104,13 +104,12 @@ const SCRIPTS_PAGE =
   "    .copyright{font-size:12px;color:#65656d}\n" +
   "    .footer-links{display:flex;gap:22px;color:#9a9aa2;font-size:13px}\n" +
   "    .footer-links a:hover{color:#fff}\n" +
-  "    dialog{width:min(700px,calc(100% - 28px));max-height:min(90vh,900px);padding:0;border:1px solid #28282d;border-radius:24px;background:#09090b;color:#f5f5f6;box-shadow:0 25px 100px rgba(0,0,0,.75);overflow:auto}\n" +
+  "    dialog{width:min(700px,calc(100% - 40px));max-height:min(90vh,900px);padding:0;border:0;border-radius:0;background:transparent;color:#f5f5f6;box-shadow:none;overflow:auto;overscroll-behavior:contain}\n" +
   "    dialog::backdrop{background:rgba(0,0,0,.77);backdrop-filter:blur(8px)}\n" +
-  "    .detail-cover{position:relative;aspect-ratio:1.9/1;background:linear-gradient(135deg,#121a17,#121217);overflow:hidden}\n" +
-  "    .detail-cover img{width:100%;height:100%;object-fit:cover}\n" +
-  "    .detail-cover::after{content:\"\";position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(7,7,8,.88))}\n" +
-  "    .detail-close{position:absolute;right:15px;top:15px;z-index:3;width:38px;height:38px;border:1px solid #ffffff30;border-radius:50%;background:#050505ad;color:#fff;font-size:23px;cursor:pointer}\n" +
-  "    .detail-content{padding:24px}\n" +
+  "    .detail-cover{position:relative;aspect-ratio:16/9;margin-bottom:20px;overflow:hidden;border:1px solid #28282d;border-radius:22px;background:#09090b;box-shadow:0 18px 55px rgba(0,0,0,.42)}\n" +
+  "    .detail-cover img{display:block;width:100%;height:100%;object-fit:contain;background:#070709}\n" +
+  "    .detail-close{position:absolute;right:14px;top:14px;z-index:3;width:38px;height:38px;border:1px solid #ffffff30;border-radius:50%;background:#050505c9;color:#fff;font-size:23px;cursor:pointer}\n" +
+  "    .detail-content{padding:24px;border:1px solid #28282d;border-radius:24px;background:#09090b;box-shadow:0 18px 55px rgba(0,0,0,.42)}\n" +
   "    .detail-title{margin:0;font-size:clamp(24px,5vw,34px);letter-spacing:-.05em;line-height:1.12}\n" +
   "    .detail-author{margin:18px 0 22px;display:flex;align-items:center;gap:11px}\n" +
   "    .copy-main{width:100%;min-height:54px;border-radius:999px;background:#f7f7f8;color:#09090a;font-size:16px;font-weight:700;cursor:pointer;transition:transform .18s ease,background .18s ease}\n" +
@@ -135,7 +134,7 @@ const SCRIPTS_PAGE =
   "      main{padding:40px 20px 72px}.intro{padding-bottom:25px}.eyebrow{margin-bottom:13px}.subtitle{margin-top:13px;line-height:1.55}\n" +
   "      .list-tools{margin-top:22px}.search{width:44px;padding:0;justify-content:center;border-radius:50%;cursor:pointer}.search input{display:none}.search.open{width:min(250px,57vw);padding:0 12px;border-radius:999px;justify-content:flex-start}.search.open input{display:block}\n" +
   "      .section-label{margin:24px 0 16px}.grid{grid-template-columns:1fr;gap:30px}.cover{aspect-ratio:1.64/1;border-radius:0}.card-body{padding-top:15px}.card-meta{margin-top:14px}\n" +
-  "      footer{padding:38px 20px 30px}.footer-inner{display:block}.footer-links{margin-top:25px;flex-wrap:wrap}.detail-content{padding:20px}.detail-cover{aspect-ratio:1.55/1}\n" +
+  "      footer{padding:38px 20px 30px}.footer-inner{display:block}.footer-links{margin-top:25px;flex-wrap:wrap}.detail-content{padding:20px}.detail-cover{margin-bottom:16px;border-radius:20px}\n" +
   "    }\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}\n" +
   "  </style>\n" +
@@ -205,7 +204,7 @@ const SCRIPTS_PAGE =
   "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span><span class=\"cover-flag\">'+(i===0?'RECENTLY UPDATED':'OFFICIAL')+'</span><div class=\"cover-title\"><strong>'+esc(name)+'</strong><span class=\"cover-arrow\" aria-hidden=\"true\">\u2197</span></div></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+' \u2014 Official 999MS</h2><div class=\"author-row\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
   "        var img=card.querySelector('img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
   "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search.':'New scripts will appear here when published.')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
-  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover');cover.querySelectorAll('img').forEach(function(n){n.remove()});if(g.icon){var im=document.createElement('img');im.src=g.icon;im.alt='';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name+' \u2014 Official 999MS';document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
   "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
   "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
   "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
@@ -5719,7 +5718,7 @@ function trackLink(path, scriptName, hours) {
 // ═══ /api/games?ids=<placeId>[,<placeId>] — public Roblox metadata proxy ═══
 const GAME_INFO_MAX_IDS = 20;
 const GAME_INFO_TTL = 30 * 60 * 1000;
-const gameInfoCache = new Map(); // placeId -> { placeId, name, icon, at }
+const gameInfoCache = new Map(); // placeId -> { placeId, name, icon, thumbnail, at }
 
 async function robloxJson(target) {
   try {
@@ -5747,7 +5746,7 @@ async function handleGameInfo(req, res) {
   const games = ids.map(function (id) {
     const cached = gameInfoCache.get(id);
     if (cached && now - cached.at < GAME_INFO_TTL) return cached;
-    return { placeId: id, name: '', icon: '', at: 0 };
+    return { placeId: id, name: '', icon: '', thumbnail: '', at: 0 };
   });
   const pending = games.filter(function (g) { return !g.at; });
   const byPlace = new Map(games.map(function (g) { return [g.placeId, g]; }));
@@ -5779,30 +5778,46 @@ async function handleGameInfo(req, res) {
       });
     }
 
-    // place ids -> game icons
-    const icons = await robloxJson(
+    // Keep square icons for listing cards and fetch wide artwork for the detail view.
+    const iconRequest = robloxJson(
       'https://thumbnails.roblox.com/v1/places/gameicons?placeIds=' +
       pending.map(function (g) { return g.placeId; }).join(',') +
       '&size=512x512&format=Png&isCircular=false');
+    const thumbnailRequest = universeIds.length
+      ? robloxJson(
+        'https://thumbnails.roblox.com/v1/games/multiget/thumbnails?universeIds=' +
+        universeIds.join(',') + '&countPerUniverse=1&size=768x432&format=Png&isCircular=false')
+      : Promise.resolve(null);
+    const imageResults = await Promise.all([iconRequest, thumbnailRequest]);
     const byIcon = new Map();
-    (icons && Array.isArray(icons.data) ? icons.data : []).forEach(function (row) {
+    (imageResults[0] && Array.isArray(imageResults[0].data) ? imageResults[0].data : []).forEach(function (row) {
       if (row && row.state === 'Completed' && typeof row.imageUrl === 'string') {
         byIcon.set(String(row.targetId), row.imageUrl);
       }
     });
-    pending.forEach(function (g) { g.icon = byIcon.get(g.placeId) || ''; });
+    const byThumbnail = new Map();
+    (imageResults[1] && Array.isArray(imageResults[1].data) ? imageResults[1].data : []).forEach(function (row) {
+      const thumbnail = row && Array.isArray(row.thumbnails)
+        ? row.thumbnails.find(function (item) { return item && item.state === 'Completed' && typeof item.imageUrl === 'string'; })
+        : null;
+      if (thumbnail) byThumbnail.set(String(row.universeId), thumbnail.imageUrl);
+    });
+    pending.forEach(function (g) {
+      g.icon = byIcon.get(g.placeId) || '';
+      g.thumbnail = byThumbnail.get(String(g.universeId || '')) || '';
+    });
 
     pending.forEach(function (g) {
       g.at = Date.now();
       delete g.universeId;
-      if (g.name || g.icon) gameInfoCache.set(g.placeId, g);
+      if (g.name || g.icon || g.thumbnail) gameInfoCache.set(g.placeId, g);
     });
   }
 
   return res.status(200).json({
     ok: true,
     games: games.map(function (g) {
-      return { placeId: g.placeId, name: g.name || '', icon: g.icon || '' };
+      return { placeId: g.placeId, name: g.name || '', icon: g.icon || '', thumbnail: g.thumbnail || '' };
     }),
   });
 }
