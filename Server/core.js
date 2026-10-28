@@ -7799,6 +7799,18 @@ function route(req) {
 
 const MAX_JSON_BODY_BYTES = 4613734; // 4.4 MB (under Vercel's 4.5 MB platform limit)
 
+// Cosmetic client-render shell: an ordinary fetch of a page gets only this
+// placeholder, while the browser requests the real page for rendering. This is
+// not a security boundary; anyone can request render=1 or inspect browser traffic.
+function pageLoadingShell(pagePath) {
+  const endpoint = '/api/auth?page=' + encodeURIComponent(pagePath) + '&render=1';
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>999MS HUB</title></head>' +
+    '<body style="margin:0;min-height:100vh;display:grid;place-items:center;background:#08080a;color:#f5f5f6;font:500 16px Arial,sans-serif">' +
+    '<main><button id="page-status" type="button" disabled style="padding:14px 24px;border:0;border-radius:14px;background:#22232a;color:inherit;font:inherit">Loading 999MS HUB...</button></main>' +
+    '<script>(function(){fetch(' + JSON.stringify(endpoint) + ',{cache:"no-store",headers:{accept:"text/html"}}).then(function(r){if(!r.ok)throw new Error("page");return r.text()}).then(function(html){document.open();document.write(html);document.close()}).catch(function(){var b=document.getElementById("page-status");if(b){b.disabled=false;b.textContent="Tap to retry";b.onclick=function(){location.reload()}}})})()</script>' +
+    '</body></html>';
+}
+
 async function handler(req, res) {
   response(res);
   const url = new URL(req.url, 'http://gateway.local');
@@ -7819,7 +7831,8 @@ async function handler(req, res) {
     if (req.method !== 'GET') return res.status(405).send('');
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(200).send(page);
+    const renderPage = url.searchParams.get('render') === '1' || req.query?.render === '1';
+    return res.status(200).send(renderPage ? page : pageLoadingShell(pagePath));
   }
   route(req);
   // Stage POSTs claim their capability before body parsing, including bad JSON.
