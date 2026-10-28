@@ -4022,7 +4022,7 @@ const ROOT_PAGE =
   "          <a href=\"/scripts\" class=\"nav-link\">Resources</a>\n" +
   "          <a href=\"#community\" class=\"nav-link\">Community</a>\n" +
   "        </nav>\n" +
-  "        <div class=\"nav-actions\"><a href=\"/scripts\" class=\"sign-in\">Sign in</a><a href=\"/scripts\" class=\"nav-try\">Try 999MS&nbsp; \u2197</a></div>\n" +
+  "        <div class=\"nav-actions\"><a href=\"/scripts\" class=\"sign-in\">Sign in</a><a href=\"/scripts\" class=\"nav-try\">Find Scripts&nbsp; \u2197</a></div>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -4036,28 +4036,28 @@ const ROOT_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        A focused platform for Roblox. Fast, stable, built to last.\n" +
+  "        Discover scripts for the Roblox experiences you play. Find updates and your next in-game favorite.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Find a Script</a>\n" +
   "        <a href=\"/scripts\" class=\"cta-primary cta-secondary\">Explore Scripts</a>\n" +
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
   "    </main>\n" +
-  "      <p class=\"tech-label\">Technology behind 999MS</p>\n" +
+  "      <p class=\"tech-label\">Scripts for the games you play</p>\n" +
   "      <div class=\"tech-marquee\" aria-label=\"999MS platform technology\">\n" +
   "        <div class=\"tech-strip\">\n" +
   "          <div class=\"tech-track\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\" aria-hidden=\"true\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> Secure</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> In-Game Scripts</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "          <div class=\"tech-track\" aria-hidden=\"true\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> Secure</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> In-Game Scripts</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "        </div>\n" +
@@ -4096,7 +4096,7 @@ const ROOT_PAGE =
   "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
   "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
   "          </div>\n" +
-  "          <div class=\"compatibility-note\"><strong>Compatibility</strong><span>Verified loader stages</span></div>\n" +
+  "          <div class=\"compatibility-note\"><strong>Supported games</strong><span>Scripts for your next session</span></div>\n" +
   "        </aside>\n" +
   "        </div>\n" +
   "      </div>\n" +
@@ -4106,8 +4106,8 @@ const ROOT_PAGE =
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
   "        <div class=\"feature-grid\">\n" +
-  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader checks each delivered stage before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Find scripts without the hunt.</h3><p>Browse supported experiences, view update information, and copy the matching loader command.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Made for your games</small><h3>Find your next in-game script.</h3><p>Explore scripts for supported Roblox experiences and choose the ones that fit how you play.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>The right script is easy to find.</h3><p>Browse supported experiences, check script updates, and explore the details before you choose.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
   "        </div>\n" +
@@ -4122,11 +4122,11 @@ const ROOT_PAGE =
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
-  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Open the library to explore published scripts, check the available metadata, and copy the loader command.</p><a class=\"community-action\" href=\"/scripts\">Explore ScriptHub&nbsp; \u2192</a></div></div>\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Explore published scripts for supported Roblox games, check update details, and choose what to play with next.</p><a class=\"community-action\" href=\"/scripts\">Explore ScriptHub&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
-  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A focused loader and script library for Roblox experiences.</p></div>\n" +
+  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A library of scripts for supported Roblox experiences.</p></div>\n" +
   "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
   "      <div class=\"footer-col\"><strong>Platform</strong><a href=\"/control\">Control panel</a><a href=\"/stats\">Service status</a></div>\n" +
   "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
@@ -4744,7 +4744,7 @@ const HUB_PAGE =
   "          <a href=\"/scripts\" class=\"nav-link\">Resources</a>\n" +
   "          <a href=\"#community\" class=\"nav-link\">Community</a>\n" +
   "        </nav>\n" +
-  "        <div class=\"nav-actions\"><a href=\"/scripts\" class=\"sign-in\">Sign in</a><a href=\"/scripts\" class=\"nav-try\">Try 999MS&nbsp; \u2197</a></div>\n" +
+  "        <div class=\"nav-actions\"><a href=\"/scripts\" class=\"sign-in\">Sign in</a><a href=\"/scripts\" class=\"nav-try\">Find Scripts&nbsp; \u2197</a></div>\n" +
   "      </div>\n" +
   "      \n" +
   "      <button class=\"burger\" id=\"burger\" aria-label=\"Open menu\" aria-expanded=\"false\">\n" +
@@ -4758,28 +4758,28 @@ const HUB_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        A focused platform for Roblox. Fast, stable, built to last.\n" +
+  "        Discover scripts for the Roblox experiences you play. Find updates and your next in-game favorite.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Find a Script</a>\n" +
   "        <a href=\"/scripts\" class=\"cta-primary cta-secondary\">Explore Scripts</a>\n" +
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
   "    </main>\n" +
-  "      <p class=\"tech-label\">Technology behind 999MS</p>\n" +
+  "      <p class=\"tech-label\">Scripts for the games you play</p>\n" +
   "      <div class=\"tech-marquee\" aria-label=\"999MS platform technology\">\n" +
   "        <div class=\"tech-strip\">\n" +
   "          <div class=\"tech-track\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\" aria-hidden=\"true\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> Secure</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\" aria-hidden=\"true\"></i> In-Game Scripts</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "          <div class=\"tech-track\" aria-hidden=\"true\">\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-roblox\"></i> Roblox</span>\n" +
   "            <span class=\"tech-wordmark\"><i class=\"fa-brands fa-discord\"></i> Discord</span>\n" +
-  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> Secure</span>\n" +
+  "            <span class=\"tech-wordmark\"><i class=\"fa-solid fa-shield-halved\"></i> In-Game Scripts</span>\n" +
   "            <span class=\"tech-wordmark\">999MS HUB</span>\n" +
   "          </div>\n" +
   "        </div>\n" +
@@ -4818,7 +4818,7 @@ const HUB_PAGE =
   "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
   "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
   "          </div>\n" +
-  "          <div class=\"compatibility-note\"><strong>Compatibility</strong><span>Verified loader stages</span></div>\n" +
+  "          <div class=\"compatibility-note\"><strong>Supported games</strong><span>Scripts for your next session</span></div>\n" +
   "        </aside>\n" +
   "        </div>\n" +
   "      </div>\n" +
@@ -4828,8 +4828,8 @@ const HUB_PAGE =
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
   "        <div class=\"feature-grid\">\n" +
-  "          <article class=\"feature-card\"><div><small>Integrity first</small><h3>Every stage is checked.</h3><p>The loader checks each delivered stage before handing it off.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Find scripts without the hunt.</h3><p>Browse supported experiences, view update information, and copy the matching loader command.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Made for your games</small><h3>Find your next in-game script.</h3><p>Explore scripts for supported Roblox experiences and choose the ones that fit how you play.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>The right script is easy to find.</h3><p>Browse supported experiences, check script updates, and explore the details before you choose.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
   "        </div>\n" +
@@ -4844,11 +4844,11 @@ const HUB_PAGE =
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
-  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Open the library to explore published scripts, check the available metadata, and copy the loader command.</p><a class=\"community-action\" href=\"/scripts\">Explore ScriptHub&nbsp; \u2192</a></div></div>\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Explore published scripts for supported Roblox games, check update details, and choose what to play with next.</p><a class=\"community-action\" href=\"/scripts\">Explore ScriptHub&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
-  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A focused loader and script library for Roblox experiences.</p></div>\n" +
+  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A library of scripts for supported Roblox experiences.</p></div>\n" +
   "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
   "      <div class=\"footer-col\"><strong>Platform</strong><a href=\"/control\">Control panel</a><a href=\"/stats\">Service status</a></div>\n" +
   "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
