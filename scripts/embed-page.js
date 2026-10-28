@@ -14,8 +14,8 @@ const path = require('node:path');
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const CORE = path.join(PROJECT_ROOT, 'Server', 'core.js');
 // Bundle the exact supplied HUB screenshot into server-rendered homepage HTML.
-const HUB_UI_IMAGE = path.join(PROJECT_ROOT, 'assets', '999ms-hub-ui-reference.jpg');
-const HUB_UI_DATA_URI = `data:image/jpeg;base64,${fs.readFileSync(HUB_UI_IMAGE).toString('base64')}`;
+const HUB_UI_IMAGE = path.join(PROJECT_ROOT, 'assets', '999ms-hub-ui-reference.png');
+const HUB_UI_DATA_URI = `data:image/png;base64,${fs.readFileSync(HUB_UI_IMAGE).toString('base64')}`;
 
 // Route -> source file. Add a row here and the page becomes servable once the
 // route is also reachable (vercel.json rewrite + the page lookup in core.js).
