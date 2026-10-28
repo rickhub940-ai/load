@@ -877,7 +877,6 @@ const STATS_PAGE =
   "\n" +
   "        <nav class=\"side-nav\">\n" +
   "          <div class=\"side-label\">Console</div>\n" +
-  "          <a class=\"side-link\" href=\"/control\"><i class=\"fa-solid fa-sliders\"></i> \u0e2b\u0e19\u0e49\u0e32 Control</a>\n" +
   "          <a class=\"side-link\" href=\"/\"><i class=\"fa-solid fa-house\"></i> \u0e2b\u0e19\u0e49\u0e32\u0e41\u0e23\u0e01</a>\n" +
   "        </nav>\n" +
   "\n" +
@@ -2056,8 +2055,6 @@ const CONTROL_PAGE =
   "        <nav class=\"nav-links\">\n" +
   "          <a href=\"/\" class=\"nav-link\">Home</a>\n" +
   "          <a href=\"/hub\" class=\"nav-link\">Scripts</a>\n" +
-  "          <a href=\"/control\" class=\"nav-link is-active\">Control</a>\n" +
-  "          <a href=\"/stats\" class=\"nav-link\">Stats</a>\n" +
   "        </nav>\n" +
   "        <div class=\"nav-actions\">\n" +
   "          <span class=\"nav-status\"><span class=\"status-dot\" id=\"gwDot\"></span><span id=\"gwLabel\">API \u2014</span></span>\n" +
@@ -3951,7 +3948,7 @@ const ROOT_PAGE =
   "    .community-card p{max-width:620px;margin:20px 0 30px;color:#93939b;font-size:18px;line-height:1.6}\n" +
   "    .community-action{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 26px;border-radius:999px;background:#f5f5f5;color:#080808;font-weight:700}\n" +
   "    .site-footer{padding:48px clamp(20px,5vw,64px) 35px;border-top:1px solid #202024;background:#050505;color:#9999a1}\n" +
-  "    .footer-inner{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px}\n" +
+  "    .footer-inner{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:34px}\n" +
   "    .footer-brand{color:#f5f5f5;font-size:22px;font-weight:700}.footer-copy{max-width:400px;margin-top:14px;line-height:1.7}.footer-col strong{display:block;margin-bottom:15px;color:#e8e8eb}.footer-col a{display:block;margin:11px 0;color:#888890}.footer-col a:hover{color:#fff}.footer-bottom{width:min(1120px,100%);margin:36px auto 0;padding-top:20px;border-top:1px solid #202024;color:#696970;font-size:12px}\n" +
   "    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.reveal.is-visible{opacity:1;transform:none}\n" +
   "\n" +
@@ -4108,7 +4105,6 @@ const ROOT_PAGE =
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
   "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A library of scripts for supported Roblox experiences.</p></div>\n" +
   "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
-  "      <div class=\"footer-col\"><strong>Platform</strong><a href=\"/control\">Control panel</a><a href=\"/stats\">Service status</a></div>\n" +
   "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
   "  </div>\n" +
   "\n" +
@@ -4653,7 +4649,7 @@ const HUB_PAGE =
   "    .community-card p{max-width:620px;margin:20px 0 30px;color:#93939b;font-size:18px;line-height:1.6}\n" +
   "    .community-action{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 26px;border-radius:999px;background:#f5f5f5;color:#080808;font-weight:700}\n" +
   "    .site-footer{padding:48px clamp(20px,5vw,64px) 35px;border-top:1px solid #202024;background:#050505;color:#9999a1}\n" +
-  "    .footer-inner{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:34px}\n" +
+  "    .footer-inner{width:min(1120px,100%);margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr;gap:34px}\n" +
   "    .footer-brand{color:#f5f5f5;font-size:22px;font-weight:700}.footer-copy{max-width:400px;margin-top:14px;line-height:1.7}.footer-col strong{display:block;margin-bottom:15px;color:#e8e8eb}.footer-col a{display:block;margin:11px 0;color:#888890}.footer-col a:hover{color:#fff}.footer-bottom{width:min(1120px,100%);margin:36px auto 0;padding-top:20px;border-top:1px solid #202024;color:#696970;font-size:12px}\n" +
   "    .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.reveal.is-visible{opacity:1;transform:none}\n" +
   "\n" +
@@ -4810,7 +4806,6 @@ const HUB_PAGE =
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
   "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A library of scripts for supported Roblox experiences.</p></div>\n" +
   "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
-  "      <div class=\"footer-col\"><strong>Platform</strong><a href=\"/control\">Control panel</a><a href=\"/stats\">Service status</a></div>\n" +
   "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
   "  </div>\n" +
   "\n" +
