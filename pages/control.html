@@ -733,6 +733,26 @@
         </div>
       </section>
 
+      <section class="card" id="discordCard">
+        <div class="card-h">
+          <h2>โปรไฟล์ผู้เผยแพร่</h2>
+          <span class="spacer"></span>
+          <span class="pill" id="discordStatus">กำลังตรวจสอบ</span>
+        </div>
+        <div class="card-b stack">
+          <p class="hint">เชื่อมบัญชี Discord เจ้าของเว็บไซต์เพียงบัญชีเดียว — ชื่อและรูปโปรไฟล์จะแสดงเป็นผู้เผยแพร่บนการ์ดและหน้ารายละเอียดสคริปต์ทุกชิ้น</p>
+          <div class="row" style="align-items:center;gap:12px;flex-wrap:wrap">
+            <img id="discordAvatar" class="hide" alt="" style="width:46px;height:46px;object-fit:cover;border-radius:50%;border:1px solid var(--line)" />
+            <div style="min-width:150px;flex:1">
+              <b id="discordName">ยังไม่ได้เชื่อมบัญชี</b>
+              <div class="hint" id="discordMeta" style="margin:4px 0 0">ตรวจสอบการตั้งค่า OAuth…</div>
+              <a id="discordProfileLink" class="hint hide" target="_blank" rel="noopener noreferrer">เปิดโปรไฟล์ Discord</a>
+            </div>
+            <button class="btn btn-primary" id="discordLinkBtn" type="button" disabled>เชื่อม Discord</button>
+          </div>
+        </div>
+      </section>
+
       <section class="card" id="scriptCard">
         <div class="card-h">
           <h2>สคริปต์ของแมพ</h2>
@@ -1410,6 +1430,81 @@
 
   if ($('upRefresh')) $('upRefresh').addEventListener('click', function () { loadScripts(); });
 
+  function loadDiscordProfile() {
+    api('/api/control/discord', { op: 'status' }).then(function (result) {
+      var data = result.data || {};
+      var profile = data.profile;
+      var button = $('discordLinkBtn');
+      var avatar = $('discordAvatar');
+      var link = $('discordProfileLink');
+      button.disabled = result.status !== 200 || !data.configured || !data.storageConfigured;
+      button.textContent = profile ? 'เปลี่ยนบัญชี Discord' : 'เชื่อม Discord';
+      if (profile) {
+        $('discordStatus').textContent = 'เชื่อมแล้ว';
+        $('discordName').textContent = profile.name || profile.username || 'Discord user';
+        $('discordMeta').textContent = '@' + (profile.username || '') + ' · ID ' + (profile.discordId || '');
+        if (profile.avatarUrl) {
+          avatar.src = profile.avatarUrl;
+          avatar.classList.remove('hide');
+          avatar.onerror = function () { avatar.classList.add('hide'); };
+        } else avatar.classList.add('hide');
+        if (profile.profileUrl) {
+          link.href = profile.profileUrl;
+          link.classList.remove('hide');
+        } else link.classList.add('hide');
+      } else {
+        $('discordStatus').textContent = data.configured ? 'ยังไม่เชื่อม' : 'ยังไม่ตั้งค่า';
+        $('discordName').textContent = 'ยังไม่ได้เชื่อมบัญชี';
+        avatar.classList.add('hide');
+        link.classList.add('hide');
+        $('discordMeta').textContent = !data.configured
+          ? 'ต้องตั้ง DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET และ DISCORD_REDIRECT_URI ใน Vercel'
+          : (!data.storageConfigured ? 'ยังไม่ได้ตั้งค่าพื้นที่จัดเก็บโปรไฟล์ใน Supabase' : 'กดปุ่มเพื่อเชื่อมบัญชี Discord');
+      }
+    }).catch(function () {
+      $('discordStatus').textContent = 'ตรวจสอบไม่ได้';
+      $('discordMeta').textContent = 'เรียก API ไม่สำเร็จ ลองรีเฟรชหน้า';
+      $('discordLinkBtn').disabled = true;
+    });
+  }
+
+  $('discordLinkBtn').addEventListener('click', function () {
+    var button = this;
+    button.disabled = true;
+    $('discordMeta').textContent = 'กำลังเริ่มการเชื่อมต่อกับ Discord…';
+    api('/api/control/discord', { op: 'authorize' }).then(function (result) {
+      var url = result.data && result.data.authorizationUrl;
+      if (result.status === 200 && typeof url === 'string' && url.indexOf('https://discord.com/oauth2/authorize?') === 0) {
+        location.assign(url);
+        return;
+      }
+      $('discordMeta').textContent = result.data && result.data.reason === 'discord oauth not configured'
+        ? 'ต้องตั้งค่า Discord OAuth ใน Vercel ก่อน'
+        : (result.data && result.data.reason === 'profile storage not configured' ? 'ยังไม่ได้ตั้งค่า Supabase สำหรับเก็บโปรไฟล์' : 'เริ่มเชื่อมบัญชีไม่สำเร็จ');
+      button.disabled = false;
+    }).catch(function () {
+      $('discordMeta').textContent = 'เชื่อมต่อเซิร์ฟเวอร์ไม่ได้';
+      button.disabled = false;
+    });
+  });
+
+  var discordResult = new URLSearchParams(location.search).get('discord');
+  if (discordResult) {
+    var discordMessages = {
+      linked: ['เชื่อมบัญชี Discord สำเร็จ', 'ok'],
+      cancelled: ['ยกเลิกการเชื่อมบัญชี Discord', 'warn'],
+      'not-configured': ['Discord OAuth หรือ Supabase ยังตั้งค่าไม่ครบ', 'err'],
+      'invalid-state': ['ยืนยันคำขอ Discord ไม่ผ่าน กรุณาลองใหม่', 'err'],
+      'exchange-failed': ['Discord ปฏิเสธการยืนยันตัวตน กรุณาลองใหม่', 'err'],
+      'profile-failed': ['อ่านโปรไฟล์ Discord ไม่สำเร็จ', 'err'],
+      'save-failed': ['บันทึกโปรไฟล์ไม่สำเร็จ ตรวจสอบ Supabase', 'err'],
+      'link-failed': ['เชื่อม Discord ไม่สำเร็จ กรุณาลองใหม่', 'err']
+    };
+    var discordMessage = discordMessages[discordResult] || ['สถานะการเชื่อม Discord ไม่ทราบ', 'warn'];
+    logLine(discordMessage[0], discordMessage[1]);
+    if (history.replaceState) history.replaceState(null, '', location.pathname);
+  }
+
   /* ── login ── */
   gateForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -1498,6 +1593,7 @@
 
     loadScripts();
     loadCommandTemplate();
+    loadDiscordProfile();
 
     api('/api/control/bans').then(function (result) {
       if (result.status !== 200) return;

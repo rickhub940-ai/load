@@ -74,7 +74,10 @@ const SCRIPTS_PAGE =
   "    .card-body{padding:17px 18px 16px}\n" +
   "    .card-title{margin:0;color:#f5f5f6;font-size:clamp(17px,2vw,21px);font-weight:700;line-height:1.25;letter-spacing:-.04em}\n" +
   "    .author-row{min-width:0;margin-top:14px;display:flex;align-items:center;gap:10px;color:#aaaab2;font-size:13px}\n" +
-  "    .avatar{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#e8e8e8,#777);color:#111;font-size:11px;font-weight:800;box-shadow:0 0 0 2px #242428}\n" +
+  "    .avatar{width:34px;height:34px;flex:none;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:linear-gradient(145deg,#e8e8e8,#777);color:#111;font-size:11px;font-weight:800;box-shadow:0 0 0 2px #242428}\n" +
+  "    .avatar img{width:100%;height:100%;object-fit:cover}\n" +
+  "    .author-profile{display:inline-flex;align-items:center;gap:10px;min-width:0;color:inherit;text-decoration:none}\n" +
+  "    .author-profile[href]:hover .author-name{text-decoration:underline;text-underline-offset:3px}\n" +
   "    .author-name{color:#e7e7ea;font-weight:650;white-space:nowrap}\n" +
   "    .crown{color:#ffca52;font-size:15px;line-height:1}\n" +
   "    .verified{width:16px;height:16px;display:grid;place-items:center;flex:none;border-radius:50%;background:#39aafa;color:#fff;font-size:10px;font-weight:800}\n" +
@@ -176,7 +179,7 @@ const SCRIPTS_PAGE =
   "    <div class=\"detail-cover\" id=\"detailCover\"><button class=\"detail-close\" id=\"closeDetail\" type=\"button\" aria-label=\"Close\">\u00d7</button></div>\n" +
   "    <div class=\"detail-content\">\n" +
   "      <h2 class=\"detail-title\" id=\"detailTitle\"></h2>\n" +
-  "      <div class=\"detail-author\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\" id=\"detailFile\"></span></div>\n" +
+  "      <div class=\"detail-author\"><a class=\"author-profile\" id=\"detailProfileLink\"><span class=\"avatar\" id=\"detailAvatar\">9M</span><span class=\"author-name\" id=\"detailAuthorName\">999MS</span></a><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\" id=\"detailFile\"></span></div>\n" +
   "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy script command</button>\n" +
   "      <div class=\"detail-actions\"><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
   "      <div class=\"details-list\"><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Updated</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
@@ -186,7 +189,7 @@ const SCRIPTS_PAGE =
   "  <script>\n" +
   "    (function(){\n" +
   "      'use strict';\n" +
-  "      var grid=document.getElementById('scriptGrid'),count=document.getElementById('scriptCount'),countLabel=document.getElementById('countLabel'),input=document.getElementById('searchInput'),searchWrap=document.getElementById('searchWrap'),dlg=document.getElementById('detailDialog'),chosen=null,all=[],games={},commandTemplate='local License = \"\"\\nlocal Script = \"{{script}}\"\\nloadstring(game:HttpGet(\"{{origin}}/loadc.lua\"))(License, Script)';\n" +
+  "      var grid=document.getElementById('scriptGrid'),count=document.getElementById('scriptCount'),countLabel=document.getElementById('countLabel'),input=document.getElementById('searchInput'),searchWrap=document.getElementById('searchWrap'),dlg=document.getElementById('detailDialog'),chosen=null,all=[],games={},uploader=null,commandTemplate='local License = \"\"\\nlocal Script = \"{{script}}\"\\nloadstring(game:HttpGet(\"{{origin}}/loadc.lua\"))(License, Script)';\n" +
   "      document.getElementById('year').textContent=String(new Date().getFullYear());\n" +
   "      function esc(v){return String(v==null?'':v).replace(/[&<>\"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',\"'\":'&#39;'}[c]})}\n" +
   "      function titleCase(v){return String(v||'').replace(/[_-]+/g,' ').replace(/\\b\\w/g,function(c){return c.toUpperCase()})}\n" +
@@ -196,13 +199,14 @@ const SCRIPTS_PAGE =
   "      function highlightLua(code){var source=String(code),re=/--[^\\n]*|\"(?:\\\\.|[^\"\\\\])*\"|'(?:\\\\.|[^'\\\\])*'|\\b(?:local|function|return|if|then|else|elseif|end|for|while|do|in|repeat|until|break|and|or|not|true|false|nil)\\b|\\b\\d+(?:\\.\\d+)?\\b|\\b(?:game|workspace|script)\\b/g,out='',last=0,m;while((m=re.exec(source))){out+=esc(source.slice(last,m.index));var t=m[0],c=t.slice(0,2)==='--'?'comment':t[0]==='\"'||t[0]===\"'\"?'string':/^(?:local|function|return|if|then|else|elseif|end|for|while|do|in|repeat|until|break|and|or|not|true|false|nil)$/.test(t)?'keyword':/^\\d/.test(t)?'number':'global';out+='<span class=\"lua-'+c+'\">'+esc(t)+'</span>';last=m.index+t.length}return out+esc(source.slice(last))}\n" +
   "      function loaderSize(x){return fmtSize(new Blob([commandText(x)]).size)}\n" +
   "      function nameFor(x){var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
+  "      function uploaderMarkup(){var profile=uploader||{},name=profile.name||'999MS',initials=String(name).slice(0,2).toUpperCase(),avatar=profile.avatarUrl?'<img src=\"'+esc(profile.avatarUrl)+'\" alt=\"\" loading=\"lazy\">':esc(initials);var content='<span class=\"avatar\">'+avatar+'</span><span class=\"author-name\">'+esc(name)+'</span>';return profile.profileUrl?'<a class=\"author-profile\" href=\"'+esc(profile.profileUrl)+'\" target=\"_blank\" rel=\"noopener noreferrer\">'+content+'</a>':content}\n" +
   "      function svg(kind){if(kind==='file')return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M8 13h8M8 17h8\"/></svg>';return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z\"/></svg>'}\n" +
   "      function createCard(x,i){var game=games[x.placeId]||{},name=nameFor(x),card=document.createElement('article');card.className='script-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script');\n" +
   "        var artwork=game.thumbnail||game.icon,image=artwork?'<img src=\"'+esc(artwork)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
-  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\"><span class=\"avatar\">9M</span><span class=\"author-name\">999MS</span><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
-  "        var img=card.querySelector('img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
+  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\">'+uploaderMarkup()+'<span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"verified\" aria-label=\"Verified\">\u2713</span><span class=\"sep\">\u00b7</span><span class=\"file-name\">'+esc(x.name)+'.lua</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Updated '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
+  "        var img=card.querySelector('.cover img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});var avatarImage=card.querySelector('.author-profile .avatar img');if(avatarImage)avatarImage.addEventListener('error',function(){avatarImage.parentNode.textContent=String((uploader&&uploader.name)||'999MS').slice(0,2).toUpperCase()});var authorLink=card.querySelector('.author-profile');if(authorLink){authorLink.addEventListener('click',function(e){e.stopPropagation()});authorLink.addEventListener('keydown',function(e){e.stopPropagation()})}card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
   "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search.':'New scripts will appear here when published.')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
-  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name;document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name;var profile=uploader||{},profileLink=document.getElementById('detailProfileLink'),authorName=document.getElementById('detailAuthorName'),authorAvatar=document.getElementById('detailAvatar');authorName.textContent=profile.name||'999MS';authorAvatar.textContent='';if(profile.avatarUrl){var avatarImage=document.createElement('img');avatarImage.src=profile.avatarUrl;avatarImage.alt='';avatarImage.onerror=function(){authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase()};authorAvatar.appendChild(avatarImage)}else authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase();if(profile.profileUrl){profileLink.href=profile.profileUrl;profileLink.target='_blank';profileLink.rel='noopener noreferrer'}else{profileLink.removeAttribute('href');profileLink.removeAttribute('target')}document.getElementById('detailFile').textContent=x.name+'.lua';document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
   "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
   "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
   "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
@@ -211,7 +215,7 @@ const SCRIPTS_PAGE =
   "      document.getElementById('shareScript').addEventListener('click',function(){if(!chosen)return;var url=location.origin+'/scripts?script='+encodeURIComponent(chosen.name);if(navigator.share)navigator.share({title:nameFor(chosen)+' \u2014 999MS',url:url}).catch(function(){});else copyText(url,this)});\n" +
   "      input.addEventListener('input',render);searchWrap.addEventListener('click',function(){if(window.innerWidth<=700&&!searchWrap.classList.contains('open')){searchWrap.classList.add('open');input.focus()}});input.addEventListener('blur',function(){if(!input.value&&window.innerWidth<=700)searchWrap.classList.remove('open')});\n" +
   "      var mb=document.getElementById('menuBtn'),mm=document.getElementById('mobileMenu');mb.addEventListener('click',function(){var o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});document.addEventListener('keydown',function(e){if(e.key==='Escape'){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}});\n" +
-  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});if(d&&typeof d.commandTemplate==='string'&&d.commandTemplate.trim())commandTemplate=d.commandTemplate;render();var ids=[];all.forEach(function(x){if(ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again.</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
+  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});if(d&&typeof d.commandTemplate==='string'&&d.commandTemplate.trim())commandTemplate=d.commandTemplate;if(d&&d.uploader)uploader=d.uploader;render();var ids=[];all.forEach(function(x){if(ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again.</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
   "      load();\n" +
   "    })();\n" +
   "  </script>\n" +
@@ -2161,6 +2165,26 @@ const CONTROL_PAGE =
   "        </div>\n" +
   "      </section>\n" +
   "\n" +
+  "      <section class=\"card\" id=\"discordCard\">\n" +
+  "        <div class=\"card-h\">\n" +
+  "          <h2>\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e1c\u0e39\u0e49\u0e40\u0e1c\u0e22\u0e41\u0e1e\u0e23\u0e48</h2>\n" +
+  "          <span class=\"spacer\"></span>\n" +
+  "          <span class=\"pill\" id=\"discordStatus\">\u0e01\u0e33\u0e25\u0e31\u0e07\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a</span>\n" +
+  "        </div>\n" +
+  "        <div class=\"card-b stack\">\n" +
+  "          <p class=\"hint\">\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35 Discord \u0e40\u0e08\u0e49\u0e32\u0e02\u0e2d\u0e07\u0e40\u0e27\u0e47\u0e1a\u0e44\u0e0b\u0e15\u0e4c\u0e40\u0e1e\u0e35\u0e22\u0e07\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e40\u0e14\u0e35\u0e22\u0e27 \u2014 \u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e25\u0e30\u0e23\u0e39\u0e1b\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e08\u0e30\u0e41\u0e2a\u0e14\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e1c\u0e39\u0e49\u0e40\u0e1c\u0e22\u0e41\u0e1e\u0e23\u0e48\u0e1a\u0e19\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e41\u0e25\u0e30\u0e2b\u0e19\u0e49\u0e32\u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e38\u0e01\u0e0a\u0e34\u0e49\u0e19</p>\n" +
+  "          <div class=\"row\" style=\"align-items:center;gap:12px;flex-wrap:wrap\">\n" +
+  "            <img id=\"discordAvatar\" class=\"hide\" alt=\"\" style=\"width:46px;height:46px;object-fit:cover;border-radius:50%;border:1px solid var(--line)\" />\n" +
+  "            <div style=\"min-width:150px;flex:1\">\n" +
+  "              <b id=\"discordName\">\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35</b>\n" +
+  "              <div class=\"hint\" id=\"discordMeta\" style=\"margin:4px 0 0\">\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e01\u0e32\u0e23\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32 OAuth\u2026</div>\n" +
+  "              <a id=\"discordProfileLink\" class=\"hint hide\" target=\"_blank\" rel=\"noopener noreferrer\">\u0e40\u0e1b\u0e34\u0e14\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c Discord</a>\n" +
+  "            </div>\n" +
+  "            <button class=\"btn btn-primary\" id=\"discordLinkBtn\" type=\"button\" disabled>\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21 Discord</button>\n" +
+  "          </div>\n" +
+  "        </div>\n" +
+  "      </section>\n" +
+  "\n" +
   "      <section class=\"card\" id=\"scriptCard\">\n" +
   "        <div class=\"card-h\">\n" +
   "          <h2>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e</h2>\n" +
@@ -2838,6 +2862,81 @@ const CONTROL_PAGE =
   "\n" +
   "  if ($('upRefresh')) $('upRefresh').addEventListener('click', function () { loadScripts(); });\n" +
   "\n" +
+  "  function loadDiscordProfile() {\n" +
+  "    api('/api/control/discord', { op: 'status' }).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      var profile = data.profile;\n" +
+  "      var button = $('discordLinkBtn');\n" +
+  "      var avatar = $('discordAvatar');\n" +
+  "      var link = $('discordProfileLink');\n" +
+  "      button.disabled = result.status !== 200 || !data.configured || !data.storageConfigured;\n" +
+  "      button.textContent = profile ? '\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 Discord' : '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21 Discord';\n" +
+  "      if (profile) {\n" +
+  "        $('discordStatus').textContent = '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e41\u0e25\u0e49\u0e27';\n" +
+  "        $('discordName').textContent = profile.name || profile.username || 'Discord user';\n" +
+  "        $('discordMeta').textContent = '@' + (profile.username || '') + ' \u00b7 ID ' + (profile.discordId || '');\n" +
+  "        if (profile.avatarUrl) {\n" +
+  "          avatar.src = profile.avatarUrl;\n" +
+  "          avatar.classList.remove('hide');\n" +
+  "          avatar.onerror = function () { avatar.classList.add('hide'); };\n" +
+  "        } else avatar.classList.add('hide');\n" +
+  "        if (profile.profileUrl) {\n" +
+  "          link.href = profile.profileUrl;\n" +
+  "          link.classList.remove('hide');\n" +
+  "        } else link.classList.add('hide');\n" +
+  "      } else {\n" +
+  "        $('discordStatus').textContent = data.configured ? '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21' : '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32';\n" +
+  "        $('discordName').textContent = '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35';\n" +
+  "        avatar.classList.add('hide');\n" +
+  "        link.classList.add('hide');\n" +
+  "        $('discordMeta').textContent = !data.configured\n" +
+  "          ? '\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e31\u0e49\u0e07 DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET \u0e41\u0e25\u0e30 DISCORD_REDIRECT_URI \u0e43\u0e19 Vercel'\n" +
+  "          : (!data.storageConfigured ? '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e1e\u0e37\u0e49\u0e19\u0e17\u0e35\u0e48\u0e08\u0e31\u0e14\u0e40\u0e01\u0e47\u0e1a\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e19 Supabase' : '\u0e01\u0e14\u0e1b\u0e38\u0e48\u0e21\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35 Discord');\n" +
+  "      }\n" +
+  "    }).catch(function () {\n" +
+  "      $('discordStatus').textContent = '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
+  "      $('discordMeta').textContent = '\u0e40\u0e23\u0e35\u0e22\u0e01 API \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u0e25\u0e2d\u0e07\u0e23\u0e35\u0e40\u0e1f\u0e23\u0e0a\u0e2b\u0e19\u0e49\u0e32';\n" +
+  "      $('discordLinkBtn').disabled = true;\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
+  "  $('discordLinkBtn').addEventListener('click', function () {\n" +
+  "    var button = this;\n" +
+  "    button.disabled = true;\n" +
+  "    $('discordMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e23\u0e34\u0e48\u0e21\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e01\u0e31\u0e1a Discord\u2026';\n" +
+  "    api('/api/control/discord', { op: 'authorize' }).then(function (result) {\n" +
+  "      var url = result.data && result.data.authorizationUrl;\n" +
+  "      if (result.status === 200 && typeof url === 'string' && url.indexOf('https://discord.com/oauth2/authorize?') === 0) {\n" +
+  "        location.assign(url);\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      $('discordMeta').textContent = result.data && result.data.reason === 'discord oauth not configured'\n" +
+  "        ? '\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32 Discord OAuth \u0e43\u0e19 Vercel \u0e01\u0e48\u0e2d\u0e19'\n" +
+  "        : (result.data && result.data.reason === 'profile storage not configured' ? '\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32 Supabase \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e01\u0e47\u0e1a\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c' : '\u0e40\u0e23\u0e34\u0e48\u0e21\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08');\n" +
+  "      button.disabled = false;\n" +
+  "    }).catch(function () {\n" +
+  "      $('discordMeta').textContent = '\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e15\u0e48\u0e2d\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49';\n" +
+  "      button.disabled = false;\n" +
+  "    });\n" +
+  "  });\n" +
+  "\n" +
+  "  var discordResult = new URLSearchParams(location.search).get('discord');\n" +
+  "  if (discordResult) {\n" +
+  "    var discordMessages = {\n" +
+  "      linked: ['\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35 Discord \u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08', 'ok'],\n" +
+  "      cancelled: ['\u0e22\u0e01\u0e40\u0e25\u0e34\u0e01\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21\u0e1a\u0e31\u0e0d\u0e0a\u0e35 Discord', 'warn'],\n" +
+  "      'not-configured': ['Discord OAuth \u0e2b\u0e23\u0e37\u0e2d Supabase \u0e22\u0e31\u0e07\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e44\u0e21\u0e48\u0e04\u0e23\u0e1a', 'err'],\n" +
+  "      'invalid-state': ['\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e04\u0e33\u0e02\u0e2d Discord \u0e44\u0e21\u0e48\u0e1c\u0e48\u0e32\u0e19 \u0e01\u0e23\u0e38\u0e13\u0e32\u0e25\u0e2d\u0e07\u0e43\u0e2b\u0e21\u0e48', 'err'],\n" +
+  "      'exchange-failed': ['Discord \u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18\u0e01\u0e32\u0e23\u0e22\u0e37\u0e19\u0e22\u0e31\u0e19\u0e15\u0e31\u0e27\u0e15\u0e19 \u0e01\u0e23\u0e38\u0e13\u0e32\u0e25\u0e2d\u0e07\u0e43\u0e2b\u0e21\u0e48', 'err'],\n" +
+  "      'profile-failed': ['\u0e2d\u0e48\u0e32\u0e19\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c Discord \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08', 'err'],\n" +
+  "      'save-failed': ['\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e42\u0e1b\u0e23\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a Supabase', 'err'],\n" +
+  "      'link-failed': ['\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21 Discord \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u0e01\u0e23\u0e38\u0e13\u0e32\u0e25\u0e2d\u0e07\u0e43\u0e2b\u0e21\u0e48', 'err']\n" +
+  "    };\n" +
+  "    var discordMessage = discordMessages[discordResult] || ['\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e01\u0e32\u0e23\u0e40\u0e0a\u0e37\u0e48\u0e2d\u0e21 Discord \u0e44\u0e21\u0e48\u0e17\u0e23\u0e32\u0e1a', 'warn'];\n" +
+  "    logLine(discordMessage[0], discordMessage[1]);\n" +
+  "    if (history.replaceState) history.replaceState(null, '', location.pathname);\n" +
+  "  }\n" +
+  "\n" +
   "  /* \u2500\u2500 login \u2500\u2500 */\n" +
   "  gateForm.addEventListener('submit', function (event) {\n" +
   "    event.preventDefault();\n" +
@@ -2926,6 +3025,7 @@ const CONTROL_PAGE =
   "\n" +
   "    loadScripts();\n" +
   "    loadCommandTemplate();\n" +
+  "    loadDiscordProfile();\n" +
   "\n" +
   "    api('/api/control/bans').then(function (result) {\n" +
   "      if (result.status !== 200) return;\n" +
@@ -3280,7 +3380,7 @@ function isBrowserRequest(req) {
 // ═══ Main handler ═══
 const CONTROL_ACTIONS = new Set([
   'control-bans', 'control-traffic', 'control-events',
-  'control-stats', 'control-scripts',
+  'control-stats', 'control-scripts', 'control-discord',
 ]);
 const OPAQUE_ACTIONS = Object.freeze({
   q7: 'verify',
@@ -3606,6 +3706,11 @@ module.exports = async function handler(req, res) {
     return await handleScriptsList(req, res);
   }
 
+  if (action === 'discord-callback') {
+    res.setHeader('Cache-Control', 'no-store');
+    return await handleDiscordCallback(req, res, url);
+  }
+
   if (action === 'game-info') {
     if (req.method !== 'GET') return res.status(405).json({ ok: false });
     res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=300');
@@ -3633,6 +3738,7 @@ module.exports = async function handler(req, res) {
     // Run statistics, read back from Supabase (see handleControlStats).
     if (action === 'control-stats') return await handleControlStats(req, res);
     if (action === 'control-scripts') return await handleControlScripts(req, res);
+    if (action === 'control-discord') return await handleControlDiscord(req, res);
 
     // control-bans
     return res.status(200).json({
@@ -6220,20 +6326,190 @@ async function commitCommandTemplateToGithub(value) {
   return { ok: true, branch: cfg.branch, commit: commitSha, updated: true };
 }
 
+
+
+// ═══ Single-owner Discord OAuth ═══
+const DISCORD_STATE_COOKIE = '999ms_discord_oauth';
+function discordOAuthConfig() {
+  const clientId = String(process.env.DISCORD_CLIENT_ID || '').trim();
+  const clientSecret = String(process.env.DISCORD_CLIENT_SECRET || '').trim();
+  const redirectUri = String(process.env.DISCORD_REDIRECT_URI || '').trim();
+  if (!/^\d{17,22}$/.test(clientId) || clientSecret.length < 20 || redirectUri.length > 500) return null;
+  try {
+    const redirect = new URL(redirectUri);
+    if (redirect.protocol !== 'https:' || redirect.username || redirect.password || redirect.search || redirect.hash) return null;
+    return { clientId: clientId, clientSecret: clientSecret, redirectUri: redirect.origin + redirect.pathname };
+  } catch { return null; }
+}
+
+function publicUploaderProfile(row) {
+  if (!row || !/^\d{17,22}$/.test(String(row.discord_id || ''))) return null;
+  const username = String(row.username || '').slice(0, 80);
+  const name = String(row.global_name || username || 'Discord user').slice(0, 80);
+  const avatarHash = String(row.avatar_hash || '');
+  const avatarUrl = /^[a-zA-Z0-9_]{1,128}$/.test(avatarHash)
+    ? 'https://cdn.discordapp.com/avatars/' + row.discord_id + '/' + avatarHash + (avatarHash.startsWith('a_') ? '.gif' : '.png') + '?size=128'
+    : '';
+  return {
+    name: name,
+    username: username,
+    discordId: String(row.discord_id),
+    profileUrl: 'https://discord.com/users/' + String(row.discord_id),
+    avatarUrl: avatarUrl,
+    linkedAt: row.linked_at || null,
+  };
+}
+
+async function getUploaderProfile() {
+  if (!supabaseConfig()) return null;
+  const rows = await supabaseRows('/rest/v1/uploader_profile?select=discord_id,username,global_name,avatar_hash,linked_at&id=eq.1&limit=1');
+  return rows && rows.length ? publicUploaderProfile(rows[0]) : null;
+}
+
+function discordCookie(req) {
+  const header = String((req.headers && req.headers.cookie) || '');
+  const prefix = DISCORD_STATE_COOKIE + '=';
+  for (const part of header.split(';')) {
+    const item = part.trim();
+    if (item.startsWith(prefix)) {
+      try { return decodeURIComponent(item.slice(prefix.length)); } catch { return ''; }
+    }
+  }
+  return '';
+}
+
+function discordStateSignature(payload, secret) {
+  return crypto.createHmac('sha256', secret).update(payload).digest('base64url');
+}
+
+function clearDiscordCookie(res) {
+  res.setHeader('Set-Cookie', DISCORD_STATE_COOKIE + '=; HttpOnly; Secure; SameSite=Lax; Path=/api/discord/callback; Max-Age=0');
+}
+
+async function handleControlDiscord(req, res) {
+  const body = req.body || {};
+  const op = String(body.op || 'status');
+  const configured = !!discordOAuthConfig();
+  const storageConfigured = !!supabaseConfig();
+  if (op === 'status') {
+    const profile = await getUploaderProfile();
+    return res.status(200).json({ ok: true, profile: profile, configured: configured, storageConfigured: storageConfigured });
+  }
+  if (op !== 'authorize') return res.status(400).json({ ok: false, reason: 'unknown operation' });
+  const config = discordOAuthConfig();
+  if (!config) return res.status(503).json({ ok: false, reason: 'discord oauth not configured' });
+  if (!storageConfigured) return res.status(503).json({ ok: false, reason: 'profile storage not configured' });
+
+  const timestamp = String(Date.now());
+  const payload = timestamp + '.' + crypto.randomBytes(32).toString('base64url');
+  const state = payload + '.' + discordStateSignature(payload, config.clientSecret);
+  res.setHeader('Set-Cookie', DISCORD_STATE_COOKIE + '=' + encodeURIComponent(state) + '; HttpOnly; Secure; SameSite=Lax; Path=/api/discord/callback; Max-Age=600');
+  const auth = new URL('https://discord.com/oauth2/authorize');
+  auth.searchParams.set('client_id', config.clientId);
+  auth.searchParams.set('redirect_uri', config.redirectUri);
+  auth.searchParams.set('response_type', 'code');
+  auth.searchParams.set('scope', 'identify');
+  auth.searchParams.set('state', state);
+  return res.status(200).json({ ok: true, authorizationUrl: auth.toString() });
+}
+
+function discordCallbackRedirect(res, result) {
+  res.setHeader('Location', '/control?discord=' + encodeURIComponent(result));
+  return res.status(303).send('');
+}
+
+async function handleDiscordCallback(req, res, url) {
+  if (req.method !== 'GET') return res.status(405).send('');
+  res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+  res.setHeader('Cache-Control', 'no-store');
+  const config = discordOAuthConfig();
+  clearDiscordCookie(res);
+  if (!config || !supabaseConfig()) return discordCallbackRedirect(res, 'not-configured');
+  const code = url.searchParams.get('code') || '';
+  const state = url.searchParams.get('state') || '';
+  const cookie = discordCookie(req);
+  const parts = state.split('.');
+  if (parts.length !== 3 || !timingSafeStringEquals(state, cookie)) {
+    return discordCallbackRedirect(res, 'invalid-state');
+  }
+  const timestamp = Number(parts[0]);
+  const payload = parts[0] + '.' + parts[1];
+  if (!Number.isSafeInteger(timestamp) || timestamp > Date.now() + 60000 || Date.now() - timestamp > 10 * 60 * 1000 ||
+      !timingSafeStringEquals(parts[2], discordStateSignature(payload, config.clientSecret))) {
+    return discordCallbackRedirect(res, 'invalid-state');
+  }
+  if (url.searchParams.has('error')) return discordCallbackRedirect(res, 'cancelled');
+  if (!code || code.length > 2048) return discordCallbackRedirect(res, 'exchange-failed');
+
+  try {
+    const tokenResponse = await fetch('https://discord.com/api/oauth2/token', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded', accept: 'application/json' },
+      body: new URLSearchParams({
+        client_id: config.clientId,
+        client_secret: config.clientSecret,
+        grant_type: 'authorization_code',
+        code: code,
+        redirect_uri: config.redirectUri,
+      }),
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!tokenResponse.ok) return discordCallbackRedirect(res, 'exchange-failed');
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData && typeof tokenData.access_token === 'string' ? tokenData.access_token : '';
+    if (!accessToken || accessToken.length > 4096) return discordCallbackRedirect(res, 'exchange-failed');
+
+    const userResponse = await fetch('https://discord.com/api/users/@me', {
+      headers: { authorization: 'Bearer ' + accessToken, accept: 'application/json' },
+      signal: AbortSignal.timeout(12000),
+    });
+    if (!userResponse.ok) return discordCallbackRedirect(res, 'profile-failed');
+    const user = await userResponse.json();
+    const discordId = String(user && user.id || '');
+    const username = sbText(user && user.username, 80);
+    const globalName = sbText(user && user.global_name, 80);
+    const avatarHash = user && typeof user.avatar === 'string' && /^[a-zA-Z0-9_]{1,128}$/.test(user.avatar) ? user.avatar : null;
+    if (!/^\d{17,22}$/.test(discordId) || !username) return discordCallbackRedirect(res, 'profile-failed');
+
+    const saved = await supabaseFetch('/rest/v1/uploader_profile?on_conflict=id', {
+      method: 'POST',
+      headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
+      body: JSON.stringify({
+        id: 1,
+        discord_id: discordId,
+        username: username,
+        global_name: globalName,
+        avatar_hash: avatarHash,
+        linked_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      }),
+    });
+    if (!Array.isArray(saved) || !saved.length) return discordCallbackRedirect(res, 'save-failed');
+    scriptsListCache.at = 0;
+    noteEvent('discord_profile_link', 'linked the single uploader Discord profile');
+    return discordCallbackRedirect(res, 'linked');
+  } catch {
+    return discordCallbackRedirect(res, 'link-failed');
+  }
+}
+
+
 // The warm lambda keeps script metadata and the public command template briefly.
-let scriptsListCache = { at: 0, items: [], scope: 'memory', commandTemplate: DEFAULT_COMMAND_TEMPLATE };
+let scriptsListCache = { at: 0, items: [], scope: 'memory', commandTemplate: DEFAULT_COMMAND_TEMPLATE, uploader: null };
 
 async function handleScriptsList(req, res) {
   const now = Date.now();
   if (scriptsListCache.items && now - scriptsListCache.at < 60000) {
     return res.status(200).json({
       ok: true, items: scriptsListCache.items, scope: scriptsListCache.scope,
-      commandTemplate: scriptsListCache.commandTemplate || DEFAULT_COMMAND_TEMPLATE, cached: true,
+      commandTemplate: scriptsListCache.commandTemplate || DEFAULT_COMMAND_TEMPLATE,
+      uploader: scriptsListCache.uploader || null, cached: true,
     });
   }
   const results = await Promise.all([
     supabaseRows('/rest/v1/scripts?select=place_id,script_name,size,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX),
     getCommandTemplate(),
+    getUploaderProfile(),
   ]);
   const rows = results[0];
   const items = (rows || []).map(function (row) {
@@ -6242,10 +6518,11 @@ async function handleScriptsList(req, res) {
       size: Number(row.size) || 0, updatedAt: row.updated_at || null,
     };
   }).filter(function (item) { return item.placeId && item.name; });
-  scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory', commandTemplate: results[1] || DEFAULT_COMMAND_TEMPLATE };
+  scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory', commandTemplate: results[1] || DEFAULT_COMMAND_TEMPLATE, uploader: results[2] || null };
   return res.status(200).json({
     ok: true, items: items, scope: scriptsListCache.scope,
     commandTemplate: scriptsListCache.commandTemplate,
+    uploader: scriptsListCache.uploader,
   });
 }
 
@@ -7939,6 +8216,8 @@ const ROUTES = Object.freeze({
   '/api/control/events': ['control-events'],
   '/api/control/stats': ['control-stats'],
   '/api/control/scripts': ['control-scripts'],
+  '/api/control/discord': ['control-discord'],
+  '/api/discord/callback': ['discord-callback'],
   '/api/verify': ['verify'],
   '/api/script': ['script'],
   '/api/script-raw': ['script-raw'],

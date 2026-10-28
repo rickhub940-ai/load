@@ -83,6 +83,14 @@
       "dest": "/api/auth?action=control-scripts"
     },
     {
+      "src": "/api/control/discord",
+      "dest": "/api/auth?action=control-discord"
+    },
+    {
+      "src": "/api/discord/callback",
+      "dest": "/api/auth?action=discord-callback"
+    },
+    {
       "src": "/loadc\\.lua",
       "dest": "/api/auth?action=artifact&name=loadc"
     },

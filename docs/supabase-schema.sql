@@ -14,6 +14,23 @@
 
 -- ───────────────────────────── tables ─────────────────────────────
 
+-- One public uploader identity, linked by the owner through Discord OAuth.
+-- Row id is constrained to 1 so this remains a single-owner integration.
+create table if not exists public.uploader_profile (
+  id smallint primary key default 1 check (id = 1),
+  discord_id text not null unique,
+  username text not null,
+  global_name text,
+  avatar_hash text,
+  linked_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.uploader_profile enable row level security;
+revoke all on table public.uploader_profile from public, anon, authenticated;
+grant select, insert, update, delete on table public.uploader_profile to service_role;
+
+
 create table if not exists public.executions (
   id uuid primary key default gen_random_uuid(),
   session_id text not null,          -- server session id (jti); one row per counted run
