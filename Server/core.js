@@ -64,8 +64,9 @@ const SCRIPTS_PAGE =
   "    .section-label{display:flex;align-items:center;justify-content:space-between;margin:28px 0 20px;color:#a6a6ae;font-size:12px;font-weight:650;letter-spacing:.08em;text-transform:uppercase}\n" +
   "    .section-label .sort-note{color:#66666e;font-size:11px;font-weight:500;letter-spacing:0;text-transform:none}\n" +
   "    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:38px 24px}\n" +
-  "    .script-card{min-width:0;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;border:1px solid #222226;border-radius:25px;background:linear-gradient(180deg,#0b0b0d,#080809);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}\n" +
+  "    .script-card{min-width:0;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;outline:none;border:1px solid #222226;border-radius:25px;background:linear-gradient(180deg,#0b0b0d,#080809);transition:transform .16s cubic-bezier(.2,.8,.2,1),border-color .18s ease,box-shadow .18s ease}\n" +
   "    .script-card:hover{transform:translateY(-3px);border-color:#3a3a40;box-shadow:0 18px 45px rgba(0,0,0,.28)}\n" +
+  "    .script-card:active{transform:scale(.985);border-color:#45454b;box-shadow:0 8px 24px rgba(0,0,0,.24)}\n" +
   "    .script-card:focus-visible{outline:2px solid #8a8a92;outline-offset:4px}\n" +
   "    .cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:#08080a}.cover.has-image .cover-placeholder{display:none}\n" +
   "    .cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#08080a}\n" +
@@ -97,18 +98,23 @@ const SCRIPTS_PAGE =
   "    .footer-links{display:flex;gap:22px;color:#9a9aa2;font-size:13px}\n" +
   "    .footer-links a:hover{color:#fff}\n" +
   "    dialog{width:min(700px,calc(100% - 40px));max-height:min(90vh,900px);padding:0;border:0;border-radius:0;background:transparent;color:#f5f5f6;box-shadow:none;overflow:auto;overscroll-behavior:contain}\n" +
-  "    dialog::backdrop{background:rgba(0,0,0,.77);backdrop-filter:blur(8px)}\n" +
+  "    dialog[open]{animation:detail-enter .22s cubic-bezier(.2,.8,.2,1) both}\n" +
+  "    dialog::backdrop{background:rgba(0,0,0,.77);backdrop-filter:blur(8px);animation:backdrop-enter .18s ease-out both}\n" +
+  "    @keyframes detail-enter{from{opacity:0;transform:translateY(12px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}\n" +
+  "    @keyframes backdrop-enter{from{opacity:0}to{opacity:1}}\n" +
   "    .detail-cover{position:relative;aspect-ratio:16/9;margin-bottom:20px;overflow:hidden;border:1px solid #28282d;border-radius:22px;background:#09090b;box-shadow:0 18px 55px rgba(0,0,0,.42)}\n" +
   "    .detail-cover img{display:block;width:100%;height:100%;object-fit:contain;background:#070709}\n" +
-  "    .detail-close{position:absolute;right:14px;top:14px;z-index:3;width:38px;height:38px;border:1px solid #ffffff30;border-radius:50%;background:#050505c9;color:#fff;font-size:23px;cursor:pointer}\n" +
+  "    .detail-close{position:absolute;right:14px;top:14px;z-index:3;width:38px;height:38px;border:1px solid #ffffff30;border-radius:50%;background:#050505c9;color:#fff;font-size:23px;cursor:pointer;transition:transform .14s ease}\n" +
   "    .detail-content{padding:24px;border:1px solid #28282d;border-radius:24px;background:#09090b;box-shadow:0 18px 55px rgba(0,0,0,.42)}\n" +
   "    .detail-title{margin:0;font-size:clamp(24px,5vw,34px);letter-spacing:-.05em;line-height:1.12}\n" +
   "    .detail-author{margin:18px 0 22px;display:flex;align-items:center;gap:11px}\n" +
   "    .copy-main{width:100%;min-height:54px;border-radius:999px;background:#f7f7f8;color:#09090a;font-size:16px;font-weight:700;cursor:pointer;transition:transform .18s ease,background .18s ease}\n" +
   "    .copy-main:hover{transform:translateY(-1px);background:#fff}\n" +
+  "    .copy-main:active{transform:scale(.985)}\n" +
   "    .detail-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:11px}\n" +
   "    .detail-actions a,.detail-actions button{min-height:45px;padding:0 12px;display:flex;align-items:center;justify-content:center;gap:8px;border:1px solid #29292f;border-radius:14px;background:#0d0d10;color:#e4e4e8;font-size:13px;font-weight:600;cursor:pointer}\n" +
   "    .detail-actions a:hover,.detail-actions button:hover{background:#151519}\n" +
+  "    .detail-actions a:active,.detail-actions button:active{transform:scale(.985)}\n" +
   "    .details-list{margin:23px 0 0;border-top:1px solid #25252a}\n" +
   "    .detail-line{min-height:54px;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #25252a;color:#85858e;font-size:14px}\n" +
   "    .detail-line strong{color:#ececef;font-weight:600;text-align:right}\n" +
@@ -116,7 +122,7 @@ const SCRIPTS_PAGE =
   "    .code-head{padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #222227}\n" +
   "    .code-head-main{min-width:0;display:flex;align-items:center;gap:12px}.code-icon{width:40px;height:40px;display:grid;place-items:center;flex:none;border:1px solid #303037;border-radius:12px;color:#a4a4ac;font-family:monospace;font-size:14px}\n" +
   "    .code-head-copy{min-width:0}.code-head strong{display:block;font-size:15px}.code-head-copy span{display:block;margin-top:3px;color:#777780;font-size:12px}\n" +
-  "    .code-copy{min-height:36px;padding:0 14px;border:1px solid #303037;border-radius:11px;background:#101013;color:#e8e8eb;font-size:13px;font-weight:650;cursor:pointer}.code-copy:hover{background:#19191d}\n" +
+  "    .code-copy{min-height:36px;padding:0 14px;border:1px solid #303037;border-radius:11px;background:#101013;color:#e8e8eb;font-size:13px;font-weight:650;cursor:pointer;transition:transform .14s ease,background .18s ease}.code-copy:hover{background:#19191d}.code-copy:active,.detail-close:active{transform:scale(.94)}\n" +
   "    .code-note{margin:0;padding:18px;color:#cdd3de;font:13px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;overflow:auto;white-space:pre-wrap;tab-size:2}\n" +
   "    .lua-keyword{color:#c792ea}.lua-string{color:#c3e88d}.lua-comment{color:#697386}.lua-number{color:#f78c6c}.lua-global{color:#82aaff}\n" +
   "    @media(max-width:700px){\n" +
