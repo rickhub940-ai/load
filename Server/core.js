@@ -3663,15 +3663,8 @@ module.exports = async function handler(req, res) {
   }
 
   if (action === 'script-raw') {
-    res.setHeader('Cache-Control', 'no-store');
     if (req.method !== 'POST') return rejectOrTrap(req, res, 405);
-    if (!String(req.headers['content-type'] || '').includes('application/json')) return rejectOrTrap(req, res, 415);
     if (trapBrowserArtifacts() && isBrowserRequest(req)) return trapRedirect(res);
-    const rawIp = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket?.remoteAddress || '';
-    if (!checkRateLimit(rawIp ? 'script-raw:' + rawIp : '', SCRIPT_RAW_RATE_MAX)) {
-      res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-      return res.status(429).send('Rate limited');
-    }
     return await handleScriptRaw(req, res);
   }
 
@@ -5823,8 +5816,6 @@ const GITHUB_API = 'https://api.github.com';
 const SCRIPT_BODY_MAX = 25 * 1024 * 1024;
 const SCRIPT_INLINE_MAX = 128 * 1024;
 const SCRIPT_CHUNK_BYTES = 2 * 1024 * 1024;
-// Separate bucket permits a full 25 MB script while slowing repeated chunk pulls.
-const SCRIPT_RAW_RATE_MAX = 40;
 const SCRIPT_LIST_MAX = 200;
 const SCRIPT_CACHE_TTL_MS = 120 * 1000;
 const SCRIPT_CACHE_MAX_BYTES = 48 * 1024 * 1024;
@@ -6484,8 +6475,6 @@ function verifyScriptRawToken(token) {
   if (!parsed || typeof parsed !== 'object') return null;
   if (!parsed.x || Date.now() > Number(parsed.x)) return null;
   if (!isValidScriptName(parsed.n)) return null;
-  const chunkCount = Number(parsed.c);
-  if (!Number.isInteger(chunkCount) || chunkCount < 1 || chunkCount > Math.ceil(SCRIPT_BODY_MAX / SCRIPT_CHUNK_BYTES)) return null;
   const keyBuf = Buffer.from(
     crypto.createHmac('sha256', secret).update('999MS-sraw-key|' + bodyB64).digest('hex'),
     'hex'
