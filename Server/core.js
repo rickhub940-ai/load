@@ -4261,7 +4261,7 @@ const ROOT_PAGE =
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
-  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Explore published scripts for supported Roblox games, check update details, and choose what to play with next.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
@@ -4962,7 +4962,7 @@ const HUB_PAGE =
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
-  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>Explore published scripts for supported Roblox games, check update details, and choose what to play with next.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
