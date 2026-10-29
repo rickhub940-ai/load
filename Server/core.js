@@ -4200,8 +4200,7 @@ const ROOT_PAGE =
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Find a Script</a>\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary cta-secondary\">Explore Scripts</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
   "    </main>\n" +
@@ -4901,8 +4900,7 @@ const HUB_PAGE =
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary\">Find a Script</a>\n" +
-  "        <a href=\"/scripts\" class=\"cta-primary cta-secondary\">Explore Scripts</a>\n" +
+  "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
   "    </main>\n" +
