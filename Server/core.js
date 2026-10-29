@@ -179,7 +179,7 @@ const SCRIPTS_PAGE =
   "    <div class=\"detail-content\">\n" +
   "      <h2 class=\"detail-title\" id=\"detailTitle\"></h2>\n" +
   "      <div class=\"detail-author\"><a class=\"author-profile\" id=\"detailProfileLink\"><span class=\"avatar\" id=\"detailAvatar\">9M</span><span class=\"author-name\" id=\"detailAuthorName\">999MS</span></a><span class=\"crown\" aria-label=\"Official\">\u265b</span><span class=\"sep\">\u00b7</span><span class=\"file-name\" id=\"detailFile\"></span></div>\n" +
-  "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy script command</button>\n" +
+  "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy script</button>\n" +
   "      <div class=\"detail-actions\"><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
   "      <div class=\"details-list\"><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Updated</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
   "      <div class=\"code-panel\"><div class=\"code-head\"><div class=\"code-head-main\"><span class=\"code-icon\">&lt;/&gt;</span><div class=\"code-head-copy\"><strong>Script command</strong><span>Source stays protected \u00b7 launch command only</span></div></div><button class=\"code-copy\" id=\"copyCode\" type=\"button\">Copy</button></div><pre class=\"code-note\" id=\"detailCode\"></pre></div>\n" +
