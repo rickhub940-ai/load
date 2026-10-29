@@ -79,6 +79,13 @@ const SCRIPTS_PAGE =
   "    .author-profile{display:inline-flex;align-items:center;gap:10px;min-width:0;color:inherit;text-decoration:none}\n" +
   "    .author-profile[href]:hover .author-name{text-decoration:underline;text-underline-offset:3px}\n" +
   "    .author-name{color:#e7e7ea;font-weight:650;white-space:nowrap}\n" +
+  "    .script-badges{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}\n" +
+  "    .script-badge{min-height:26px;padding:4px 9px;display:inline-flex;align-items:center;gap:6px;border:1px solid #2b2b30;border-radius:999px;background:#101013;color:#c8c8ce;font-size:11px;font-weight:650;line-height:1;white-space:nowrap}\n" +
+  "    .script-badge svg{width:14px;height:14px;flex:none}\n" +
+  "    .script-badge.is-working{border-color:#22c55e55;background:#22c55e12;color:#b9f6ca}\n" +
+  "    .script-badge.is-not-working{border-color:#ef444455;background:#ef444412;color:#ffc4c4}\n" +
+  "    .script-state-dot{width:8px;height:8px;flex:none;border-radius:50%;background:#22c55e;box-shadow:0 0 9px #22c55e66}\n" +
+  "    .script-badge.is-not-working .script-state-dot{background:#ef4444;box-shadow:0 0 9px #ef444466}\n" +
   "    .crown{color:#ffca52;font-size:15px;line-height:1}\n" +
   "    .sep{color:#4f4f57}\n" +
   "    .file-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#707079;font-size:12px}\n" +
@@ -181,7 +188,7 @@ const SCRIPTS_PAGE =
   "      <div class=\"detail-author\"><a class=\"author-profile\" id=\"detailProfileLink\"><span class=\"avatar\" id=\"detailAvatar\">9M</span><span class=\"author-name\" id=\"detailAuthorName\">999MS</span></a><span class=\"crown\" aria-label=\"Official\">\u265b</span></div>\n" +
   "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy script</button>\n" +
   "      <div class=\"detail-actions\"><a id=\"openGame\" target=\"_blank\" rel=\"noopener noreferrer\">Open Roblox map</a><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
-  "      <div class=\"details-list\"><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Latest update</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
+  "      <div class=\"details-list\"><div class=\"detail-line\"><span>Status</span><strong id=\"detailWorking\"></strong></div><div class=\"detail-line\"><span>Key</span><strong id=\"detailKey\"></strong></div><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Latest update</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
   "      <div class=\"code-panel\"><div class=\"code-head\"><div class=\"code-head-main\"><span class=\"code-icon\">&lt;/&gt;</span><div class=\"code-head-copy\"><strong>Script</strong></div></div><button class=\"code-copy\" id=\"copyCode\" type=\"button\">Copy</button></div><pre class=\"code-note\" id=\"detailCode\"></pre></div>\n" +
   "    </div>\n" +
   "  </dialog>\n" +
@@ -200,12 +207,14 @@ const SCRIPTS_PAGE =
   "      function nameFor(x){var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
   "      function uploaderMarkup(){var profile=uploader||{},name=profile.name||'999MS',initials=String(name).slice(0,2).toUpperCase(),avatar=profile.avatarUrl?'<img src=\"'+esc(profile.avatarUrl)+'\" alt=\"\" loading=\"lazy\">':esc(initials);var content='<span class=\"avatar\">'+avatar+'</span><span class=\"author-name\">'+esc(name)+'</span>';return profile.profileUrl?'<a class=\"author-profile\" href=\"'+esc(profile.profileUrl)+'\" target=\"_blank\" rel=\"noopener noreferrer\">'+content+'</a>':content}\n" +
   "      function svg(kind){if(kind==='file')return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M8 13h8M8 17h8\"/></svg>';return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z\"/></svg>'}\n" +
+  "      function workingBadge(x){var ok=x.isWorking!==false,label=ok?'Working':'Not working';return '<span class=\"script-badge '+(ok?'is-working':'is-not-working')+'\" aria-label=\"'+label+'\"><span class=\"script-state-dot\"></span><span>'+label+'</span></span>'}\n" +
+  "      function keyBadge(x){var required=x.keyRequired!==false;var icon=required?'<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"15\" r=\"4\"/><path d=\"m10.8 12.2 8.7-8.7M16 7l2 2m-5 1 2 2\"/></svg>':'<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"10\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 10V7a5 5 0 0 1 9.5-2.2M12 14v3\"/></svg>';return '<span class=\"script-badge\" aria-label=\"'+(required?'Key required':'No key required')+'\">'+icon+'<span>'+(required?'Key required':'No key')+'</span></span>'}\n" +
   "      function createCard(x,i){var game=games[x.placeId]||{},name=nameFor(x),card=document.createElement('article');card.className='script-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script');\n" +
   "        var artwork=game.thumbnail||game.icon,image=artwork?'<img src=\"'+esc(artwork)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
-  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\">'+uploaderMarkup()+'<span class=\"crown\" aria-label=\"Official\">\u265b</span></div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Latest update '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
+  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\">'+uploaderMarkup()+'<span class=\"crown\" aria-label=\"Official\">\u265b</span></div><div class=\"script-badges\">'+workingBadge(x)+keyBadge(x)+'</div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Latest update '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
   "        var img=card.querySelector('.cover img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});var avatarImage=card.querySelector('.author-profile .avatar img');if(avatarImage)avatarImage.addEventListener('error',function(){avatarImage.parentNode.textContent=String((uploader&&uploader.name)||'999MS').slice(0,2).toUpperCase()});var authorLink=card.querySelector('.author-profile');if(authorLink){authorLink.addEventListener('click',function(e){e.stopPropagation()});authorLink.addEventListener('keydown',function(e){e.stopPropagation()})}card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
   "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search.':'New scripts will appear here when published.')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
-  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name;var profile=uploader||{},profileLink=document.getElementById('detailProfileLink'),authorName=document.getElementById('detailAuthorName'),authorAvatar=document.getElementById('detailAvatar');authorName.textContent=profile.name||'999MS';authorAvatar.textContent='';if(profile.avatarUrl){var avatarImage=document.createElement('img');avatarImage.src=profile.avatarUrl;avatarImage.alt='';avatarImage.onerror=function(){authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase()};authorAvatar.appendChild(avatarImage)}else authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase();if(profile.profileUrl){profileLink.href=profile.profileUrl;profileLink.target='_blank';profileLink.rel='noopener noreferrer'}else{profileLink.removeAttribute('href');profileLink.removeAttribute('target')}var gameLink=document.getElementById('openGame'),placeId=String(x.placeId||'').trim();gameLink.href='https://www.roblox.com/games/'+encodeURIComponent(placeId);gameLink.setAttribute('aria-label','Open Roblox map for '+name);document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name;var profile=uploader||{},profileLink=document.getElementById('detailProfileLink'),authorName=document.getElementById('detailAuthorName'),authorAvatar=document.getElementById('detailAvatar');authorName.textContent=profile.name||'999MS';authorAvatar.textContent='';if(profile.avatarUrl){var avatarImage=document.createElement('img');avatarImage.src=profile.avatarUrl;avatarImage.alt='';avatarImage.onerror=function(){authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase()};authorAvatar.appendChild(avatarImage)}else authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase();if(profile.profileUrl){profileLink.href=profile.profileUrl;profileLink.target='_blank';profileLink.rel='noopener noreferrer'}else{profileLink.removeAttribute('href');profileLink.removeAttribute('target')}var gameLink=document.getElementById('openGame'),placeId=String(x.placeId||'').trim();gameLink.href='https://www.roblox.com/games/'+encodeURIComponent(placeId);gameLink.setAttribute('aria-label','Open Roblox map for '+name);document.getElementById('detailWorking').innerHTML=workingBadge(x);document.getElementById('detailKey').innerHTML=keyBadge(x);document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
   "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
   "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
   "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
@@ -1965,6 +1974,7 @@ const CONTROL_PAGE =
   "      background: rgba(0, 0, 0, 0.3); color: #c2c9de;\n" +
   "    }\n" +
   "    .ban-item span { color: var(--muted); }\n" +
+  "    #scriptList .ban-item { flex-wrap: wrap; align-items: center; }\n" +
   "    #log {\n" +
   "      font-family: var(--mono); font-size: 0.76rem; color: var(--muted);\n" +
   "      max-height: 170px; overflow: auto; display: flex; flex-direction: column; gap: 4px;\n" +
@@ -2192,7 +2202,7 @@ const CONTROL_PAGE =
   "          <span class=\"pill hide-sm\">place id \u00b7 \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u00b7 \u0e44\u0e1f\u0e25\u0e4c</span>\n" +
   "        </div>\n" +
   "        <div class=\"card-b stack\">\n" +
-  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 <b>\u0e41\u0e01\u0e49\u0e44\u0e02</b> \u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e15\u0e25\u0e2d\u0e14 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e41\u0e04\u0e48 metadata \u0e02\u0e19\u0e32\u0e14\u0e40\u0e25\u0e47\u0e01 (\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e, Place ID \u0e41\u0e25\u0e30\u0e42\u0e2b\u0e21\u0e14\u0e04\u0e35\u0e22\u0e4c)</p>\n" +
+  "          <p class=\"hint\">\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2b\u0e23\u0e37\u0e2d\u0e01\u0e14 <b>\u0e41\u0e01\u0e49\u0e44\u0e02</b> \u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e21\u0e35\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e15\u0e25\u0e2d\u0e14 \u2014 \u0e15\u0e31\u0e27\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e40\u0e01\u0e47\u0e1a\u0e44\u0e27\u0e49\u0e1a\u0e19 GitHub (<span class=\"mono\">scripts/&lt;name&gt;.lua</span> \u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB) \u0e2a\u0e48\u0e27\u0e19 Supabase \u0e40\u0e01\u0e47\u0e1a\u0e40\u0e09\u0e1e\u0e32\u0e30 metadata \u0e02\u0e19\u0e32\u0e14\u0e40\u0e25\u0e47\u0e01 (\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e21\u0e1e, Place ID, \u0e42\u0e2b\u0e21\u0e14\u0e04\u0e35\u0e22\u0e4c \u0e41\u0e25\u0e30\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19)</p>\n" +
   "          <p class=\"hint\">\u0e43\u0e2a\u0e48\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e42\u0e04\u0e49\u0e14\u0e02\u0e2d\u0e07\u0e41\u0e21\u0e1e\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22 \u2014 runtime \u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e41\u0e25\u0e30\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e2a\u0e16\u0e34\u0e15\u0e34\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01 verification \u0e08\u0e32\u0e01 <span class=\"mono\">main.lua</span>; obfuscate \u0e17\u0e31\u0e49\u0e07\u0e44\u0e1f\u0e25\u0e4c\u0e44\u0e14\u0e49</p>\n" +
   "          <div style=\"display:grid;gap:9px;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)\">\n" +
   "            <div><b>\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e17\u0e35\u0e48\u0e1b\u0e38\u0e48\u0e21 Copy \u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Scripts \u0e04\u0e31\u0e14\u0e25\u0e2d\u0e01</b><div class=\"hint\" style=\"margin:3px 0 0\">\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a Lua \u0e44\u0e14\u0e49\u0e40\u0e2d\u0e07 \u2014 \u0e43\u0e0a\u0e49 {{script}}, {{placeId}}, {{origin}}, {{license}} \u0e40\u0e1b\u0e47\u0e19\u0e15\u0e31\u0e27\u0e41\u0e1b\u0e23</div></div>\n" +
@@ -2220,6 +2230,11 @@ const CONTROL_PAGE =
   "            <span>\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c\u0e01\u0e48\u0e2d\u0e19\u0e23\u0e31\u0e19\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span>\n" +
   "          </label>\n" +
   "          <p class=\"hint\" style=\"margin:-5px 0 0 25px\">\u0e40\u0e2d\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e16\u0e39\u0e01\u0e2d\u0e2d\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e19\u0e35\u0e49\u0e23\u0e31\u0e19\u0e44\u0e14\u0e49\u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e23\u0e2d\u0e01\u0e04\u0e35\u0e22\u0e4c</p>\n" +
+  "          <label style=\"display:flex;align-items:center;gap:9px;margin:0\">\n" +
+  "            <input id=\"upIsWorking\" type=\"checkbox\" checked style=\"width:16px;height:16px;accent-color:#22c55e\" />\n" +
+  "            <span>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49</span>\n" +
+  "          </label>\n" +
+  "          <p class=\"hint\" style=\"margin:-5px 0 0 25px\">\u0e40\u0e2d\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e2d\u0e2d\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e2a\u0e14\u0e07\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e27\u0e48\u0e32\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Scripts</p>\n" +
   "          <div>\n" +
   "            <label for=\"upFile\">\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c (.lua / .txt)</label>\n" +
   "            <input id=\"upFile\" type=\"file\" accept=\".lua,.txt,text/plain,.luau\" />\n" +
@@ -2458,6 +2473,7 @@ const CONTROL_PAGE =
   "      if ($('upPlace')) $('upPlace').value = '';\n" +
   "      if ($('upName')) $('upName').value = '';\n" +
   "      if ($('upKeyRequired')) $('upKeyRequired').checked = true;\n" +
+  "      if ($('upIsWorking')) $('upIsWorking').checked = true;\n" +
   "    }\n" +
   "    renderScripts(currentScriptItems);\n" +
   "  }\n" +
@@ -2615,6 +2631,20 @@ const CONTROL_PAGE =
   "    });\n" +
   "  }\n" +
   "\n" +
+  "  function setScriptWorking(item, isWorking) {\n" +
+  "    api('/api/control/scripts', { op: 'set-status', name: item.name, isWorking: isWorking })\n" +
+  "      .then(function (result) {\n" +
+  "        var data = result.data || {};\n" +
+  "        if (result.status === 200 && data.ok) {\n" +
+  "          toast(isWorking ? '\u0e15\u0e31\u0e49\u0e07\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49\u0e41\u0e25\u0e49\u0e27' : '\u0e15\u0e31\u0e49\u0e07\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
+  "          logLine('\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e40\u0e1b\u0e47\u0e19 ' + (isWorking ? '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49' : '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49'), 'ok');\n" +
+  "          return loadScripts();\n" +
+  "        }\n" +
+  "        toast('\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (data.reason || ('HTTP ' + result.status)), 'err');\n" +
+  "      })\n" +
+  "      .catch(function (err) { toast('\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err'); });\n" +
+  "  }\n" +
+  "\n" +
   "  function renderScripts(items) {\n" +
   "    currentScriptItems = items || [];\n" +
   "    var host = $('scriptList');\n" +
@@ -2630,9 +2660,10 @@ const CONTROL_PAGE =
   "      return '<div class=\"ban-item\"' + activeStyle + '>' +\n" +
   "        '<div style=\"min-width:0\">' +\n" +
   "          '<b class=\"mono\">' + esc(item.name) + '</b>' +\n" +
-  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 ' + (item.keyRequired === false ? '\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c' : '\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c') + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
+  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 <span style=\"color:' + (item.isWorking === false ? '#f87171' : '#4ade80') + '\">\u25cf ' + (item.isWorking === false ? '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49' : '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49') + '</span> \u00b7 ' + (item.keyRequired === false ? '\ud83d\udd13 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c' : '\ud83d\udd11 \u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c') + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
   "        '</div>' +\n" +
   "        '<span class=\"spacer\"></span>' +\n" +
+  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-status=\"' + index + '\" aria-label=\"\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\">' + (item.isWorking === false ? '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49' : '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49') + '</button>' +\n" +
   "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-edit=\"' + index + '\">\u0e41\u0e01\u0e49\u0e44\u0e02</button>' +\n" +
   "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-del=\"' + index + '\">\u0e25\u0e1a</button>' +\n" +
   "      '</div>';\n" +
@@ -2642,6 +2673,13 @@ const CONTROL_PAGE =
   "        var item = currentScriptItems[Number(btn.getAttribute('data-edit'))];\n" +
   "        if (!item) return;\n" +
   "        startEditScript(item, btn);\n" +
+  "      });\n" +
+  "    });\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-status]'), function (btn) {\n" +
+  "      btn.addEventListener('click', function () {\n" +
+  "        var item = currentScriptItems[Number(btn.getAttribute('data-status'))];\n" +
+  "        if (!item) return;\n" +
+  "        setScriptWorking(item, item.isWorking === false);\n" +
   "      });\n" +
   "    });\n" +
   "    Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {\n" +
@@ -2680,6 +2718,7 @@ const CONTROL_PAGE =
   "        $('upPlace').value = editingItem.placeId;\n" +
   "        $('upName').value = editingItem.name;\n" +
   "        if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;\n" +
+  "        if ($('upIsWorking')) $('upIsWorking').checked = item.isWorking !== false;\n" +
   "        if (upFile) upFile.value = '';\n" +
   "        if ($('editBannerText')) {\n" +
   "          $('editBannerText').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';\n" +
@@ -2811,7 +2850,7 @@ const CONTROL_PAGE =
   "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21 ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ')\u2026';\n" +
   "\n" +
   "      compressGzipBase64(code).then(function (gzB64) {\n" +
-  "        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked };\n" +
+  "        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked, isWorking: $('upIsWorking').checked };\n" +
   "        if (wasEditing) {\n" +
   "          payload.prevPlaceId = wasEditing.placeId;\n" +
   "          payload.prevName = wasEditing.name;\n" +
@@ -6524,7 +6563,7 @@ async function handleScriptsList(req, res) {
     });
   }
   const results = await Promise.all([
-    supabaseRows('/rest/v1/scripts?select=place_id,script_name,size,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX),
+    supabaseRows('/rest/v1/scripts?select=place_id,script_name,size,key_required,is_working,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX),
     getCommandTemplate(),
     getUploaderProfile(),
   ]);
@@ -6532,7 +6571,8 @@ async function handleScriptsList(req, res) {
   const items = (rows || []).map(function (row) {
     return {
       placeId: String(row.place_id || ''), name: String(row.script_name || ''),
-      size: Number(row.size) || 0, updatedAt: row.updated_at || null,
+      size: Number(row.size) || 0, keyRequired: row.key_required !== false,
+      isWorking: row.is_working !== false, updatedAt: row.updated_at || null,
     };
   }).filter(function (item) { return item.placeId && item.name; });
   scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory', commandTemplate: results[1] || DEFAULT_COMMAND_TEMPLATE, uploader: results[2] || null };
@@ -6595,7 +6635,7 @@ async function handleControlScripts(req, res) {
 
   if (op === 'list') {
     const rows = await supabaseRows(
-      '/rest/v1/scripts?select=place_id,script_name,size,key_required,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
+      '/rest/v1/scripts?select=place_id,script_name,size,key_required,is_working,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
     if (!rows) return res.status(502).json({ ok: false, reason: 'read failed' });
     return res.status(200).json({
       ok: true,
@@ -6605,11 +6645,29 @@ async function handleControlScripts(req, res) {
           name: String(row.script_name || ''),
           size: Number(row.size) || 0,
           keyRequired: row.key_required !== false,
+          isWorking: row.is_working !== false,
           createdAt: row.created_at || null,
           updatedAt: row.updated_at || null,
         };
       }),
     });
+  }
+
+  if (op === 'set-status') {
+    const name = sbText(body.name, 64);
+    if (!name || !isValidScriptName(name)) return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง' });
+    if (typeof body.isWorking !== 'boolean') return res.status(400).json({ ok: false, reason: 'สถานะสคริปต์ไม่ถูกต้อง' });
+    const statusSaved = await supabaseFetch(
+      '/rest/v1/scripts?script_name=eq.' + encodeURIComponent(name), {
+        method: 'PATCH',
+        headers: { prefer: 'return=representation' },
+        body: JSON.stringify({ is_working: body.isWorking }),
+      });
+    if (statusSaved === null) return res.status(502).json({ ok: false, reason: 'บันทึกสถานะไม่สำเร็จ' });
+    if (!Array.isArray(statusSaved) || !statusSaved.length) return res.status(404).json({ ok: false, reason: 'ไม่พบสคริปต์' });
+    scriptsListCache.at = 0;
+    noteEvent('script_status', 'marked ' + name + (body.isWorking ? ' as working' : ' as not working'));
+    return res.status(200).json({ ok: true, name: name, isWorking: body.isWorking });
   }
 
   if (op === 'save') {
@@ -6653,6 +6711,7 @@ async function handleControlScripts(req, res) {
           script_name: name,
           size: byteSize,
           key_required: body.keyRequired !== false,
+          is_working: body.isWorking !== false,
           updated_at: new Date().toISOString(),
         }),
       });
@@ -6663,7 +6722,7 @@ async function handleControlScripts(req, res) {
       '/rest/v1/scripts?script_name=eq.' + encodeURIComponent(name), {
         method: 'PATCH',
         headers: { prefer: 'return=representation' },
-        body: JSON.stringify({ key_required: body.keyRequired !== false }),
+        body: JSON.stringify({ key_required: body.keyRequired !== false, is_working: body.isWorking !== false }),
       });
     if (modeSaved === null) return res.status(502).json({ ok: false, reason: 'Supabase key mode save failed' });
 

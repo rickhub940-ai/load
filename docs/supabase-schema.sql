@@ -77,10 +77,14 @@ create table if not exists public.scripts (
   script_name text not null,
   size integer not null default 0,
   key_required boolean not null default true,
+  is_working boolean not null default true,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (place_id, script_name)
 );
+
+-- Owner-managed display status; existing entries default to available.
+alter table public.scripts add column if not exists is_working boolean not null default true;
 
 alter table public.executions enable row level security;
 alter table public.links enable row level security;

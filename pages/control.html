@@ -534,6 +534,7 @@
       background: rgba(0, 0, 0, 0.3); color: #c2c9de;
     }
     .ban-item span { color: var(--muted); }
+    #scriptList .ban-item { flex-wrap: wrap; align-items: center; }
     #log {
       font-family: var(--mono); font-size: 0.76rem; color: var(--muted);
       max-height: 170px; overflow: auto; display: flex; flex-direction: column; gap: 4px;
@@ -761,7 +762,7 @@
           <span class="pill hide-sm">place id · ชื่อสคริปต์ · ไฟล์</span>
         </div>
         <div class="card-b stack">
-          <p class="hint">อัปโหลดหรือกด <b>แก้ไข</b> สคริปต์ที่มีอยู่ได้ตลอด — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> สูงสุด 25 MB) ส่วน Supabase เก็บแค่ metadata ขนาดเล็ก (ชื่อแมพ, Place ID และโหมดคีย์)</p>
+          <p class="hint">อัปโหลดหรือกด <b>แก้ไข</b> สคริปต์ที่มีอยู่ได้ตลอด — ตัวไฟล์สคริปต์เก็บไว้บน GitHub (<span class="mono">scripts/&lt;name&gt;.lua</span> สูงสุด 25 MB) ส่วน Supabase เก็บเฉพาะ metadata ขนาดเล็ก (ชื่อแมพ, Place ID, โหมดคีย์ และสถานะใช้งาน)</p>
           <p class="hint">ใส่เฉพาะโค้ดของแมพได้เลย — runtime ตรวจสอบและบันทึกสถิติก่อนรันให้อัตโนมัติ ไม่ต้องคัดลอก verification จาก <span class="mono">main.lua</span>; obfuscate ทั้งไฟล์ได้</p>
           <div style="display:grid;gap:9px;padding:13px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)">
             <div><b>คำสั่งที่ปุ่ม Copy ในหน้า Scripts คัดลอก</b><div class="hint" style="margin:3px 0 0">กำหนดรูปแบบ Lua ได้เอง — ใช้ {{script}}, {{placeId}}, {{origin}}, {{license}} เป็นตัวแปร</div></div>
@@ -789,6 +790,11 @@
             <span>ต้องใช้คีย์ก่อนรันสคริปต์</span>
           </label>
           <p class="hint" style="margin:-5px 0 0 25px">เอาเครื่องหมายถูกออกเพื่อให้สคริปต์นี้รันได้โดยไม่ต้องกรอกคีย์</p>
+          <label style="display:flex;align-items:center;gap:9px;margin:0">
+            <input id="upIsWorking" type="checkbox" checked style="width:16px;height:16px;accent-color:#22c55e" />
+            <span>สคริปต์ใช้งานได้</span>
+          </label>
+          <p class="hint" style="margin:-5px 0 0 25px">เอาเครื่องหมายออกเพื่อแสดงสถานะว่าใช้งานไม่ได้ในหน้า Scripts</p>
           <div>
             <label for="upFile">ไฟล์สคริปต์ (.lua / .txt)</label>
             <input id="upFile" type="file" accept=".lua,.txt,text/plain,.luau" />
@@ -1027,6 +1033,7 @@
       if ($('upPlace')) $('upPlace').value = '';
       if ($('upName')) $('upName').value = '';
       if ($('upKeyRequired')) $('upKeyRequired').checked = true;
+      if ($('upIsWorking')) $('upIsWorking').checked = true;
     }
     renderScripts(currentScriptItems);
   }
@@ -1184,6 +1191,20 @@
     });
   }
 
+  function setScriptWorking(item, isWorking) {
+    api('/api/control/scripts', { op: 'set-status', name: item.name, isWorking: isWorking })
+      .then(function (result) {
+        var data = result.data || {};
+        if (result.status === 200 && data.ok) {
+          toast(isWorking ? 'ตั้งสถานะเป็นใช้งานได้แล้ว' : 'ตั้งสถานะเป็นใช้งานไม่ได้แล้ว', 'ok');
+          logLine('เปลี่ยนสถานะสคริปต์ ' + item.name + ' เป็น ' + (isWorking ? 'ใช้งานได้' : 'ใช้งานไม่ได้'), 'ok');
+          return loadScripts();
+        }
+        toast('เปลี่ยนสถานะไม่สำเร็จ: ' + (data.reason || ('HTTP ' + result.status)), 'err');
+      })
+      .catch(function (err) { toast('เปลี่ยนสถานะไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err'); });
+  }
+
   function renderScripts(items) {
     currentScriptItems = items || [];
     var host = $('scriptList');
@@ -1199,9 +1220,10 @@
       return '<div class="ban-item"' + activeStyle + '>' +
         '<div style="min-width:0">' +
           '<b class="mono">' + esc(item.name) + '</b>' +
-          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · ' + (item.keyRequired === false ? 'ไม่ต้องใช้คีย์' : 'ต้องใช้คีย์') + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
+          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · <span style="color:' + (item.isWorking === false ? '#f87171' : '#4ade80') + '">● ' + (item.isWorking === false ? 'ใช้งานไม่ได้' : 'ใช้งานได้') + '</span> · ' + (item.keyRequired === false ? '🔓 ไม่ใช้คีย์' : '🔑 ต้องใช้คีย์') + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
         '</div>' +
         '<span class="spacer"></span>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-status="' + index + '" aria-label="เปลี่ยนสถานะสคริปต์">' + (item.isWorking === false ? 'ตั้งเป็นใช้ได้' : 'ตั้งเป็นใช้ไม่ได้') + '</button>' +
         '<button class="btn btn-sm btn-ghost" type="button" data-edit="' + index + '">แก้ไข</button>' +
         '<button class="btn btn-sm btn-ghost" type="button" data-del="' + index + '">ลบ</button>' +
       '</div>';
@@ -1211,6 +1233,13 @@
         var item = currentScriptItems[Number(btn.getAttribute('data-edit'))];
         if (!item) return;
         startEditScript(item, btn);
+      });
+    });
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-status]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = currentScriptItems[Number(btn.getAttribute('data-status'))];
+        if (!item) return;
+        setScriptWorking(item, item.isWorking === false);
       });
     });
     Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {
@@ -1249,6 +1278,7 @@
         $('upPlace').value = editingItem.placeId;
         $('upName').value = editingItem.name;
         if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;
+        if ($('upIsWorking')) $('upIsWorking').checked = item.isWorking !== false;
         if (upFile) upFile.value = '';
         if ($('editBannerText')) {
           $('editBannerText').textContent = 'กำลังแก้ไข: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';
@@ -1380,7 +1410,7 @@
       $('upMeta').textContent = 'กำลังเตรียม ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ')…';
 
       compressGzipBase64(code).then(function (gzB64) {
-        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked };
+        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked, isWorking: $('upIsWorking').checked };
         if (wasEditing) {
           payload.prevPlaceId = wasEditing.placeId;
           payload.prevName = wasEditing.name;
