@@ -182,7 +182,7 @@ const SCRIPTS_PAGE =
   "      <button class=\"copy-main\" id=\"copyLoader\" type=\"button\">Copy script</button>\n" +
   "      <div class=\"detail-actions\"><button id=\"shareScript\" type=\"button\">Share script</button></div>\n" +
   "      <div class=\"details-list\"><div class=\"detail-line\"><span>Experience</span><strong id=\"detailExperience\"></strong></div><div class=\"detail-line\"><span>Updated</span><strong id=\"detailUpdated\"></strong></div><div class=\"detail-line\"><span>File size</span><strong id=\"detailSize\"></strong></div></div>\n" +
-  "      <div class=\"code-panel\"><div class=\"code-head\"><div class=\"code-head-main\"><span class=\"code-icon\">&lt;/&gt;</span><div class=\"code-head-copy\"><strong>Script command</strong><span>Source stays protected \u00b7 launch command only</span></div></div><button class=\"code-copy\" id=\"copyCode\" type=\"button\">Copy</button></div><pre class=\"code-note\" id=\"detailCode\"></pre></div>\n" +
+  "      <div class=\"code-panel\"><div class=\"code-head\"><div class=\"code-head-main\"><span class=\"code-icon\">&lt;/&gt;</span><div class=\"code-head-copy\"><strong>Script</strong><span>Source stays protected \u00b7 launch script only</span></div></div><button class=\"code-copy\" id=\"copyCode\" type=\"button\">Copy</button></div><pre class=\"code-note\" id=\"detailCode\"></pre></div>\n" +
   "    </div>\n" +
   "  </dialog>\n" +
   "  <script>\n" +
