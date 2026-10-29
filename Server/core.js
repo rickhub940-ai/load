@@ -4012,6 +4012,16 @@ const ROOT_PAGE =
   "      border-radius:999px; background:#050505; color:#fff;\n" +
   "      font-size:16px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.12);\n" +
   "      transition:transform .25s ease,box-shadow .25s ease;\n" +
+  "      -webkit-tap-highlight-color: transparent;\n" +
+  "    }\n" +
+  "    .cta-primary:focus-visible {\n" +
+  "      color:#fff;\n" +
+  "      outline:2px solid #050505;\n" +
+  "      outline-offset:4px;\n" +
+  "    }\n" +
+  "    .cta-primary:active {\n" +
+  "      color:#fff;\n" +
+  "      background:#050505;\n" +
   "    }\n" +
   "    .cta-secondary{background:rgba(255,255,255,.38);color:#08090c;box-shadow:none}\n" +
   "    .cta-secondary:hover{background:rgba(255,255,255,.68);box-shadow:0 10px 28px rgba(20,30,55,.1)}\n" +
@@ -4712,6 +4722,16 @@ const HUB_PAGE =
   "      border-radius:999px; background:#050505; color:#fff;\n" +
   "      font-size:16px; font-weight:600; box-shadow:0 8px 24px rgba(0,0,0,.12);\n" +
   "      transition:transform .25s ease,box-shadow .25s ease;\n" +
+  "      -webkit-tap-highlight-color: transparent;\n" +
+  "    }\n" +
+  "    .cta-primary:focus-visible {\n" +
+  "      color:#fff;\n" +
+  "      outline:2px solid #050505;\n" +
+  "      outline-offset:4px;\n" +
+  "    }\n" +
+  "    .cta-primary:active {\n" +
+  "      color:#fff;\n" +
+  "      background:#050505;\n" +
   "    }\n" +
   "    .cta-secondary{background:rgba(255,255,255,.38);color:#08090c;box-shadow:none}\n" +
   "    .cta-secondary:hover{background:rgba(255,255,255,.68);box-shadow:0 10px 28px rgba(20,30,55,.1)}\n" +
