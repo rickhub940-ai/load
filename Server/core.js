@@ -77,6 +77,9 @@ const SCRIPTS_PAGE =
   "    .cover-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.86);font-size:clamp(60px,10vw,130px);font-weight:800;letter-spacing:-.12em}\n" +
   "    .cover-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.54);color:#fff;font-size:clamp(22px,4vw,34px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}\n" +
   "    .script-card.is-coming-soon .cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}\n" +
+  "    .script-card.is-coming-soon .cover img{object-fit:cover;opacity:.58;filter:blur(1.5px);transform:scale(1.04)}\n" +
+  "    .script-card.is-coming-soon .cover-ribbon{background:rgba(7,7,9,.38)}\n" +
+  "    .script-card.is-coming-soon .cover-placeholder{display:none}\n" +
   "    .script-card.is-coming-soon .card-body{min-height:90px;display:flex;align-items:center}.script-card.is-coming-soon .card-title{margin:0}\n" +
   "    .card-body{padding:17px 18px 16px}\n" +
   "    .card-title{margin:0;color:#f5f5f6;font-size:clamp(17px,2vw,21px);font-weight:700;line-height:1.25;letter-spacing:-.04em}\n" +
@@ -218,9 +221,9 @@ const SCRIPTS_PAGE =
   "      function workingBadge(x){var ok=x.isWorking!==false,label=ok?'Working':'Not working';return '<span class=\"script-badge '+(ok?'is-working':'is-not-working')+'\" aria-label=\"'+label+'\"><span class=\"script-state-dot\"></span><span>'+label+'</span></span>'}\n" +
   "      function keyBadge(x){var required=x.keyRequired!==false;var icon=required?'<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"15\" r=\"4\"/><path d=\"m10.8 12.2 8.7-8.7M16 7l2 2m-5 1 2 2\"/></svg>':'<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"10\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 10V7a5 5 0 0 1 9.5-2.2M12 14v3\"/></svg>';return '<span class=\"script-badge\" aria-label=\"'+(required?'Key required':'No key required')+'\">'+icon+'<span>'+(required?'Key required':'No key')+'</span></span>'}\n" +
   "      function createCard(x,i){var preview=x.isPreview===true,enabled=x.isEnabled!==false,game=preview?{}:(games[x.placeId]||{}),name=nameFor(x),card=document.createElement('article');card.className='script-card'+(preview?' is-coming-soon':(!enabled?' is-disabled':''));if(enabled&&!preview){card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script')}else{card.setAttribute('aria-label',preview?'Coming Soon':name+' \u2014 Update')}\n" +
-  "        var artwork=preview?'':(game.thumbnail||game.icon),image=artwork?'<img src=\"'+esc(artwork)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
+  "        var artwork=preview?(x.previewCover||''):(game.thumbnail||game.icon),image=artwork?'<img src=\"'+esc(artwork)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
   "        var date=fmtDate(x.updatedAt),ribbon=preview?'<span class=\"cover-ribbon\">Coming Soon</span>':(!enabled?'<span class=\"cover-ribbon\">Update</span>':'');\n" +
-  "        if(preview){card.innerHTML='<div class=\"cover\">'+ribbon+'</div><div class=\"card-body\"><h2 class=\"card-title\">Coming Soon</h2></div>';return card}\n" +
+  "        if(preview){card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">9</span>'+ribbon+'</div><div class=\"card-body\"><h2 class=\"card-title\">Coming Soon</h2></div>';return card}\n" +
   "        card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span>'+ribbon+'</div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\">'+uploaderMarkup()+'<span class=\"crown\" aria-label=\"Official\">\u265b</span></div><div class=\"script-badges\">'+workingBadge(x)+keyBadge(x)+'</div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Latest update '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
   "        var img=card.querySelector('.cover img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});var avatarImage=card.querySelector('.author-profile .avatar img');if(avatarImage)avatarImage.addEventListener('error',function(){avatarImage.parentNode.textContent=String((uploader&&uploader.name)||'999MS').slice(0,2).toUpperCase()});var authorLink=card.querySelector('.author-profile');if(authorLink){authorLink.addEventListener('click',function(e){e.stopPropagation()});authorLink.addEventListener('keydown',function(e){e.stopPropagation()})}if(enabled){card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}})}return card}\n" +
   "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){if(x.isPreview===true)return !q||'coming soon'.indexOf(q)!==-1;var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search':'New scripts will appear here when published')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
@@ -4232,6 +4235,8 @@ const ROOT_PAGE =
   "    .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}\n" +
   "    .home-script-cover{position:relative}.home-script-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.58);color:#fff;font-size:clamp(20px,3vw,30px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}\n" +
   "    .home-script-card.is-coming-soon .home-script-cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-cover img{opacity:.58;filter:blur(1.5px);transform:scale(1.04)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-ribbon{background:rgba(7,7,9,.38)}\n" +
   "    .home-script-card.is-coming-soon .home-script-cover span{display:none}\n" +
   "    .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}\n" +
   "    .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}\n" +
@@ -4589,7 +4594,7 @@ const ROOT_PAGE =
   "            try { const gameRes = await fetch(\"/api/games?ids=\" + encodeURIComponent(ids), { cache: \"no-store\" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}\n" +
   "          }\n" +
   "          previewGrid.innerHTML = items.map((item) => {\n" +
-  "            if (item.isPreview === true) return '<div class=\"home-script-card is-coming-soon\" aria-label=\"Coming Soon\"><div class=\"home-script-cover\"><span>9</span><b class=\"home-script-ribbon\">Coming Soon</b></div><h3>Coming Soon</h3></div>';\n" +
+  "            if (item.isPreview === true) { const cover = item.previewCover ? '<img src=\"' + safe(item.previewCover) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>9</span>'; return '<div class=\"home-script-card is-coming-soon\" aria-label=\"Coming Soon\"><div class=\"home-script-cover\">' + cover + '<b class=\"home-script-ribbon\">Coming Soon</b></div><h3>Coming Soon</h3></div>'; }\n" +
   "            const game = games[String(item.placeId)] || {};\n" +
   "            const title = game.name || scriptTitle(item.name);\n" +
   "            const cover = game.icon ? '<img src=\"' + safe(game.icon) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>' + safe(title.slice(0,1).toUpperCase() || \"9\") + '</span>';\n" +
@@ -4932,6 +4937,8 @@ const HUB_PAGE =
   "    .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}\n" +
   "    .home-script-cover{position:relative}.home-script-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.58);color:#fff;font-size:clamp(20px,3vw,30px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}\n" +
   "    .home-script-card.is-coming-soon .home-script-cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-cover img{opacity:.58;filter:blur(1.5px);transform:scale(1.04)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-ribbon{background:rgba(7,7,9,.38)}\n" +
   "    .home-script-card.is-coming-soon .home-script-cover span{display:none}\n" +
   "    .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}\n" +
   "    .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}\n" +
@@ -5289,7 +5296,7 @@ const HUB_PAGE =
   "            try { const gameRes = await fetch(\"/api/games?ids=\" + encodeURIComponent(ids), { cache: \"no-store\" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}\n" +
   "          }\n" +
   "          previewGrid.innerHTML = items.map((item) => {\n" +
-  "            if (item.isPreview === true) return '<div class=\"home-script-card is-coming-soon\" aria-label=\"Coming Soon\"><div class=\"home-script-cover\"><span>9</span><b class=\"home-script-ribbon\">Coming Soon</b></div><h3>Coming Soon</h3></div>';\n" +
+  "            if (item.isPreview === true) { const cover = item.previewCover ? '<img src=\"' + safe(item.previewCover) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>9</span>'; return '<div class=\"home-script-card is-coming-soon\" aria-label=\"Coming Soon\"><div class=\"home-script-cover\">' + cover + '<b class=\"home-script-ribbon\">Coming Soon</b></div><h3>Coming Soon</h3></div>'; }\n" +
   "            const game = games[String(item.placeId)] || {};\n" +
   "            const title = game.name || scriptTitle(item.name);\n" +
   "            const cover = game.icon ? '<img src=\"' + safe(game.icon) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>' + safe(title.slice(0,1).toUpperCase() || \"9\") + '</span>';\n" +
@@ -6059,6 +6066,24 @@ async function handleGameInfo(req, res) {
   });
 }
 
+async function getPreviewArtworkByPlaceIds(placeIds) {
+  const ids = Array.from(new Set((placeIds || []).map(function (id) { return String(id || '').trim(); }).filter(function (id) { return /^\d{1,20}$/.test(id); })));
+  const artworkByPlaceId = new Map();
+  for (let offset = 0; offset < ids.length; offset += GAME_INFO_MAX_IDS) {
+    let payload = null;
+    const response = {
+      status: function () { return this; },
+      json: function (data) { payload = data; return this; },
+    };
+    await handleGameInfo({ query: { ids: ids.slice(offset, offset + GAME_INFO_MAX_IDS).join(',') } }, response);
+    (payload && Array.isArray(payload.games) ? payload.games : []).forEach(function (game) {
+      const artwork = game.thumbnail || game.icon || '';
+      if (artwork) artworkByPlaceId.set(String(game.placeId), artwork);
+    });
+  }
+  return artworkByPlaceId;
+}
+
 // ═══ GitHub primary storage for uploaded scripts (0 Supabase body/egress) ═══
 // Full .lua source files live ONLY in GitHub (scripts/<name>.lua on main),
 // supporting obfuscated scripts up to 25 MB via the Git Data Blobs API.
@@ -6645,14 +6670,15 @@ async function handleScriptsList(req, res) {
     getUploaderProfile(),
   ]);
   const rows = results[0];
+  const previewArtworkByPlaceId = await getPreviewArtworkByPlaceIds(
+    (rows || []).filter(function (row) { return row.is_preview === true; }).map(function (row) { return row.place_id; }));
   const items = (rows || []).map(function (row, index) {
     if (row.is_preview === true) {
-      // Spoiler cards must not leak their real map id or script name through
-      // the public JSON API, even though the front end only paints a label.
+      // Expose only the game artwork for spoiler cards, never the private map id or script name.
       return {
         placeId: 'preview-' + (index + 1), name: 'coming-soon', size: 0,
         keyRequired: true, isWorking: false, isEnabled: false,
-        isPreview: true, updatedAt: null,
+        isPreview: true, previewCover: previewArtworkByPlaceId.get(String(row.place_id || '')) || '', updatedAt: null,
       };
     }
     return {
