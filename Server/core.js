@@ -4313,7 +4313,7 @@ const ROOT_PAGE =
   "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <footer class=\"site-footer\"><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span></div></footer>\n" +
+  "    <footer class=\"site-footer\"><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS</div></footer>\n" +
   "\n" +
   "  </div>\n" +
   "\n" +
@@ -5022,7 +5022,7 @@ const HUB_PAGE =
   "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <footer class=\"site-footer\"><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span></div></footer>\n" +
+  "    <footer class=\"site-footer\"><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS</div></footer>\n" +
   "\n" +
   "  </div>\n" +
   "\n" +
