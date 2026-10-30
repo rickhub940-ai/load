@@ -3936,7 +3936,9 @@ const ROOT_PAGE =
   "    .nav-actions{display:flex;align-items:center;gap:12px}.nav-try{height:48px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#050505;color:#fff;font-size:14px;font-weight:650}.nav-actions .sign-in{background:rgba(255,255,255,.3);color:#111}.nav-actions .nav-try{background:#050505;color:#fff}\n" +
   "    .nav-link { font-size:14px; font-weight:600; color:rgba(7,8,11,.62); transition:color .2s ease; }\n" +
   "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
+  "    .nav-link.nav-emphasis{font-weight:750;color:#050608}\n" +
   "    body.scrolled .nav-link{color:#a6a6ae}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
+  "    body.scrolled .nav-link.nav-emphasis{color:#fff}\n" +
   "    body.scrolled .nav-actions .sign-in{background:rgba(255,255,255,.12);color:#fff}body.scrolled .nav-actions .nav-try{background:#fff;color:#050505}\n" +
   "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:transparent}\n" +
   "\n" +
@@ -4231,8 +4233,8 @@ const ROOT_PAGE =
   "        <nav class=\"nav-links\">\n" +
   "          <a href=\"/\" class=\"nav-link is-active\">Home</a>\n" +
   "          <a href=\"#workflow\" class=\"nav-link\">Product</a>\n" +
-  "          <a href=\"/scripts\" class=\"nav-link\">Pricing</a>\n" +
-  "          <a href=\"/scripts\" class=\"nav-link\">Resources</a>\n" +
+  "          <a href=\"/\" class=\"nav-link nav-emphasis\">Pricing</a>\n" +
+  "          <a href=\"/\" class=\"nav-link nav-emphasis\">Resources</a>\n" +
   "          <a href=\"#community\" class=\"nav-link\">Community</a>\n" +
   "        </nav>\n" +
   "        <div class=\"nav-actions\"><a href=\"/scripts\" class=\"sign-in\">Sign in</a><a href=\"/scripts\" class=\"nav-try\">Find Scripts&nbsp; \u2197</a></div>\n" +
@@ -4650,7 +4652,9 @@ const HUB_PAGE =
   "    .nav-actions{display:flex;align-items:center;gap:12px}.nav-try{height:48px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#050505;color:#fff;font-size:14px;font-weight:650}.nav-actions .sign-in{background:rgba(255,255,255,.3);color:#111}.nav-actions .nav-try{background:#050505;color:#fff}\n" +
   "    .nav-link { font-size:14px; font-weight:600; color:rgba(7,8,11,.62); transition:color .2s ease; }\n" +
   "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
+  "    .nav-link.nav-emphasis{font-weight:750;color:#050608}\n" +
   "    body.scrolled .nav-link{color:#a6a6ae}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
+  "    body.scrolled .nav-link.nav-emphasis{color:#fff}\n" +
   "    body.scrolled .nav-actions .sign-in{background:rgba(255,255,255,.12);color:#fff}body.scrolled .nav-actions .nav-try{background:#fff;color:#050505}\n" +
   "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:transparent}\n" +
   "\n" +
@@ -4945,8 +4949,8 @@ const HUB_PAGE =
   "        <nav class=\"nav-links\">\n" +
   "          <a href=\"/\" class=\"nav-link is-active\">Home</a>\n" +
   "          <a href=\"#workflow\" class=\"nav-link\">Product</a>\n" +
-  "          <a href=\"/scripts\" class=\"nav-link\">Pricing</a>\n" +
-  "          <a href=\"/scripts\" class=\"nav-link\">Resources</a>\n" +
+  "          <a href=\"/\" class=\"nav-link nav-emphasis\">Pricing</a>\n" +
+  "          <a href=\"/\" class=\"nav-link nav-emphasis\">Resources</a>\n" +
   "          <a href=\"#community\" class=\"nav-link\">Community</a>\n" +
   "        </nav>\n" +
   "        <div class=\"nav-actions\"><a href=\"/scripts\" class=\"sign-in\">Sign in</a><a href=\"/scripts\" class=\"nav-try\">Find Scripts&nbsp; \u2197</a></div>\n" +
