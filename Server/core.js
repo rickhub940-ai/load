@@ -2803,7 +2803,38 @@ const CONTROL_PAGE =
   "    });\n" +
   "  }\n" +
   "\n" +
-  "  if ($('copyTemplate')) $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);\n" +
+  "  function renderCommandTemplatePreview() {\n" +
+  "    var field = $('copyTemplate');\n" +
+  "    var preview = $('copyTemplatePreview');\n" +
+  "    if (!field || !preview) return;\n" +
+  "    var sample = field.value || '';\n" +
+  "    sample = sample\n" +
+  "      .replace(/\\{\\{script\\}\\}/g, 'Prison_Life')\n" +
+  "      .replace(/\\{\\{placeId\\}\\}/g, '123456789')\n" +
+  "      .replace(/\\{\\{origin\\}\\}/g, location.origin)\n" +
+  "      .replace(/\\{\\{license\\}\\}/g, '');\n" +
+  "    preview.textContent = sample;\n" +
+  "  }\n" +
+  "\n" +
+  "  if ($('copyTemplate')) {\n" +
+  "    $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);\n" +
+  "    renderCommandTemplatePreview();\n" +
+  "  }\n" +
+  "\n" +
+  "  function loadCommandTemplate() {\n" +
+  "    return api('/api/control/scripts', { op: 'get-command' }).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      if (result.status === 200 && data.ok && typeof data.commandTemplate === 'string') {\n" +
+  "        $('copyTemplate').value = data.commandTemplate;\n" +
+  "        renderCommandTemplatePreview();\n" +
+  "      } else {\n" +
+  "        $('copyTemplateMeta').textContent = data.reason || '\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08';\n" +
+  "      }\n" +
+  "    }).catch(function () {\n" +
+  "      $('copyTemplateMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08';\n" +
+  "    });\n" +
+  "  }\n" +
+  "\n" +
   "  if ($('saveCopyTemplate')) $('saveCopyTemplate').addEventListener('click', function () {\n" +
   "    var button = this;\n" +
   "    var template = $('copyTemplate').value;\n" +
@@ -2827,6 +2858,18 @@ const CONTROL_PAGE =
   "      toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason, 'err');\n" +
   "    }).finally(function () { button.disabled = false; button.textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07'; });\n" +
   "  });\n" +
+  "\n" +
+  "  function loadScripts() {\n" +
+  "    return api('/api/control/scripts', { op: 'list' }).then(function (result) {\n" +
+  "      var data = result.data || {};\n" +
+  "      if (!result.status || result.status >= 400 || !data.ok) {\n" +
+  "        renderScripts([]);\n" +
+  "        if (data && data.note) $('upMeta').textContent = data.note;\n" +
+  "        return;\n" +
+  "      }\n" +
+  "      renderScripts(data.items || []);\n" +
+  "    }).catch(function () { renderScripts([]); });\n" +
+  "  }\n" +
   "\n" +
   "  function deleteScript(item) {\n" +
   "    api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })\n" +
@@ -3054,6 +3097,12 @@ const CONTROL_PAGE =
   "  });\n" +
   "\n" +
   "  /* \u2500\u2500 data \u2500\u2500 */\n" +
+  "  function setDot(element, stateName) {\n" +
+  "    if (!element) return;\n" +
+  "    element.classList.remove('ok', 'bad', 'wait');\n" +
+  "    if (stateName) element.classList.add(stateName);\n" +
+  "  }\n" +
+  "\n" +
   "  function loadAll(quiet) {\n" +
   "    if (state.busy || !state.token) return;\n" +
   "    state.busy = true;\n" +
@@ -3229,10 +3278,13 @@ const CONTROL_PAGE =
   "\n" +
   "  $('refreshBtn').addEventListener('click', function () { loadAll(false); });\n" +
   "  $('clearLog').addEventListener('click', function () { $('log').innerHTML = ''; });\n" +
-  "  $('clock').textContent = new Date().toLocaleDateString('th-TH');\n" +
-  "  setInterval(function () {\n" +
-  "    $('clock').textContent = new Date().toLocaleTimeString('th-TH');\n" +
-  "  }, 1000);\n" +
+  "  var clock = $('clock');\n" +
+  "  if (clock) {\n" +
+  "    clock.textContent = new Date().toLocaleDateString('th-TH');\n" +
+  "    setInterval(function () {\n" +
+  "      clock.textContent = new Date().toLocaleTimeString('th-TH');\n" +
+  "    }, 1000);\n" +
+  "  }\n" +
   "\n" +
   "  /* \u2500\u2500 boot \u2500\u2500 */\n" +
   "  if (state.token) {\n" +

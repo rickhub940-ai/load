@@ -1353,7 +1353,38 @@
     });
   }
 
-  if ($('copyTemplate')) $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);
+  function renderCommandTemplatePreview() {
+    var field = $('copyTemplate');
+    var preview = $('copyTemplatePreview');
+    if (!field || !preview) return;
+    var sample = field.value || '';
+    sample = sample
+      .replace(/\{\{script\}\}/g, 'Prison_Life')
+      .replace(/\{\{placeId\}\}/g, '123456789')
+      .replace(/\{\{origin\}\}/g, location.origin)
+      .replace(/\{\{license\}\}/g, '');
+    preview.textContent = sample;
+  }
+
+  if ($('copyTemplate')) {
+    $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);
+    renderCommandTemplatePreview();
+  }
+
+  function loadCommandTemplate() {
+    return api('/api/control/scripts', { op: 'get-command' }).then(function (result) {
+      var data = result.data || {};
+      if (result.status === 200 && data.ok && typeof data.commandTemplate === 'string') {
+        $('copyTemplate').value = data.commandTemplate;
+        renderCommandTemplatePreview();
+      } else {
+        $('copyTemplateMeta').textContent = data.reason || 'โหลดรูปแบบคำสั่งไม่สำเร็จ';
+      }
+    }).catch(function () {
+      $('copyTemplateMeta').textContent = 'โหลดรูปแบบคำสั่งไม่สำเร็จ';
+    });
+  }
+
   if ($('saveCopyTemplate')) $('saveCopyTemplate').addEventListener('click', function () {
     var button = this;
     var template = $('copyTemplate').value;
@@ -1377,6 +1408,18 @@
       toast('บันทึกไม่สำเร็จ: ' + reason, 'err');
     }).finally(function () { button.disabled = false; button.textContent = 'บันทึกรูปแบบคำสั่ง'; });
   });
+
+  function loadScripts() {
+    return api('/api/control/scripts', { op: 'list' }).then(function (result) {
+      var data = result.data || {};
+      if (!result.status || result.status >= 400 || !data.ok) {
+        renderScripts([]);
+        if (data && data.note) $('upMeta').textContent = data.note;
+        return;
+      }
+      renderScripts(data.items || []);
+    }).catch(function () { renderScripts([]); });
+  }
 
   function deleteScript(item) {
     api('/api/control/scripts', { op: 'delete', placeId: item.placeId, name: item.name })
@@ -1604,6 +1647,12 @@
   });
 
   /* ── data ── */
+  function setDot(element, stateName) {
+    if (!element) return;
+    element.classList.remove('ok', 'bad', 'wait');
+    if (stateName) element.classList.add(stateName);
+  }
+
   function loadAll(quiet) {
     if (state.busy || !state.token) return;
     state.busy = true;
@@ -1779,10 +1828,13 @@
 
   $('refreshBtn').addEventListener('click', function () { loadAll(false); });
   $('clearLog').addEventListener('click', function () { $('log').innerHTML = ''; });
-  $('clock').textContent = new Date().toLocaleDateString('th-TH');
-  setInterval(function () {
-    $('clock').textContent = new Date().toLocaleTimeString('th-TH');
-  }, 1000);
+  var clock = $('clock');
+  if (clock) {
+    clock.textContent = new Date().toLocaleDateString('th-TH');
+    setInterval(function () {
+      clock.textContent = new Date().toLocaleTimeString('th-TH');
+    }, 1000);
+  }
 
   /* ── boot ── */
   if (state.token) {
