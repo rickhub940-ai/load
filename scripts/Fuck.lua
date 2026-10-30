@@ -1,15 +1,98 @@
---// =========================
---// PRISON LIFE SCRIPT (009.exe) - FULLY ULTIMATE VERSION
---// =========================
+
+local EXPECTED_SCRIPT = "Prison_Life"
+local RUNTIME_GUARD_KEY = "__999MS_RUNTIME_GUARD_V1"
+local function reject(reason)
+    local message = "[999MS] " .. tostring(reason or "UNKNOWN_ERROR")
+    local player, coreGui
+
+    pcall(function()
+        player = game:GetService("Players").LocalPlayer
+        coreGui = game:GetService("CoreGui")
+    end)
+
+    local function patchPrompt()
+        pcall(function()
+            local root = coreGui and coreGui:FindFirstChild("RobloxPromptGui")
+            local overlay = root and root:FindFirstChild("promptOverlay")
+            local prompt = overlay and overlay:FindFirstChild("ErrorPrompt")
+            local titleFrame = prompt and prompt:FindFirstChild("TitleFrame")
+            local title = titleFrame and titleFrame:FindFirstChild("ErrorTitle")
+            local messageArea = prompt and prompt:FindFirstChild("MessageArea")
+            local errorFrame = messageArea and messageArea:FindFirstChild("ErrorFrame")
+            local text = errorFrame and errorFrame:FindFirstChild("ErrorMessage")
+
+            if title and text then
+                title.Text = "[ 999MS ]"
+                text.Text = "You have been kicked. Reason:\n\n" .. message
+            end
+        end)
+    end
+
+    pcall(function()
+        if coreGui then
+            coreGui.ChildAdded:Connect(function(child)
+                if child.Name == "RobloxPromptGui" then
+                    task.wait(0.01)
+                    patchPrompt()
+                end
+            end)
+        end
+    end)
+
+    pcall(function()
+        task.spawn(function()
+            for _ = 1, 50 do
+                patchPrompt()
+                task.wait(0.01)
+            end
+        end)
+    end)
+
+    if player then
+        pcall(function()
+            if type(replicatesignal) == "function" then
+                replicatesignal(player.StatsAvailable, "Kick")
+            end
+        end)
+        pcall(function()
+            player:Kick(message)
+        end)
+    end
+
+    return false
+end
+
+local function validateRuntime()
+    local env
+    pcall(function()
+        if type(getgenv) == "function" then env = getgenv() end
+    end)
+    if type(env) ~= "table" and type(_G) == "table" then env = _G end
+    if type(env) ~= "table" or type(rawget) ~= "function" then
+        return false, "RUNTIME_ENVIRONMENT_INVALID"
+    end
+
+    local attestation = rawget(env, RUNTIME_GUARD_KEY)
+    if type(attestation) ~= "table" or type(attestation.verify) ~= "function" then
+        return false, "LOADER_ATTESTATION_MISSING"
+    end
+
+    local callOk, accepted = pcall(attestation.verify, EXPECTED_SCRIPT)
+    if not callOk or accepted ~= true then
+        return false, "LOADER_ATTESTATION_REJECTED"
+    end
+    return true
+end
+
+local valid, reason = validateRuntime()
+if not valid then
+    return reject(reason)
+end
+
+
+
 if game.PlaceId ~= 155615604 then return end
 
--- ✅ ซ่อน Error จาก GunController ไม่ให้ขึ้นใน Console
-local oldWarn = warn
-warn = function(...)
-    local msg = tostring(...)
-    if msg:find("GunController") or msg:find("attempt to perform arithmetic") or msg:find("nil and number") then return end
-    oldWarn(...)
-end
 
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local player = game.Players.LocalPlayer
