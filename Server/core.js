@@ -4255,7 +4255,6 @@ const ROOT_PAGE =
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Use 999MS responsibly.</p>\n" +
   "    </main>\n" +
-  "      <p class=\"tech-label\">Scripts for supported Roblox games</p>\n" +
   "      <div class=\"tech-marquee\" aria-label=\"999MS platform technology\">\n" +
   "        <div class=\"tech-strip\">\n" +
   "          <div class=\"tech-track\">\n" +
@@ -4314,10 +4313,7 @@ const ROOT_PAGE =
   "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
-  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">Scripts for supported Roblox games.</p></div>\n" +
-  "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
-  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Made for the community.</div></footer>\n" +
+  "\n" +
   "  </div>\n" +
   "\n" +
   "  <script>\n" +
@@ -4967,7 +4963,6 @@ const HUB_PAGE =
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Use 999MS responsibly.</p>\n" +
   "    </main>\n" +
-  "      <p class=\"tech-label\">Scripts for supported Roblox games</p>\n" +
   "      <div class=\"tech-marquee\" aria-label=\"999MS platform technology\">\n" +
   "        <div class=\"tech-strip\">\n" +
   "          <div class=\"tech-track\">\n" +
@@ -5026,10 +5021,7 @@ const HUB_PAGE =
   "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
-  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">Scripts for supported Roblox games.</p></div>\n" +
-  "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
-  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Made for the community.</div></footer>\n" +
+  "\n" +
   "  </div>\n" +
   "\n" +
   "  <script>\n" +
