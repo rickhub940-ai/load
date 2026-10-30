@@ -795,6 +795,16 @@
             <span>สคริปต์ใช้งานได้</span>
           </label>
           <p class="hint" style="margin:-5px 0 0 25px">เอาเครื่องหมายออกเพื่อแสดงสถานะว่าใช้งานไม่ได้ในหน้า Scripts</p>
+          <label style="display:flex;align-items:center;gap:9px;margin:0">
+            <input id="upIsEnabled" type="checkbox" checked style="width:16px;height:16px;accent-color:#22c55e" />
+            <span>อนุญาตให้รันสคริปต์</span>
+          </label>
+          <p class="hint" style="margin:-5px 0 0 25px">ปิดแล้วระบบจะบล็อกการขอและดึงสคริปต์ที่ฝั่งเซิร์ฟเวอร์</p>
+          <label style="display:flex;align-items:center;gap:9px;margin:0">
+            <input id="upIsPreview" type="checkbox" style="width:16px;height:16px;accent-color:#a78bfa" />
+            <span>การ์ดสปอยล์ — Coming Soon</span>
+          </label>
+          <p class="hint" style="margin:-5px 0 0 25px">ซ่อนชื่อและรายละเอียดแมพในหน้า public พร้อมปิดการรันโดยอัตโนมัติ; ใช้สร้างการ์ดได้โดยไม่ต้องมีโค้ด</p>
           <div>
             <label for="upFile">ไฟล์สคริปต์ (.lua / .txt)</label>
             <input id="upFile" type="file" accept=".lua,.txt,text/plain,.luau" />
@@ -1034,6 +1044,8 @@
       if ($('upName')) $('upName').value = '';
       if ($('upKeyRequired')) $('upKeyRequired').checked = true;
       if ($('upIsWorking')) $('upIsWorking').checked = true;
+      if ($('upIsEnabled')) $('upIsEnabled').checked = true;
+      if ($('upIsPreview')) $('upIsPreview').checked = false;
     }
     renderScripts(currentScriptItems);
   }
@@ -1205,6 +1217,23 @@
       .catch(function (err) { toast('เปลี่ยนสถานะไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err'); });
   }
 
+  function setScriptPolicy(item, op, value) {
+    var field = op === 'set-enabled' ? 'isEnabled' : 'isPreview';
+    var payload = { op: op, name: item.name };
+    payload[field] = value;
+    api('/api/control/scripts', payload)
+      .then(function (result) {
+        var data = result.data || {};
+        if (result.status === 200 && data.ok) {
+          toast(op === 'set-enabled' ? (value ? 'เปิดให้รันแล้ว' : 'ปิดการรันแล้ว') : (value ? 'ตั้งการ์ดเป็น Coming Soon แล้ว' : 'นำ Coming Soon ออกแล้ว'), 'ok');
+          logLine((op === 'set-enabled' ? 'เปลี่ยนสิทธิ์รัน ' : 'เปลี่ยนการ์ดสปอยล์ ') + item.name, 'ok');
+          return loadScripts();
+        }
+        toast('บันทึกไม่สำเร็จ: ' + (data.reason || ('HTTP ' + result.status)), 'err');
+      })
+      .catch(function (err) { toast('บันทึกไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err'); });
+  }
+
   function renderScripts(items) {
     currentScriptItems = items || [];
     var host = $('scriptList');
@@ -1217,13 +1246,17 @@
       var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '—';
       var isEditing = editingItem && editingItem.placeId === item.placeId && editingItem.name === item.name;
       var activeStyle = isEditing ? ' style="border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.06)"' : '';
+      var previewTag = item.isPreview ? ' · <b style="color:#c4b5fd">Coming Soon</b>' : '';
+      var runTag = item.isPreview ? ' · รอเปิด' : (item.isEnabled === false ? ' · <span style="color:#f87171">ปิดรัน</span>' : ' · <span style="color:#4ade80">เปิดรัน</span>');
       return '<div class="ban-item"' + activeStyle + '>' +
         '<div style="min-width:0">' +
           '<b class="mono">' + esc(item.name) + '</b>' +
-          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · <span style="color:' + (item.isWorking === false ? '#f87171' : '#4ade80') + '">● ' + (item.isWorking === false ? 'ใช้งานไม่ได้' : 'ใช้งานได้') + '</span> · ' + (item.keyRequired === false ? '🔓 ไม่ใช้คีย์' : '🔑 ต้องใช้คีย์') + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
+          '<div class="hint" style="margin:0">place ' + esc(item.placeId) + ' · <span style="color:' + (item.isWorking === false ? '#f87171' : '#4ade80') + '">● ' + (item.isWorking === false ? 'ใช้งานไม่ได้' : 'ใช้งานได้') + '</span>' + runTag + previewTag + ' · ' + (item.keyRequired === false ? 'ไม่ใช้คีย์' : 'ต้องใช้คีย์') + ' · ' + bytes(item.size) + ' · ' + esc(when) + '</div>' +
         '</div>' +
         '<span class="spacer"></span>' +
-        '<button class="btn btn-sm btn-ghost" type="button" data-status="' + index + '" aria-label="เปลี่ยนสถานะสคริปต์">' + (item.isWorking === false ? 'ตั้งเป็นใช้ได้' : 'ตั้งเป็นใช้ไม่ได้') + '</button>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-working="' + index + '" aria-label="เปลี่ยนสถานะสคริปต์">' + (item.isWorking === false ? 'ตั้งเป็นใช้ได้' : 'ตั้งเป็นใช้ไม่ได้') + '</button>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-enabled="' + index + '">' + (item.isEnabled === false ? 'เปิดรัน' : 'ปิดรัน') + '</button>' +
+        '<button class="btn btn-sm btn-ghost" type="button" data-preview="' + index + '">' + (item.isPreview ? 'นำ Coming Soon ออก' : 'ตั้ง Coming Soon') + '</button>' +
         '<button class="btn btn-sm btn-ghost" type="button" data-edit="' + index + '">แก้ไข</button>' +
         '<button class="btn btn-sm btn-ghost" type="button" data-del="' + index + '">ลบ</button>' +
       '</div>';
@@ -1231,22 +1264,31 @@
     Array.prototype.forEach.call(host.querySelectorAll('button[data-edit]'), function (btn) {
       btn.addEventListener('click', function () {
         var item = currentScriptItems[Number(btn.getAttribute('data-edit'))];
-        if (!item) return;
-        startEditScript(item, btn);
+        if (item) startEditScript(item, btn);
       });
     });
-    Array.prototype.forEach.call(host.querySelectorAll('button[data-status]'), function (btn) {
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-working]'), function (btn) {
       btn.addEventListener('click', function () {
-        var item = currentScriptItems[Number(btn.getAttribute('data-status'))];
-        if (!item) return;
-        setScriptWorking(item, item.isWorking === false);
+        var item = currentScriptItems[Number(btn.getAttribute('data-working'))];
+        if (item) setScriptWorking(item, item.isWorking === false);
+      });
+    });
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-enabled]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = currentScriptItems[Number(btn.getAttribute('data-enabled'))];
+        if (item) setScriptPolicy(item, 'set-enabled', item.isEnabled === false);
+      });
+    });
+    Array.prototype.forEach.call(host.querySelectorAll('button[data-preview]'), function (btn) {
+      btn.addEventListener('click', function () {
+        var item = currentScriptItems[Number(btn.getAttribute('data-preview'))];
+        if (item) setScriptPolicy(item, 'set-preview', item.isPreview !== true);
       });
     });
     Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {
       btn.addEventListener('click', function () {
         var item = currentScriptItems[Number(btn.getAttribute('data-del'))];
-        if (!item) return;
-        deleteScript(item);
+        if (item) deleteScript(item);
       });
     });
   }
@@ -1258,91 +1300,48 @@
     selectedFileCode = null;
     selectedFileName = '';
     if (upFile) upFile.value = '';
-    $('upMeta').textContent = 'กำลังดึงโค้ดสคริปต์ ' + item.name + ' จาก GitHub…';
-    api('/api/control/scripts', { op: 'get', name: item.name })
-      .then(function (result) {
-        if (btn) btn.disabled = false;
-        var data = result.data || {};
-        if (!data.ok) {
-          var reason = data.reason || ('HTTP ' + result.status);
-          $('upMeta').textContent = 'ดึงโค้ดไม่สำเร็จ: ' + reason;
-          toast('ดึงโค้ดไม่สำเร็จ: ' + reason, 'err');
-          return null;
+    var loadCode = item.isPreview && Number(item.size) === 0
+      ? Promise.resolve('')
+      : api('/api/control/scripts', { op: 'get', name: item.name }).then(function (result) {
+          var data = result.data || {};
+          if (!data.ok) throw new Error(data.reason || ('HTTP ' + result.status));
+          if (data.bodyGzip) return decompressGzipBase64(data.bodyGzip);
+          return typeof data.body === 'string' ? data.body : '';
+        });
+    $('upMeta').textContent = item.isPreview && Number(item.size) === 0
+      ? 'แก้ไขการ์ด Coming Soon — ใส่โค้ดเพื่อเผยแพร่สคริปต์ได้'
+      : 'กำลังดึงโค้ดสคริปต์ ' + item.name + ' จาก GitHub…';
+    loadCode.then(function (code) {
+      if (btn) btn.disabled = false;
+      editingItem = { placeId: String(item.placeId), name: String(item.name) };
+      $('upPlace').value = editingItem.placeId;
+      $('upName').value = editingItem.name;
+      if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;
+      if ($('upIsWorking')) $('upIsWorking').checked = item.isWorking !== false;
+      if ($('upIsEnabled')) $('upIsEnabled').checked = item.isEnabled !== false;
+      if ($('upIsPreview')) $('upIsPreview').checked = item.isPreview === true;
+      if (upFile) upFile.value = '';
+      if ($('editBannerText')) $('editBannerText').textContent = 'กำลังแก้ไข: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';
+      if ($('editBanner')) $('editBanner').style.display = 'flex';
+      if ($('upSave')) $('upSave').textContent = 'บันทึกการแก้ไข';
+      if (upBody) {
+        upBody.rows = 10;
+        if (code.length <= 131072) {
+          selectedFileCode = null; upBody.value = code; upBody.placeholder = defaultBodyPlaceholder;
+        } else {
+          selectedFileCode = code; upBody.value = '';
+          upBody.placeholder = 'โหลดสคริปต์ขนาดใหญ่ ' + editingItem.name + ' (' + bytes(code.length) + ') ไว้แล้ว — เปลี่ยน Place ID / ชื่อสคริปต์ หรือเลือกไฟล์ใหม่ทับได้เลย';
         }
-        if (data.bodyGzip) return decompressGzipBase64(data.bodyGzip);
-        return typeof data.body === 'string' ? data.body : '';
-      })
-      .then(function (code) {
-        if (code === null || code === undefined) return;
-        editingItem = { placeId: String(item.placeId), name: String(item.name) };
-        $('upPlace').value = editingItem.placeId;
-        $('upName').value = editingItem.name;
-        if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;
-        if ($('upIsWorking')) $('upIsWorking').checked = item.isWorking !== false;
-        if (upFile) upFile.value = '';
-        if ($('editBannerText')) {
-          $('editBannerText').textContent = 'กำลังแก้ไข: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';
-        }
-        if ($('editBanner')) $('editBanner').style.display = 'flex';
-        if ($('upSave')) $('upSave').textContent = 'บันทึกการแก้ไข';
-        if (upBody) {
-          upBody.rows = 10;
-          if (code.length <= 131072) {
-            selectedFileCode = null;
-            upBody.value = code;
-            upBody.placeholder = defaultBodyPlaceholder;
-          } else {
-            selectedFileCode = code;
-            upBody.value = '';
-            upBody.placeholder = 'โหลดสคริปต์ขนาดใหญ่ ' + editingItem.name + ' (' + bytes(code.length) + ') ไว้แล้ว — เปลี่ยน Place ID / ชื่อสคริปต์ หรือเลือกไฟล์ใหม่ทับได้เลย';
-          }
-        }
-        $('upMeta').textContent = 'โหลดสคริปต์ ' + editingItem.name + ' (' + bytes(code.length) + ') พร้อมแก้ไขแล้ว';
-        renderScripts(currentScriptItems);
-        var card = $('scriptCard');
-        if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        if (upBody && code.length <= 131072) upBody.focus();
-      })
-      .catch(function (err) {
-        if (btn) btn.disabled = false;
-        toast('ดึงโค้ดไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
-      });
-  }
-
-  function loadScripts() {
-    return api('/api/control/scripts', { op: 'list' }).then(function (result) {
-      var data = result.data || {};
-      if (!result.status || result.status >= 400 || !data.ok) {
-        renderScripts([]);
-        if (data && data.note) $('upMeta').textContent = data.note;
-        return;
       }
-      renderScripts(data.items || []);
-    }).catch(function () { renderScripts([]); });
-  }
-
-  function renderCommandTemplatePreview() {
-    var field = $('copyTemplate');
-    var preview = $('copyTemplatePreview');
-    if (!field || !preview) return;
-    preview.textContent = field.value
-      .replace(/\{\{script\}\}/g, 'main')
-      .replace(/\{\{placeId\}\}/g, '123456789')
-      .replace(/\{\{origin\}\}/g, 'https://999ms.example')
-      .replace(/\{\{license\}\}/g, '');
-  }
-
-  function loadCommandTemplate() {
-    return api('/api/control/scripts', { op: 'get-command' }).then(function (result) {
-      var data = result.data || {};
-      if (result.status !== 200 || !data.ok) {
-        $('copyTemplateMeta').textContent = data.reason || 'โหลดรูปแบบคำสั่งไม่สำเร็จ';
-        return;
-      }
-      $('copyTemplate').value = data.commandTemplate || '';
-      $('copyTemplateMeta').textContent = 'ตั้งค่าแล้ว — ใช้บนหน้า Scripts';
-      renderCommandTemplatePreview();
-    }).catch(function () { $('copyTemplateMeta').textContent = 'โหลดรูปแบบคำสั่งไม่สำเร็จ'; });
+      $('upMeta').textContent = code ? 'โหลดสคริปต์ ' + editingItem.name + ' (' + bytes(code.length) + ') พร้อมแก้ไขแล้ว' : 'การ์ด Coming Soon พร้อมแก้ไข — ใส่โค้ดเพื่อเผยแพร่ได้';
+      renderScripts(currentScriptItems);
+      var card = $('scriptCard');
+      if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      if (upBody && code.length <= 131072) upBody.focus();
+    }).catch(function (err) {
+      if (btn) btn.disabled = false;
+      toast('ดึงโค้ดไม่สำเร็จ: ' + (err && err.message ? err.message : 'network error'), 'err');
+    });
   }
 
   if ($('copyTemplate')) $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);
@@ -1396,7 +1395,8 @@
       if (!name) { toast('ใส่ชื่อสคริปต์ก่อน', 'err'); return; }
       if (fileReadBusy) { toast('กำลังอ่านไฟล์อยู่ รอสักครู่แล้วกดอัปโหลดอีกครั้ง', 'err'); return; }
       var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');
-      if (!code.trim()) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน', 'err'); return; }
+      var isPreview = $('upIsPreview').checked;
+      if (!code.trim() && !isPreview) { toast('เลือกไฟล์หรือวางโค้ดสคริปต์ก่อน หรือเลือกการ์ด Coming Soon', 'err'); return; }
       var sourceBytes = new Blob([code]).size;
       if (sourceBytes > MAX_SCRIPT_FILE_BYTES) {
         toast('ไฟล์ใหญ่เกินขนาดสูงสุด 25 MB', 'err');
@@ -1409,14 +1409,16 @@
       btn.textContent = 'กำลังบีบอัด…';
       $('upMeta').textContent = 'กำลังเตรียม ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ')…';
 
-      compressGzipBase64(code).then(function (gzB64) {
-        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked, isWorking: $('upIsWorking').checked };
+      (code.trim() ? compressGzipBase64(code) : Promise.resolve('')).then(function (gzB64) {
+        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked, isWorking: $('upIsWorking').checked, isEnabled: $('upIsEnabled').checked, isPreview: $('upIsPreview').checked };
         if (wasEditing) {
           payload.prevPlaceId = wasEditing.placeId;
           payload.prevName = wasEditing.name;
         }
-        if (gzB64) payload.bodyGzip = gzB64;
-        else payload.body = code;
+        if (code.trim()) {
+          if (gzB64) payload.bodyGzip = gzB64;
+          else payload.body = code;
+        }
 
         var requestBytes = new Blob([JSON.stringify(payload)]).size;
         if (requestBytes > MAX_UPLOAD_JSON_BYTES) {
@@ -1424,7 +1426,7 @@
         }
 
         btn.textContent = 'กำลังอัปโหลด…';
-        $('upMeta').textContent = 'กำลังส่งไฟล์ ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ') ขึ้น GitHub…';
+        $('upMeta').textContent = code.trim() ? 'กำลังส่งไฟล์ ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ') ขึ้น GitHub…' : 'กำลังบันทึกการ์ด Coming Soon…';
         return api('/api/control/scripts', payload, 120000);
       }).then(function (result) {
         btn.disabled = false;
@@ -1434,10 +1436,10 @@
           var gh = data.github || {};
           var deployNote = (gh.deploy && gh.deploy.triggered) ? ' · สั่งดีพลอย Vercel แล้ว' : '';
           var actionWord = wasEditing ? 'บันทึกการแก้ไข ' : 'อัปโหลด ';
-          var ghText = gh.ok
+          var ghText = gh.skipped ? ' · การ์ดยังไม่มีไฟล์รัน' : (gh.ok
             ? ' · ขึ้น GitHub แล้ว (' + (gh.path || ('scripts/' + name + '.lua')) + deployNote + ')'
-            : '';
-          toast(actionWord + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
+            : '');
+          toast(data.isPreview ? 'บันทึกการ์ด Coming Soon แล้ว' : actionWord + name + ' แล้ว (' + bytes(data.size) + ')', 'ok');
           logLine(actionWord + 'สคริปต์ ' + name + ' (' + bytes(data.size) + ') สำหรับ place ' + placeId, 'ok');
           if (gh.ok) logLine('commit ' + (gh.path || name) + ' ไปที่ ' + (gh.branch || 'main') + deployNote, 'ok');
           exitEditMode(true);

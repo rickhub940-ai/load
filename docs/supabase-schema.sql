@@ -78,13 +78,19 @@ create table if not exists public.scripts (
   size integer not null default 0,
   key_required boolean not null default true,
   is_working boolean not null default true,
+  is_enabled boolean not null default true,
+  is_preview boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   unique (place_id, script_name)
 );
 
--- Owner-managed display status; existing entries default to available.
+-- Owner-managed display status and server-enforced run policy.
 alter table public.scripts add column if not exists is_working boolean not null default true;
+alter table public.scripts add column if not exists is_enabled boolean not null default true;
+alter table public.scripts add column if not exists is_preview boolean not null default false;
+comment on column public.scripts.is_enabled is 'Server-side gate for key verification and script delivery';
+comment on column public.scripts.is_preview is 'Hide map identity in the public card and display Coming Soon; never executable';
 
 alter table public.executions enable row level security;
 alter table public.links enable row level security;

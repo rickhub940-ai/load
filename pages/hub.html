@@ -297,6 +297,9 @@
     .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}
     .home-script-cover img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.home-script-card:hover img{transform:scale(1.04)}
     .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}
+    .home-script-cover{position:relative}.home-script-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.58);color:#fff;font-size:clamp(20px,3vw,30px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}
+    .home-script-card.is-coming-soon .home-script-cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}
+    .home-script-card.is-coming-soon .home-script-cover span{display:none}
     .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}
     .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}
     .community-section{padding-top:25px;padding-bottom:100px}
@@ -663,17 +666,21 @@
         fetch("/api/scripts", { cache: "no-store" }).then((res) => { if (!res.ok) throw new Error("scripts unavailable"); return res.json(); }).then(async (data) => {
           const items = Array.isArray(data.items) ? data.items.slice(0,3) : [];
           if (!items.length) { previewGrid.innerHTML = '<div class="home-script-empty">No scripts are published yet. Check back soon.</div>'; return; }
-          const ids = items.map((item) => item.placeId).filter(Boolean).join(",");
+          const ids = items.filter((item) => item.isPreview !== true).map((item) => item.placeId).filter(Boolean).join(",");
           let games = {};
           if (ids) {
             try { const gameRes = await fetch("/api/games?ids=" + encodeURIComponent(ids), { cache: "no-store" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}
           }
           previewGrid.innerHTML = items.map((item) => {
+            if (item.isPreview === true) return '<div class="home-script-card is-coming-soon" aria-label="Coming Soon"><div class="home-script-cover"><span>9</span><b class="home-script-ribbon">Coming Soon</b></div><h3>Coming Soon</h3></div>';
             const game = games[String(item.placeId)] || {};
             const title = game.name || scriptTitle(item.name);
             const cover = game.icon ? '<img src="' + safe(game.icon) + '" alt="" loading="lazy" referrerpolicy="no-referrer">' : '<span>' + safe(title.slice(0,1).toUpperCase() || "9") + '</span>';
             const date = item.updatedAt ? new Date(item.updatedAt).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}) : "Recently published";
-            return '<a class="home-script-card" href="/scripts"><div class="home-script-cover">' + cover + '</div><h3>' + safe(title) + '</h3><p class="home-script-meta">999MS &nbsp;·&nbsp; ' + safe(item.name) + '.lua &nbsp;·&nbsp; ' + safe(date) + '</p></a>';
+            const ribbon = item.isEnabled === false ? '<b class="home-script-ribbon">Update</b>' : '';
+            const tag = item.isEnabled === false ? 'div' : 'a';
+            const open = item.isEnabled === false ? '' : ' href="/scripts"';
+            return '<' + tag + ' class="home-script-card' + (item.isEnabled === false ? ' is-disabled' : '') + '"' + open + '><div class="home-script-cover">' + cover + ribbon + '</div><h3>' + safe(title) + '</h3><p class="home-script-meta">999MS &nbsp;·&nbsp; ' + safe(item.name) + '.lua &nbsp;·&nbsp; ' + safe(date) + '</p></' + tag + '>';
           }).join("");
           previewGrid.querySelectorAll("img").forEach((img) => img.addEventListener("error", () => { const cover = img.parentNode; img.remove(); const span = document.createElement("span"); span.textContent = "9"; cover.appendChild(span); }));
         }).catch(() => { previewGrid.innerHTML = '<div class="home-script-empty">The script library is temporarily unavailable. <a href="/scripts" style="color:#fff">Open ScriptHub →</a></div>'; });

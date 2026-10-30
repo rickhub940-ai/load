@@ -71,9 +71,13 @@ const SCRIPTS_PAGE =
   "    .script-card:hover{transform:translateY(-3px);border-color:#3a3a40;box-shadow:0 18px 45px rgba(0,0,0,.28)}\n" +
   "    .script-card:active{transform:scale(.985);border-color:#45454b;box-shadow:0 8px 24px rgba(0,0,0,.24)}\n" +
   "    .script-card:focus-visible{outline:2px solid #8a8a92;outline-offset:4px}\n" +
+  "    .script-card.is-disabled{cursor:default}.script-card.is-disabled:hover,.script-card.is-disabled:active{transform:none;box-shadow:none}\n" +
   "    .cover{position:relative;aspect-ratio:16/9;overflow:hidden;background:#08080a}.cover.has-image .cover-placeholder{display:none}\n" +
   "    .cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#08080a}\n" +
   "    .cover-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.86);font-size:clamp(60px,10vw,130px);font-weight:800;letter-spacing:-.12em}\n" +
+  "    .cover-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.54);color:#fff;font-size:clamp(22px,4vw,34px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}\n" +
+  "    .script-card.is-coming-soon .cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}\n" +
+  "    .script-card.is-coming-soon .card-body{min-height:90px;display:flex;align-items:center}.script-card.is-coming-soon .card-title{margin:0}\n" +
   "    .card-body{padding:17px 18px 16px}\n" +
   "    .card-title{margin:0;color:#f5f5f6;font-size:clamp(17px,2vw,21px);font-weight:700;line-height:1.25;letter-spacing:-.04em}\n" +
   "    .author-row{min-width:0;margin-top:14px;display:flex;align-items:center;gap:10px;color:#aaaab2;font-size:13px}\n" +
@@ -208,17 +212,19 @@ const SCRIPTS_PAGE =
   "      function commandText(x){return String(commandTemplate).replace(/\\{\\{(script|placeId|origin|license)\\}\\}/g,function(_,key){if(key==='script')return String(x.name||'');if(key==='placeId')return String(x.placeId||'');if(key==='origin')return location.origin;if(key==='license')return '';return ''})}\n" +
   "      function highlightLua(code){var source=String(code),re=/--[^\\n]*|\"(?:\\\\.|[^\"\\\\])*\"|'(?:\\\\.|[^'\\\\])*'|\\b(?:local|function|return|if|then|else|elseif|end|for|while|do|in|repeat|until|break|and|or|not|true|false|nil)\\b|\\b\\d+(?:\\.\\d+)?\\b|\\b(?:game|workspace|script)\\b/g,out='',last=0,m;while((m=re.exec(source))){out+=esc(source.slice(last,m.index));var t=m[0],c=t.slice(0,2)==='--'?'comment':t[0]==='\"'||t[0]===\"'\"?'string':/^(?:local|function|return|if|then|else|elseif|end|for|while|do|in|repeat|until|break|and|or|not|true|false|nil)$/.test(t)?'keyword':/^\\d/.test(t)?'number':'global';out+='<span class=\"lua-'+c+'\">'+esc(t)+'</span>';last=m.index+t.length}return out+esc(source.slice(last))}\n" +
   "      function loaderSize(x){return fmtSize(new Blob([commandText(x)]).size)}\n" +
-  "      function nameFor(x){var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
+  "      function nameFor(x){if(x.isPreview===true)return 'Coming Soon';var g=games[x.placeId]||{};return g.name||titleCase(x.name)}\n" +
   "      function uploaderMarkup(){var profile=uploader||{},name=profile.name||'999MS',initials=String(name).slice(0,2).toUpperCase(),avatar=profile.avatarUrl?'<img src=\"'+esc(profile.avatarUrl)+'\" alt=\"\" loading=\"lazy\">':esc(initials);var content='<span class=\"avatar\">'+avatar+'</span><span class=\"author-name\">'+esc(name)+'</span>';return profile.profileUrl?'<a class=\"author-profile\" href=\"'+esc(profile.profileUrl)+'\" target=\"_blank\" rel=\"noopener noreferrer\">'+content+'</a>':content}\n" +
   "      function svg(kind){if(kind==='file')return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z\"/><path d=\"M14 2v6h6M8 13h8M8 17h8\"/></svg>';return '<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\"><path d=\"M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z\"/></svg>'}\n" +
   "      function workingBadge(x){var ok=x.isWorking!==false,label=ok?'Working':'Not working';return '<span class=\"script-badge '+(ok?'is-working':'is-not-working')+'\" aria-label=\"'+label+'\"><span class=\"script-state-dot\"></span><span>'+label+'</span></span>'}\n" +
   "      function keyBadge(x){var required=x.keyRequired!==false;var icon=required?'<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"15\" r=\"4\"/><path d=\"m10.8 12.2 8.7-8.7M16 7l2 2m-5 1 2 2\"/></svg>':'<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"10\" width=\"18\" height=\"11\" rx=\"2\"/><path d=\"M7 10V7a5 5 0 0 1 9.5-2.2M12 14v3\"/></svg>';return '<span class=\"script-badge\" aria-label=\"'+(required?'Key required':'No key required')+'\">'+icon+'<span>'+(required?'Key required':'No key')+'</span></span>'}\n" +
-  "      function createCard(x,i){var game=games[x.placeId]||{},name=nameFor(x),card=document.createElement('article');card.className='script-card';card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script');\n" +
-  "        var artwork=game.thumbnail||game.icon,image=artwork?'<img src=\"'+esc(artwork)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
-  "        var date=fmtDate(x.updatedAt);card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span></div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\">'+uploaderMarkup()+'<span class=\"crown\" aria-label=\"Official\">\u265b</span></div><div class=\"script-badges\">'+workingBadge(x)+keyBadge(x)+'</div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Latest update '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
-  "        var img=card.querySelector('.cover img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});var avatarImage=card.querySelector('.author-profile .avatar img');if(avatarImage)avatarImage.addEventListener('error',function(){avatarImage.parentNode.textContent=String((uploader&&uploader.name)||'999MS').slice(0,2).toUpperCase()});var authorLink=card.querySelector('.author-profile');if(authorLink){authorLink.addEventListener('click',function(e){e.stopPropagation()});authorLink.addEventListener('keydown',function(e){e.stopPropagation()})}card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}});return card}\n" +
-  "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search':'New scripts will appear here when published')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
-  "      function openDetail(x){chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name;var profile=uploader||{},profileLink=document.getElementById('detailProfileLink'),authorName=document.getElementById('detailAuthorName'),authorAvatar=document.getElementById('detailAvatar');authorName.textContent=profile.name||'999MS';authorAvatar.textContent='';if(profile.avatarUrl){var avatarImage=document.createElement('img');avatarImage.src=profile.avatarUrl;avatarImage.alt='';avatarImage.onerror=function(){authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase()};authorAvatar.appendChild(avatarImage)}else authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase();if(profile.profileUrl){profileLink.href=profile.profileUrl;profileLink.target='_blank';profileLink.rel='noopener noreferrer'}else{profileLink.removeAttribute('href');profileLink.removeAttribute('target')}var gameLink=document.getElementById('openGame'),placeId=String(x.placeId||'').trim();gameLink.href='https://www.roblox.com/games/'+encodeURIComponent(placeId);gameLink.setAttribute('aria-label','Open Roblox map for '+name);document.getElementById('detailWorking').innerHTML=workingBadge(x);document.getElementById('detailKey').innerHTML=keyBadge(x);document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
+  "      function createCard(x,i){var preview=x.isPreview===true,enabled=x.isEnabled!==false,game=preview?{}:(games[x.placeId]||{}),name=nameFor(x),card=document.createElement('article');card.className='script-card'+(preview?' is-coming-soon':(!enabled?' is-disabled':''));if(enabled&&!preview){card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label','View '+name+' script')}else{card.setAttribute('aria-label',preview?'Coming Soon':name+' \u2014 Update')}\n" +
+  "        var artwork=preview?'':(game.thumbnail||game.icon),image=artwork?'<img src=\"'+esc(artwork)+'\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">':'';\n" +
+  "        var date=fmtDate(x.updatedAt),ribbon=preview?'<span class=\"cover-ribbon\">Coming Soon</span>':(!enabled?'<span class=\"cover-ribbon\">Update</span>':'');\n" +
+  "        if(preview){card.innerHTML='<div class=\"cover\">'+ribbon+'</div><div class=\"card-body\"><h2 class=\"card-title\">Coming Soon</h2></div>';return card}\n" +
+  "        card.innerHTML='<div class=\"cover'+(image?' has-image':'')+'\">'+image+'<span class=\"cover-placeholder\">'+esc(name.slice(0,1).toUpperCase()||'9')+'</span>'+ribbon+'</div><div class=\"card-body\"><h2 class=\"card-title\">'+esc(name)+'</h2><div class=\"author-row\">'+uploaderMarkup()+'<span class=\"crown\" aria-label=\"Official\">\u265b</span></div><div class=\"script-badges\">'+workingBadge(x)+keyBadge(x)+'</div><div class=\"card-meta\"><span class=\"meta-item\">'+svg('file')+'<span>'+loaderSize(x)+'</span></span><span class=\"meta-spacer\"></span><span class=\"updated\">Latest update '+esc(date)+'</span></div><div class=\"card-rule\"></div></div>';\n" +
+  "        var img=card.querySelector('.cover img');if(img)img.addEventListener('error',function(){img.remove();card.querySelector('.cover').classList.remove('has-image')});var avatarImage=card.querySelector('.author-profile .avatar img');if(avatarImage)avatarImage.addEventListener('error',function(){avatarImage.parentNode.textContent=String((uploader&&uploader.name)||'999MS').slice(0,2).toUpperCase()});var authorLink=card.querySelector('.author-profile');if(authorLink){authorLink.addEventListener('click',function(e){e.stopPropagation()});authorLink.addEventListener('keydown',function(e){e.stopPropagation()})}if(enabled){card.addEventListener('click',function(){openDetail(x)});card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(x)}})}return card}\n" +
+  "      function render(){var q=(input.value||'').trim().toLowerCase(),list=all.filter(function(x){if(x.isPreview===true)return !q||'coming soon'.indexOf(q)!==-1;var nm=nameFor(x)+' '+x.name+' '+x.placeId;return nm.toLowerCase().indexOf(q)!==-1});count.textContent=String(list.length);countLabel.textContent=list.length===1?'script':'scripts';grid.innerHTML='';if(!list.length){grid.innerHTML='<div class=\"empty\"><strong>'+(all.length?'No scripts found':'No scripts published yet')+'</strong>'+(all.length?'Try another search':'New scripts will appear here when published')+'</div>';return}list.forEach(function(x,i){grid.appendChild(createCard(x,i))})}\n" +
+  "      function openDetail(x){if(!x||x.isPreview===true||x.isEnabled===false)return;chosen=x;var g=games[x.placeId]||{},name=nameFor(x),cover=document.getElementById('detailCover'),artwork=g.thumbnail||g.icon;cover.querySelectorAll('img').forEach(function(n){n.remove()});if(artwork){var im=document.createElement('img');im.src=artwork;im.alt=name+' game artwork';im.referrerPolicy='no-referrer';cover.appendChild(im)}document.getElementById('detailTitle').textContent=name;var profile=uploader||{},profileLink=document.getElementById('detailProfileLink'),authorName=document.getElementById('detailAuthorName'),authorAvatar=document.getElementById('detailAvatar');authorName.textContent=profile.name||'999MS';authorAvatar.textContent='';if(profile.avatarUrl){var avatarImage=document.createElement('img');avatarImage.src=profile.avatarUrl;avatarImage.alt='';avatarImage.onerror=function(){authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase()};authorAvatar.appendChild(avatarImage)}else authorAvatar.textContent=String(profile.name||'999MS').slice(0,2).toUpperCase();if(profile.profileUrl){profileLink.href=profile.profileUrl;profileLink.target='_blank';profileLink.rel='noopener noreferrer'}else{profileLink.removeAttribute('href');profileLink.removeAttribute('target')}var gameLink=document.getElementById('openGame'),placeId=String(x.placeId||'').trim();gameLink.href='https://www.roblox.com/games/'+encodeURIComponent(placeId);gameLink.setAttribute('aria-label','Open Roblox map for '+name);document.getElementById('detailWorking').innerHTML=workingBadge(x);document.getElementById('detailKey').innerHTML=keyBadge(x);document.getElementById('detailExperience').textContent=name+' \u00b7 '+x.placeId;document.getElementById('detailUpdated').textContent=fmtDate(x.updatedAt);document.getElementById('detailSize').textContent=loaderSize(x);document.getElementById('detailCode').innerHTML=highlightLua(commandText(x));dlg.showModal();document.body.classList.add('lock')}\n" +
   "      function closeDetail(){dlg.close();document.body.classList.remove('lock')}\n" +
   "      document.getElementById('closeDetail').addEventListener('click',closeDetail);dlg.addEventListener('click',function(e){if(e.target===dlg)closeDetail()});dlg.addEventListener('close',function(){document.body.classList.remove('lock')});\n" +
   "      function copyText(text,btn){var done=function(){var old=btn.textContent;btn.textContent='Copied \u2713';setTimeout(function(){btn.textContent=old},1400)};if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,function(){fallback()})}else fallback();function fallback(){var t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}t.remove()}}\n" +
@@ -227,7 +233,7 @@ const SCRIPTS_PAGE =
   "      document.getElementById('shareScript').addEventListener('click',function(){if(!chosen)return;var url=location.origin+'/scripts?script='+encodeURIComponent(chosen.name);if(navigator.share)navigator.share({title:nameFor(chosen)+' \u2014 999MS',url:url}).catch(function(){});else copyText(url,this)});\n" +
   "      input.addEventListener('input',render);searchWrap.addEventListener('click',function(){if(window.innerWidth<=700&&!searchWrap.classList.contains('open')){searchWrap.classList.add('open');input.focus()}});input.addEventListener('blur',function(){if(!input.value&&window.innerWidth<=700)searchWrap.classList.remove('open')});\n" +
   "      var mb=document.getElementById('menuBtn'),mm=document.getElementById('mobileMenu');mb.addEventListener('click',function(){var o=mm.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});document.addEventListener('keydown',function(e){if(e.key==='Escape'){mm.classList.remove('open');mb.setAttribute('aria-expanded','false')}});\n" +
-  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});if(d&&typeof d.commandTemplate==='string'&&d.commandTemplate.trim())commandTemplate=d.commandTemplate;if(d&&d.uploader)uploader=d.uploader;render();var ids=[];all.forEach(function(x){if(ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
+  "      function load(){fetch('/api/scripts',{headers:{accept:'application/json'}}).then(function(r){if(!r.ok)throw new Error('api');return r.json()}).then(function(d){all=(d&&Array.isArray(d.items)?d.items:[]).filter(function(x){return x&&x.placeId&&x.name});if(d&&typeof d.commandTemplate==='string'&&d.commandTemplate.trim())commandTemplate=d.commandTemplate;if(d&&d.uploader)uploader=d.uploader;render();var ids=[];all.forEach(function(x){if(x.isPreview!==true&&ids.indexOf(x.placeId)===-1)ids.push(x.placeId)});if(!ids.length)return;return fetch('/api/games?ids='+ids.join(','),{headers:{accept:'application/json'}}).then(function(r){return r.ok?r.json():null}).then(function(m){if(m&&Array.isArray(m.games))m.games.forEach(function(g){if(g&&g.placeId)games[String(g.placeId)]=g});render()}).catch(function(){})}).catch(function(){grid.innerHTML='<div class=\"empty\"><strong>Could not load scripts</strong>Refresh the page to try again</div>';count.textContent='\u2014';countLabel.textContent='scripts'})}\n" +
   "      load();\n" +
   "    })();\n" +
   "  </script>\n" +
@@ -2239,6 +2245,16 @@ const CONTROL_PAGE =
   "            <span>\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49</span>\n" +
   "          </label>\n" +
   "          <p class=\"hint\" style=\"margin:-5px 0 0 25px\">\u0e40\u0e2d\u0e32\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e2b\u0e21\u0e32\u0e22\u0e2d\u0e2d\u0e01\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e41\u0e2a\u0e14\u0e07\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e27\u0e48\u0e32\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 Scripts</p>\n" +
+  "          <label style=\"display:flex;align-items:center;gap:9px;margin:0\">\n" +
+  "            <input id=\"upIsEnabled\" type=\"checkbox\" checked style=\"width:16px;height:16px;accent-color:#22c55e\" />\n" +
+  "            <span>\u0e2d\u0e19\u0e38\u0e0d\u0e32\u0e15\u0e43\u0e2b\u0e49\u0e23\u0e31\u0e19\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c</span>\n" +
+  "          </label>\n" +
+  "          <p class=\"hint\" style=\"margin:-5px 0 0 25px\">\u0e1b\u0e34\u0e14\u0e41\u0e25\u0e49\u0e27\u0e23\u0e30\u0e1a\u0e1a\u0e08\u0e30\u0e1a\u0e25\u0e47\u0e2d\u0e01\u0e01\u0e32\u0e23\u0e02\u0e2d\u0e41\u0e25\u0e30\u0e14\u0e36\u0e07\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e17\u0e35\u0e48\u0e1d\u0e31\u0e48\u0e07\u0e40\u0e0b\u0e34\u0e23\u0e4c\u0e1f\u0e40\u0e27\u0e2d\u0e23\u0e4c</p>\n" +
+  "          <label style=\"display:flex;align-items:center;gap:9px;margin:0\">\n" +
+  "            <input id=\"upIsPreview\" type=\"checkbox\" style=\"width:16px;height:16px;accent-color:#a78bfa\" />\n" +
+  "            <span>\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e2a\u0e1b\u0e2d\u0e22\u0e25\u0e4c \u2014 Coming Soon</span>\n" +
+  "          </label>\n" +
+  "          <p class=\"hint\" style=\"margin:-5px 0 0 25px\">\u0e0b\u0e48\u0e2d\u0e19\u0e0a\u0e37\u0e48\u0e2d\u0e41\u0e25\u0e30\u0e23\u0e32\u0e22\u0e25\u0e30\u0e40\u0e2d\u0e35\u0e22\u0e14\u0e41\u0e21\u0e1e\u0e43\u0e19\u0e2b\u0e19\u0e49\u0e32 public \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e1b\u0e34\u0e14\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e42\u0e14\u0e22\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34; \u0e43\u0e0a\u0e49\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e44\u0e14\u0e49\u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e21\u0e35\u0e42\u0e04\u0e49\u0e14</p>\n" +
   "          <div>\n" +
   "            <label for=\"upFile\">\u0e44\u0e1f\u0e25\u0e4c\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c (.lua / .txt)</label>\n" +
   "            <input id=\"upFile\" type=\"file\" accept=\".lua,.txt,text/plain,.luau\" />\n" +
@@ -2478,6 +2494,8 @@ const CONTROL_PAGE =
   "      if ($('upName')) $('upName').value = '';\n" +
   "      if ($('upKeyRequired')) $('upKeyRequired').checked = true;\n" +
   "      if ($('upIsWorking')) $('upIsWorking').checked = true;\n" +
+  "      if ($('upIsEnabled')) $('upIsEnabled').checked = true;\n" +
+  "      if ($('upIsPreview')) $('upIsPreview').checked = false;\n" +
   "    }\n" +
   "    renderScripts(currentScriptItems);\n" +
   "  }\n" +
@@ -2649,6 +2667,23 @@ const CONTROL_PAGE =
   "      .catch(function (err) { toast('\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err'); });\n" +
   "  }\n" +
   "\n" +
+  "  function setScriptPolicy(item, op, value) {\n" +
+  "    var field = op === 'set-enabled' ? 'isEnabled' : 'isPreview';\n" +
+  "    var payload = { op: op, name: item.name };\n" +
+  "    payload[field] = value;\n" +
+  "    api('/api/control/scripts', payload)\n" +
+  "      .then(function (result) {\n" +
+  "        var data = result.data || {};\n" +
+  "        if (result.status === 200 && data.ok) {\n" +
+  "          toast(op === 'set-enabled' ? (value ? '\u0e40\u0e1b\u0e34\u0e14\u0e43\u0e2b\u0e49\u0e23\u0e31\u0e19\u0e41\u0e25\u0e49\u0e27' : '\u0e1b\u0e34\u0e14\u0e01\u0e32\u0e23\u0e23\u0e31\u0e19\u0e41\u0e25\u0e49\u0e27') : (value ? '\u0e15\u0e31\u0e49\u0e07\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e40\u0e1b\u0e47\u0e19 Coming Soon \u0e41\u0e25\u0e49\u0e27' : '\u0e19\u0e33 Coming Soon \u0e2d\u0e2d\u0e01\u0e41\u0e25\u0e49\u0e27'), 'ok');\n" +
+  "          logLine((op === 'set-enabled' ? '\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e23\u0e31\u0e19 ' : '\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e01\u0e32\u0e23\u0e4c\u0e14\u0e2a\u0e1b\u0e2d\u0e22\u0e25\u0e4c ') + item.name, 'ok');\n" +
+  "          return loadScripts();\n" +
+  "        }\n" +
+  "        toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (data.reason || ('HTTP ' + result.status)), 'err');\n" +
+  "      })\n" +
+  "      .catch(function (err) { toast('\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err'); });\n" +
+  "  }\n" +
+  "\n" +
   "  function renderScripts(items) {\n" +
   "    currentScriptItems = items || [];\n" +
   "    var host = $('scriptList');\n" +
@@ -2661,13 +2696,17 @@ const CONTROL_PAGE =
   "      var when = item.updatedAt ? new Date(item.updatedAt).toLocaleString('th-TH') : '\u2014';\n" +
   "      var isEditing = editingItem && editingItem.placeId === item.placeId && editingItem.name === item.name;\n" +
   "      var activeStyle = isEditing ? ' style=\"border-color:rgba(34,197,94,.5);background:rgba(34,197,94,.06)\"' : '';\n" +
+  "      var previewTag = item.isPreview ? ' \u00b7 <b style=\"color:#c4b5fd\">Coming Soon</b>' : '';\n" +
+  "      var runTag = item.isPreview ? ' \u00b7 \u0e23\u0e2d\u0e40\u0e1b\u0e34\u0e14' : (item.isEnabled === false ? ' \u00b7 <span style=\"color:#f87171\">\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e19</span>' : ' \u00b7 <span style=\"color:#4ade80\">\u0e40\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e19</span>');\n" +
   "      return '<div class=\"ban-item\"' + activeStyle + '>' +\n" +
   "        '<div style=\"min-width:0\">' +\n" +
   "          '<b class=\"mono\">' + esc(item.name) + '</b>' +\n" +
-  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 <span style=\"color:' + (item.isWorking === false ? '#f87171' : '#4ade80') + '\">\u25cf ' + (item.isWorking === false ? '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49' : '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49') + '</span> \u00b7 ' + (item.keyRequired === false ? '\ud83d\udd13 \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c' : '\ud83d\udd11 \u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c') + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
+  "          '<div class=\"hint\" style=\"margin:0\">place ' + esc(item.placeId) + ' \u00b7 <span style=\"color:' + (item.isWorking === false ? '#f87171' : '#4ade80') + '\">\u25cf ' + (item.isWorking === false ? '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49' : '\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e44\u0e14\u0e49') + '</span>' + runTag + previewTag + ' \u00b7 ' + (item.keyRequired === false ? '\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c' : '\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49\u0e04\u0e35\u0e22\u0e4c') + ' \u00b7 ' + bytes(item.size) + ' \u00b7 ' + esc(when) + '</div>' +\n" +
   "        '</div>' +\n" +
   "        '<span class=\"spacer\"></span>' +\n" +
-  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-status=\"' + index + '\" aria-label=\"\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\">' + (item.isWorking === false ? '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49' : '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49') + '</button>' +\n" +
+  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-working=\"' + index + '\" aria-label=\"\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\">' + (item.isWorking === false ? '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49' : '\u0e15\u0e31\u0e49\u0e07\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49') + '</button>' +\n" +
+  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-enabled=\"' + index + '\">' + (item.isEnabled === false ? '\u0e40\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e19' : '\u0e1b\u0e34\u0e14\u0e23\u0e31\u0e19') + '</button>' +\n" +
+  "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-preview=\"' + index + '\">' + (item.isPreview ? '\u0e19\u0e33 Coming Soon \u0e2d\u0e2d\u0e01' : '\u0e15\u0e31\u0e49\u0e07 Coming Soon') + '</button>' +\n" +
   "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-edit=\"' + index + '\">\u0e41\u0e01\u0e49\u0e44\u0e02</button>' +\n" +
   "        '<button class=\"btn btn-sm btn-ghost\" type=\"button\" data-del=\"' + index + '\">\u0e25\u0e1a</button>' +\n" +
   "      '</div>';\n" +
@@ -2675,22 +2714,31 @@ const CONTROL_PAGE =
   "    Array.prototype.forEach.call(host.querySelectorAll('button[data-edit]'), function (btn) {\n" +
   "      btn.addEventListener('click', function () {\n" +
   "        var item = currentScriptItems[Number(btn.getAttribute('data-edit'))];\n" +
-  "        if (!item) return;\n" +
-  "        startEditScript(item, btn);\n" +
+  "        if (item) startEditScript(item, btn);\n" +
   "      });\n" +
   "    });\n" +
-  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-status]'), function (btn) {\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-working]'), function (btn) {\n" +
   "      btn.addEventListener('click', function () {\n" +
-  "        var item = currentScriptItems[Number(btn.getAttribute('data-status'))];\n" +
-  "        if (!item) return;\n" +
-  "        setScriptWorking(item, item.isWorking === false);\n" +
+  "        var item = currentScriptItems[Number(btn.getAttribute('data-working'))];\n" +
+  "        if (item) setScriptWorking(item, item.isWorking === false);\n" +
+  "      });\n" +
+  "    });\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-enabled]'), function (btn) {\n" +
+  "      btn.addEventListener('click', function () {\n" +
+  "        var item = currentScriptItems[Number(btn.getAttribute('data-enabled'))];\n" +
+  "        if (item) setScriptPolicy(item, 'set-enabled', item.isEnabled === false);\n" +
+  "      });\n" +
+  "    });\n" +
+  "    Array.prototype.forEach.call(host.querySelectorAll('button[data-preview]'), function (btn) {\n" +
+  "      btn.addEventListener('click', function () {\n" +
+  "        var item = currentScriptItems[Number(btn.getAttribute('data-preview'))];\n" +
+  "        if (item) setScriptPolicy(item, 'set-preview', item.isPreview !== true);\n" +
   "      });\n" +
   "    });\n" +
   "    Array.prototype.forEach.call(host.querySelectorAll('button[data-del]'), function (btn) {\n" +
   "      btn.addEventListener('click', function () {\n" +
   "        var item = currentScriptItems[Number(btn.getAttribute('data-del'))];\n" +
-  "        if (!item) return;\n" +
-  "        deleteScript(item);\n" +
+  "        if (item) deleteScript(item);\n" +
   "      });\n" +
   "    });\n" +
   "  }\n" +
@@ -2702,91 +2750,48 @@ const CONTROL_PAGE =
   "    selectedFileCode = null;\n" +
   "    selectedFileName = '';\n" +
   "    if (upFile) upFile.value = '';\n" +
-  "    $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e08\u0e32\u0e01 GitHub\u2026';\n" +
-  "    api('/api/control/scripts', { op: 'get', name: item.name })\n" +
-  "      .then(function (result) {\n" +
-  "        if (btn) btn.disabled = false;\n" +
-  "        var data = result.data || {};\n" +
-  "        if (!data.ok) {\n" +
-  "          var reason = data.reason || ('HTTP ' + result.status);\n" +
-  "          $('upMeta').textContent = '\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason;\n" +
-  "          toast('\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + reason, 'err');\n" +
-  "          return null;\n" +
+  "    var loadCode = item.isPreview && Number(item.size) === 0\n" +
+  "      ? Promise.resolve('')\n" +
+  "      : api('/api/control/scripts', { op: 'get', name: item.name }).then(function (result) {\n" +
+  "          var data = result.data || {};\n" +
+  "          if (!data.ok) throw new Error(data.reason || ('HTTP ' + result.status));\n" +
+  "          if (data.bodyGzip) return decompressGzipBase64(data.bodyGzip);\n" +
+  "          return typeof data.body === 'string' ? data.body : '';\n" +
+  "        });\n" +
+  "    $('upMeta').textContent = item.isPreview && Number(item.size) === 0\n" +
+  "      ? '\u0e41\u0e01\u0e49\u0e44\u0e02\u0e01\u0e32\u0e23\u0e4c\u0e14 Coming Soon \u2014 \u0e43\u0e2a\u0e48\u0e42\u0e04\u0e49\u0e14\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1c\u0e22\u0e41\u0e1e\u0e23\u0e48\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e44\u0e14\u0e49'\n" +
+  "      : '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + item.name + ' \u0e08\u0e32\u0e01 GitHub\u2026';\n" +
+  "    loadCode.then(function (code) {\n" +
+  "      if (btn) btn.disabled = false;\n" +
+  "      editingItem = { placeId: String(item.placeId), name: String(item.name) };\n" +
+  "      $('upPlace').value = editingItem.placeId;\n" +
+  "      $('upName').value = editingItem.name;\n" +
+  "      if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;\n" +
+  "      if ($('upIsWorking')) $('upIsWorking').checked = item.isWorking !== false;\n" +
+  "      if ($('upIsEnabled')) $('upIsEnabled').checked = item.isEnabled !== false;\n" +
+  "      if ($('upIsPreview')) $('upIsPreview').checked = item.isPreview === true;\n" +
+  "      if (upFile) upFile.value = '';\n" +
+  "      if ($('editBannerText')) $('editBannerText').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';\n" +
+  "      if ($('editBanner')) $('editBanner').style.display = 'flex';\n" +
+  "      if ($('upSave')) $('upSave').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02';\n" +
+  "      if (upBody) {\n" +
+  "        upBody.rows = 10;\n" +
+  "        if (code.length <= 131072) {\n" +
+  "          selectedFileCode = null; upBody.value = code; upBody.placeholder = defaultBodyPlaceholder;\n" +
+  "        } else {\n" +
+  "          selectedFileCode = code; upBody.value = '';\n" +
+  "          upBody.placeholder = '\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48 ' + editingItem.name + ' (' + bytes(code.length) + ') \u0e44\u0e27\u0e49\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19 Place ID / \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e31\u0e1a\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22';\n" +
   "        }\n" +
-  "        if (data.bodyGzip) return decompressGzipBase64(data.bodyGzip);\n" +
-  "        return typeof data.body === 'string' ? data.body : '';\n" +
-  "      })\n" +
-  "      .then(function (code) {\n" +
-  "        if (code === null || code === undefined) return;\n" +
-  "        editingItem = { placeId: String(item.placeId), name: String(item.name) };\n" +
-  "        $('upPlace').value = editingItem.placeId;\n" +
-  "        $('upName').value = editingItem.name;\n" +
-  "        if ($('upKeyRequired')) $('upKeyRequired').checked = item.keyRequired !== false;\n" +
-  "        if ($('upIsWorking')) $('upIsWorking').checked = item.isWorking !== false;\n" +
-  "        if (upFile) upFile.value = '';\n" +
-  "        if ($('editBannerText')) {\n" +
-  "          $('editBannerText').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e41\u0e01\u0e49\u0e44\u0e02: ' + editingItem.name + ' (place ' + editingItem.placeId + ')';\n" +
-  "        }\n" +
-  "        if ($('editBanner')) $('editBanner').style.display = 'flex';\n" +
-  "        if ($('upSave')) $('upSave').textContent = '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02';\n" +
-  "        if (upBody) {\n" +
-  "          upBody.rows = 10;\n" +
-  "          if (code.length <= 131072) {\n" +
-  "            selectedFileCode = null;\n" +
-  "            upBody.value = code;\n" +
-  "            upBody.placeholder = defaultBodyPlaceholder;\n" +
-  "          } else {\n" +
-  "            selectedFileCode = code;\n" +
-  "            upBody.value = '';\n" +
-  "            upBody.placeholder = '\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48 ' + editingItem.name + ' (' + bytes(code.length) + ') \u0e44\u0e27\u0e49\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19 Place ID / \u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c \u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e21\u0e48\u0e17\u0e31\u0e1a\u0e44\u0e14\u0e49\u0e40\u0e25\u0e22';\n" +
-  "          }\n" +
-  "        }\n" +
-  "        $('upMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + editingItem.name + ' (' + bytes(code.length) + ') \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e41\u0e01\u0e49\u0e44\u0e02\u0e41\u0e25\u0e49\u0e27';\n" +
-  "        renderScripts(currentScriptItems);\n" +
-  "        var card = $('scriptCard');\n" +
-  "        if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });\n" +
-  "        if (upBody && code.length <= 131072) upBody.focus();\n" +
-  "      })\n" +
-  "      .catch(function (err) {\n" +
-  "        if (btn) btn.disabled = false;\n" +
-  "        toast('\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err');\n" +
-  "      });\n" +
-  "  }\n" +
-  "\n" +
-  "  function loadScripts() {\n" +
-  "    return api('/api/control/scripts', { op: 'list' }).then(function (result) {\n" +
-  "      var data = result.data || {};\n" +
-  "      if (!result.status || result.status >= 400 || !data.ok) {\n" +
-  "        renderScripts([]);\n" +
-  "        if (data && data.note) $('upMeta').textContent = data.note;\n" +
-  "        return;\n" +
   "      }\n" +
-  "      renderScripts(data.items || []);\n" +
-  "    }).catch(function () { renderScripts([]); });\n" +
-  "  }\n" +
-  "\n" +
-  "  function renderCommandTemplatePreview() {\n" +
-  "    var field = $('copyTemplate');\n" +
-  "    var preview = $('copyTemplatePreview');\n" +
-  "    if (!field || !preview) return;\n" +
-  "    preview.textContent = field.value\n" +
-  "      .replace(/\\{\\{script\\}\\}/g, 'main')\n" +
-  "      .replace(/\\{\\{placeId\\}\\}/g, '123456789')\n" +
-  "      .replace(/\\{\\{origin\\}\\}/g, 'https://999ms.example')\n" +
-  "      .replace(/\\{\\{license\\}\\}/g, '');\n" +
-  "  }\n" +
-  "\n" +
-  "  function loadCommandTemplate() {\n" +
-  "    return api('/api/control/scripts', { op: 'get-command' }).then(function (result) {\n" +
-  "      var data = result.data || {};\n" +
-  "      if (result.status !== 200 || !data.ok) {\n" +
-  "        $('copyTemplateMeta').textContent = data.reason || '\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08';\n" +
-  "        return;\n" +
-  "      }\n" +
-  "      $('copyTemplate').value = data.commandTemplate || '';\n" +
-  "      $('copyTemplateMeta').textContent = '\u0e15\u0e31\u0e49\u0e07\u0e04\u0e48\u0e32\u0e41\u0e25\u0e49\u0e27 \u2014 \u0e43\u0e0a\u0e49\u0e1a\u0e19\u0e2b\u0e19\u0e49\u0e32 Scripts';\n" +
-  "      renderCommandTemplatePreview();\n" +
-  "    }).catch(function () { $('copyTemplateMeta').textContent = '\u0e42\u0e2b\u0e25\u0e14\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e04\u0e33\u0e2a\u0e31\u0e48\u0e07\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08'; });\n" +
+  "      $('upMeta').textContent = code ? '\u0e42\u0e2b\u0e25\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + editingItem.name + ' (' + bytes(code.length) + ') \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e41\u0e01\u0e49\u0e44\u0e02\u0e41\u0e25\u0e49\u0e27' : '\u0e01\u0e32\u0e23\u0e4c\u0e14 Coming Soon \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e41\u0e01\u0e49\u0e44\u0e02 \u2014 \u0e43\u0e2a\u0e48\u0e42\u0e04\u0e49\u0e14\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e1c\u0e22\u0e41\u0e1e\u0e23\u0e48\u0e44\u0e14\u0e49';\n" +
+  "      renderScripts(currentScriptItems);\n" +
+  "      var card = $('scriptCard');\n" +
+  "      if (card && card.scrollIntoView) card.scrollIntoView({ behavior: 'smooth', block: 'start' });\n" +
+  "      if (upBody && code.length <= 131072) upBody.focus();\n" +
+  "    }).catch(function (err) {\n" +
+  "      if (btn) btn.disabled = false;\n" +
+  "      toast('\u0e14\u0e36\u0e07\u0e42\u0e04\u0e49\u0e14\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08: ' + (err && err.message ? err.message : 'network error'), 'err');\n" +
+  "    });\n" +
   "  }\n" +
   "\n" +
   "  if ($('copyTemplate')) $('copyTemplate').addEventListener('input', renderCommandTemplatePreview);\n" +
@@ -2840,7 +2845,8 @@ const CONTROL_PAGE =
   "      if (!name) { toast('\u0e43\u0e2a\u0e48\u0e0a\u0e37\u0e48\u0e2d\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
   "      if (fileReadBusy) { toast('\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e48\u0e32\u0e19\u0e44\u0e1f\u0e25\u0e4c\u0e2d\u0e22\u0e39\u0e48 \u0e23\u0e2d\u0e2a\u0e31\u0e01\u0e04\u0e23\u0e39\u0e48\u0e41\u0e25\u0e49\u0e27\u0e01\u0e14\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07', 'err'); return; }\n" +
   "      var code = selectedFileCode !== null ? selectedFileCode : (upBody.value || '');\n" +
-  "      if (!code.trim()) { toast('\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e32\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19', 'err'); return; }\n" +
+  "      var isPreview = $('upIsPreview').checked;\n" +
+  "      if (!code.trim() && !isPreview) { toast('\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e44\u0e1f\u0e25\u0e4c\u0e2b\u0e23\u0e37\u0e2d\u0e27\u0e32\u0e07\u0e42\u0e04\u0e49\u0e14\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c\u0e01\u0e48\u0e2d\u0e19 \u0e2b\u0e23\u0e37\u0e2d\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e01\u0e32\u0e23\u0e4c\u0e14 Coming Soon', 'err'); return; }\n" +
   "      var sourceBytes = new Blob([code]).size;\n" +
   "      if (sourceBytes > MAX_SCRIPT_FILE_BYTES) {\n" +
   "        toast('\u0e44\u0e1f\u0e25\u0e4c\u0e43\u0e2b\u0e0d\u0e48\u0e40\u0e01\u0e34\u0e19\u0e02\u0e19\u0e32\u0e14\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14 25 MB', 'err');\n" +
@@ -2853,14 +2859,16 @@ const CONTROL_PAGE =
   "      btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e35\u0e1a\u0e2d\u0e31\u0e14\u2026';\n" +
   "      $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21 ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ')\u2026';\n" +
   "\n" +
-  "      compressGzipBase64(code).then(function (gzB64) {\n" +
-  "        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked, isWorking: $('upIsWorking').checked };\n" +
+  "      (code.trim() ? compressGzipBase64(code) : Promise.resolve('')).then(function (gzB64) {\n" +
+  "        var payload = { op: 'save', placeId: placeId, name: name, keyRequired: $('upKeyRequired').checked, isWorking: $('upIsWorking').checked, isEnabled: $('upIsEnabled').checked, isPreview: $('upIsPreview').checked };\n" +
   "        if (wasEditing) {\n" +
   "          payload.prevPlaceId = wasEditing.placeId;\n" +
   "          payload.prevName = wasEditing.name;\n" +
   "        }\n" +
-  "        if (gzB64) payload.bodyGzip = gzB64;\n" +
-  "        else payload.body = code;\n" +
+  "        if (code.trim()) {\n" +
+  "          if (gzB64) payload.bodyGzip = gzB64;\n" +
+  "          else payload.body = code;\n" +
+  "        }\n" +
   "\n" +
   "        var requestBytes = new Blob([JSON.stringify(payload)]).size;\n" +
   "        if (requestBytes > MAX_UPLOAD_JSON_BYTES) {\n" +
@@ -2868,7 +2876,7 @@ const CONTROL_PAGE =
   "        }\n" +
   "\n" +
   "        btn.textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14\u2026';\n" +
-  "        $('upMeta').textContent = '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ') \u0e02\u0e36\u0e49\u0e19 GitHub\u2026';\n" +
+  "        $('upMeta').textContent = code.trim() ? '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e2a\u0e48\u0e07\u0e44\u0e1f\u0e25\u0e4c ' + (selectedFileName || name) + ' (' + bytes(sourceBytes) + ') \u0e02\u0e36\u0e49\u0e19 GitHub\u2026' : '\u0e01\u0e33\u0e25\u0e31\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e4c\u0e14 Coming Soon\u2026';\n" +
   "        return api('/api/control/scripts', payload, 120000);\n" +
   "      }).then(function (result) {\n" +
   "        btn.disabled = false;\n" +
@@ -2878,10 +2886,10 @@ const CONTROL_PAGE =
   "          var gh = data.github || {};\n" +
   "          var deployNote = (gh.deploy && gh.deploy.triggered) ? ' \u00b7 \u0e2a\u0e31\u0e48\u0e07\u0e14\u0e35\u0e1e\u0e25\u0e2d\u0e22 Vercel \u0e41\u0e25\u0e49\u0e27' : '';\n" +
   "          var actionWord = wasEditing ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e41\u0e01\u0e49\u0e44\u0e02 ' : '\u0e2d\u0e31\u0e1b\u0e42\u0e2b\u0e25\u0e14 ';\n" +
-  "          var ghText = gh.ok\n" +
+  "          var ghText = gh.skipped ? ' \u00b7 \u0e01\u0e32\u0e23\u0e4c\u0e14\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e21\u0e35\u0e44\u0e1f\u0e25\u0e4c\u0e23\u0e31\u0e19' : (gh.ok\n" +
   "            ? ' \u00b7 \u0e02\u0e36\u0e49\u0e19 GitHub \u0e41\u0e25\u0e49\u0e27 (' + (gh.path || ('scripts/' + name + '.lua')) + deployNote + ')'\n" +
-  "            : '';\n" +
-  "          toast(actionWord + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
+  "            : '');\n" +
+  "          toast(data.isPreview ? '\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e01\u0e32\u0e23\u0e4c\u0e14 Coming Soon \u0e41\u0e25\u0e49\u0e27' : actionWord + name + ' \u0e41\u0e25\u0e49\u0e27 (' + bytes(data.size) + ')', 'ok');\n" +
   "          logLine(actionWord + '\u0e2a\u0e04\u0e23\u0e34\u0e1b\u0e15\u0e4c ' + name + ' (' + bytes(data.size) + ') \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a place ' + placeId, 'ok');\n" +
   "          if (gh.ok) logLine('commit ' + (gh.path || name) + ' \u0e44\u0e1b\u0e17\u0e35\u0e48 ' + (gh.branch || 'main') + deployNote, 'ok');\n" +
   "          exitEditMode(true);\n" +
@@ -4155,6 +4163,9 @@ const ROOT_PAGE =
   "    .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}\n" +
   "    .home-script-cover img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.home-script-card:hover img{transform:scale(1.04)}\n" +
   "    .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}\n" +
+  "    .home-script-cover{position:relative}.home-script-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.58);color:#fff;font-size:clamp(20px,3vw,30px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-cover span{display:none}\n" +
   "    .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}\n" +
   "    .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}\n" +
   "    .community-section{padding-top:25px;padding-bottom:100px}\n" +
@@ -4521,17 +4532,21 @@ const ROOT_PAGE =
   "        fetch(\"/api/scripts\", { cache: \"no-store\" }).then((res) => { if (!res.ok) throw new Error(\"scripts unavailable\"); return res.json(); }).then(async (data) => {\n" +
   "          const items = Array.isArray(data.items) ? data.items.slice(0,3) : [];\n" +
   "          if (!items.length) { previewGrid.innerHTML = '<div class=\"home-script-empty\">No scripts are published yet. Check back soon.</div>'; return; }\n" +
-  "          const ids = items.map((item) => item.placeId).filter(Boolean).join(\",\");\n" +
+  "          const ids = items.filter((item) => item.isPreview !== true).map((item) => item.placeId).filter(Boolean).join(\",\");\n" +
   "          let games = {};\n" +
   "          if (ids) {\n" +
   "            try { const gameRes = await fetch(\"/api/games?ids=\" + encodeURIComponent(ids), { cache: \"no-store\" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}\n" +
   "          }\n" +
   "          previewGrid.innerHTML = items.map((item) => {\n" +
+  "            if (item.isPreview === true) return '<div class=\"home-script-card is-coming-soon\" aria-label=\"Coming Soon\"><div class=\"home-script-cover\"><span>9</span><b class=\"home-script-ribbon\">Coming Soon</b></div><h3>Coming Soon</h3></div>';\n" +
   "            const game = games[String(item.placeId)] || {};\n" +
   "            const title = game.name || scriptTitle(item.name);\n" +
   "            const cover = game.icon ? '<img src=\"' + safe(game.icon) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>' + safe(title.slice(0,1).toUpperCase() || \"9\") + '</span>';\n" +
   "            const date = item.updatedAt ? new Date(item.updatedAt).toLocaleDateString(undefined,{year:\"numeric\",month:\"short\",day:\"numeric\"}) : \"Recently published\";\n" +
-  "            return '<a class=\"home-script-card\" href=\"/scripts\"><div class=\"home-script-cover\">' + cover + '</div><h3>' + safe(title) + '</h3><p class=\"home-script-meta\">999MS &nbsp;\u00b7&nbsp; ' + safe(item.name) + '.lua &nbsp;\u00b7&nbsp; ' + safe(date) + '</p></a>';\n" +
+  "            const ribbon = item.isEnabled === false ? '<b class=\"home-script-ribbon\">Update</b>' : '';\n" +
+  "            const tag = item.isEnabled === false ? 'div' : 'a';\n" +
+  "            const open = item.isEnabled === false ? '' : ' href=\"/scripts\"';\n" +
+  "            return '<' + tag + ' class=\"home-script-card' + (item.isEnabled === false ? ' is-disabled' : '') + '\"' + open + '><div class=\"home-script-cover\">' + cover + ribbon + '</div><h3>' + safe(title) + '</h3><p class=\"home-script-meta\">999MS &nbsp;\u00b7&nbsp; ' + safe(item.name) + '.lua &nbsp;\u00b7&nbsp; ' + safe(date) + '</p></' + tag + '>';\n" +
   "          }).join(\"\");\n" +
   "          previewGrid.querySelectorAll(\"img\").forEach((img) => img.addEventListener(\"error\", () => { const cover = img.parentNode; img.remove(); const span = document.createElement(\"span\"); span.textContent = \"9\"; cover.appendChild(span); }));\n" +
   "        }).catch(() => { previewGrid.innerHTML = '<div class=\"home-script-empty\">The script library is temporarily unavailable. <a href=\"/scripts\" style=\"color:#fff\">Open ScriptHub \u2192</a></div>'; });\n" +
@@ -4864,6 +4879,9 @@ const HUB_PAGE =
   "    .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}\n" +
   "    .home-script-cover img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}.home-script-card:hover img{transform:scale(1.04)}\n" +
   "    .home-script-cover span{width:100%;height:100%;display:grid;place-items:center;color:#ccc;font-size:60px;font-weight:800}\n" +
+  "    .home-script-cover{position:relative}.home-script-ribbon{position:absolute;inset:0;display:grid;place-items:center;background:rgba(7,7,9,.58);color:#fff;font-size:clamp(20px,3vw,30px);font-weight:800;letter-spacing:.12em;text-transform:uppercase;backdrop-filter:blur(2px)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-cover{background:radial-gradient(ellipse at 50% 45%,#282431,#09090b 72%)}\n" +
+  "    .home-script-card.is-coming-soon .home-script-cover span{display:none}\n" +
   "    .home-script-card h3{margin:15px 3px 0;font-size:19px;line-height:1.25;letter-spacing:-.035em}.home-script-meta{margin:9px 3px 0;color:#777780;font-size:12px}\n" +
   "    .home-script-empty{grid-column:1/-1;padding:30px;border:1px solid #26262a;border-radius:18px;color:#8f8f97;background:#0a0a0c}\n" +
   "    .community-section{padding-top:25px;padding-bottom:100px}\n" +
@@ -5230,17 +5248,21 @@ const HUB_PAGE =
   "        fetch(\"/api/scripts\", { cache: \"no-store\" }).then((res) => { if (!res.ok) throw new Error(\"scripts unavailable\"); return res.json(); }).then(async (data) => {\n" +
   "          const items = Array.isArray(data.items) ? data.items.slice(0,3) : [];\n" +
   "          if (!items.length) { previewGrid.innerHTML = '<div class=\"home-script-empty\">No scripts are published yet. Check back soon.</div>'; return; }\n" +
-  "          const ids = items.map((item) => item.placeId).filter(Boolean).join(\",\");\n" +
+  "          const ids = items.filter((item) => item.isPreview !== true).map((item) => item.placeId).filter(Boolean).join(\",\");\n" +
   "          let games = {};\n" +
   "          if (ids) {\n" +
   "            try { const gameRes = await fetch(\"/api/games?ids=\" + encodeURIComponent(ids), { cache: \"no-store\" }); const gameData = await gameRes.json(); (gameData.games || []).forEach((game) => { games[String(game.placeId)] = game; }); } catch (_) {}\n" +
   "          }\n" +
   "          previewGrid.innerHTML = items.map((item) => {\n" +
+  "            if (item.isPreview === true) return '<div class=\"home-script-card is-coming-soon\" aria-label=\"Coming Soon\"><div class=\"home-script-cover\"><span>9</span><b class=\"home-script-ribbon\">Coming Soon</b></div><h3>Coming Soon</h3></div>';\n" +
   "            const game = games[String(item.placeId)] || {};\n" +
   "            const title = game.name || scriptTitle(item.name);\n" +
   "            const cover = game.icon ? '<img src=\"' + safe(game.icon) + '\" alt=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer\">' : '<span>' + safe(title.slice(0,1).toUpperCase() || \"9\") + '</span>';\n" +
   "            const date = item.updatedAt ? new Date(item.updatedAt).toLocaleDateString(undefined,{year:\"numeric\",month:\"short\",day:\"numeric\"}) : \"Recently published\";\n" +
-  "            return '<a class=\"home-script-card\" href=\"/scripts\"><div class=\"home-script-cover\">' + cover + '</div><h3>' + safe(title) + '</h3><p class=\"home-script-meta\">999MS &nbsp;\u00b7&nbsp; ' + safe(item.name) + '.lua &nbsp;\u00b7&nbsp; ' + safe(date) + '</p></a>';\n" +
+  "            const ribbon = item.isEnabled === false ? '<b class=\"home-script-ribbon\">Update</b>' : '';\n" +
+  "            const tag = item.isEnabled === false ? 'div' : 'a';\n" +
+  "            const open = item.isEnabled === false ? '' : ' href=\"/scripts\"';\n" +
+  "            return '<' + tag + ' class=\"home-script-card' + (item.isEnabled === false ? ' is-disabled' : '') + '\"' + open + '><div class=\"home-script-cover\">' + cover + ribbon + '</div><h3>' + safe(title) + '</h3><p class=\"home-script-meta\">999MS &nbsp;\u00b7&nbsp; ' + safe(item.name) + '.lua &nbsp;\u00b7&nbsp; ' + safe(date) + '</p></' + tag + '>';\n" +
   "          }).join(\"\");\n" +
   "          previewGrid.querySelectorAll(\"img\").forEach((img) => img.addEventListener(\"error\", () => { const cover = img.parentNode; img.remove(); const span = document.createElement(\"span\"); span.textContent = \"9\"; cover.appendChild(span); }));\n" +
   "        }).catch(() => { previewGrid.innerHTML = '<div class=\"home-script-empty\">The script library is temporarily unavailable. <a href=\"/scripts\" style=\"color:#fff\">Open ScriptHub \u2192</a></div>'; });\n" +
@@ -5445,7 +5467,18 @@ async function serveArtifact(req, res, name, url, origin) {
   return rejectOrTrap(req, res);
 }
 
-// ═══ /api/verify ═══// ═══ /api/verify ═══// ═══ /api/verify ═══
+// Script availability is independent from the legacy display-only is_working flag.
+// Missing metadata, previews, and disabled scripts all fail closed at runtime.
+async function scriptRunAllowed(name) {
+  if (!isValidScriptName(name) || !supabaseConfig()) return false;
+  const rows = await supabaseRows(
+    '/rest/v1/scripts?select=is_enabled,is_preview&script_name=eq.' + encodeURIComponent(name) + '&limit=100');
+  return Array.isArray(rows) && rows.length > 0 && rows.every(function (row) {
+    return row.is_enabled === true && row.is_preview !== true;
+  });
+}
+
+// ═══ /api/verify ═══
 async function handleVerify(req, res, ip) {
   const xorKey = process.env.PAYLOAD_XOR_KEY || '';
   const body = req.body || {};
@@ -5470,6 +5503,9 @@ async function handleVerify(req, res, ip) {
     return res.status(400).json({ valid: false, error: 'scriptName required' });
   if (!isValidScriptName(scriptName))
     return res.status(400).json({ valid: false, error: 'invalid scriptName format' });
+  if (!await scriptRunAllowed(scriptName)) {
+    return res.status(200).json({ valid: false, message: 'This script is disabled or coming soon' });
+  }
   const boundHwid = formatBoundHwid(clientHwid, scriptName);
   const bindingId = deviceBindingId(clientHwid, scriptName);
   const hwidHash = hashBindingId(bindingId);
@@ -5559,6 +5595,9 @@ async function handleScript(req, res, ip) {
   if (!name) return res.status(400).json({ Valid: false, reason: 'no scriptName' });
   if (name !== payload.scriptName)
     return res.status(403).json({ Valid: false, reason: 'scriptName mismatch' });
+  if (!await scriptRunAllowed(name)) {
+    return res.status(200).json(encodeProtectedPayload({ Valid: false, reason: 'Script is disabled or coming soon' }, xorKey));
+  }
 
   const device = deviceMatches(req, payload.hwidHash, req.body?.c ?? req.body?.hwid, name);
   if (!device.ok)
@@ -5692,6 +5731,7 @@ async function handleScriptVerify(req, res, ip) {
   const payload = verifyTicket(ticket);
   if (!payload) return rejectRuntimeVerification(res, 401, 'D2_TICKET_INVALID');
   if (payload.scope !== 'script') return rejectRuntimeVerification(res, 403, 'D2_TICKET_SCOPE');
+  if (!await scriptRunAllowed(payload.scriptName)) return rejectRuntimeVerification(res, 403, 'D2_SCRIPT_DISABLED');
 
   // Resolve HWID before burning the next-step hop so an invalid device
   // request does not make a retried legitimate request look replayed.
@@ -6565,16 +6605,26 @@ async function handleScriptsList(req, res) {
     });
   }
   const results = await Promise.all([
-    supabaseRows('/rest/v1/scripts?select=place_id,script_name,size,key_required,is_working,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX),
+    supabaseRows('/rest/v1/scripts?select=place_id,script_name,size,key_required,is_working,is_enabled,is_preview,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX),
     getCommandTemplate(),
     getUploaderProfile(),
   ]);
   const rows = results[0];
-  const items = (rows || []).map(function (row) {
+  const items = (rows || []).map(function (row, index) {
+    if (row.is_preview === true) {
+      // Spoiler cards must not leak their real map id or script name through
+      // the public JSON API, even though the front end only paints a label.
+      return {
+        placeId: 'preview-' + (index + 1), name: 'coming-soon', size: 0,
+        keyRequired: true, isWorking: false, isEnabled: false,
+        isPreview: true, updatedAt: null,
+      };
+    }
     return {
       placeId: String(row.place_id || ''), name: String(row.script_name || ''),
       size: Number(row.size) || 0, keyRequired: row.key_required !== false,
-      isWorking: row.is_working !== false, updatedAt: row.updated_at || null,
+      isWorking: row.is_working !== false, isEnabled: row.is_enabled !== false,
+      isPreview: false, updatedAt: row.updated_at || null,
     };
   }).filter(function (item) { return item.placeId && item.name; });
   scriptsListCache = { at: now, items: items, scope: rows ? 'supabase' : 'memory', commandTemplate: results[1] || DEFAULT_COMMAND_TEMPLATE, uploader: results[2] || null };
@@ -6637,7 +6687,7 @@ async function handleControlScripts(req, res) {
 
   if (op === 'list') {
     const rows = await supabaseRows(
-      '/rest/v1/scripts?select=place_id,script_name,size,key_required,is_working,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
+      '/rest/v1/scripts?select=place_id,script_name,size,key_required,is_working,is_enabled,is_preview,created_at,updated_at&order=updated_at.desc&limit=' + SCRIPT_LIST_MAX);
     if (!rows) return res.status(502).json({ ok: false, reason: 'read failed' });
     return res.status(200).json({
       ok: true,
@@ -6648,6 +6698,8 @@ async function handleControlScripts(req, res) {
           size: Number(row.size) || 0,
           keyRequired: row.key_required !== false,
           isWorking: row.is_working !== false,
+          isEnabled: row.is_enabled !== false,
+          isPreview: row.is_preview === true,
           createdAt: row.created_at || null,
           updatedAt: row.updated_at || null,
         };
@@ -6672,6 +6724,32 @@ async function handleControlScripts(req, res) {
     return res.status(200).json({ ok: true, name: name, isWorking: body.isWorking });
   }
 
+  if (op === 'set-enabled' || op === 'set-preview') {
+    const name = sbText(body.name, 64);
+    if (!name || !isValidScriptName(name)) return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง' });
+    const field = op === 'set-enabled' ? 'isEnabled' : 'isPreview';
+    if (typeof body[field] !== 'boolean') return res.status(400).json({ ok: false, reason: 'สถานะไม่ถูกต้อง' });
+    if (op === 'set-enabled' && body.isEnabled) {
+      const rows = await supabaseRows('/rest/v1/scripts?select=is_preview&script_name=eq.' + encodeURIComponent(name) + '&limit=100');
+      if (!rows) return res.status(502).json({ ok: false, reason: 'อ่านสถานะสคริปต์ไม่สำเร็จ' });
+      if (rows.some(function (row) { return row.is_preview === true; })) {
+        return res.status(409).json({ ok: false, reason: 'นำ Coming Soon ออกก่อนจึงจะเปิดรันได้' });
+      }
+    }
+    const patch = op === 'set-enabled'
+      ? { is_enabled: body.isEnabled }
+      : { is_preview: body.isPreview, is_enabled: body.isPreview ? false : undefined };
+    if (patch.is_enabled === undefined) delete patch.is_enabled;
+    const saved = await supabaseFetch('/rest/v1/scripts?script_name=eq.' + encodeURIComponent(name), {
+      method: 'PATCH', headers: { prefer: 'return=representation' }, body: JSON.stringify(patch),
+    });
+    if (saved === null) return res.status(502).json({ ok: false, reason: 'บันทึกสถานะไม่สำเร็จ' });
+    if (!Array.isArray(saved) || !saved.length) return res.status(404).json({ ok: false, reason: 'ไม่พบสคริปต์' });
+    scriptsListCache.at = 0;
+    noteEvent(op === 'set-enabled' ? 'script_enabled' : 'script_preview', name + ' ' + (body[field] ? 'enabled' : 'disabled'));
+    return res.status(200).json({ ok: true, name: name, isEnabled: body.isEnabled, isPreview: body.isPreview });
+  }
+
   if (op === 'save') {
     const placeId = cleanPlaceId(body.placeId);
     const name = sbText(body.name, 64);
@@ -6680,10 +6758,11 @@ async function handleControlScripts(req, res) {
     if (!placeId) return res.status(400).json({ ok: false, reason: 'place id ไม่ถูกต้อง' });
     if (!name || !isValidScriptName(name)) return res.status(400).json({ ok: false, reason: 'ชื่อสคริปต์ไม่ถูกต้อง (a-z 0-9 - _)' });
 
+    const isPreview = body.isPreview === true;
     const decoded = decodeUploadedScriptBody(body);
     if (!decoded.ok) return res.status(decoded.status).json({ ok: false, reason: decoded.reason });
     const code = stripScriptHeader(decoded.code);
-    if (!code.trim()) return res.status(400).json({ ok: false, reason: 'ไม่มีโค้ดสคริปต์' });
+    if (!code.trim() && !isPreview) return res.status(400).json({ ok: false, reason: 'ไม่มีโค้ดสคริปต์' });
 
     let removeOldName = null;
     if (prevName && isValidScriptName(prevName) && prevName !== name) {
@@ -6694,8 +6773,11 @@ async function handleControlScripts(req, res) {
     }
 
     const byteSize = Buffer.byteLength(code, 'utf8');
-    // Commit full .lua file to GitHub FIRST; Supabase stores metadata ONLY (0 script bytes).
-    const github = await commitScriptToGithub(name, placeId, code, removeOldName);
+    // Commit script source only when one was supplied. Empty Coming Soon cards
+    // are metadata-only and deliberately have no runnable GitHub file.
+    const github = code.trim()
+      ? await commitScriptToGithub(name, placeId, code, removeOldName)
+      : { ok: true, skipped: true, reason: 'Coming Soon card has no script source' };
     if (!github.ok) {
       return res.status(502).json({
         ok: false,
@@ -6714,6 +6796,8 @@ async function handleControlScripts(req, res) {
           size: byteSize,
           key_required: body.keyRequired !== false,
           is_working: body.isWorking !== false,
+          is_enabled: body.isEnabled !== false && !isPreview,
+          is_preview: isPreview,
           updated_at: new Date().toISOString(),
         }),
       });
@@ -6724,7 +6808,10 @@ async function handleControlScripts(req, res) {
       '/rest/v1/scripts?script_name=eq.' + encodeURIComponent(name), {
         method: 'PATCH',
         headers: { prefer: 'return=representation' },
-        body: JSON.stringify({ key_required: body.keyRequired !== false, is_working: body.isWorking !== false }),
+        body: JSON.stringify({
+          key_required: body.keyRequired !== false, is_working: body.isWorking !== false,
+          is_enabled: body.isEnabled !== false && !isPreview, is_preview: isPreview,
+        }),
       });
     if (modeSaved === null) return res.status(502).json({ ok: false, reason: 'Supabase key mode save failed' });
 
@@ -6744,6 +6831,8 @@ async function handleControlScripts(req, res) {
       placeId: placeId,
       name: name,
       size: byteSize,
+      isEnabled: body.isEnabled !== false && !isPreview,
+      isPreview: isPreview,
       github: github,
     });
   }
@@ -6905,6 +6994,7 @@ async function handleScriptRaw(req, res) {
   if (!verified) return rejectOrTrap(req, res, 403);
   const idx = Number(body.i);
   const meta = verified.meta;
+  if (!await scriptRunAllowed(meta.n)) return res.status(403).send('');
   if (!Number.isInteger(idx) || idx < 0 || idx >= Number(meta.c || 0)) {
     return res.status(400).send('');
   }
