@@ -13,9 +13,10 @@ const path = require('node:path');
 
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 const CORE = path.join(PROJECT_ROOT, 'Server', 'core.js');
-// Bundle the exact supplied HUB screenshot into server-rendered homepage HTML.
-const HUB_UI_IMAGE = path.join(PROJECT_ROOT, 'assets', '999ms-hub-ui-reference.png');
-const HUB_UI_DATA_URI = `data:image/png;base64,${fs.readFileSync(HUB_UI_IMAGE).toString('base64')}`;
+const CYBERPUNK_HERO_IMAGE = path.join(PROJECT_ROOT, 'assets', 'cyberpunk-anime-hero.webp');
+const CYBERPUNK_HERO_DATA_URI = `data:image/webp;base64,${fs.readFileSync(CYBERPUNK_HERO_IMAGE).toString('base64')}`;
+const CYBERPUNK_THEME = fs.readFileSync(path.join(PROJECT_ROOT, 'styles', 'cyberpunk-anime.css'), 'utf8')
+  .replaceAll('{{CYBERPUNK_HERO_DATA_URI}}', CYBERPUNK_HERO_DATA_URI);
 
 // Route -> source file. Add a row here and the page becomes servable once the
 // route is also reachable (vercel.json rewrite + the page lookup in core.js).
@@ -93,8 +94,18 @@ function main() {
     if (!fs.existsSync(abs)) throw new Error(`missing page source: ${file}`);
     const template = fs.readFileSync(abs, 'utf8');
     if (!template.trim()) throw new Error(`empty page source: ${file}`);
-    const html = template.replaceAll('{{HUB_UI_REFERENCE_IMAGE}}', HUB_UI_DATA_URI);
-    if (html.includes('{{HUB_UI_REFERENCE_IMAGE}}')) throw new Error(`unexpanded UI image token in ${file}`);
+    let html = template;
+    if (!html.includes('id="cyberpunk-theme"')) {
+      const themeBlock = [
+        '<link rel="preconnect" href="https://fonts.googleapis.com">',
+        '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+        '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">',
+        '<style id="cyberpunk-theme">',
+        CYBERPUNK_THEME,
+        '</style>',
+      ].join('\n');
+      html = html.replace('</head>', `${themeBlock}\n</head>`);
+    }
     source = replaceRegion(source, route, renderBlock(route, html));
     changed++;
     console.log(`embedded ${route} <- ${file} (${Buffer.byteLength(html)} bytes)`);
