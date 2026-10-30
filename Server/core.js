@@ -3917,7 +3917,7 @@ const ROOT_PAGE =
   "    /* ===== Header ===== */\n" +
   "    .site-header { position:sticky; top:0; z-index:50; width:min(100%,1440px); margin:0 auto; padding:10px clamp(16px,3vw,42px); display:flex; align-items:center; justify-content:center; }\n" +
   "    .site-header::before { content:\"\"; position:absolute; z-index:0; top:0; bottom:0; left:calc(50% - 50vw); right:calc(50% - 50vw); background:transparent; transition:background .2s ease; pointer-events:none; }\n" +
-  "    body.scrolled .site-header::before { background:rgba(5,5,6,.94); border-bottom:1px solid #202024; backdrop-filter:blur(16px); }\n" +
+  "    body.scrolled .site-header::before { background:rgba(245,247,252,.96); border-bottom:1px solid #d8dce6; backdrop-filter:blur(16px); }\n" +
   "\n" +
   "    .nav-pill { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; height:64px; padding:0 8px 0 16px; border-radius:0; background:transparent; border:0; box-shadow:none; backdrop-filter:none; }\n" +
   "\n" +
@@ -3936,9 +3936,9 @@ const ROOT_PAGE =
   "    .nav-actions{display:flex;align-items:center;gap:12px}.nav-try{height:48px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#050505;color:#fff;font-size:14px;font-weight:700}.nav-actions .sign-in{background:rgba(255,255,255,.3);color:#111}.nav-actions .nav-try{background:#050505;color:#fff}\n" +
   "    .nav-link { font-size:14px; font-weight:750; color:#050608; transition:color .2s ease; }\n" +
   "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
-  "    body.scrolled .nav-link{color:#fff}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
-  "    body.scrolled .nav-actions .sign-in{background:rgba(255,255,255,.12);color:#fff}body.scrolled .nav-actions .nav-try{background:#fff;color:#050505}\n" +
-  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:transparent}\n" +
+  "    body.scrolled .nav-link{color:#050608}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#050608}\n" +
+  "    body.scrolled .nav-actions .sign-in{background:rgba(5,5,6,.08);color:#050608}body.scrolled .nav-actions .nav-try{background:#050505;color:#fff}\n" +
+  "    body.scrolled .burger span{background:#08090b}body.scrolled .burger{background:transparent}\n" +
   "\n" +
   "    .sign-in {\n" +
   "      display:inline-flex;align-items:center;justify-content:center;\n" +
@@ -4187,7 +4187,7 @@ const ROOT_PAGE =
   "    @media (max-width:900px){\n" +
   "      .site-header{position:sticky;top:0;left:0;right:0;width:100%;justify-content:space-between;padding:7px 20px}\n" +
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
-  "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}body.scrolled .brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
+  "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}body.scrolled .brand svg path{fill:#08090b!important;stroke:#08090b!important}\n" +
   "      .nav-links,.nav-actions{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
   "      .hero-stage{min-height:calc(100svh - 66px);padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:clamp(145px,26svh,215px);padding-bottom:22px}.pop-element{opacity:0;visibility:hidden;transform:translateY(18px);filter:blur(6px)}.pop-element.pop-in{visibility:visible;animation:heroReveal .75s cubic-bezier(.2,.7,.2,1) var(--delay) both}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;display:flex;justify-content:center;white-space:nowrap;letter-spacing:.13em;font-size:clamp(38px,11vw,58px);line-height:1;margin-bottom:15px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
@@ -4293,7 +4293,7 @@ const ROOT_PAGE =
   "\n" +
   "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
   "      <div class=\"section-inner\">\n" +
-  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div></div>\n" +
   "        <div class=\"feature-grid\">\n" +
   "          <article class=\"feature-card\"><div><small>Made for your games</small><h3>Find your next in-game script.</h3><p>Explore scripts for supported Roblox experiences and choose the ones that fit how you play.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>The right script is easy to find.</h3><p>Browse supported experiences, check script updates, and explore the details before you choose.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
@@ -4629,7 +4629,7 @@ const HUB_PAGE =
   "    /* ===== Header ===== */\n" +
   "    .site-header { position:sticky; top:0; z-index:50; width:min(100%,1440px); margin:0 auto; padding:10px clamp(16px,3vw,42px); display:flex; align-items:center; justify-content:center; }\n" +
   "    .site-header::before { content:\"\"; position:absolute; z-index:0; top:0; bottom:0; left:calc(50% - 50vw); right:calc(50% - 50vw); background:transparent; transition:background .2s ease; pointer-events:none; }\n" +
-  "    body.scrolled .site-header::before { background:rgba(5,5,6,.94); border-bottom:1px solid #202024; backdrop-filter:blur(16px); }\n" +
+  "    body.scrolled .site-header::before { background:rgba(245,247,252,.96); border-bottom:1px solid #d8dce6; backdrop-filter:blur(16px); }\n" +
   "\n" +
   "    .nav-pill { position:relative; z-index:1; display:flex; align-items:center; justify-content:space-between; width:100%; height:64px; padding:0 8px 0 16px; border-radius:0; background:transparent; border:0; box-shadow:none; backdrop-filter:none; }\n" +
   "\n" +
@@ -4648,9 +4648,9 @@ const HUB_PAGE =
   "    .nav-actions{display:flex;align-items:center;gap:12px}.nav-try{height:48px;padding:0 24px;display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:#050505;color:#fff;font-size:14px;font-weight:700}.nav-actions .sign-in{background:rgba(255,255,255,.3);color:#111}.nav-actions .nav-try{background:#050505;color:#fff}\n" +
   "    .nav-link { font-size:14px; font-weight:750; color:#050608; transition:color .2s ease; }\n" +
   "    .nav-link:hover, .nav-link.is-active { color:#050608; }\n" +
-  "    body.scrolled .nav-link{color:#fff}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#fff}\n" +
-  "    body.scrolled .nav-actions .sign-in{background:rgba(255,255,255,.12);color:#fff}body.scrolled .nav-actions .nav-try{background:#fff;color:#050505}\n" +
-  "    body.scrolled .burger span{background:#fff}body.scrolled .burger{background:transparent}\n" +
+  "    body.scrolled .nav-link{color:#050608}body.scrolled .nav-link:hover,body.scrolled .nav-link.is-active{color:#050608}\n" +
+  "    body.scrolled .nav-actions .sign-in{background:rgba(5,5,6,.08);color:#050608}body.scrolled .nav-actions .nav-try{background:#050505;color:#fff}\n" +
+  "    body.scrolled .burger span{background:#08090b}body.scrolled .burger{background:transparent}\n" +
   "\n" +
   "    .sign-in {\n" +
   "      display:inline-flex;align-items:center;justify-content:center;\n" +
@@ -4899,7 +4899,7 @@ const HUB_PAGE =
   "    @media (max-width:900px){\n" +
   "      .site-header{position:sticky;top:0;left:0;right:0;width:100%;justify-content:space-between;padding:7px 20px}\n" +
   "      .nav-pill{display:flex;flex:1;height:52px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none}\n" +
-  "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}body.scrolled .brand svg path{fill:#fff!important;stroke:#fff!important}\n" +
+  "      .brand{width:42px;height:42px;background:transparent;box-shadow:none}.brand svg path{fill:#08090b!important;stroke:#08090b!important}body.scrolled .brand svg path{fill:#08090b!important;stroke:#08090b!important}\n" +
   "      .nav-links,.nav-actions{display:none}.burger{position:relative;z-index:1;display:flex;width:44px;height:44px;border:0;background:transparent}.burger span{width:22px;height:2px;background:#08090b}\n" +
   "      .hero-stage{min-height:calc(100svh - 66px);padding-left:22px;padding-right:22px;padding-bottom:0}.hero{flex:none;padding-top:clamp(145px,26svh,215px);padding-bottom:22px}.pop-element{opacity:0;visibility:hidden;transform:translateY(18px);filter:blur(6px)}.pop-element.pop-in{visibility:visible;animation:heroReveal .75s cubic-bezier(.2,.7,.2,1) var(--delay) both}.headline{position:static;top:auto;left:auto;width:100%;max-width:100%;transform:none;display:flex;justify-content:center;white-space:nowrap;letter-spacing:.13em;font-size:clamp(38px,11vw,58px);line-height:1;margin-bottom:15px}.trust-strip{gap:18px 28px;font-size:11px}\n" +
   "    }\n" +
@@ -5005,7 +5005,7 @@ const HUB_PAGE =
   "\n" +
   "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
   "      <div class=\"section-inner\">\n" +
-  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div><a class=\"section-link\" href=\"/scripts\">View scripts <span>\u2192</span></a></div>\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div></div>\n" +
   "        <div class=\"feature-grid\">\n" +
   "          <article class=\"feature-card\"><div><small>Made for your games</small><h3>Find your next in-game script.</h3><p>Explore scripts for supported Roblox experiences and choose the ones that fit how you play.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
   "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>The right script is easy to find.</h3><p>Browse supported experiences, check script updates, and explore the details before you choose.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
