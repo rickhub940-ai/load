@@ -7640,7 +7640,7 @@ const crypto = require('node:crypto');
 
 const STAGES = ['loada', 'loader', 'payload'];
 const NEXT_STAGE = Object.freeze({ loada: 'loader', loader: 'payload' });
-const DEFAULT_TTL_MS = 10_000;
+const DEFAULT_TTL_MS = 60_000;
 
 function chainSecret() {
   const secret = process.env.CHAIN_LINK_SECRET || process.env.TICKET_SECRET;
@@ -7665,7 +7665,7 @@ function tokenFor(stage, chainId, exp) {
   return `${chainId}.${exp}.${sign(chainId, stage, exp)}`;
 }
 
-// Every link expires no later than ten seconds after its creation.
+// Every link expires no later than one minute after its creation.
 function mintLink(stage, now = Date.now()) {
   if (!chainSecret() || !STAGES.includes(stage)) return null;
   const chainId = crypto.randomBytes(16).toString('hex');
@@ -7738,7 +7738,7 @@ function deriveNext(token, now = Date.now()) {
     .slice(0, 32);
   // The whole chain is pre-rendered to bind exact downstream SHA-256 hashes.
   // Its derived links already exist then, so they share the same deadline;
-  // deriving or fetching later must not renew their ten-second lifetime.
+  // deriving or fetching later must not renew their one-minute lifetime.
   const exp = claim.exp;
   return { chainId, stage: nextStage, exp, token: tokenFor(nextStage, chainId, exp) };
 }
