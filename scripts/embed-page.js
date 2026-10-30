@@ -95,17 +95,7 @@ function main() {
     if (!template.trim()) throw new Error(`empty page source: ${file}`);
     const html = template.replaceAll('{{HUB_UI_REFERENCE_IMAGE}}', HUB_UI_DATA_URI);
     if (html.includes('{{HUB_UI_REFERENCE_IMAGE}}')) throw new Error(`unexpanded UI image token in ${file}`);
-    const fontLinks = [
-      '<link rel="preconnect" href="https://fonts.googleapis.com">',
-      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
-      '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">',
-      '<style id="shared-brand-fonts">',
-      'body, button, input, textarea, select { font-family: "Rajdhani", Inter, system-ui, sans-serif !important; }',
-      'h1, h2, h3, h4, h5, .headline, .section-heading, .card-title { font-family: "Orbitron", "Rajdhani", sans-serif !important; }',
-      '</style>',
-    ].join('\n');
-    const pageWithFonts = html.replace('</head>', `${fontLinks}\n</head>`);
-    source = replaceRegion(source, route, renderBlock(route, pageWithFonts));
+    source = replaceRegion(source, route, renderBlock(route, html));
     changed++;
     console.log(`embedded ${route} <- ${file} (${Buffer.byteLength(html)} bytes)`);
   }

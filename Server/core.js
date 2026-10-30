@@ -152,13 +152,6 @@ const SCRIPTS_PAGE =
   "    }\n" +
   "    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}\n" +
   "  </style>\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n" +
-  "<link href=\"https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n" +
-  "<style id=\"shared-brand-fonts\">\n" +
-  "body, button, input, textarea, select { font-family: \"Rajdhani\", Inter, system-ui, sans-serif !important; }\n" +
-  "h1, h2, h3, h4, h5, .headline, .section-heading, .card-title { font-family: \"Orbitron\", \"Rajdhani\", sans-serif !important; }\n" +
-  "</style>\n" +
   "</head>\n" +
   "<body>\n" +
   "  <header class=\"topbar\">\n" +
@@ -859,13 +852,6 @@ const STATS_PAGE =
   "    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }\n" +
   "  .mark img{width:100%;height:100%;object-fit:cover;border-radius:inherit}\n" +
   "  </style>\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n" +
-  "<link href=\"https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n" +
-  "<style id=\"shared-brand-fonts\">\n" +
-  "body, button, input, textarea, select { font-family: \"Rajdhani\", Inter, system-ui, sans-serif !important; }\n" +
-  "h1, h2, h3, h4, h5, .headline, .section-heading, .card-title { font-family: \"Orbitron\", \"Rajdhani\", sans-serif !important; }\n" +
-  "</style>\n" +
   "</head>\n" +
   "<body>\n" +
   "  <!-- Background -->\n" +
@@ -2057,13 +2043,6 @@ const CONTROL_PAGE =
   "    @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }\n" +
   "  .mark img{width:100%;height:100%;object-fit:cover;border-radius:inherit}\n" +
   "  </style>\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n" +
-  "<link href=\"https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n" +
-  "<style id=\"shared-brand-fonts\">\n" +
-  "body, button, input, textarea, select { font-family: \"Rajdhani\", Inter, system-ui, sans-serif !important; }\n" +
-  "h1, h2, h3, h4, h5, .headline, .section-heading, .card-title { font-family: \"Orbitron\", \"Rajdhani\", sans-serif !important; }\n" +
-  "</style>\n" +
   "</head>\n" +
   "<body>\n" +
   "  <!-- Background -->\n" +
@@ -4255,13 +4234,6 @@ const ROOT_PAGE =
   "    @media(max-width:720px){.product-section{padding-top:clamp(70px,9svh,100px);padding-bottom:36px;background:linear-gradient(180deg,#cbd5eb 0%,#cbd5eb 58%,#050505 100%)}.product-section.reveal,.why-section.reveal,.scripts-section.reveal,.community-section.reveal{opacity:1;transform:none}.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.why-section.reveal.is-visible>.section-inner,.scripts-section.reveal.is-visible>.section-inner,.community-section.reveal.is-visible>.section-inner{opacity:1;transform:none}.product-section .section-kicker,.product-section .section-heading,.product-section .section-copy{display:none}.product-window{margin-top:0}.product-section .section-inner{width:min(100%,1120px)}}\n" +
   "    @media(prefers-reduced-motion:reduce){.hero-stage::before,.tech-strip{animation:none!important;transform:none!important}.tech-track[aria-hidden=\"true\"]{display:none!important}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring,.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:1;filter:none;transform:none}.product-window::after{display:none}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n" +
-  "<link href=\"https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n" +
-  "<style id=\"shared-brand-fonts\">\n" +
-  "body, button, input, textarea, select { font-family: \"Rajdhani\", Inter, system-ui, sans-serif !important; }\n" +
-  "h1, h2, h3, h4, h5, .headline, .section-heading, .card-title { font-family: \"Orbitron\", \"Rajdhani\", sans-serif !important; }\n" +
-  "</style>\n" +
   "</head>\n" +
   "<body>\n" +
   "  <div class=\"page\">\n" +
@@ -4962,13 +4934,6 @@ const HUB_PAGE =
   "    @media(max-width:720px){.product-section{padding-top:clamp(70px,9svh,100px);padding-bottom:36px;background:linear-gradient(180deg,#cbd5eb 0%,#cbd5eb 58%,#050505 100%)}.product-section.reveal,.why-section.reveal,.scripts-section.reveal,.community-section.reveal{opacity:1;transform:none}.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.why-section.reveal.is-visible>.section-inner,.scripts-section.reveal.is-visible>.section-inner,.community-section.reveal.is-visible>.section-inner{opacity:1;transform:none}.product-section .section-kicker,.product-section .section-heading,.product-section .section-copy{display:none}.product-window{margin-top:0}.product-section .section-inner{width:min(100%,1120px)}}\n" +
   "    @media(prefers-reduced-motion:reduce){.hero-stage::before,.tech-strip{animation:none!important;transform:none!important}.tech-track[aria-hidden=\"true\"]{display:none!important}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring,.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:1;filter:none;transform:none}.product-window::after{display:none}.reveal{opacity:1;transform:none}}\n" +
   "  </style>\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n" +
-  "<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n" +
-  "<link href=\"https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap\" rel=\"stylesheet\">\n" +
-  "<style id=\"shared-brand-fonts\">\n" +
-  "body, button, input, textarea, select { font-family: \"Rajdhani\", Inter, system-ui, sans-serif !important; }\n" +
-  "h1, h2, h3, h4, h5, .headline, .section-heading, .card-title { font-family: \"Orbitron\", \"Rajdhani\", sans-serif !important; }\n" +
-  "</style>\n" +
   "</head>\n" +
   "<body>\n" +
   "  <div class=\"page\">\n" +
