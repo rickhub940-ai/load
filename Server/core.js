@@ -4145,7 +4145,7 @@ const ROOT_PAGE =
   "    .feature-card{min-height:280px;padding:clamp(24px,4vw,42px);display:flex;flex-direction:column;justify-content:space-between;border:1px solid #29292d;border-radius:28px;background:#1b1b1e}\n" +
   "    .feature-card small{color:#a0a0a7;font-size:14px;font-weight:700}.feature-card h3{max-width:460px;margin-top:6px;font-size:clamp(24px,3.7vw,38px);line-height:1.1;letter-spacing:-.05em}\n" +
   "    .feature-card p{max-width:460px;margin-top:18px;color:#a0a0a7;font-size:16px;line-height:1.65}\n" +
-  "    .feature-icon{align-self:flex-start;margin-top:28px;color:#c4c4ca;font-size:42px;line-height:1}\n" +
+  "    .feature-icon{width:clamp(88px,14vw,132px);height:clamp(88px,14vw,132px);align-self:flex-start;flex:none;margin-top:28px;color:#c4c4ca}.feature-icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}\n" +
   "    .scripts-section{border-top:1px solid #202024}\n" +
   "    .home-script-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:42px}\n" +
   "    .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}\n" +
@@ -4247,15 +4247,15 @@ const ROOT_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        Discover scripts for the Roblox experiences you play. Find updates and your next in-game favorite.\n" +
+  "        Browse scripts for supported Roblox games and see what's new.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
   "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
-  "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
+  "      <p class=\"terms-note pop-element\">Use 999MS responsibly.</p>\n" +
   "    </main>\n" +
-  "      <p class=\"tech-label\">Scripts for the games you play</p>\n" +
+  "      <p class=\"tech-label\">Scripts for supported Roblox games</p>\n" +
   "      <div class=\"tech-marquee\" aria-label=\"999MS platform technology\">\n" +
   "        <div class=\"tech-strip\">\n" +
   "          <div class=\"tech-track\">\n" +
@@ -4285,7 +4285,7 @@ const ROOT_PAGE =
   "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
   "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
   "          </div>\n" +
-  "          <div class=\"compatibility-note\"><strong>Supported games</strong><span>Scripts for your next session</span></div>\n" +
+  "          <div class=\"compatibility-note\"><strong>Supported games</strong><span>Browse available scripts</span></div>\n" +
   "        </aside>\n" +
   "        </div>\n" +
   "      </div>\n" +
@@ -4293,31 +4293,31 @@ const ROOT_PAGE =
   "\n" +
   "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
   "      <div class=\"section-inner\">\n" +
-  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div></div>\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Scripts and updates, all in one place.</h2></div></div>\n" +
   "        <div class=\"feature-grid\">\n" +
-  "          <article class=\"feature-card\"><div><small>Made for your games</small><h3>Find your next in-game script.</h3><p>Explore scripts for supported Roblox experiences and choose the ones that fit how you play.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>The right script is easy to find.</h3><p>Browse supported experiences, check script updates, and explore the details before you choose.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Built for Roblox</small><h3>One place for scripts and tools.</h3><p>Find scripts and game details in the 999MS library.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"m48 13 34 18-34 18-34-18 34-18Z M14 49l34 18 34-18 M14 66l34 18 34-18\"/></svg></span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Maintained</small><h3>Updates when games change.</h3><p>Game updates can affect scripts. Check the latest details and status in ScriptHub.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"M10 49h21l11-29 17 57 11-28h16\"/></svg></span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Scripts, close by.</h3><p>Browse supported games, check the details, then copy the script you need.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"M48 81V25C35 14 19 14 8 20v55c12-6 27-6 40 6Zm0 0V25c13-11 29-11 40-5v55c-12-6-27-6-40 6Z\"/></svg></span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Support</small><h3>Help without the runaround.</h3><p>Need help with setup, a key, or an update? Join the Discord and ask the community.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"M78 44c0 19-15 34-34 34-6 0-12-2-17-5L9 79l6-17c-3-5-5-11-5-18 0-19 15-34 34-34s34 15 34 34Z\"/></svg></span></article>\n" +
   "        </div>\n" +
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section scripts-section reveal\">\n" +
   "      <div class=\"section-inner\">\n" +
-  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Your scripts, close by.</h2><p class=\"section-copy\">Take a look through the latest scripts published to the 999MS library.</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Latest scripts.</h2><p class=\"section-copy\">Recently added and updated in the 999MS library.</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
   "        <div class=\"home-script-grid\" id=\"homeScriptPreview\" aria-live=\"polite\"><div class=\"home-script-empty\">Loading the latest scripts\u2026</div></div>\n" +
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
-  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
-  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A library of scripts for supported Roblox experiences.</p></div>\n" +
+  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">Scripts for supported Roblox games.</p></div>\n" +
   "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
-  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
+  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Made for the community.</div></footer>\n" +
   "  </div>\n" +
   "\n" +
   "  <script>\n" +
@@ -4857,7 +4857,7 @@ const HUB_PAGE =
   "    .feature-card{min-height:280px;padding:clamp(24px,4vw,42px);display:flex;flex-direction:column;justify-content:space-between;border:1px solid #29292d;border-radius:28px;background:#1b1b1e}\n" +
   "    .feature-card small{color:#a0a0a7;font-size:14px;font-weight:700}.feature-card h3{max-width:460px;margin-top:6px;font-size:clamp(24px,3.7vw,38px);line-height:1.1;letter-spacing:-.05em}\n" +
   "    .feature-card p{max-width:460px;margin-top:18px;color:#a0a0a7;font-size:16px;line-height:1.65}\n" +
-  "    .feature-icon{align-self:flex-start;margin-top:28px;color:#c4c4ca;font-size:42px;line-height:1}\n" +
+  "    .feature-icon{width:clamp(88px,14vw,132px);height:clamp(88px,14vw,132px);align-self:flex-start;flex:none;margin-top:28px;color:#c4c4ca}.feature-icon svg{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}\n" +
   "    .scripts-section{border-top:1px solid #202024}\n" +
   "    .home-script-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:42px}\n" +
   "    .home-script-card{display:block;min-width:0;color:#f5f5f6}.home-script-cover{aspect-ratio:1.65/1;overflow:hidden;border:1px solid #28282c;border-radius:20px;background:linear-gradient(135deg,#19191d,#09090b)}\n" +
@@ -4959,15 +4959,15 @@ const HUB_PAGE =
   "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
   "      <p class=\"subhead pop-element\">\n" +
-  "        Discover scripts for the Roblox experiences you play. Find updates and your next in-game favorite.\n" +
+  "        Browse scripts for supported Roblox games and see what's new.\n" +
   "      </p>\n" +
   "\n" +
   "      <div class=\"cta-group pop-element\">\n" +
   "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
-  "      <p class=\"terms-note pop-element\">Using 999MS means you agree to use the platform responsibly.</p>\n" +
+  "      <p class=\"terms-note pop-element\">Use 999MS responsibly.</p>\n" +
   "    </main>\n" +
-  "      <p class=\"tech-label\">Scripts for the games you play</p>\n" +
+  "      <p class=\"tech-label\">Scripts for supported Roblox games</p>\n" +
   "      <div class=\"tech-marquee\" aria-label=\"999MS platform technology\">\n" +
   "        <div class=\"tech-strip\">\n" +
   "          <div class=\"tech-track\">\n" +
@@ -4997,7 +4997,7 @@ const HUB_PAGE =
   "            <svg viewBox=\"0 0 190 190\" aria-hidden=\"true\"><circle class=\"trust-track\" cx=\"95\" cy=\"95\" r=\"82\"/><circle class=\"trust-progress\" id=\"trustProgress\" cx=\"95\" cy=\"95\" r=\"82\"/></svg>\n" +
   "            <strong><span id=\"trustPercent\">0</span>%</strong><span>SECURE</span>\n" +
   "          </div>\n" +
-  "          <div class=\"compatibility-note\"><strong>Supported games</strong><span>Scripts for your next session</span></div>\n" +
+  "          <div class=\"compatibility-note\"><strong>Supported games</strong><span>Browse available scripts</span></div>\n" +
   "        </aside>\n" +
   "        </div>\n" +
   "      </div>\n" +
@@ -5005,31 +5005,31 @@ const HUB_PAGE =
   "\n" +
   "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
   "      <div class=\"section-inner\">\n" +
-  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Built for the way you play.</h2></div></div>\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Scripts and updates, all in one place.</h2></div></div>\n" +
   "        <div class=\"feature-grid\">\n" +
-  "          <article class=\"feature-card\"><div><small>Made for your games</small><h3>Find your next in-game script.</h3><p>Explore scripts for supported Roblox experiences and choose the ones that fit how you play.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2301</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>The right script is easy to find.</h3><p>Browse supported experiences, check script updates, and explore the details before you choose.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u2315</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>Protected source</small><h3>Only the details are public.</h3><p>The catalog shows useful metadata while script source stays protected.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25c8</span></article>\n" +
-  "          <article class=\"feature-card\"><div><small>Made for mobile</small><h3>Easy to use on any screen.</h3><p>A responsive catalog and simple controls keep the experience clear on phones and desktops.</p></div><span class=\"feature-icon\" aria-hidden=\"true\">\u25b1</span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Built for Roblox</small><h3>One place for scripts and tools.</h3><p>Find scripts and game details in the 999MS library.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"m48 13 34 18-34 18-34-18 34-18Z M14 49l34 18 34-18 M14 66l34 18 34-18\"/></svg></span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Maintained</small><h3>Updates when games change.</h3><p>Game updates can affect scripts. Check the latest details and status in ScriptHub.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"M10 49h21l11-29 17 57 11-28h16\"/></svg></span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>ScriptHub</small><h3>Scripts, close by.</h3><p>Browse supported games, check the details, then copy the script you need.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"M48 81V25C35 14 19 14 8 20v55c12-6 27-6 40 6Zm0 0V25c13-11 29-11 40-5v55c-12-6-27-6-40 6Z\"/></svg></span></article>\n" +
+  "          <article class=\"feature-card\"><div><small>Support</small><h3>Help without the runaround.</h3><p>Need help with setup, a key, or an update? Join the Discord and ask the community.</p></div><span class=\"feature-icon\" aria-hidden=\"true\"><svg viewBox=\"0 0 96 96\"><path d=\"M78 44c0 19-15 34-34 34-6 0-12-2-17-5L9 79l6-17c-3-5-5-11-5-18 0-19 15-34 34-34s34 15 34 34Z\"/></svg></span></article>\n" +
   "        </div>\n" +
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section scripts-section reveal\">\n" +
   "      <div class=\"section-inner\">\n" +
-  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Your scripts, close by.</h2><p class=\"section-copy\">Take a look through the latest scripts published to the 999MS library.</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
+  "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Latest scripts.</h2><p class=\"section-copy\">Recently added and updated in the 999MS library.</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
   "        <div class=\"home-script-grid\" id=\"homeScriptPreview\" aria-live=\"polite\"><div class=\"home-script-empty\">Loading the latest scripts\u2026</div></div>\n" +
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
   "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
-  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Ready when you are</p><h2>Find your next script.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
+  "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community.</h2><p>See the latest script updates on Discord.</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
   "    <footer class=\"site-footer\"><div class=\"footer-inner\">\n" +
-  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">A library of scripts for supported Roblox experiences.</p></div>\n" +
+  "      <div class=\"footer-brand-col\"><a href=\"/\" class=\"footer-brand\">999MS</a><p class=\"footer-copy\">Scripts for supported Roblox games.</p></div>\n" +
   "      <div class=\"footer-col\"><strong>Explore</strong><a href=\"/\">Home</a><a href=\"/scripts\">ScriptHub</a><a href=\"/hub\">999MS Hub</a></div>\n" +
-  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Built for the community.</div></footer>\n" +
+  "    </div><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS. Made for the community.</div></footer>\n" +
   "  </div>\n" +
   "\n" +
   "  <script>\n" +
