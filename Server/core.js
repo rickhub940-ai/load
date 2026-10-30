@@ -2464,7 +2464,16 @@ const CONTROL_PAGE =
   "(function () {\n" +
   "  'use strict';\n" +
   "  var KEY = 'ms999_admin_token';\n" +
-  "  var state = { token: sessionStorage.getItem(KEY) || '', timer: null, busy: false };\n" +
+  "  function readSessionToken() {\n" +
+  "    try { return sessionStorage.getItem(KEY) || ''; } catch (_) { return ''; }\n" +
+  "  }\n" +
+  "  function writeSessionToken(token) {\n" +
+  "    try { sessionStorage.setItem(KEY, token); } catch (_) {}\n" +
+  "  }\n" +
+  "  function clearSessionToken() {\n" +
+  "    try { sessionStorage.removeItem(KEY); } catch (_) {}\n" +
+  "  }\n" +
+  "  var state = { token: readSessionToken(), timer: null, busy: false };\n" +
   "\n" +
   "  var $ = function (id) { return document.getElementById(id); };\n" +
   "  var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');\n" +
@@ -2987,6 +2996,12 @@ const CONTROL_PAGE =
   "    if (history.replaceState) history.replaceState(null, '', location.pathname);\n" +
   "  }\n" +
   "\n" +
+  "  function showGate(message) {\n" +
+  "    gate.classList.remove('hide');\n" +
+  "    gateErr.textContent = message || '';\n" +
+  "    if (state.timer) clearInterval(state.timer);\n" +
+  "  }\n" +
+  "\n" +
   "  /* \u2500\u2500 login \u2500\u2500 */\n" +
   "  gateForm.addEventListener('submit', function (event) {\n" +
   "    event.preventDefault();\n" +
@@ -3010,7 +3025,7 @@ const CONTROL_PAGE =
   "        gateErr.textContent = (result.data && result.data.reason) || ('\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 (HTTP ' + result.status + ')');\n" +
   "        return;\n" +
   "      }\n" +
-  "      sessionStorage.setItem(KEY, token);\n" +
+  "      writeSessionToken(token);\n" +
   "      gate.classList.add('hide');\n" +
   "      logLine('\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e41\u0e25\u0e49\u0e27', 'ok');\n" +
   "      api('/api/control/events', { limit: 40 }).then(function (events) {\n" +
@@ -3032,7 +3047,7 @@ const CONTROL_PAGE =
   "  });\n" +
   "\n" +
   "  $('logoutBtn').addEventListener('click', function () {\n" +
-  "    sessionStorage.removeItem(KEY);\n" +
+  "    clearSessionToken();\n" +
   "    state.token = '';\n" +
   "    showGate('');\n" +
   "    gateErr.textContent = '';\n" +
@@ -3227,7 +3242,7 @@ const CONTROL_PAGE =
   "        loadAll(true);\n" +
   "        state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);\n" +
   "      } else {\n" +
-  "        sessionStorage.removeItem(KEY);\n" +
+  "        clearSessionToken();\n" +
   "        state.token = '';\n" +
   "        showGate(result.status === 401 ? 'token \u0e17\u0e35\u0e48\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01\u0e44\u0e27\u0e49\u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e41\u0e25\u0e49\u0e27' : '\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a token \u0e44\u0e21\u0e48\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08 \u2014 \u0e01\u0e23\u0e38\u0e13\u0e32\u0e40\u0e02\u0e49\u0e32\u0e2a\u0e39\u0e48\u0e23\u0e30\u0e1a\u0e1a\u0e2d\u0e35\u0e01\u0e04\u0e23\u0e31\u0e49\u0e07');\n" +
   "      }\n" +

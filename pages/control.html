@@ -1014,7 +1014,16 @@
 (function () {
   'use strict';
   var KEY = 'ms999_admin_token';
-  var state = { token: sessionStorage.getItem(KEY) || '', timer: null, busy: false };
+  function readSessionToken() {
+    try { return sessionStorage.getItem(KEY) || ''; } catch (_) { return ''; }
+  }
+  function writeSessionToken(token) {
+    try { sessionStorage.setItem(KEY, token); } catch (_) {}
+  }
+  function clearSessionToken() {
+    try { sessionStorage.removeItem(KEY); } catch (_) {}
+  }
+  var state = { token: readSessionToken(), timer: null, busy: false };
 
   var $ = function (id) { return document.getElementById(id); };
   var gate = $('gate'), gateErr = $('gateErr'), gateForm = $('gateForm'), tokenInput = $('token');
@@ -1537,6 +1546,12 @@
     if (history.replaceState) history.replaceState(null, '', location.pathname);
   }
 
+  function showGate(message) {
+    gate.classList.remove('hide');
+    gateErr.textContent = message || '';
+    if (state.timer) clearInterval(state.timer);
+  }
+
   /* ── login ── */
   gateForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -1560,7 +1575,7 @@
         gateErr.textContent = (result.data && result.data.reason) || ('เข้าสู่ระบบไม่สำเร็จ (HTTP ' + result.status + ')');
         return;
       }
-      sessionStorage.setItem(KEY, token);
+      writeSessionToken(token);
       gate.classList.add('hide');
       logLine('เข้าสู่ระบบแล้ว', 'ok');
       api('/api/control/events', { limit: 40 }).then(function (events) {
@@ -1582,7 +1597,7 @@
   });
 
   $('logoutBtn').addEventListener('click', function () {
-    sessionStorage.removeItem(KEY);
+    clearSessionToken();
     state.token = '';
     showGate('');
     gateErr.textContent = '';
@@ -1777,7 +1792,7 @@
         loadAll(true);
         state.timer = setInterval(function () { if (!document.hidden) loadAll(true); }, 15000);
       } else {
-        sessionStorage.removeItem(KEY);
+        clearSessionToken();
         state.token = '';
         showGate(result.status === 401 ? 'token ที่บันทึกไว้ใช้ไม่ได้แล้ว' : 'ตรวจสอบ token ไม่สำเร็จ — กรุณาเข้าสู่ระบบอีกครั้ง');
       }
