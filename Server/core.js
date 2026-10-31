@@ -6085,8 +6085,10 @@ async function getPreviewArtworkByPlaceIds(placeIds) {
 }
 
 // ═══ GitHub primary storage for uploaded scripts (0 Supabase body/egress) ═══
-// Full .lua source files live ONLY in GitHub (scripts/<name>.lua on main),
-// supporting obfuscated scripts up to 25 MB via the Git Data Blobs API.
+// Full .lua source files live ONLY in GitHub (scripts/<name>.lua on the
+// configured content branch), supporting obfuscated scripts up to 25 MB via
+// the Git Data Blobs API. When GITHUB_BRANCH is unset, use the branch that
+// deployed this instance so Control edits cannot unexpectedly push to main.
 // Supabase public.scripts holds only tiny map metadata (~100 B/row: place_id,
 // script_name, size, timestamps) and is never read during player script loads.
 const GITHUB_API = 'https://api.github.com';
@@ -6130,7 +6132,8 @@ function dropCachedScriptBody(name) {
 
 function githubRepoParts() {
   const repo = String(process.env.GITHUB_REPO || 'rickhub940-ai/load').trim();
-  const branch = String(process.env.GITHUB_BRANCH || 'main').trim() || 'main';
+  const deployedBranch = String(process.env.VERCEL_GIT_COMMIT_REF || '').trim();
+  const branch = String(process.env.GITHUB_BRANCH || deployedBranch || 'main').trim() || 'main';
   if (!/^[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+$/.test(repo)) return null;
   return { repo: repo, branch: branch };
 }
@@ -6169,19 +6172,6 @@ function scriptHeader(name, placeId) {
   return '-- 999MS script: ' + name + '\n' +
          '-- place: ' + placeId + '\n' +
          '-- uploaded from the Control panel at ' + new Date().toISOString() + '\n\n';
-}
-
-async function triggerVercelDeployHook() {
-  const hook = String(process.env.VERCEL_DEPLOY_HOOK || '').trim();
-  if (!hook || !/^https:\/\/api\.vercel\.com\/v1\/integrations\/deploy\//.test(hook)) {
-    return { triggered: false };
-  }
-  try {
-    const res = await fetch(hook, { method: 'POST', signal: AbortSignal.timeout(10000) });
-    return { triggered: res.ok, status: res.status };
-  } catch {
-    return { triggered: false, reason: 'hook failed' };
-  }
 }
 
 function stripScriptHeader(code) {
@@ -6278,14 +6268,13 @@ async function commitScriptToGithub(name, placeId, code, removeOldName) {
 
   if (removeOldName && removeOldName !== name) dropCachedScriptBody(removeOldName);
   cacheScriptBody(name, fullContent);
-  const deploy = await triggerVercelDeployHook();
   return {
     ok: true,
     path: repoPath,
     branch: cfg.branch,
     commit: commitSha,
     updated: newTreeSha !== baseTree,
-    deploy: deploy,
+    deploy: { triggered: false },
   };
 }
 
@@ -6331,8 +6320,7 @@ async function deleteScriptFromGithub(name) {
     body: JSON.stringify({ sha: newCommit.data.sha }),
   });
   if (!upd.ok) return { ok: false, reason: 'github ref ' + upd.status };
-  const deploy = await triggerVercelDeployHook();
-  return { ok: true, path: repoPath, deploy: deploy };
+  return { ok: true, path: repoPath, deploy: { triggered: false } };
 }
 
 async function fetchScriptFromGithub(name) {
