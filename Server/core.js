@@ -3939,6 +3939,7 @@ const ROOT_PAGE =
   "<head>\n" +
   "  <meta charset=\"UTF-8\" />\n" +
   "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, viewport-fit=cover\" />\n" +
+  "  <script>if(!window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches)document.documentElement.classList.add(\"cursor-build-pending\");</script>\n" +
   "  <title>999MS HUB \u2014 Premium Roblox Scripts</title>\n" +
   "  <link rel=\"icon\" type=\"image/webp\" href=\"data:image/webp;base64,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\" />\n" +
   "\n" +
@@ -4305,139 +4306,49 @@ const ROOT_PAGE =
   "    @media(max-width:600px){.tech-wordmark{gap:7px;font-size:16px}.tech-wordmark:last-child{font-size:12px}.window-nav-item{font-size:9px}.window-nav-item i{font-size:10px}.window-profile{font-size:9px}.window-profile small{font-size:7px}.hub-project-head h3{font-size:14px}.discord-copy h4{font-size:12px}.discord-copy p{font-size:9px}.discord-action{min-height:32px;font-size:11px}}\n" +
   "    @media(max-width:720px){.product-section{padding-top:clamp(70px,9svh,100px);padding-bottom:36px;background:linear-gradient(180deg,#cbd5eb 0%,#cbd5eb 58%,#050505 100%)}.product-section.reveal,.why-section.reveal,.scripts-section.reveal,.community-section.reveal{opacity:1;transform:none}.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.why-section.reveal.is-visible>.section-inner,.scripts-section.reveal.is-visible>.section-inner,.community-section.reveal.is-visible>.section-inner{opacity:1;transform:none}.product-section .section-kicker,.product-section .section-heading,.product-section .section-copy{display:none}.product-window{margin-top:0}.product-section .section-inner{width:min(100%,1120px)}}\n" +
   "    @media(prefers-reduced-motion:reduce){.hero-stage::before,.tech-strip{animation:none!important;transform:none!important}.tech-track[aria-hidden=\"true\"]{display:none!important}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring,.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:1;filter:none;transform:none}.product-window::after{display:none}.reveal{opacity:1;transform:none}}\n" +
-  "    /* ===== Swarm-built homepage intro ===== */\n" +
-  "    body.swarm-intro-open{overflow:hidden}\n" +
-  "    .swarm-intro{position:fixed;inset:0;z-index:1000;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;padding:clamp(16px,3vw,34px);background:#10131b;color:#f7f8fc;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .65s ease,visibility .65s ease;font-family:var(--font-sans)}\n" +
-  "    .swarm-intro.is-active{opacity:1;visibility:visible;pointer-events:auto}\n" +
-  "    .swarm-intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}\n" +
-  "    .swarm-intro::before{content:\"\";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 48%,rgba(78,91,137,.24),transparent 62%),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:auto,42px 42px,42px 42px;mask-image:linear-gradient(180deg,#000,transparent 90%)}\n" +
-  "    .swarm-intro-top,.swarm-intro-bottom{position:relative;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(100%,1120px);margin:0 auto}\n" +
-  "    .swarm-intro-top{height:44px;color:#a9afbf;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}\n" +
-  "    .swarm-mark{display:inline-flex;align-items:center;gap:10px}.swarm-mark b{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.16);border-radius:8px;background:#f8f8fa;color:#0c0d11;font-size:12px;font-style:italic;font-weight:900;letter-spacing:-.08em}\n" +
-  "    .swarm-live-dot{width:7px;height:7px;border-radius:50%;background:#7cf5c7;box-shadow:0 0 14px rgba(124,245,199,.75)}\n" +
-  "    .swarm-skip{min-height:38px;padding:0 15px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.06);color:#f5f6fa;font-size:12px;font-weight:650;transition:background .2s ease,border-color .2s ease}\n" +
-  "    .swarm-skip:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32)}\n" +
-  "    .swarm-scene{position:relative;display:grid;place-items:center;min-height:0;perspective:1200px}\n" +
-  "    .swarm-window{position:relative;display:flex;flex-direction:column;width:min(960px,calc(100vw - 52px));height:min(620px,calc(100svh - 170px));min-height:min(410px,calc(100svh - 170px));overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:#171a22;box-shadow:0 40px 120px rgba(0,0,0,.4);opacity:0;transform:translateY(22px) scale(.975)}\n" +
-  "    .swarm-intro.is-active .swarm-window{animation:swarmWindowIn .65s cubic-bezier(.2,.8,.2,1) .12s forwards}\n" +
-  "    @keyframes swarmWindowIn{to{opacity:1;transform:none}}\n" +
-  "    .swarm-windowbar{height:48px;flex:none;display:flex;align-items:center;gap:7px;padding:0 17px;border-bottom:1px solid rgba(255,255,255,.08);background:#13151b}\n" +
-  "    .swarm-windowbar i{width:8px;height:8px;border-radius:50%;background:#555b69}.swarm-windowbar i:first-child{background:#f07d83}.swarm-windowbar i:nth-child(2){background:#e8bd66}.swarm-windowbar i:nth-child(3){background:#73c99c}\n" +
-  "    .swarm-address{width:min(42%,360px);height:24px;margin:auto;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(255,255,255,.04);color:#8f96a7;text-align:center;font-size:10px;line-height:22px;letter-spacing:.02em}\n" +
-  "    .swarm-viewport{position:relative;flex:1;min-height:0;overflow:hidden}\n" +
-  "    .swarm-app{position:relative;min-height:1040px;padding:0 clamp(24px,6vw,72px);background:radial-gradient(ellipse at 18% 18%,rgba(124,149,220,.17),transparent 46%),linear-gradient(145deg,#1a1d27,#14161d 68%,#191b24);will-change:transform}\n" +
-  "    .swarm-intro.is-active .swarm-app{animation:swarmPageScroll 6.1s cubic-bezier(.45,0,.55,1) .28s both}\n" +
-  "    @keyframes swarmPageScroll{0%,42%{transform:translateY(0)}100%{transform:translateY(-485px)}}\n" +
-  "    .swarm-product-strip{height:108px;margin:0 -4px 0;display:grid;grid-template-columns:1.35fr .8fr .8fr;gap:12px;align-items:center;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}\n" +
-  "    .swarm-product-card{height:76px;padding:12px 14px;border:1px solid rgba(255,255,255,.09);border-radius:12px;background:rgba(255,255,255,.035)}\n" +
-  "    .swarm-product-card strong{display:block;color:#f3f5fa;font-size:11px;font-weight:750}.swarm-product-card small{display:block;margin-top:5px;color:#959db0;font-size:9px}.swarm-mini-bars{display:flex;gap:5px;margin-top:8px}.swarm-mini-bars i{width:27%;height:4px;border-radius:4px;background:#aab9e1}.swarm-mini-bars i:nth-child(2){opacity:.55}.swarm-mini-bars i:nth-child(3){opacity:.25}\n" +
-  "    .swarm-section{padding:22px 0 10px}.swarm-section-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;color:#f3f4f8;font-size:12px;font-weight:750;letter-spacing:-.02em}.swarm-section-heading small{color:#929aac;font-size:9px;font-weight:600}\n" +
-  "    .swarm-feature-grid,.swarm-script-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}\n" +
-  "    .swarm-feature-card{min-height:92px;padding:12px;border:1px solid rgba(255,255,255,.09);border-radius:12px;background:rgba(255,255,255,.035)}\n" +
-  "    .swarm-feature-icon{width:22px;height:22px;display:grid;place-items:center;border-radius:7px;background:rgba(170,185,225,.13);color:#c5d0ee;font-size:10px}\n" +
-  "    .swarm-feature-card strong{display:block;margin-top:9px;color:#f0f2f7;font-size:9px;font-weight:750}.swarm-feature-card small{display:block;margin-top:4px;color:#8d95a6;font-size:8px}\n" +
-  "    .swarm-script-card{min-height:110px;padding:8px;border:1px solid rgba(255,255,255,.09);border-radius:11px;background:rgba(255,255,255,.035)}\n" +
-  "    .swarm-script-cover{height:52px;display:grid;place-items:center;border-radius:7px;background:linear-gradient(135deg,#343b4c,#202633 60%,#43425c);color:#e8edf9;font-size:18px;font-weight:800}.swarm-script-card strong{display:block;margin-top:7px;color:#eceef4;font-size:8px}.swarm-script-card small{display:block;margin-top:3px;color:#929bad;font-size:7px}\n" +
-  "    .swarm-community-bar{min-height:74px;margin:18px 0 10px;padding:12px 15px;display:flex;align-items:center;gap:10px;border:1px solid rgba(148,132,232,.2);border-radius:12px;background:linear-gradient(100deg,rgba(112,95,204,.16),rgba(255,255,255,.025))}\n" +
-  "    .swarm-discord-mark{width:28px;height:28px;display:grid;place-items:center;flex:none;border-radius:8px;background:#6875e8;color:#fff;font-size:13px}.swarm-community-copy{min-width:0;margin-right:auto}.swarm-community-copy strong{display:block;color:#f1f2f7;font-size:9px}.swarm-community-copy small{display:block;margin-top:4px;color:#a6adbd;font-size:8px}.swarm-join-button{height:28px;padding:0 12px;display:inline-flex;align-items:center;border-radius:999px;background:#6875e8;color:#fff;font-size:8px;font-weight:750}\n" +
-  "    .swarm-footer{padding:0 2px;color:#8790a2;font-size:8px}\n" +
-  "    .swarm-nav{height:74px;display:flex;align-items:center;gap:30px;border-bottom:1px solid rgba(255,255,255,.08);color:#abb1c0;font-size:11px}\n" +
-  "    .swarm-nav-brand{display:flex;align-items:center;gap:8px;margin-right:auto;color:#fff;font-size:12px;font-weight:800;letter-spacing:-.03em}\n" +
-  "    .swarm-nav-brand span{width:24px;height:24px;display:grid;place-items:center;border-radius:7px;background:#f7f8fa;color:#111;font-size:11px;font-style:italic}\n" +
-  "    .swarm-nav-cta{padding:9px 14px;border-radius:999px;background:#f4f5f8;color:#15161a;font-size:10px;font-weight:750}\n" +
-  "    .swarm-copy{max-width:620px;padding:clamp(46px,8vh,86px) 0 32px}\n" +
-  "    .swarm-eyebrow{display:inline-flex;align-items:center;gap:8px;color:#bbc4d9;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}\n" +
-  "    .swarm-eyebrow::before{content:\"\";width:22px;height:1px;background:#a9b7dc}\n" +
-  "    .swarm-title{max-width:610px;margin:20px 0 14px;color:#f7f8fc;font-size:clamp(34px,6vw,68px);font-weight:750;line-height:.99;letter-spacing:-.065em}\n" +
-  "    .swarm-title span{color:#aab9e1}\n" +
-  "    .swarm-description{max-width:470px;color:#9da5b7;font-size:clamp(12px,1.5vw,15px);line-height:1.7}\n" +
-  "    .swarm-hero-actions{display:flex;align-items:center;gap:11px;margin-top:25px}\n" +
-  "    .swarm-action-primary,.swarm-action-secondary{height:39px;padding:0 17px;display:inline-flex;align-items:center;border-radius:999px;font-size:10px;font-weight:700}\n" +
-  "    .swarm-action-primary{background:#f4f5f8;color:#15161a}.swarm-action-secondary{border:1px solid rgba(255,255,255,.16);color:#e7e9ef}\n" +
-  "    .swarm-side-card{position:absolute;z-index:1;right:clamp(22px,6vw,72px);top:190px;width:200px;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:15px;background:rgba(12,14,19,.52);box-shadow:0 20px 40px rgba(0,0,0,.18)}\n" +
-  "    .swarm-side-label{color:#8e96a8;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.swarm-side-value{margin-top:8px;color:#f5f6f9;font-size:18px;font-weight:750;letter-spacing:-.04em}.swarm-side-line{height:5px;margin-top:11px;border-radius:99px;background:linear-gradient(90deg,#aab9e1 72%,rgba(255,255,255,.1) 72%)}\n" +
-  "    .swarm-piece{position:relative;opacity:0;clip-path:inset(0 100% 0 0)}\n" +
-  "    .swarm-intro.is-active .swarm-piece{animation:swarmDraw .62s cubic-bezier(.2,.7,.2,1) var(--piece-delay,0s) forwards}\n" +
-  "    @keyframes swarmDraw{to{opacity:1;clip-path:inset(0 0 0 0)}}\n" +
-  "    .swarm-title.swarm-piece{clip-path:inset(0 100% 0 0)}\n" +
-  "    .swarm-cursor{position:absolute;z-index:3;top:0;left:0;display:flex;align-items:flex-start;gap:5px;color:var(--cursor-color);opacity:0;filter:drop-shadow(0 5px 10px rgba(0,0,0,.3));pointer-events:none}\n" +
-  "    .swarm-intro.is-active .swarm-cursor{animation:var(--cursor-path) 6.45s cubic-bezier(.43,.05,.3,1) .05s both}\n" +
-  "    .swarm-cursor svg{width:21px;height:25px;flex:none;overflow:visible;transition:transform .12s ease}.swarm-cursor-name{margin:17px 0 0 -2px;padding:3px 7px;border-radius:5px;background:var(--cursor-color);color:#111319;font-size:8px;font-weight:850;letter-spacing:.06em;white-space:nowrap}\n" +
-  "    .swarm-cursor::after{content:\"\";position:absolute;left:-3px;top:-3px;width:23px;height:23px;border:2px solid var(--cursor-color);border-radius:50%;opacity:0;transform:scale(.15);pointer-events:none}\n" +
-  "    .swarm-cursor.is-clicking svg{transform:scale(.82)}.swarm-cursor.is-clicking::after{animation:swarmClickRipple .42s ease-out}\n" +
-  "    .swarm-build-button{position:relative;transition:transform .14s ease,filter .14s ease}.swarm-build-button::after{content:\"\";position:absolute;inset:-5px;border:1px solid rgba(255,255,255,.55);border-radius:inherit;opacity:0;transform:scale(.94);pointer-events:none}.swarm-build-button.is-clicked{transform:scale(.97);filter:brightness(.98)}.swarm-build-button.is-clicked::after{animation:swarmButtonRipple .46s ease-out}\n" +
-  "    @keyframes swarmClickRipple{0%{opacity:.85;transform:scale(.18)}100%{opacity:0;transform:scale(1.9)}}@keyframes swarmButtonRipple{0%{opacity:.8;transform:scale(.94)}100%{opacity:0;transform:scale(1.1)}}\n" +
-  "    .swarm-cursor-a{--cursor-color:#92e7c3;--cursor-path:swarmPathA}.swarm-cursor-b{--cursor-color:#8fb4ff;--cursor-path:swarmPathB}.swarm-cursor-c{--cursor-color:#f2bd7c;--cursor-path:swarmPathC}.swarm-cursor-d{--cursor-color:#d1a5ff;--cursor-path:swarmPathD}\n" +
-  "    @keyframes swarmPathA{0%{left:7%;top:80%;opacity:0}8%{left:15%;top:21%;opacity:1}23%{left:72%;top:14%}40%{left:56%;top:42%}59%{left:24%;top:57%}79%{left:48%;top:36%}100%{left:82%;top:71%;opacity:1}}\n" +
-  "    @keyframes swarmPathB{0%{left:88%;top:18%;opacity:0}9%{left:27%;top:19%;opacity:1}25%{left:42%;top:45%}44%{left:72%;top:53%}63%{left:20%;top:67%}82%{left:59%;top:52%}100%{left:31%;top:77%;opacity:1}}\n" +
-  "    @keyframes swarmPathC{0%{left:78%;top:84%;opacity:0}10%{left:68%;top:25%;opacity:1}28%{left:37%;top:39%}47%{left:51%;top:59%}67%{left:74%;top:70%}85%{left:38%;top:66%}100%{left:49%;top:79%;opacity:1}}\n" +
-  "    @keyframes swarmPathD{0%{left:18%;top:15%;opacity:0}12%{left:55%;top:28%;opacity:1}31%{left:23%;top:47%}50%{left:69%;top:61%}70%{left:29%;top:73%}88%{left:76%;top:48%}100%{left:66%;top:82%;opacity:1}}\n" +
-  "    .swarm-intro-bottom{min-height:54px;color:#9fa6b6;font-size:10px;font-weight:650;letter-spacing:.03em}\n" +
-  "    .swarm-build-state{display:flex;align-items:center;gap:10px}.swarm-build-state strong{color:#f1f3f8;font-weight:700}\n" +
-  "    .swarm-progress{width:min(22vw,210px);height:3px;overflow:hidden;border-radius:9px;background:rgba(255,255,255,.12)}.swarm-progress span{display:block;width:0;height:100%;border-radius:inherit;background:#aab9e1;box-shadow:0 0 12px rgba(170,185,225,.55);transition:width .12s linear}\n" +
-  "    .swarm-replay{display:inline-flex;align-items:center;gap:7px;margin-top:4px;padding:7px 10px;border:1px solid rgba(16,19,27,.2);border-radius:999px;background:rgba(255,255,255,.3);color:#20242e;font-size:11px;font-weight:700;transition:background .2s ease,transform .2s ease}\n" +
-  "    .swarm-replay:hover{background:rgba(255,255,255,.7);transform:translateY(-1px)}\n" +
-  "    .swarm-replay i{font-size:10px}\n" +
-  "    @media(max-width:620px){\n" +
-  "      .swarm-intro{padding:14px}.swarm-intro-top{height:38px;font-size:9px}.swarm-skip{min-height:34px;padding:0 12px;font-size:11px}.swarm-window{width:calc(100vw - 28px);height:min(560px,calc(100svh - 130px));min-height:min(390px,calc(100svh - 130px));border-radius:17px}.swarm-windowbar{height:40px;padding:0 12px}.swarm-address{width:48%;font-size:9px}.swarm-app{min-height:920px;padding:0 18px}.swarm-nav{height:58px;gap:12px;font-size:9px}.swarm-nav-brand{font-size:10px}.swarm-nav-brand span{width:21px;height:21px}.swarm-nav-cta{padding:8px 10px;font-size:9px}.swarm-copy{padding:47px 0 19px}.swarm-eyebrow{font-size:8px}.swarm-title{margin:15px 0 10px;font-size:clamp(34px,10vw,51px)}.swarm-description{max-width:290px;font-size:11px}.swarm-hero-actions{gap:8px;margin-top:17px}.swarm-action-primary{height:35px;padding:0 13px;font-size:9px}.swarm-side-card{display:none}.swarm-product-strip{height:84px;grid-template-columns:1.15fr .9fr .9fr;gap:6px}.swarm-product-card{height:65px;padding:8px 6px;border-radius:9px}.swarm-product-card strong{font-size:8px}.swarm-product-card small{font-size:7px}.swarm-mini-bars{margin-top:6px}.swarm-section{padding-top:17px}.swarm-section-heading{font-size:10px}.swarm-section-heading small{font-size:7px}.swarm-feature-grid,.swarm-script-grid{gap:6px}.swarm-feature-card{min-height:82px;padding:7px;border-radius:9px}.swarm-feature-icon{width:18px;height:18px;font-size:8px}.swarm-feature-card strong{margin-top:7px;font-size:7px}.swarm-feature-card small{font-size:6px}.swarm-script-card{min-height:98px;padding:6px}.swarm-script-cover{height:43px;font-size:15px}.swarm-script-card strong{font-size:7px}.swarm-script-card small{font-size:6px}.swarm-community-bar{min-height:63px;margin:14px 0 8px;padding:9px;gap:7px}.swarm-discord-mark{width:23px;height:23px;font-size:11px}.swarm-community-copy strong{font-size:7px}.swarm-community-copy small{font-size:6px}.swarm-join-button{height:25px;padding:0 8px;font-size:7px}.swarm-footer{font-size:7px}.swarm-cursor svg{width:18px;height:22px}.swarm-cursor-name{font-size:7px}.swarm-progress{width:74px}.swarm-intro-bottom{min-height:46px;font-size:9px}.swarm-replay{font-size:10px}\n" +
-  "      @keyframes swarmPageScroll{0%,42%{transform:translateY(0)}100%{transform:translateY(-390px)}}\n" +
-  "    }\n" +
-  "    @media(max-width:380px){.swarm-nav{gap:8px}.swarm-nav>span:nth-child(3){display:none}.swarm-copy{padding-top:40px}.swarm-title{font-size:34px}.swarm-window{width:calc(100vw - 20px)}}\n" +
-  "    @media(prefers-reduced-motion:reduce){.swarm-intro{display:none!important}.swarm-replay{transition:none}}\n" +
+  "    /* ===== Live cursor construction of the real homepage ===== */\n" +
+  "    html.cursor-build-pending [data-build-piece]{opacity:0;visibility:hidden;clip-path:inset(0 100% 0 0);}\n" +
+  "    [data-build-piece].is-building{visibility:visible;animation:pagePieceConstruct .48s cubic-bezier(.2,.7,.2,1) forwards;}\n" +
+  "    [data-build-piece].is-building .char,[data-build-piece].is-built .char{opacity:1;visibility:visible;animation:none;transform:none;filter:none;}\n" +
+  "    [data-build-piece].is-built{opacity:1!important;visibility:visible!important;clip-path:none!important;transform:none!important;}\n" +
+  "    @keyframes pagePieceConstruct{0%{opacity:0;visibility:visible;clip-path:inset(0 100% 0 0);transform:translateY(8px)}100%{opacity:1;visibility:visible;clip-path:inset(0);transform:none}}\n" +
+  "    .cursor-build-layer{position:fixed;inset:0;z-index:100;overflow:hidden;pointer-events:none;opacity:0;transition:opacity .3s ease}\n" +
+  "    .cursor-build-layer.is-active{opacity:1}\n" +
+  "    .cursor-build-pointer{position:fixed;top:0;left:0;display:flex;align-items:flex-start;gap:4px;color:var(--pointer-color);transform:translate3d(-70px,-70px,0);transition:transform .28s cubic-bezier(.2,.8,.2,1);filter:drop-shadow(0 4px 7px rgba(0,0,0,.3));will-change:transform}\n" +
+  "    .cursor-build-pointer svg{width:24px;height:28px;flex:none;overflow:visible;transition:transform .12s ease}\n" +
+  "    .cursor-build-pointer span{margin:16px 0 0 -2px;padding:3px 6px;border-radius:5px;background:var(--pointer-color);color:#101116;font-size:8px;font-weight:850;letter-spacing:.05em;white-space:nowrap}\n" +
+  "    .cursor-build-pointer::after{content:\"\";position:absolute;top:-3px;left:-3px;width:23px;height:23px;border:2px solid var(--pointer-color);border-radius:50%;opacity:0;transform:scale(.15)}\n" +
+  "    .cursor-build-pointer.is-clicking svg{transform:scale(.82)}.cursor-build-pointer.is-clicking::after{animation:pointerClick .42s ease-out}\n" +
+  "    .cursor-build-pointer-a{--pointer-color:#92e7c3}.cursor-build-pointer-b{--pointer-color:#8fb4ff}.cursor-build-pointer-c{--pointer-color:#f2bd7c}.cursor-build-pointer-d{--pointer-color:#d1a5ff}\n" +
+  "    @keyframes pointerClick{0%{opacity:.85;transform:scale(.18)}100%{opacity:0;transform:scale(1.9)}}\n" +
+  "    .cursor-build-hud{position:fixed;z-index:120;left:50%;bottom:max(18px,env(safe-area-inset-bottom));width:min(500px,calc(100vw - 28px));display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(15,18,26,.92);color:#f7f8fc;box-shadow:0 12px 36px rgba(0,0,0,.2);backdrop-filter:blur(16px);opacity:0;visibility:hidden;transform:translate(-50%,12px);transition:opacity .25s ease,transform .25s ease,visibility .25s ease;font-family:var(--font-sans)}\n" +
+  "    .cursor-build-hud.is-active{opacity:1;visibility:visible;transform:translate(-50%,0)}\n" +
+  "    .cursor-build-live{width:7px;height:7px;flex:none;border-radius:50%;background:#7cf5c7;box-shadow:0 0 12px rgba(124,245,199,.7)}\n" +
+  "    .cursor-build-status{min-width:0;flex:1;color:#e9ecf4;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}\n" +
+  "    .cursor-build-progress{width:clamp(70px,16vw,130px);height:3px;flex:none;overflow:hidden;border-radius:99px;background:rgba(255,255,255,.16)}.cursor-build-progress span{display:block;width:0;height:100%;border-radius:inherit;background:#aab9e1;transition:width .25s ease}\n" +
+  "    .cursor-build-skip{min-height:30px;padding:0 11px;border:1px solid rgba(255,255,255,.18);border-radius:999px;color:#f5f6fa;font-size:10px;font-weight:700;transition:background .2s ease}.cursor-build-skip:hover{background:rgba(255,255,255,.1)}\n" +
+  "    .cursor-build-replay{display:inline-flex;align-items:center;gap:7px;margin-top:5px;padding:7px 10px;border:1px solid rgba(16,19,27,.2);border-radius:999px;background:rgba(255,255,255,.3);color:#20242e;font-size:11px;font-weight:700;transition:background .2s ease,transform .2s ease}.cursor-build-replay:hover{background:rgba(255,255,255,.7);transform:translateY(-1px)}.cursor-build-replay i{font-size:10px}\n" +
+  "    html.cursor-build-pending .cursor-build-replay{opacity:0;visibility:hidden;pointer-events:none}\n" +
+  "    @media(max-width:620px){.cursor-build-hud{gap:8px;padding:10px}.cursor-build-status{font-size:10px}.cursor-build-progress{width:62px}.cursor-build-skip{min-height:29px;padding:0 9px}.cursor-build-pointer svg{width:20px;height:24px}.cursor-build-pointer span{font-size:7px}}\n" +
+  "    @media(prefers-reduced-motion:reduce){.cursor-build-layer,.cursor-build-hud,.cursor-build-replay{display:none!important}[data-build-piece]{opacity:1!important;visibility:visible!important;clip-path:none!important;transform:none!important;animation:none!important}}\n" +
   "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
-  "  <div class=\"swarm-intro\" id=\"swarmIntro\" aria-hidden=\"true\">\n" +
-  "    <div class=\"swarm-intro-top\"><div class=\"swarm-mark\"><b>9</b><span class=\"swarm-live-dot\" aria-hidden=\"true\"></span><span>999MS / Interface Build</span></div><button type=\"button\" class=\"swarm-skip\" id=\"swarmSkip\">Skip build</button></div>\n" +
-  "    <div class=\"swarm-scene\" aria-label=\"A swarm of cursors assembles the 999MS homepage\">\n" +
-  "      <div class=\"swarm-window\">\n" +
-  "        <div class=\"swarm-windowbar\" aria-hidden=\"true\"><i></i><i></i><i></i><span class=\"swarm-address\">999ms \u00b7 home</span></div>\n" +
-  "        <div class=\"swarm-viewport\">\n" +
-  "          <div class=\"swarm-app\">\n" +
-  "            <div class=\"swarm-nav\"><div class=\"swarm-nav-brand swarm-piece\" style=\"--piece-delay:.35s\"><span>9</span> 999MS</div><span class=\"swarm-piece\" style=\"--piece-delay:.62s\">Product</span><span class=\"swarm-piece\" style=\"--piece-delay:.78s\">Community</span><span class=\"swarm-nav-cta swarm-build-button swarm-piece\" style=\"--piece-delay:.94s\">Find Scripts \u2197</span></div>\n" +
-  "            <div class=\"swarm-copy\">\n" +
-  "              <span class=\"swarm-eyebrow swarm-piece\" style=\"--piece-delay:1.05s\">A focused script hub</span>\n" +
-  "              <h2 class=\"swarm-title swarm-piece\" style=\"--piece-delay:1.25s\">999MS<br><span>HUB</span></h2>\n" +
-  "              <p class=\"swarm-description swarm-piece\" style=\"--piece-delay:1.48s\">Browse scripts for supported Roblox games and see what\u2019s new</p>\n" +
-  "              <div class=\"swarm-hero-actions\"><span class=\"swarm-action-primary swarm-build-button swarm-piece\" style=\"--piece-delay:1.72s\">Get Started</span></div>\n" +
-  "            </div>\n" +
-  "            <div class=\"swarm-side-card swarm-piece\" style=\"--piece-delay:1.55s\"><div class=\"swarm-side-label\">Script library</div><div class=\"swarm-side-value\">Built for players</div><div class=\"swarm-side-line\"></div></div>\n" +
-  "            <div class=\"swarm-product-strip\">\n" +
-  "              <div class=\"swarm-product-card swarm-piece\" style=\"--piece-delay:2.05s\"><strong>Product experience</strong><small>A clear home for your game scripts</small><span class=\"swarm-mini-bars\"><i></i><i></i><i></i></span></div>\n" +
-  "              <div class=\"swarm-product-card swarm-piece\" style=\"--piece-delay:2.2s\"><strong>Verified access</strong><small>Built around secure delivery</small><span class=\"swarm-mini-bars\"><i></i><i></i><i></i></span></div>\n" +
-  "              <div class=\"swarm-product-card swarm-piece\" style=\"--piece-delay:2.35s\"><strong>Game support</strong><small>Made for your favorite games</small><span class=\"swarm-mini-bars\"><i></i><i></i><i></i></span></div>\n" +
-  "            </div>\n" +
-  "            <section class=\"swarm-section\">\n" +
-  "              <div class=\"swarm-section-heading swarm-piece\" style=\"--piece-delay:2.75s\">Everything in one hub <small>Built to feel simple</small></div>\n" +
-  "              <div class=\"swarm-feature-grid\">\n" +
-  "                <div class=\"swarm-feature-card swarm-piece\" style=\"--piece-delay:2.95s\"><span class=\"swarm-feature-icon\"><i class=\"fa-solid fa-gamepad\"></i></span><strong>Game library</strong><small>Browse supported games</small></div>\n" +
-  "                <div class=\"swarm-feature-card swarm-piece\" style=\"--piece-delay:3.1s\"><span class=\"swarm-feature-icon\"><i class=\"fa-solid fa-bolt\"></i></span><strong>Fast updates</strong><small>See what changed</small></div>\n" +
-  "                <div class=\"swarm-feature-card swarm-piece\" style=\"--piece-delay:3.25s\"><span class=\"swarm-feature-icon\"><i class=\"fa-solid fa-shield-halved\"></i></span><strong>Trusted access</strong><small>Designed for reliability</small></div>\n" +
-  "              </div>\n" +
-  "            </section>\n" +
-  "            <section class=\"swarm-section\">\n" +
-  "              <div class=\"swarm-section-heading swarm-piece\" style=\"--piece-delay:3.75s\">Latest scripts <small>View all \u2197</small></div>\n" +
-  "              <div class=\"swarm-script-grid\">\n" +
-  "                <div class=\"swarm-script-card swarm-build-button swarm-piece\" style=\"--piece-delay:3.95s\"><div class=\"swarm-script-cover\">R</div><strong>Roblox adventure</strong><small>Updated recently</small></div>\n" +
-  "                <div class=\"swarm-script-card swarm-piece\" style=\"--piece-delay:4.1s\"><div class=\"swarm-script-cover\">P</div><strong>Prison Life</strong><small>Ready to explore</small></div>\n" +
-  "                <div class=\"swarm-script-card swarm-piece\" style=\"--piece-delay:4.25s\"><div class=\"swarm-script-cover\">9</div><strong>More games</strong><small>Discover the library</small></div>\n" +
-  "              </div>\n" +
-  "            </section>\n" +
-  "            <div class=\"swarm-community-bar swarm-piece\" style=\"--piece-delay:4.9s\"><span class=\"swarm-discord-mark\"><i class=\"fa-brands fa-discord\"></i></span><span class=\"swarm-community-copy\"><strong>Join the 999MS community</strong><small>See the latest script updates on Discord</small></span><span class=\"swarm-join-button swarm-build-button\">Join Discord \u2197</span></div>\n" +
-  "            <div class=\"swarm-footer swarm-piece\" style=\"--piece-delay:5.35s\">\u00a9 2026 999MS</div>\n" +
-  "          </div>\n" +
-  "        </div>\n" +
-  "      </div>\n" +
-  "      <div class=\"swarm-cursor swarm-cursor-a\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">NOVA</span></div>\n" +
-  "      <div class=\"swarm-cursor swarm-cursor-b\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">ATLAS</span></div>\n" +
-  "      <div class=\"swarm-cursor swarm-cursor-c\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">MINT</span></div>\n" +
-  "      <div class=\"swarm-cursor swarm-cursor-d\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2-5.5 8 0L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">LUNA</span></div>\n" +
-  "    </div>\n" +
-  "    <div class=\"swarm-intro-bottom\"><div class=\"swarm-build-state\"><span class=\"swarm-live-dot\" aria-hidden=\"true\"></span><strong id=\"swarmBuildStatus\" aria-live=\"polite\">Mapping the layout</strong></div><div class=\"swarm-progress\" role=\"progressbar\" aria-label=\"Homepage build progress\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\"><span id=\"swarmProgress\"></span></div><span id=\"swarmProgressText\">0%</span></div>\n" +
+  "  <div class=\"cursor-build-layer\" id=\"cursorBuildLayer\" aria-hidden=\"true\">\n" +
+  "    <div class=\"cursor-build-pointer cursor-build-pointer-a\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span>NOVA</span></div>\n" +
+  "    <div class=\"cursor-build-pointer cursor-build-pointer-b\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span>ATLAS</span></div>\n" +
+  "    <div class=\"cursor-build-pointer cursor-build-pointer-c\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span>MINT</span></div>\n" +
+  "    <div class=\"cursor-build-pointer cursor-build-pointer-d\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span>LUNA</span></div>\n" +
+  "  </div>\n" +
+  "  <div class=\"cursor-build-hud\" id=\"cursorBuildHud\" aria-live=\"polite\">\n" +
+  "    <span class=\"cursor-build-live\" aria-hidden=\"true\"></span>\n" +
+  "    <strong class=\"cursor-build-status\" id=\"cursorBuildStatus\">Constructing the homepage</strong>\n" +
+  "    <div class=\"cursor-build-progress\" role=\"progressbar\" aria-label=\"Homepage construction progress\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\"><span id=\"cursorBuildProgress\"></span></div>\n" +
+  "    <button type=\"button\" class=\"cursor-build-skip\" id=\"cursorBuildSkip\">Skip</button>\n" +
   "  </div>\n" +
   "  <div class=\"page\" id=\"sitePage\">\n" +
   "    <!-- Header -->\n" +
-  "    <header class=\"site-header\">\n" +
+  "    <header class=\"site-header\" data-build-piece data-build-label=\"Navigation\">\n" +
   "      <div class=\"nav-pill\">\n" +
   "        <a href=\"/\" class=\"brand\" aria-label=\"Home\">\n" +
   "          <img src=\"data:image/webp;base64,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\" alt=\"\" />\n" +
@@ -4458,21 +4369,21 @@ const ROOT_PAGE =
   "    <section class=\"hero-stage\" aria-label=\"999MS introduction\">\n" +
   "    <!-- Hero -->\n" +
   "    <main class=\"hero\">\n" +
-  "      <h1 class=\"headline\" id=\"dynamicHeadline\" aria-label=\"999MS HUB\"></h1>\n" +
+  "      <h1 class=\"headline build-piece\" id=\"dynamicHeadline\" data-build-piece data-build-label=\"999MS HUB\" aria-label=\"999MS HUB\"></h1>\n" +
   "\n" +
-  "      <p class=\"subhead pop-element\">\n" +
+  "      <p class=\"subhead pop-element build-piece\" data-build-piece data-build-label=\"Introduction\">\n" +
   "        Browse scripts for supported Roblox games and see what's new\n" +
   "      </p>\n" +
   "\n" +
-  "      <div class=\"cta-group pop-element\">\n" +
+  "      <div class=\"cta-group pop-element build-piece\" data-build-piece data-build-label=\"Get Started button\">\n" +
   "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
-  "      <p class=\"terms-note pop-element\">Use 999MS responsibly</p>\n" +
-  "      <button class=\"swarm-replay\" id=\"swarmReplay\" type=\"button\" aria-label=\"Replay homepage build animation\" title=\"Replay homepage build animation\"><i class=\"fa-solid fa-rotate-right\" aria-hidden=\"true\"></i> Replay build</button>\n" +
+  "      <p class=\"terms-note pop-element build-piece\" data-build-piece data-build-label=\"Page details\">Use 999MS responsibly</p>\n" +
+  "      <button class=\"cursor-build-replay\" id=\"cursorBuildReplay\" type=\"button\" aria-label=\"Replay cursor construction\" title=\"Replay cursor construction\"><i class=\"fa-solid fa-rotate-right\" aria-hidden=\"true\"></i> Replay</button>\n" +
   "    </main>\n" +
   "    </section>\n" +
   "\n" +
-  "    <section class=\"dark-section product-section reveal\" id=\"workflow\">\n" +
+  "    <section class=\"dark-section product-section reveal build-piece\" id=\"workflow\" data-build-piece data-build-label=\"Product showcase\">\n" +
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"showcase-layout\">\n" +
   "        <figure class=\"product-window\" aria-label=\"999MS HUB interface reference\">\n" +
@@ -4489,7 +4400,7 @@ const ROOT_PAGE =
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <section class=\"dark-section why-section reveal\" id=\"why-999ms\">\n" +
+  "    <section class=\"dark-section why-section reveal build-piece\" id=\"why-999ms\" data-build-piece data-build-label=\"Features\">\n" +
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">Why 999MS?</p><h2 class=\"section-heading\">Scripts and updates, all in one place</h2></div></div>\n" +
   "        <div class=\"feature-grid\">\n" +
@@ -4501,18 +4412,18 @@ const ROOT_PAGE =
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <section class=\"dark-section scripts-section reveal\">\n" +
+  "    <section class=\"dark-section scripts-section reveal build-piece\" data-build-piece data-build-label=\"Latest scripts\">\n" +
   "      <div class=\"section-inner\">\n" +
   "        <div class=\"section-title-row\"><div><p class=\"section-kicker\">ScriptHub</p><h2 class=\"section-heading\">Latest scripts</h2><p class=\"section-copy\">Recently added and updated in the 999MS library</p></div><a class=\"section-link\" href=\"/scripts\">View all <span>\u2192</span></a></div>\n" +
   "        <div class=\"home-script-grid\" id=\"homeScriptPreview\" aria-live=\"polite\"><div class=\"home-script-empty\">Loading the latest scripts\u2026</div></div>\n" +
   "      </div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <section class=\"dark-section community-section reveal\" id=\"community\">\n" +
+  "    <section class=\"dark-section community-section reveal build-piece\" id=\"community\" data-build-piece data-build-label=\"Discord community\">\n" +
   "      <div class=\"section-inner\"><div class=\"community-card\"><p class=\"section-kicker\">Discord community</p><h2>Join the 999MS community</h2><p>See the latest script updates on Discord</p><a class=\"community-action\" href=\"https://discord.gg/MzHSWzqWRY\" target=\"_blank\" rel=\"noopener noreferrer\"><i class=\"fa-brands fa-discord\" aria-hidden=\"true\"></i> Join Discord&nbsp; \u2192</a></div></div>\n" +
   "    </section>\n" +
   "\n" +
-  "    <footer class=\"site-footer\"><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS</div></footer>\n" +
+  "    <footer class=\"site-footer build-piece\" data-build-piece data-build-label=\"Footer\"><div class=\"footer-bottom\">\u00a9 <span id=\"homeYear\"></span> 999MS</div></footer>\n" +
   "\n" +
   "  </div>\n" +
   "\n" +
@@ -4520,185 +4431,109 @@ const ROOT_PAGE =
   "    (function () {\n" +
   "      \"use strict\";\n" +
   "\n" +
-  "      // Short, replayable homepage build inspired by cursor-driven page demos\n" +
-  "      const swarmIntro = document.getElementById(\"swarmIntro\");\n" +
-  "      const sitePage = document.getElementById(\"sitePage\");\n" +
-  "      const swarmSkip = document.getElementById(\"swarmSkip\");\n" +
-  "      const swarmReplay = document.getElementById(\"swarmReplay\");\n" +
-  "      const swarmProgress = document.getElementById(\"swarmProgress\");\n" +
-  "      const swarmProgressText = document.getElementById(\"swarmProgressText\");\n" +
-  "      const swarmBuildStatus = document.getElementById(\"swarmBuildStatus\");\n" +
-  "      const swarmProgressBar = swarmProgress && swarmProgress.parentElement;\n" +
-  "      let swarmFrame = 0;\n" +
-  "      let swarmFinishTimer = 0;\n" +
-  "      let swarmClickTimers = [];\n" +
-  "      let swarmOpen = false;\n" +
-  "      const swarmReducedMotion = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches;\n" +
-  "      const finishSwarmIntro = () => {\n" +
-  "        if (!swarmIntro || !swarmOpen) return;\n" +
-  "        swarmOpen = false;\n" +
-  "        if (swarmFrame) cancelAnimationFrame(swarmFrame);\n" +
-  "        if (swarmFinishTimer) clearTimeout(swarmFinishTimer);\n" +
-  "        swarmClickTimers.forEach((timer) => clearTimeout(timer));\n" +
-  "        swarmClickTimers = [];\n" +
-  "        document.querySelectorAll(\".swarm-cursor.is-clicking, .swarm-build-button.is-clicked\").forEach((element) => element.classList.remove(\"is-clicking\", \"is-clicked\"));\n" +
-  "        document.body.classList.remove(\"swarm-intro-open\");\n" +
-  "        if (sitePage && \"inert\" in sitePage) sitePage.inert = false;\n" +
-  "        if (swarmBuildStatus) swarmBuildStatus.textContent = \"Page ready\";\n" +
-  "        if (swarmProgressBar) swarmProgressBar.setAttribute(\"aria-valuenow\", \"100\");\n" +
-  "        if (swarmProgress) swarmProgress.style.width = \"100%\";\n" +
-  "        if (swarmProgressText) swarmProgressText.textContent = \"100%\";\n" +
-  "        swarmIntro.classList.add(\"is-leaving\");\n" +
-  "        window.removeEventListener(\"keydown\", swarmEscape);\n" +
-  "        window.setTimeout(() => {\n" +
-  "          swarmIntro.classList.remove(\"is-active\", \"is-leaving\");\n" +
-  "          swarmIntro.setAttribute(\"aria-hidden\", \"true\");\n" +
-  "        }, 700);\n" +
+  "      // Build the actual homepage in place with live cursors\n" +
+  "      const buildPieces = Array.from(document.querySelectorAll(\"[data-build-piece]\"));\n" +
+  "      const buildLayer = document.getElementById(\"cursorBuildLayer\");\n" +
+  "      const buildHud = document.getElementById(\"cursorBuildHud\");\n" +
+  "      const buildSkip = document.getElementById(\"cursorBuildSkip\");\n" +
+  "      const buildReplay = document.getElementById(\"cursorBuildReplay\");\n" +
+  "      const buildStatus = document.getElementById(\"cursorBuildStatus\");\n" +
+  "      const buildProgress = document.getElementById(\"cursorBuildProgress\");\n" +
+  "      const buildProgressBar = buildProgress && buildProgress.parentElement;\n" +
+  "      const buildCursors = buildLayer ? Array.from(buildLayer.querySelectorAll(\".cursor-build-pointer\")) : [];\n" +
+  "      const reducedMotion = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches;\n" +
+  "      let buildRun = 0;\n" +
+  "      let buildActive = false;\n" +
+  "      const waitForBuild = (milliseconds, run) => new Promise((resolve) => {\n" +
+  "        window.setTimeout(() => resolve(run === buildRun && buildActive), milliseconds);\n" +
+  "      });\n" +
+  "      const setBuildProgress = (index, total) => {\n" +
+  "        const value = total ? Math.round((index / total) * 100) : 100;\n" +
+  "        if (buildProgress) buildProgress.style.width = value + \"%\";\n" +
+  "        if (buildProgressBar) buildProgressBar.setAttribute(\"aria-valuenow\", String(value));\n" +
   "      };\n" +
-  "      const swarmEscape = (event) => {\n" +
-  "        if (event.key === \"Escape\") finishSwarmIntro();\n" +
-  "      };\n" +
-  "      const playSwarmIntro = (replay) => {\n" +
-  "        if (!swarmIntro || swarmReducedMotion) return;\n" +
-  "        if (!replay) {\n" +
-  "          try {\n" +
-  "            if (sessionStorage.getItem(\"999ms-swarm-intro-seen\") === \"1\") return;\n" +
-  "            sessionStorage.setItem(\"999ms-swarm-intro-seen\", \"1\");\n" +
-  "          } catch (_) {}\n" +
-  "        }\n" +
-  "        if (swarmFinishTimer) clearTimeout(swarmFinishTimer);\n" +
-  "        if (swarmFrame) cancelAnimationFrame(swarmFrame);\n" +
-  "        swarmIntro.classList.remove(\"is-leaving\");\n" +
-  "        swarmIntro.setAttribute(\"aria-hidden\", \"false\");\n" +
-  "        swarmIntro.classList.add(\"is-active\");\n" +
-  "        document.body.classList.add(\"swarm-intro-open\");\n" +
-  "        if (sitePage && \"inert\" in sitePage) sitePage.inert = true;\n" +
-  "        if (swarmProgress) swarmProgress.style.width = \"0%\";\n" +
-  "        if (swarmProgressText) swarmProgressText.textContent = \"0%\";\n" +
-  "        if (swarmProgressBar) swarmProgressBar.setAttribute(\"aria-valuenow\", \"0\");\n" +
-  "        if (swarmBuildStatus) swarmBuildStatus.textContent = \"Mapping the layout\";\n" +
-  "        swarmOpen = true;\n" +
-  "        window.addEventListener(\"keydown\", swarmEscape);\n" +
-  "        swarmClickTimers.forEach((timer) => clearTimeout(timer));\n" +
-  "        swarmClickTimers = [];\n" +
-  "        document.querySelectorAll(\".swarm-cursor.is-clicking, .swarm-build-button.is-clicked\").forEach((element) => element.classList.remove(\"is-clicking\", \"is-clicked\"));\n" +
-  "        const cursors = swarmIntro.querySelectorAll(\".swarm-cursor\");\n" +
-  "        const clickPlans = [\n" +
-  "          { at: 1580, cursor: 0, selector: \".swarm-nav-cta\" },\n" +
-  "          { at: 2390, cursor: 1, selector: \".swarm-action-primary\" },\n" +
-  "          { at: 4610, cursor: 2, selector: \".swarm-script-card\" },\n" +
-  "          { at: 5580, cursor: 3, selector: \".swarm-join-button\" }\n" +
-  "        ];\n" +
-  "        clickPlans.forEach(({ at, cursor, selector }) => {\n" +
-  "          const target = swarmIntro.querySelector(selector);\n" +
-  "          const pointer = cursors[cursor];\n" +
-  "          if (!target || !pointer) return;\n" +
-  "          swarmClickTimers.push(window.setTimeout(() => {\n" +
-  "            if (!swarmOpen) return;\n" +
-  "            pointer.classList.add(\"is-clicking\");\n" +
-  "            target.classList.add(\"is-clicked\");\n" +
-  "            swarmClickTimers.push(window.setTimeout(() => {\n" +
-  "              pointer.classList.remove(\"is-clicking\");\n" +
-  "              target.classList.remove(\"is-clicked\");\n" +
-  "            }, 460));\n" +
-  "          }, at));\n" +
+  "      const completePageBuild = (scrollHome) => {\n" +
+  "        buildRun += 1;\n" +
+  "        buildActive = false;\n" +
+  "        buildPieces.forEach((piece) => {\n" +
+  "          piece.classList.remove(\"is-building\");\n" +
+  "          piece.classList.add(\"is-built\");\n" +
   "        });\n" +
-  "        const duration = 6450;\n" +
-  "        const startedAt = performance.now();\n" +
-  "        const tick = (now) => {\n" +
-  "          if (!swarmOpen) return;\n" +
-  "          const amount = Math.max(0, Math.min(1, (now - startedAt) / duration));\n" +
-  "          const percent = Math.round(amount * 100);\n" +
-  "          if (swarmProgress) swarmProgress.style.width = percent + \"%\";\n" +
-  "          if (swarmProgressText) swarmProgressText.textContent = percent + \"%\";\n" +
-  "          if (swarmProgressBar) swarmProgressBar.setAttribute(\"aria-valuenow\", String(percent));\n" +
-  "          if (swarmBuildStatus) {\n" +
-  "            swarmBuildStatus.textContent = amount < .16 ? \"Mapping the layout\" : amount < .38 ? \"Building the hero\" : amount < .65 ? \"Constructing page sections\" : amount < .88 ? \"Finishing the details\" : \"Page taking shape\";\n" +
-  "          }\n" +
-  "          if (amount < 1) swarmFrame = requestAnimationFrame(tick);\n" +
-  "        };\n" +
-  "        swarmFrame = requestAnimationFrame(tick);\n" +
-  "        swarmFinishTimer = window.setTimeout(finishSwarmIntro, duration + 80);\n" +
+  "        document.documentElement.classList.remove(\"cursor-build-pending\");\n" +
+  "        if (buildStatus) buildStatus.textContent = \"Homepage ready\";\n" +
+  "        setBuildProgress(buildPieces.length, buildPieces.length);\n" +
+  "        if (buildLayer) buildLayer.classList.remove(\"is-active\");\n" +
+  "        if (buildHud) buildHud.classList.remove(\"is-active\");\n" +
+  "        buildCursors.forEach((cursor) => cursor.classList.remove(\"is-clicking\"));\n" +
+  "        window.removeEventListener(\"keydown\", handleBuildKey);\n" +
+  "        if (scrollHome) window.setTimeout(() => window.scrollTo({ top: 0, behavior: reducedMotion ? \"auto\" : \"smooth\" }), 100);\n" +
   "      };\n" +
-  "      if (swarmSkip) swarmSkip.addEventListener(\"click\", finishSwarmIntro);\n" +
-  "      if (swarmReplay) swarmReplay.addEventListener(\"click\", () => playSwarmIntro(true));\n" +
-  "      if (!swarmReducedMotion) playSwarmIntro(false);\n" +
-  "\n" +
-  "      // Existing headline letters keep their original scattered entrance\n" +
-  "      function getFarRandomDirection() {\n" +
-  "        const tx = (Math.random() - 0.5) * 600; // \u0e2a\u0e38\u0e48\u0e21\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 -300px \u0e16\u0e36\u0e07 300px\n" +
-  "        const ty = (Math.random() - 0.5) * 600;\n" +
-  "        const tr = (Math.random() - 0.5) * 180; // \u0e2a\u0e38\u0e48\u0e21\u0e21\u0e38\u0e21\u0e40\u0e2d\u0e35\u0e22\u0e07\n" +
-  "        return { tx: `${tx}px`, ty: `${ty}px`, tr: `${tr}deg` };\n" +
+  "      const handleBuildKey = (event) => {\n" +
+  "        if (event.key === \"Escape\" && buildActive) completePageBuild(true);\n" +
+  "      };\n" +
+  "      const positionCursor = (cursor, piece) => {\n" +
+  "        if (!cursor || !piece) return;\n" +
+  "        const rect = piece.getBoundingClientRect();\n" +
+  "        const x = Math.max(4, Math.min(window.innerWidth - 38, rect.left + Math.min(rect.width * .54, window.innerWidth * .72)));\n" +
+  "        const y = Math.max(4, Math.min(window.innerHeight - 40, rect.top + Math.min(rect.height * .52, 190)));\n" +
+  "        cursor.style.transform = `translate3d(${Math.round(x)}px,${Math.round(y)}px,0)`;\n" +
+  "      };\n" +
+  "      const runPageBuild = async () => {\n" +
+  "        if (reducedMotion || !buildPieces.length) {\n" +
+  "          buildPieces.forEach((piece) => piece.classList.add(\"is-built\"));\n" +
+  "          document.documentElement.classList.remove(\"cursor-build-pending\");\n" +
+  "          if (buildReplay) buildReplay.hidden = true;\n" +
+  "          return;\n" +
+  "        }\n" +
+  "        buildRun += 1;\n" +
+  "        const run = buildRun;\n" +
+  "        buildActive = true;\n" +
+  "        buildPieces.forEach((piece) => piece.classList.remove(\"is-built\", \"is-building\"));\n" +
+  "        document.documentElement.classList.add(\"cursor-build-pending\");\n" +
+  "        if (buildLayer) buildLayer.classList.add(\"is-active\");\n" +
+  "        if (buildHud) buildHud.classList.add(\"is-active\");\n" +
+  "        if (buildStatus) buildStatus.textContent = \"Mapping the homepage\";\n" +
+  "        if (buildProgress) buildProgress.style.width = \"0%\";\n" +
+  "        if (buildProgressBar) buildProgressBar.setAttribute(\"aria-valuenow\", \"0\");\n" +
+  "        window.addEventListener(\"keydown\", handleBuildKey);\n" +
+  "        window.scrollTo({ top: 0, behavior: \"auto\" });\n" +
+  "        await waitForBuild(180, run);\n" +
+  "        if (run !== buildRun || !buildActive) return;\n" +
+  "        for (let index = 0; index < buildPieces.length; index += 1) {\n" +
+  "          const piece = buildPieces[index];\n" +
+  "          if (run !== buildRun || !buildActive) return;\n" +
+  "          const pieceTop = window.scrollY + piece.getBoundingClientRect().top;\n" +
+  "          const maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);\n" +
+  "          const targetScroll = Math.max(0, Math.min(maxScroll, pieceTop - window.innerHeight * .34));\n" +
+  "          window.scrollTo({ top: targetScroll, behavior: \"smooth\" });\n" +
+  "          if (!(await waitForBuild(360, run))) return;\n" +
+  "          if (buildStatus) buildStatus.textContent = \"Building \" + (piece.dataset.buildLabel || \"page section\");\n" +
+  "          setBuildProgress(index, buildPieces.length);\n" +
+  "          const cursor = buildCursors[index % buildCursors.length];\n" +
+  "          positionCursor(cursor, piece);\n" +
+  "          if (!(await waitForBuild(240, run))) return;\n" +
+  "          if (cursor) cursor.classList.add(\"is-clicking\");\n" +
+  "          piece.classList.add(\"is-building\");\n" +
+  "          if (!(await waitForBuild(500, run))) return;\n" +
+  "          piece.classList.remove(\"is-building\");\n" +
+  "          piece.classList.add(\"is-built\");\n" +
+  "          if (piece.id === \"dynamicHeadline\") piece.querySelectorAll(\".char\").forEach((character) => character.classList.add(\"shimmer-ready\"));\n" +
+  "          if (cursor) cursor.classList.remove(\"is-clicking\");\n" +
+  "          setBuildProgress(index + 1, buildPieces.length);\n" +
+  "          if (!(await waitForBuild(90, run))) return;\n" +
+  "        }\n" +
+  "        if (buildStatus) buildStatus.textContent = \"Homepage ready\";\n" +
+  "        await waitForBuild(600, run);\n" +
+  "        if (run === buildRun && buildActive) completePageBuild(true);\n" +
+  "      };\n" +
+  "      if (buildSkip) buildSkip.addEventListener(\"click\", () => completePageBuild(true));\n" +
+  "      if (buildReplay) buildReplay.addEventListener(\"click\", runPageBuild);\n" +
+  "      if (!reducedMotion) runPageBuild();\n" +
+  "      else {\n" +
+  "        buildPieces.forEach((piece) => piece.classList.add(\"is-built\"));\n" +
+  "        document.documentElement.classList.remove(\"cursor-build-pending\");\n" +
   "      }\n" +
   "\n" +
-  "      // =========================================\n" +
-  "      // 1. \u0e2a\u0e23\u0e49\u0e32\u0e07\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e41\u0e25\u0e30\u0e2a\u0e31\u0e48\u0e07\u0e43\u0e2b\u0e49\u0e40\u0e14\u0e49\u0e07\n" +
-  "      // =========================================\n" +
-  "      const headlineEl = document.getElementById('dynamicHeadline');\n" +
-  "      const text = \"999MS HUB\";\n" +
-  "      \n" +
-  "      // \u0e2a\u0e23\u0e49\u0e32\u0e07 Element \u0e44\u0e27\u0e49\u0e01\u0e48\u0e2d\u0e19 (\u0e22\u0e31\u0e07\u0e44\u0e21\u0e48\u0e42\u0e1c\u0e25\u0e48)\n" +
-  "      text.split(\"\").forEach((char) => {\n" +
-  "        if (char === \" \") {\n" +
-  "          const space = document.createElement('span');\n" +
-  "          space.innerHTML = \"&nbsp;\";\n" +
-  "          space.style.width = \"0.4em\";\n" +
-  "          headlineEl.appendChild(space);\n" +
-  "        } else {\n" +
-  "          const span = document.createElement('span');\n" +
-  "          span.className = 'char';\n" +
-  "          span.textContent = char;\n" +
-  "          span.setAttribute('data-char', char);\n" +
-  "          headlineEl.appendChild(span);\n" +
-  "        }\n" +
-  "      });\n" +
-  "\n" +
-  "      // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e40\u0e1a\u0e23\u0e32\u0e27\u0e4c\u0e40\u0e0b\u0e2d\u0e23\u0e4c\u0e27\u0e32\u0e14\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e40\u0e2a\u0e23\u0e47\u0e08\u0e01\u0e48\u0e2d\u0e19 1 Tick \u0e41\u0e25\u0e49\u0e27\u0e04\u0e48\u0e2d\u0e22\u0e2a\u0e31\u0e48\u0e07\u0e41\u0e2d\u0e19\u0e34\u0e40\u0e21\u0e0a\u0e31\u0e19\n" +
-  "      setTimeout(() => {\n" +
-  "        const chars = headlineEl.querySelectorAll('.char');\n" +
-  "        chars.forEach((span, index) => {\n" +
-  "          const dir = getFarRandomDirection();\n" +
-  "          span.style.setProperty('--tx', dir.tx);\n" +
-  "          span.style.setProperty('--ty', dir.ty);\n" +
-  "          span.style.setProperty('--tr', dir.tr);\n" +
-  "          \n" +
-  "          // \u0e2b\u0e19\u0e48\u0e27\u0e07\u0e40\u0e27\u0e25\u0e32\u0e43\u0e2b\u0e49\u0e21\u0e32\u0e17\u0e35\u0e25\u0e30\u0e15\u0e31\u0e27 (\u0e0a\u0e49\u0e32\u0e25\u0e07 0.15s \u0e15\u0e48\u0e2d\u0e15\u0e31\u0e27)\n" +
-  "          const delay = 0.2 + (index * 0.15); \n" +
-  "          span.style.setProperty('--delay', `${delay}s`);\n" +
-  "          \n" +
-  "          span.classList.add('pop-in');\n" +
-  "\n" +
-  "          if (index === chars.length - 1) {\n" +
-  "            setTimeout(() => {\n" +
-  "              chars.forEach(c => c.classList.add('shimmer-ready'));\n" +
-  "            }, (delay + 2) * 1000); // \u0e23\u0e2d\u0e43\u0e2b\u0e49\u0e15\u0e31\u0e27\u0e2a\u0e38\u0e14\u0e17\u0e49\u0e32\u0e22\u0e40\u0e14\u0e49\u0e07\u0e40\u0e2a\u0e23\u0e47\u0e08\u0e01\u0e48\u0e2d\u0e19\u0e04\u0e48\u0e2d\u0e22\u0e27\u0e34\u0e48\u0e07\u0e41\u0e2a\u0e07\n" +
-  "          }\n" +
-  "        });\n" +
-  "      }, 50);\n" +
-  "\n" +
-  "      // =========================================\n" +
-  "      // 2. Elements \u0e2d\u0e37\u0e48\u0e19\u0e46 \u0e43\u0e2b\u0e49\u0e40\u0e14\u0e49\u0e07\u0e41\u0e1a\u0e1a\u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19\u0e01\u0e31\u0e19\n" +
-  "      // =========================================\n" +
-  "      const popElements = document.querySelectorAll('.pop-element');\n" +
-  "      \n" +
-  "      popElements.forEach((el, index) => {\n" +
-  "        // \u0e2a\u0e38\u0e48\u0e21\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e43\u0e2b\u0e49 Element \u0e19\u0e31\u0e49\u0e19\u0e46\n" +
-  "        const dir = getFarRandomDirection();\n" +
-  "        el.style.setProperty('--tx', dir.tx);\n" +
-  "        el.style.setProperty('--ty', dir.ty);\n" +
-  "        el.style.setProperty('--tr', dir.tr);\n" +
-  "        \n" +
-  "        // \u0e43\u0e2b\u0e49\u0e40\u0e23\u0e34\u0e48\u0e21\u0e2b\u0e25\u0e31\u0e07\u0e08\u0e32\u0e01\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23\u0e40\u0e23\u0e34\u0e48\u0e21\u0e42\u0e1c\u0e25\u0e48\u0e44\u0e1b\u0e41\u0e25\u0e49\u0e27\u0e19\u0e34\u0e14\u0e19\u0e36\u0e07 (\u0e40\u0e23\u0e34\u0e48\u0e21\u0e17\u0e35\u0e48 1.8 \u0e27\u0e34\u0e19\u0e32\u0e17\u0e35)\n" +
-  "        const delay = window.matchMedia(\"(max-width: 900px)\").matches ? 0.12 + (index * 0.12) : 1.8 + (index * 0.2);\n" +
-  "        el.style.setProperty('--delay', `${delay}s`);\n" +
-  "        \n" +
-  "        setTimeout(() => {\n" +
-  "          el.classList.add('pop-in');\n" +
-  "        }, 50);\n" +
-  "      });\n" +
-  "\n" +
-  "      // =========================================\n" +
   "      // 3. Mobile Menu Toggle\n" +
   "      // =========================================\n" +
   "      const burger = document.getElementById(\"burger\");\n" +
