@@ -4305,10 +4305,91 @@ const ROOT_PAGE =
   "    @media(max-width:600px){.tech-wordmark{gap:7px;font-size:16px}.tech-wordmark:last-child{font-size:12px}.window-nav-item{font-size:9px}.window-nav-item i{font-size:10px}.window-profile{font-size:9px}.window-profile small{font-size:7px}.hub-project-head h3{font-size:14px}.discord-copy h4{font-size:12px}.discord-copy p{font-size:9px}.discord-action{min-height:32px;font-size:11px}}\n" +
   "    @media(max-width:720px){.product-section{padding-top:clamp(70px,9svh,100px);padding-bottom:36px;background:linear-gradient(180deg,#cbd5eb 0%,#cbd5eb 58%,#050505 100%)}.product-section.reveal,.why-section.reveal,.scripts-section.reveal,.community-section.reveal{opacity:1;transform:none}.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}.why-section.reveal.is-visible>.section-inner,.scripts-section.reveal.is-visible>.section-inner,.community-section.reveal.is-visible>.section-inner{opacity:1;transform:none}.product-section .section-kicker,.product-section .section-heading,.product-section .section-copy{display:none}.product-window{margin-top:0}.product-section .section-inner{width:min(100%,1120px)}}\n" +
   "    @media(prefers-reduced-motion:reduce){.hero-stage::before,.tech-strip{animation:none!important;transform:none!important}.tech-track[aria-hidden=\"true\"]{display:none!important}*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal,.product-window,.window-content,.trust-ring,.why-section.reveal>.section-inner,.scripts-section.reveal>.section-inner,.community-section.reveal>.section-inner{opacity:1;filter:none;transform:none}.product-window::after{display:none}.reveal{opacity:1;transform:none}}\n" +
+  "    /* ===== Swarm-built homepage intro ===== */\n" +
+  "    body.swarm-intro-open{overflow:hidden}\n" +
+  "    .swarm-intro{position:fixed;inset:0;z-index:1000;display:grid;grid-template-rows:auto minmax(0,1fr) auto;overflow:hidden;padding:clamp(16px,3vw,34px);background:#10131b;color:#f7f8fc;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .65s ease,visibility .65s ease;font-family:var(--font-sans)}\n" +
+  "    .swarm-intro.is-active{opacity:1;visibility:visible;pointer-events:auto}\n" +
+  "    .swarm-intro.is-leaving{opacity:0;visibility:hidden;pointer-events:none}\n" +
+  "    .swarm-intro::before{content:\"\";position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 48%,rgba(78,91,137,.24),transparent 62%),linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:auto,42px 42px,42px 42px;mask-image:linear-gradient(180deg,#000,transparent 90%)}\n" +
+  "    .swarm-intro-top,.swarm-intro-bottom{position:relative;z-index:4;display:flex;align-items:center;justify-content:space-between;gap:16px;width:min(100%,1120px);margin:0 auto}\n" +
+  "    .swarm-intro-top{height:44px;color:#a9afbf;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}\n" +
+  "    .swarm-mark{display:inline-flex;align-items:center;gap:10px}.swarm-mark b{width:26px;height:26px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.16);border-radius:8px;background:#f8f8fa;color:#0c0d11;font-size:12px;font-style:italic;font-weight:900;letter-spacing:-.08em}\n" +
+  "    .swarm-live-dot{width:7px;height:7px;border-radius:50%;background:#7cf5c7;box-shadow:0 0 14px rgba(124,245,199,.75)}\n" +
+  "    .swarm-skip{min-height:38px;padding:0 15px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(255,255,255,.06);color:#f5f6fa;font-size:12px;font-weight:650;transition:background .2s ease,border-color .2s ease}\n" +
+  "    .swarm-skip:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.32)}\n" +
+  "    .swarm-scene{position:relative;display:grid;place-items:center;min-height:0;perspective:1200px}\n" +
+  "    .swarm-window{position:relative;width:min(900px,calc(100vw - 52px));min-height:min(560px,70vh);overflow:hidden;border:1px solid rgba(255,255,255,.14);border-radius:22px;background:#171a22;box-shadow:0 40px 120px rgba(0,0,0,.4);opacity:0;transform:translateY(22px) scale(.975)}\n" +
+  "    .swarm-intro.is-active .swarm-window{animation:swarmWindowIn .65s cubic-bezier(.2,.8,.2,1) .12s forwards}\n" +
+  "    @keyframes swarmWindowIn{to{opacity:1;transform:none}}\n" +
+  "    .swarm-windowbar{height:48px;display:flex;align-items:center;gap:7px;padding:0 17px;border-bottom:1px solid rgba(255,255,255,.08);background:#13151b}\n" +
+  "    .swarm-windowbar i{width:8px;height:8px;border-radius:50%;background:#555b69}.swarm-windowbar i:first-child{background:#f07d83}.swarm-windowbar i:nth-child(2){background:#e8bd66}.swarm-windowbar i:nth-child(3){background:#73c99c}\n" +
+  "    .swarm-address{width:min(42%,360px);height:24px;margin:auto;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(255,255,255,.04);color:#8f96a7;text-align:center;font-size:10px;line-height:22px;letter-spacing:.02em}\n" +
+  "    .swarm-app{position:relative;min-height:510px;padding:0 clamp(24px,6vw,72px);background:radial-gradient(ellipse at 18% 18%,rgba(124,149,220,.17),transparent 46%),linear-gradient(145deg,#1a1d27,#14161d 68%,#191b24)}\n" +
+  "    .swarm-nav{height:74px;display:flex;align-items:center;gap:30px;border-bottom:1px solid rgba(255,255,255,.08);color:#abb1c0;font-size:11px}\n" +
+  "    .swarm-nav-brand{display:flex;align-items:center;gap:8px;margin-right:auto;color:#fff;font-size:12px;font-weight:800;letter-spacing:-.03em}\n" +
+  "    .swarm-nav-brand span{width:24px;height:24px;display:grid;place-items:center;border-radius:7px;background:#f7f8fa;color:#111;font-size:11px;font-style:italic}\n" +
+  "    .swarm-nav-cta{padding:9px 14px;border-radius:999px;background:#f4f5f8;color:#15161a;font-size:10px;font-weight:750}\n" +
+  "    .swarm-copy{max-width:620px;padding:clamp(46px,8vh,86px) 0 32px}\n" +
+  "    .swarm-eyebrow{display:inline-flex;align-items:center;gap:8px;color:#bbc4d9;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}\n" +
+  "    .swarm-eyebrow::before{content:\"\";width:22px;height:1px;background:#a9b7dc}\n" +
+  "    .swarm-title{max-width:610px;margin:20px 0 14px;color:#f7f8fc;font-size:clamp(34px,6vw,68px);font-weight:750;line-height:.99;letter-spacing:-.065em}\n" +
+  "    .swarm-title span{color:#aab9e1}\n" +
+  "    .swarm-description{max-width:470px;color:#9da5b7;font-size:clamp(12px,1.5vw,15px);line-height:1.7}\n" +
+  "    .swarm-hero-actions{display:flex;align-items:center;gap:11px;margin-top:25px}\n" +
+  "    .swarm-action-primary,.swarm-action-secondary{height:39px;padding:0 17px;display:inline-flex;align-items:center;border-radius:999px;font-size:10px;font-weight:700}\n" +
+  "    .swarm-action-primary{background:#f4f5f8;color:#15161a}.swarm-action-secondary{border:1px solid rgba(255,255,255,.16);color:#e7e9ef}\n" +
+  "    .swarm-side-card{position:absolute;right:clamp(22px,6vw,72px);bottom:58px;width:200px;padding:16px;border:1px solid rgba(255,255,255,.1);border-radius:15px;background:rgba(12,14,19,.52);box-shadow:0 20px 40px rgba(0,0,0,.18)}\n" +
+  "    .swarm-side-label{color:#8e96a8;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}.swarm-side-value{margin-top:8px;color:#f5f6f9;font-size:18px;font-weight:750;letter-spacing:-.04em}.swarm-side-line{height:5px;margin-top:11px;border-radius:99px;background:linear-gradient(90deg,#aab9e1 72%,rgba(255,255,255,.1) 72%)}\n" +
+  "    .swarm-piece{position:relative;opacity:0;clip-path:inset(0 100% 0 0)}\n" +
+  "    .swarm-intro.is-active .swarm-piece{animation:swarmDraw .62s cubic-bezier(.2,.7,.2,1) var(--piece-delay,0s) forwards}\n" +
+  "    @keyframes swarmDraw{to{opacity:1;clip-path:inset(0 0 0 0)}}\n" +
+  "    .swarm-title.swarm-piece{clip-path:inset(0 100% 0 0)}\n" +
+  "    .swarm-cursor{position:absolute;z-index:3;top:0;left:0;display:flex;align-items:flex-start;gap:5px;color:var(--cursor-color);opacity:0;filter:drop-shadow(0 5px 10px rgba(0,0,0,.3));pointer-events:none}\n" +
+  "    .swarm-intro.is-active .swarm-cursor{animation:var(--cursor-path) 4.3s cubic-bezier(.43,.05,.3,1) .05s both}\n" +
+  "    .swarm-cursor svg{width:21px;height:25px;flex:none;overflow:visible}.swarm-cursor-name{margin:17px 0 0 -2px;padding:3px 7px;border-radius:5px;background:var(--cursor-color);color:#111319;font-size:8px;font-weight:850;letter-spacing:.06em;white-space:nowrap}\n" +
+  "    .swarm-cursor-a{--cursor-color:#92e7c3;--cursor-path:swarmPathA}.swarm-cursor-b{--cursor-color:#8fb4ff;--cursor-path:swarmPathB}.swarm-cursor-c{--cursor-color:#f2bd7c;--cursor-path:swarmPathC}.swarm-cursor-d{--cursor-color:#d1a5ff;--cursor-path:swarmPathD}\n" +
+  "    @keyframes swarmPathA{0%{left:7%;top:80%;opacity:0}12%{opacity:1}32%{left:25%;top:38%}52%{left:54%;top:34%}76%{left:73%;top:61%}100%{left:84%;top:68%;opacity:1}}\n" +
+  "    @keyframes swarmPathB{0%{left:88%;top:18%;opacity:0}14%{opacity:1}35%{left:69%;top:39%}58%{left:40%;top:48%}78%{left:23%;top:69%}100%{left:31%;top:75%;opacity:1}}\n" +
+  "    @keyframes swarmPathC{0%{left:78%;top:84%;opacity:0}13%{opacity:1}37%{left:76%;top:32%}57%{left:52%;top:25%}82%{left:37%;top:63%}100%{left:49%;top:73%;opacity:1}}\n" +
+  "    @keyframes swarmPathD{0%{left:18%;top:15%;opacity:0}15%{opacity:1}38%{left:39%;top:32%}58%{left:72%;top:47%}80%{left:61%;top:73%}100%{left:66%;top:79%;opacity:1}}\n" +
+  "    .swarm-intro-bottom{min-height:54px;color:#9fa6b6;font-size:10px;font-weight:650;letter-spacing:.03em}\n" +
+  "    .swarm-build-state{display:flex;align-items:center;gap:10px}.swarm-build-state strong{color:#f1f3f8;font-weight:700}\n" +
+  "    .swarm-progress{width:min(22vw,210px);height:3px;overflow:hidden;border-radius:9px;background:rgba(255,255,255,.12)}.swarm-progress span{display:block;width:0;height:100%;border-radius:inherit;background:#aab9e1;box-shadow:0 0 12px rgba(170,185,225,.55);transition:width .12s linear}\n" +
+  "    .swarm-replay{display:inline-flex;align-items:center;gap:7px;margin-top:4px;padding:7px 10px;border:1px solid rgba(16,19,27,.2);border-radius:999px;background:rgba(255,255,255,.3);color:#20242e;font-size:11px;font-weight:700;transition:background .2s ease,transform .2s ease}\n" +
+  "    .swarm-replay:hover{background:rgba(255,255,255,.7);transform:translateY(-1px)}\n" +
+  "    .swarm-replay i{font-size:10px}\n" +
+  "    @media(max-width:620px){\n" +
+  "      .swarm-intro{padding:14px}.swarm-intro-top{height:38px;font-size:9px}.swarm-skip{min-height:34px;padding:0 12px;font-size:11px}.swarm-window{width:calc(100vw - 28px);min-height:450px;border-radius:17px}.swarm-windowbar{height:40px;padding:0 12px}.swarm-address{width:48%;font-size:9px}.swarm-app{min-height:410px;padding:0 22px}.swarm-nav{height:58px;gap:12px;font-size:9px}.swarm-nav-brand{font-size:10px}.swarm-nav-brand span{width:21px;height:21px}.swarm-nav-cta{padding:8px 10px;font-size:9px}.swarm-copy{padding:60px 0 20px}.swarm-eyebrow{font-size:8px}.swarm-title{margin:16px 0 11px;font-size:clamp(34px,10vw,51px)}.swarm-description{max-width:290px;font-size:12px}.swarm-hero-actions{gap:8px;margin-top:20px}.swarm-action-primary,.swarm-action-secondary{height:35px;padding:0 12px;font-size:9px}.swarm-side-card{right:18px;bottom:19px;width:150px;padding:11px;border-radius:12px}.swarm-side-label{font-size:8px}.swarm-side-value{font-size:15px}.swarm-side-line{margin-top:8px}.swarm-cursor svg{width:18px;height:22px}.swarm-cursor-name{font-size:7px}.swarm-progress{width:74px}.swarm-intro-bottom{min-height:46px;font-size:9px}.swarm-replay{font-size:10px}\n" +
+  "    }\n" +
+  "    @media(max-width:380px){.swarm-nav{gap:8px}.swarm-nav>span:not(.swarm-nav-brand):not(.swarm-nav-cta){display:none}.swarm-side-card{width:130px}.swarm-copy{padding-top:48px}}\n" +
+  "    @media(prefers-reduced-motion:reduce){.swarm-intro{display:none!important}.swarm-replay{transition:none}}\n" +
   "  </style>\n" +
   "</head>\n" +
   "<body>\n" +
-  "  <div class=\"page\">\n" +
+  "  <div class=\"swarm-intro\" id=\"swarmIntro\" aria-hidden=\"true\">\n" +
+  "    <div class=\"swarm-intro-top\"><div class=\"swarm-mark\"><b>9</b><span class=\"swarm-live-dot\" aria-hidden=\"true\"></span><span>999MS / Interface Build</span></div><button type=\"button\" class=\"swarm-skip\" id=\"swarmSkip\">Skip build</button></div>\n" +
+  "    <div class=\"swarm-scene\" aria-label=\"A swarm of cursors assembles the 999MS homepage\">\n" +
+  "      <div class=\"swarm-window\">\n" +
+  "        <div class=\"swarm-windowbar\" aria-hidden=\"true\"><i></i><i></i><i></i><span class=\"swarm-address\">999ms \u00b7 home</span></div>\n" +
+  "        <div class=\"swarm-app\">\n" +
+  "          <div class=\"swarm-nav\"><div class=\"swarm-nav-brand swarm-piece\" style=\"--piece-delay:.35s\"><span>9</span> 999MS</div><span class=\"swarm-piece\" style=\"--piece-delay:.62s\">Product</span><span class=\"swarm-piece\" style=\"--piece-delay:.78s\">Community</span><span class=\"swarm-nav-cta swarm-piece\" style=\"--piece-delay:.94s\">Find Scripts \u2197</span></div>\n" +
+  "          <div class=\"swarm-copy\">\n" +
+  "            <span class=\"swarm-eyebrow swarm-piece\" style=\"--piece-delay:1.15s\">A focused script hub</span>\n" +
+  "            <h2 class=\"swarm-title swarm-piece\" style=\"--piece-delay:1.38s\">999MS<br><span>HUB</span></h2>\n" +
+  "            <p class=\"swarm-description swarm-piece\" style=\"--piece-delay:1.62s\">Browse scripts for supported Roblox games and see what\u2019s new</p>\n" +
+  "            <div class=\"swarm-hero-actions\"><span class=\"swarm-action-primary swarm-piece\" style=\"--piece-delay:1.88s\">Get Started</span></div>\n" +
+  "          </div>\n" +
+  "          <div class=\"swarm-side-card swarm-piece\" style=\"--piece-delay:2.25s\"><div class=\"swarm-side-label\">Script library</div><div class=\"swarm-side-value\">Built for players</div><div class=\"swarm-side-line\"></div></div>\n" +
+  "        </div>\n" +
+  "      </div>\n" +
+  "      <div class=\"swarm-cursor swarm-cursor-a\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">NOVA</span></div>\n" +
+  "      <div class=\"swarm-cursor swarm-cursor-b\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">ATLAS</span></div>\n" +
+  "      <div class=\"swarm-cursor swarm-cursor-c\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2 8 3.2-1.7-4.1-7.8H20L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">MINT</span></div>\n" +
+  "      <div class=\"swarm-cursor swarm-cursor-d\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 28\"><path d=\"M3 2v20l5.8-5.5 4.2-5.5 8 0L3 2Z\" fill=\"currentColor\" stroke=\"#111319\" stroke-width=\"1.4\" stroke-linejoin=\"round\"/></svg><span class=\"swarm-cursor-name\">LUNA</span></div>\n" +
+  "    </div>\n" +
+  "    <div class=\"swarm-intro-bottom\"><div class=\"swarm-build-state\"><span class=\"swarm-live-dot\" aria-hidden=\"true\"></span><strong id=\"swarmBuildStatus\" aria-live=\"polite\">Mapping the layout</strong></div><div class=\"swarm-progress\" role=\"progressbar\" aria-label=\"Homepage build progress\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-valuenow=\"0\"><span id=\"swarmProgress\"></span></div><span id=\"swarmProgressText\">0%</span></div>\n" +
+  "  </div>\n" +
+  "  <div class=\"page\" id=\"sitePage\">\n" +
   "    <!-- Header -->\n" +
   "    <header class=\"site-header\">\n" +
   "      <div class=\"nav-pill\">\n" +
@@ -4341,6 +4422,7 @@ const ROOT_PAGE =
   "        <a href=\"/scripts\" class=\"cta-primary\">Get Started</a>\n" +
   "      </div>\n" +
   "      <p class=\"terms-note pop-element\">Use 999MS responsibly</p>\n" +
+  "      <button class=\"swarm-replay\" id=\"swarmReplay\" type=\"button\" aria-label=\"Replay homepage build animation\" title=\"Replay homepage build animation\"><i class=\"fa-solid fa-rotate-right\" aria-hidden=\"true\"></i> Replay build</button>\n" +
   "    </main>\n" +
   "    </section>\n" +
   "\n" +
@@ -4392,7 +4474,83 @@ const ROOT_PAGE =
   "    (function () {\n" +
   "      \"use strict\";\n" +
   "\n" +
-  "      // \u0e1f\u0e31\u0e07\u0e01\u0e4c\u0e0a\u0e31\u0e19\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e04\u0e48\u0e32\u0e2a\u0e38\u0e48\u0e21 (\u0e17\u0e34\u0e28\u0e17\u0e32\u0e07\u0e40\u0e14\u0e49\u0e07\u0e44\u0e01\u0e25\u0e46)\n" +
+  "      // Short, replayable homepage build inspired by cursor-driven page demos\n" +
+  "      const swarmIntro = document.getElementById(\"swarmIntro\");\n" +
+  "      const sitePage = document.getElementById(\"sitePage\");\n" +
+  "      const swarmSkip = document.getElementById(\"swarmSkip\");\n" +
+  "      const swarmReplay = document.getElementById(\"swarmReplay\");\n" +
+  "      const swarmProgress = document.getElementById(\"swarmProgress\");\n" +
+  "      const swarmProgressText = document.getElementById(\"swarmProgressText\");\n" +
+  "      const swarmBuildStatus = document.getElementById(\"swarmBuildStatus\");\n" +
+  "      const swarmProgressBar = swarmProgress && swarmProgress.parentElement;\n" +
+  "      let swarmFrame = 0;\n" +
+  "      let swarmFinishTimer = 0;\n" +
+  "      let swarmOpen = false;\n" +
+  "      const swarmReducedMotion = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches;\n" +
+  "      const finishSwarmIntro = () => {\n" +
+  "        if (!swarmIntro || !swarmOpen) return;\n" +
+  "        swarmOpen = false;\n" +
+  "        if (swarmFrame) cancelAnimationFrame(swarmFrame);\n" +
+  "        if (swarmFinishTimer) clearTimeout(swarmFinishTimer);\n" +
+  "        document.body.classList.remove(\"swarm-intro-open\");\n" +
+  "        if (sitePage && \"inert\" in sitePage) sitePage.inert = false;\n" +
+  "        if (swarmBuildStatus) swarmBuildStatus.textContent = \"Page ready\";\n" +
+  "        if (swarmProgressBar) swarmProgressBar.setAttribute(\"aria-valuenow\", \"100\");\n" +
+  "        if (swarmProgress) swarmProgress.style.width = \"100%\";\n" +
+  "        if (swarmProgressText) swarmProgressText.textContent = \"100%\";\n" +
+  "        swarmIntro.classList.add(\"is-leaving\");\n" +
+  "        window.removeEventListener(\"keydown\", swarmEscape);\n" +
+  "        window.setTimeout(() => {\n" +
+  "          swarmIntro.classList.remove(\"is-active\", \"is-leaving\");\n" +
+  "          swarmIntro.setAttribute(\"aria-hidden\", \"true\");\n" +
+  "        }, 700);\n" +
+  "      };\n" +
+  "      const swarmEscape = (event) => {\n" +
+  "        if (event.key === \"Escape\") finishSwarmIntro();\n" +
+  "      };\n" +
+  "      const playSwarmIntro = (replay) => {\n" +
+  "        if (!swarmIntro || swarmReducedMotion) return;\n" +
+  "        if (!replay) {\n" +
+  "          try {\n" +
+  "            if (sessionStorage.getItem(\"999ms-swarm-intro-seen\") === \"1\") return;\n" +
+  "            sessionStorage.setItem(\"999ms-swarm-intro-seen\", \"1\");\n" +
+  "          } catch (_) {}\n" +
+  "        }\n" +
+  "        if (swarmFinishTimer) clearTimeout(swarmFinishTimer);\n" +
+  "        if (swarmFrame) cancelAnimationFrame(swarmFrame);\n" +
+  "        swarmIntro.classList.remove(\"is-leaving\");\n" +
+  "        swarmIntro.setAttribute(\"aria-hidden\", \"false\");\n" +
+  "        swarmIntro.classList.add(\"is-active\");\n" +
+  "        document.body.classList.add(\"swarm-intro-open\");\n" +
+  "        if (sitePage && \"inert\" in sitePage) sitePage.inert = true;\n" +
+  "        if (swarmProgress) swarmProgress.style.width = \"0%\";\n" +
+  "        if (swarmProgressText) swarmProgressText.textContent = \"0%\";\n" +
+  "        if (swarmProgressBar) swarmProgressBar.setAttribute(\"aria-valuenow\", \"0\");\n" +
+  "        if (swarmBuildStatus) swarmBuildStatus.textContent = \"Mapping the layout\";\n" +
+  "        swarmOpen = true;\n" +
+  "        window.addEventListener(\"keydown\", swarmEscape);\n" +
+  "        const duration = 4300;\n" +
+  "        const startedAt = performance.now();\n" +
+  "        const tick = (now) => {\n" +
+  "          if (!swarmOpen) return;\n" +
+  "          const amount = Math.max(0, Math.min(1, (now - startedAt) / duration));\n" +
+  "          const percent = Math.round(amount * 100);\n" +
+  "          if (swarmProgress) swarmProgress.style.width = percent + \"%\";\n" +
+  "          if (swarmProgressText) swarmProgressText.textContent = percent + \"%\";\n" +
+  "          if (swarmProgressBar) swarmProgressBar.setAttribute(\"aria-valuenow\", String(percent));\n" +
+  "          if (swarmBuildStatus) {\n" +
+  "            swarmBuildStatus.textContent = amount < .28 ? \"Mapping the layout\" : amount < .56 ? \"Drawing the interface\" : amount < .82 ? \"Placing the details\" : \"Finishing the page\";\n" +
+  "          }\n" +
+  "          if (amount < 1) swarmFrame = requestAnimationFrame(tick);\n" +
+  "        };\n" +
+  "        swarmFrame = requestAnimationFrame(tick);\n" +
+  "        swarmFinishTimer = window.setTimeout(finishSwarmIntro, duration + 80);\n" +
+  "      };\n" +
+  "      if (swarmSkip) swarmSkip.addEventListener(\"click\", finishSwarmIntro);\n" +
+  "      if (swarmReplay) swarmReplay.addEventListener(\"click\", () => playSwarmIntro(true));\n" +
+  "      if (!swarmReducedMotion) playSwarmIntro(false);\n" +
+  "\n" +
+  "      // Existing headline letters keep their original scattered entrance\n" +
   "      function getFarRandomDirection() {\n" +
   "        const tx = (Math.random() - 0.5) * 600; // \u0e2a\u0e38\u0e48\u0e21\u0e23\u0e30\u0e2b\u0e27\u0e48\u0e32\u0e07 -300px \u0e16\u0e36\u0e07 300px\n" +
   "        const ty = (Math.random() - 0.5) * 600;\n" +
